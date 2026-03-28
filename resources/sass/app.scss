@@ -691,49 +691,59 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
 
     // Mobile adjustments
     @media (max-width: 768px) {
-        height: 70vh; // Reduced height for mobile to remove huge space
-        min-height: 400px;
+        height: 85vh; // Height for better content fit
+        min-height: 500px;
         
         .hero-text-block {
-            margin-top: 0; // Remove the huge negative margin
-            padding-top: 20px; // Align closer to header
-            text-align: center;
-            padding: 10px;
+            margin-top: -100px; // Lifted higher
+            text-align: left !important; // Align to start
+            padding: 15px;
             
             h1 {
                 font-size: 1.8rem !important;
                 line-height: 1.2;
+                text-align: left !important;
             }
             
             p {
-                font-size: 0.9rem !important;
+                font-size: 0.95rem !important;
                 margin-top: 10px;
+                text-align: left !important;
             }
 
             .hero-buttons {
-                justify-content: center;
+                justify-content: flex-start !important; // Align to start
                 display: flex !important;
-                flex-direction: row !important; // Force side-by-side
-                flex-wrap: nowrap !important; // Prevent stacking
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
                 gap: 8px;
+                margin-top: 20px;
                 
                 .btn {
-                    padding: 8px 15px;
-                    font-size: 0.8rem;
-                    flex: 1; // Equal width
-                    white-space: nowrap; // Prevent text wrapping
+                    padding: 8px 12px;
+                    font-size: 0.75rem;
+                    flex: 1;
+                    white-space: nowrap;
                 }
             }
         }
         .hero-features-overlay {
-            bottom: 10px;
+            bottom: 15px;
+            pointer-events: auto;
             .feature-item {
                 border-left-width: 2px;
-                padding: 5px 0 5px 10px;
-                margin-bottom: 5px;
+                padding: 8px 0 8px 15px;
+                margin-bottom: 8px;
+                background: rgba(0, 0, 0, 0.2); // Added subtle bg for readability
                 
-                .feature-text h4 { font-size: 0.9rem; }
-                .feature-text p { display: none; } // Hide descriptions on mobile to save space
+                .feature-text {
+                    h4 { font-size: 0.9rem; margin-bottom: 2px; }
+                    p { 
+                        display: block !important; // Show descriptions
+                        font-size: 0.75rem !important;
+                        line-height: 1.2;
+                    }
+                }
             }
         }
     }
