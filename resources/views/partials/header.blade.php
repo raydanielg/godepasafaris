@@ -80,7 +80,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="#">DESTINATIONS</a>
+                        <a class="nav-link py-3 px-3" href="{{ route('destinations') }}">DESTINATIONS</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle py-3 px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

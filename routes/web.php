@@ -18,6 +18,8 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::get('/destinations', [App\Http\Controllers\DestinationController::class, 'index'])->name('destinations');
+
 Auth::routes();
 
 Route::post('/newsletter/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');

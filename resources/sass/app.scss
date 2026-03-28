@@ -776,7 +776,68 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
     100% { transform: translateY(0px); }
 }
 
-// Hero// Blog Styling
+// Hero// Destinations Page Styles
+.destination-filters {
+    .filter-btn {
+        background-color: #fff;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 8px;
+        font-weight: 700;
+        color: #333;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        text-decoration: none;
+
+        &:hover {
+            transform: translateY(-2px);
+            background-color: vars.$earth-light;
+            color: #fff;
+        }
+
+        &.active {
+            background-color: vars.$primary;
+            color: #fff;
+        }
+    }
+}
+
+.destination-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+        
+        .dest-img-wrapper img {
+            transform: scale(1.1);
+        }
+        
+        .hover-arrow i {
+            transform: translateX(5px);
+        }
+    }
+
+    .dest-img-wrapper {
+        .dest-category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            z-index: 2;
+        }
+    }
+
+    .dest-info-list {
+        i {
+            width: 20px;
+        }
+    }
+}
 .blog-date-badge {
     position: absolute;
     top: 15px;
