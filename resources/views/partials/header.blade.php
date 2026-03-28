@@ -94,6 +94,9 @@
                         </ul>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link py-3 px-3" href="{{ route('blog') }}">BLOG</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link py-3 px-3" href="{{ route('about') }}">ABOUT US</a>
                     </li>
                     <li class="nav-item">
