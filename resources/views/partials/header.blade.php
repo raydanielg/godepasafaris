@@ -45,10 +45,14 @@
 
     <!-- Bottom Header: Navigation Menu -->
     <nav class="bottom-header sticky-top navbar navbar-expand-lg navbar-dark shadow-sm py-0 animate__animated animate__fadeIn">
-        <div class="container-fluid px-lg-5">
-            <button class="navbar-toggler my-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <div class="container-fluid px-lg-5 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <button class="navbar-toggler my-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Inquiry Button for Mobile Header -->
+                <a href="#" class="btn btn-earth btn-sm px-3 rounded-pill d-lg-none">INQUIRY</a>
+            </div>
             
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
@@ -91,7 +95,7 @@
                     </li>
                 </ul>
                 
-                <div class="auth-buttons d-flex gap-3 py-2">
+                <div class="auth-buttons d-flex gap-3 py-2 d-none d-lg-block">
                     <a href="#" class="btn btn-earth px-4 rounded-pill">INQUIRY NOW</a>
                 </div>
             </div>

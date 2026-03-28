@@ -691,38 +691,49 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
 
     // Mobile adjustments
     @media (max-width: 768px) {
-        height: 100vh;
+        height: 70vh; // Reduced height for mobile to remove huge space
+        min-height: 400px;
+        
         .hero-text-block {
-            margin-top: -80px; // Adjusted for mobile visibility
+            margin-top: 0; // Remove the huge negative margin
+            padding-top: 20px; // Align closer to header
             text-align: center;
-            padding: 15px;
+            padding: 10px;
             
             h1 {
-                font-size: 2.2rem !important;
+                font-size: 1.8rem !important;
                 line-height: 1.2;
             }
             
             p {
-                font-size: 1rem !important;
-                margin-top: 15px;
+                font-size: 0.9rem !important;
+                margin-top: 10px;
             }
 
             .hero-buttons {
                 justify-content: center;
-                gap: 10px;
+                display: flex !important;
+                flex-direction: row !important; // Force side-by-side
+                flex-wrap: nowrap !important; // Prevent stacking
+                gap: 8px;
+                
                 .btn {
-                    padding: 10px 20px;
-                    font-size: 0.9rem;
-                    width: 100%; // Stack buttons on very small screens
+                    padding: 8px 15px;
+                    font-size: 0.8rem;
+                    flex: 1; // Equal width
+                    white-space: nowrap; // Prevent text wrapping
                 }
             }
         }
         .hero-features-overlay {
-            bottom: 20px;
+            bottom: 10px;
             .feature-item {
                 border-left-width: 2px;
-                padding-left: 15px;
-                margin-bottom: 10px;
+                padding: 5px 0 5px 10px;
+                margin-bottom: 5px;
+                
+                .feature-text h4 { font-size: 0.9rem; }
+                .feature-text p { display: none; } // Hide descriptions on mobile to save space
             }
         }
     }
