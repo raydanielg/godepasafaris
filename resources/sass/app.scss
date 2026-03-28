@@ -601,7 +601,7 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
     .hero-text-block {
         max-width: 800px;
         padding: 20px;
-        margin-top: -120px; // Adjusted for new height
+        margin-top: -220px; // Lifted even higher based on user feedback
 
         h1 {
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
@@ -693,10 +693,28 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
     @media (max-width: 768px) {
         height: 100vh;
         .hero-text-block {
-            margin-top: -50px;
+            margin-top: -80px; // Adjusted for mobile visibility
             text-align: center;
+            padding: 15px;
+            
+            h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2;
+            }
+            
+            p {
+                font-size: 1rem !important;
+                margin-top: 15px;
+            }
+
             .hero-buttons {
                 justify-content: center;
+                gap: 10px;
+                .btn {
+                    padding: 10px 20px;
+                    font-size: 0.9rem;
+                    width: 100%; // Stack buttons on very small screens
+                }
             }
         }
         .hero-features-overlay {
@@ -768,11 +786,12 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
 
     .top-header {
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        padding-top: 0.5rem !important; // More compact
-        padding-bottom: 0.5rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 0.8rem !important;
 
         .header-logo img {
-            max-height: 60px !important; // Smaller logo
+            max-height: 100px !important; // Larger logo for desktop
+            transition: all 0.3s ease;
         }
 
         .header-socials {

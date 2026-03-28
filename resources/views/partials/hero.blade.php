@@ -14,8 +14,14 @@
                                 expert guides who know every corner of the savanna.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
-                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">View Tanzania Safari Packages</a>
-                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">Get a Custom Safari Quote</a>
+                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
+                                    <span class="d-none d-md-inline">View Tanzania Safari Packages</span>
+                                    <span class="d-inline d-md-none">Safaris</span>
+                                </a>
+                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">
+                                    <span class="d-none d-md-inline">Get a Custom Safari Quote</span>
+                                    <span class="d-inline d-md-none">Get Quote</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -35,8 +41,14 @@
                                 with a focus on safety, comfort, and success.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
-                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">View Tanzania Safari Packages</a>
-                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">Get a Custom Safari Quote</a>
+                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
+                                    <span class="d-none d-md-inline">View Tanzania Safari Packages</span>
+                                    <span class="d-inline d-md-none">Safaris</span>
+                                </a>
+                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">
+                                    <span class="d-none d-md-inline">Get a Custom Safari Quote</span>
+                                    <span class="d-inline d-md-none">Get Quote</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -56,8 +68,14 @@
                                 and ancient baobab trees of Tarangire.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
-                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">View Tanzania Safari Packages</a>
-                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">Get a Custom Safari Quote</a>
+                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
+                                    <span class="d-none d-md-inline">View Tanzania Safari Packages</span>
+                                    <span class="d-inline d-md-none">Safaris</span>
+                                </a>
+                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">
+                                    <span class="d-none d-md-inline">Get a Custom Safari Quote</span>
+                                    <span class="d-inline d-md-none">Get Quote</span>
+                                </a>
                             </div>
                         </div>
                     </div>
