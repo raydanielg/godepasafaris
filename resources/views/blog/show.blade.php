@@ -31,7 +31,7 @@
                 <!-- Main Content -->
                 <div class="col-lg-8">
                     <div class="blog-details-content animate__animated animate__fadeIn">
-                        {!! nl2br(e($post->content)) !!}
+                        {!! $post->content !!}
                     </div>
 
                     <!-- Comment Section -->
@@ -122,8 +122,8 @@
                             <div class="card-icon-header mb-3">
                                 <i class="fas fa-compass fa-3x text-earth-light"></i>
                             </div>
-                            <h5 class="fw-bold mb-3">Plan Your Safari</h5>
-                            <p class="small opacity-75 mb-4">Let our experts help you create the perfect Tanzanian adventure tailored to your style.</p>
+                            <h5 class="fw-bold mb-3 text-white">Plan Your Safari</h5>
+                            <p class="small opacity-75 mb-4 text-white">Let our experts help you create the perfect Tanzanian adventure tailored to your style.</p>
                             <a href="{{ route('contact') }}" class="btn btn-earth w-100 rounded-pill py-2">GET A QUOTE</a>
                         </div>
                     </div>
