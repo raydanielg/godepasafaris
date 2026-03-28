@@ -813,8 +813,11 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
             transform: scale(1.1);
         }
         
-        .hover-arrow i {
-            transform: translateX(5px);
+        .hover-arrow {
+            color: vars.$primary !important;
+            i {
+                transform: translateX(5px);
+            }
         }
     }
 
@@ -835,7 +838,13 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
     .dest-info-list {
         i {
             width: 20px;
+            color: vars.$primary !important;
         }
+    }
+
+    .hover-arrow {
+        color: vars.$primary !important;
+        transition: all 0.3s ease;
     }
 }
 .blog-date-badge {
