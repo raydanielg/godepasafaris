@@ -219,5 +219,6 @@
     @include('partials.testimonials')
     @include('partials.blog')
     @include('partials.footer')
+    @include('partials.whatsapp')
 </body>
 </html>

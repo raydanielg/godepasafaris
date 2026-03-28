@@ -8,4 +8,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('/newsletter/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
