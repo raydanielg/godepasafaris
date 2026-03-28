@@ -70,17 +70,6 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle py-3 px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            KILIMANJARO
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Machame Route</a></li>
-                            <li><a class="dropdown-item" href="#">Lemosho Route</a></li>
-                            <li><a class="dropdown-item" href="#">Marangu Route</a></li>
-                            <li><a class="dropdown-item" href="#">Rongai Route</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle py-3 px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             SAFARI
                         </a>
                         <ul class="dropdown-menu">
@@ -91,7 +80,18 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="{{ route('blog') }}">BLOG</a>
+                        <a class="nav-link py-3 px-3" href="#">DESTINATIONS</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle py-3 px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            KILIMANJARO
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Machame Route</a></li>
+                            <li><a class="dropdown-item" href="#">Lemosho Route</a></li>
+                            <li><a class="dropdown-item" href="#">Marangu Route</a></li>
+                            <li><a class="dropdown-item" href="#">Rongai Route</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link py-3 px-3" href="{{ route('about') }}">ABOUT US</a>

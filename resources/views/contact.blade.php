@@ -82,9 +82,10 @@
 
                 <!-- Contact Form -->
                 <div class="col-lg-7 animate__animated animate__fadeInRight">
-                    <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
+                    <div class="contact-card-enhanced p-4 p-md-5">
+                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Send us a Message</h3>
                         <form id="contactForm">
-                            <div class="row g-3">
+                            <div class="row g-4">
                                 <div class="col-md-6">
                                     <label class="form-label fw-bold small">Your Name</label>
                                     <input type="text" class="form-control" placeholder="Enter your name" required>
@@ -106,6 +107,67 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5 bg-light">
+        <div class="container py-5">
+            <h2 class="section-title mb-5 animate__animated animate__fadeInUp">Travel FAQ</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 animate__animated animate__fadeInUp">
+                    <div class="accordion accordion-flush" id="contactFaq">
+                        <div class="accordion-item animate__animated animate__fadeInUp">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    How do I book a safari or trekking tour?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#contactFaq">
+                                <div class="accordion-body">
+                                    Booking is simple! Start by sending us an inquiry through our contact form or directly via WhatsApp. One of our safari specialists will get back to you within 24 hours to discuss your preferences and help you create a tailored itinerary. Once you're happy with the plan, we'll guide you through the secure booking process.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item animate__animated animate__fadeInUp animate__delay-1s">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    What is your cancellation and refund policy?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                                <div class="accordion-body">
+                                    We understand that plans can change. Our cancellation policy is designed to be as flexible as possible while respecting our commitments to local lodges and staff. Generally, cancellations made more than 60 days before departure receive a full refund minus a small administrative fee. Detailed terms are provided during the booking stage.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item animate__animated animate__fadeInUp animate__delay-2s">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Is it safe to travel to Tanzania?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                                <div class="accordion-body">
+                                    Tanzania is one of Africa's most peaceful and stable countries. We prioritize your safety above all else. All our guides are highly trained in safety protocols, and we use well-maintained 4x4 vehicles. We also provide 24/7 support throughout your entire stay in Tanzania.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item animate__animated animate__fadeInUp animate__delay-3s">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Do you offer customized group packages?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                                <div class="accordion-body">
+                                    Yes, we specialize in both private tailor-made adventures and small group safaris. Whether you're traveling as a couple, a family, or a large group of friends, we can design an itinerary that matches your specific interests and budget.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
