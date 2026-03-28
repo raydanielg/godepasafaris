@@ -2,17 +2,17 @@
     <!-- Top Header: Logo, Email, Contact Info -->
     <div class="top-header py-3 px-4 px-lg-5 animate__animated animate__fadeInDown">
         <div class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="header-logo d-flex align-items-center gap-3">
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo/logo.png') }}" alt="Go Deep Africa Safari Logo" class="img-fluid" style="max-height: 80px;">
+            <div class="header-logo d-flex align-items-center gap-2">
+                <a href="{{ url('/') }}" class="flex-shrink-0">
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="Go Deep Africa Safari Logo" class="img-fluid" style="max-height: 60px;">
                 </a>
                 <!-- Mobile Contact Info (Stacked) -->
-                <div class="mobile-contact d-md-none">
-                    <a href="mailto:info@godeepafricasafari.com" class="d-block text-dark text-decoration-none small" style="font-size: 0.7rem;">
-                        <i class="fas fa-envelope text-primary me-1"></i> info@godeepafricasafari.com
+                <div class="mobile-contact d-md-none flex-grow-1">
+                    <a href="mailto:info@godeepafricasafari.com" class="d-flex align-items-center text-dark text-decoration-none" style="font-size: 0.6rem; line-height: 1.1;">
+                        <i class="fas fa-envelope text-primary me-1" style="font-size: 0.7rem;"></i> info@godeepafricasafari.com
                     </a>
-                    <a href="tel:+255794636471" class="d-block text-dark text-decoration-none fw-bold" style="font-size: 0.75rem;">
-                        <i class="fas fa-phone-alt text-primary me-1"></i> +255 794 636 471
+                    <a href="tel:+255794636471" class="d-flex align-items-center text-dark text-decoration-none fw-bold" style="font-size: 0.7rem; line-height: 1.1;">
+                        <i class="fas fa-phone-alt text-primary me-1" style="font-size: 0.7rem;"></i> +255 794 636 471
                     </a>
                 </div>
             </div>
@@ -91,16 +91,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="#">DAY TRIPS</a>
+                        <a class="nav-link py-3 px-3" href="{{ route('blog') }}">BLOG</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="#">BLOG</a>
+                        <a class="nav-link py-3 px-3" href="{{ route('about') }}">ABOUT US</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="#">ABOUT US</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="#">CONTACTS</a>
+                        <a class="nav-link py-3 px-3" href="{{ route('contact') }}">CONTACTS</a>
                     </li>
                 </ul>
                 

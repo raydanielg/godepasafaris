@@ -1,17 +1,17 @@
 <section class="hero-slider-section animate__animated animate__fadeIn">
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
-            <!-- Slide 1: Serengeti -->
+            <!-- Slide 1: Serengeti Balloon Safari -->
             <div class="carousel-item active">
-                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/slides/beautiful-shot-group-african-wildebeests-grassy-plain_181624-27243 (2).jpg') }}');"></div>
+                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/images/3-Days-Serengeti-Balloon-Safaris.webp') }}');"></div>
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container text-start">
                         <div class="hero-text-block animate__animated animate__fadeInLeft">
-                            <h1 class="display-3 fw-normal mb-2" style="font-family: 'Playfair Display', serif;">The Great Wildebeest Migration</h1>
-                            <h1 class="display-3 fw-normal mb-4" style="font-family: 'Playfair Display', serif;">& Serengeti Safaris</h1>
+                            <h1 class="display-3 fw-normal mb-2" style="font-family: 'Playfair Display', serif;">Serengeti Balloon</h1>
+                            <h1 class="display-3 fw-normal mb-4" style="font-family: 'Playfair Display', serif;">& Wildlife Safaris</h1>
                             <p class="lead mb-4" style="max-width: 600px; font-size: 1.1rem; line-height: 1.6;">
-                                Witness the world's most spectacular wildlife event with<br>
-                                expert guides who know every corner of the savanna.
+                                Witness the world's most spectacular wildlife event from above.<br>
+                                Expert guides who know every corner of the savanna.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
                                 <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
@@ -28,13 +28,13 @@
                 </div>
             </div>
 
-            <!-- Slide 2: Kilimanjaro -->
+            <!-- Slide 2: Kilimanjaro Summit -->
             <div class="carousel-item">
-                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/slides/group-giraffes-standing-grass-covered-hill-near-trees_181624-26603.jpg') }}');"></div>
+                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}');"></div>
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container text-start">
                         <div class="hero-text-block animate__animated animate__fadeInLeft">
-                            <h1 class="display-3 fw-normal mb-2" style="font-family: 'Playfair Display', serif;">Mount Kilimanjaro</h1>
+                            <h1 class="display-3 fw-normal mb-2" style="font-family: 'Playfair Display', serif;">Kilimanjaro Summit</h1>
                             <h1 class="display-3 fw-normal mb-4" style="font-family: 'Playfair Display', serif;">& Trekking Expeditions</h1>
                             <p class="lead mb-4" style="max-width: 600px; font-size: 1.1rem; line-height: 1.6;">
                                 Conquer the Roof of Africa. Professional trekking services<br>
@@ -55,17 +55,17 @@
                 </div>
             </div>
 
-            <!-- Slide 3: Tarangire/Elephants -->
+            <!-- Slide 3: Wildlife Encounters -->
             <div class="carousel-item">
-                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/slides/elefanten-im-tarangire-nationalpark-tansania_665346-24102.jpg') }}');"></div>
+                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/images/4GyurGeCrKkxo9FvCd8bnc-1000-80.jpg') }}');"></div>
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container text-start">
                         <div class="hero-text-block animate__animated animate__fadeInLeft">
-                            <h1 class="display-3 fw-normal mb-2" style="font-family: 'Playfair Display', serif;">Tarangire National Park</h1>
-                            <h1 class="display-3 fw-normal mb-4" style="font-family: 'Playfair Display', serif;">& Wildlife Encounters</h1>
+                            <h1 class="display-3 fw-normal mb-2" style="font-family: 'Playfair Display', serif;">Tanzania Wildlife</h1>
+                            <h1 class="display-3 fw-normal mb-4" style="font-family: 'Playfair Display', serif;">& Authentic Encounters</h1>
                             <p class="lead mb-4" style="max-width: 600px; font-size: 1.1rem; line-height: 1.6;">
-                                Explore the home of giants. Discover the massive elephant herds<br>
-                                and ancient baobab trees of Tarangire.
+                                Explore the hidden gems of Tanzania. Discover the massive herds<br>
+                                and ancient landscapes with our expert team.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
                                 <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
