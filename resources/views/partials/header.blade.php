@@ -2,10 +2,19 @@
     <!-- Top Header: Logo, Email, Contact Info -->
     <div class="top-header py-3 px-4 px-lg-5 animate__animated animate__fadeInDown">
         <div class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="header-logo">
+            <div class="header-logo d-flex align-items-center gap-3">
                 <a href="{{ url('/') }}">
                     <img src="{{ asset('images/logo/logo.png') }}" alt="Go Deep Africa Safari Logo" class="img-fluid" style="max-height: 80px;">
                 </a>
+                <!-- Mobile Contact Info (Stacked) -->
+                <div class="mobile-contact d-md-none">
+                    <a href="mailto:info@godeepafricasafari.com" class="d-block text-dark text-decoration-none small" style="font-size: 0.7rem;">
+                        <i class="fas fa-envelope text-primary me-1"></i> info@godeepafricasafari.com
+                    </a>
+                    <a href="tel:+255794636471" class="d-block text-dark text-decoration-none fw-bold" style="font-size: 0.75rem;">
+                        <i class="fas fa-phone-alt text-primary me-1"></i> +255 794 636 471
+                    </a>
+                </div>
             </div>
             
             <div class="header-contact-info d-none d-md-flex gap-4 align-items-center">

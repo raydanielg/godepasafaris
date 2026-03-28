@@ -801,8 +801,19 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
         padding-bottom: 0.8rem !important;
 
         .header-logo img {
-            max-height: 100px !important; // Larger logo for desktop
+            max-height: 100px !important; 
             transition: all 0.3s ease;
+        }
+
+        .mobile-contact {
+            line-height: 1.2;
+            a {
+                font-family: 'Nunito', sans-serif;
+                white-space: nowrap;
+                i {
+                    font-size: 0.8rem;
+                }
+            }
         }
 
         .header-socials {
