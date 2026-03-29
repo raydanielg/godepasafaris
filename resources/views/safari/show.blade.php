@@ -173,5 +173,6 @@
 
     @include('partials.footer')
     @include('partials.whatsapp')
+    @include('partials.booking_modal')
 </body>
 </html>

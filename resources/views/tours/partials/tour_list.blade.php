@@ -36,8 +36,9 @@
                     <div class="small">You Visit : {{ $tour->type == 'Kilimanjaro' ? 'Kilimanjaro NP' : 'Serengeti, Ngorongoro' }}</div>
                 </div>
 
-                <div class="mt-auto">
-                    <a href="{{ $tour->type == 'Kilimanjaro' ? route('kilimanjaro.show', $tour->slug) : route('safari.show', $tour->slug) }}" class="btn btn-earth w-100 py-2 rounded-pill text-white">View Details</a>
+                <div class="mt-auto d-flex gap-2">
+                    <a href="{{ $tour->type == 'Kilimanjaro' ? route('kilimanjaro.show', $tour->slug) : route('safari.show', $tour->slug) }}" class="btn btn-outline-earth flex-grow-1 py-2 rounded-pill">View Trip</a>
+                    <button type="button" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white" data-bs-toggle="modal" data-bs-target="#bookingModal" data-tour-title="{{ $tour->title }}" data-tour-id="{{ $tour->id }}">Book Now</button>
                 </div>
             </div>
         </div>
