@@ -75,7 +75,7 @@
                         <a class="nav-link active py-3 px-3" href="{{ url('/') }}">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="{{ route('safari') }}">ALL TOURS</a>
+                        <a class="nav-link py-3 px-3" href="{{ route('tours.all') }}">ALL TOURS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link py-3 px-3" href="{{ route('safari') }}">SAFARI</a>

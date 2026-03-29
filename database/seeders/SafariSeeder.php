@@ -77,21 +77,83 @@ class SafariSeeder extends Seeder
                 'itinerary' => [],
                 'inclusions' => [],
                 'exclusions' => [],
+            ],
+            [
+                'title' => '3-Day Serengeti Safari: Fly in, Fly out',
+                'summary' => 'Maximize your time in the Serengeti with this efficient fly-in safari. Perfect for witnessing the migration highlights.',
+                'price' => 2330,
+                'days' => 3,
+                'image' => 'images/images/SerengetiNationalPark-22.webp',
+                'itinerary' => [],
+                'inclusions' => [],
+                'exclusions' => [],
+            ],
+            [
+                'title' => '2-Day Zanzibar to Ngorongoro Crater & Tarangire Tour',
+                'summary' => 'A perfect weekend getaway from Zanzibar to explore the famous Ngorongoro Crater and Tarangire National Park.',
+                'price' => 1375,
+                'days' => 2,
+                'image' => 'images/images/banner_ngorongoroand-serengeti_safari_elephantflowers_trunk_up-copy.jpg',
+                'itinerary' => [],
+                'inclusions' => [],
+                'exclusions' => [],
+            ],
+            [
+                'title' => '9-Day Big 5 Africa Safari Tour (Budget)',
+                'summary' => 'A comprehensive budget safari covering the best of Tanzania while keeping costs low through specialized camping.',
+                'price' => 2210,
+                'days' => 9,
+                'image' => 'images/images/gaming-in-serengeti.jpg',
+                'itinerary' => [],
+                'inclusions' => [],
+                'exclusions' => [],
+            ],
+            [
+                'title' => '8-Day Safari Tarangire, Serengeti, Ngorongoro Crater (Affordable)',
+                'summary' => 'An affordable mid-range safari experience focusing on the most iconic northern circuit parks.',
+                'price' => 2935,
+                'days' => 8,
+                'image' => 'images/images/leopards-of-serengeti-1030x343.jpg',
+                'itinerary' => [],
+                'inclusions' => [],
+                'exclusions' => [],
+            ],
+            [
+                'title' => '1-Day Lake Manyara National Park Safari Trip',
+                'summary' => 'A quick but intense day trip to the home of tree-climbing lions and massive flamingo flocks.',
+                'price' => 240,
+                'days' => 1,
+                'image' => 'images/images/A-guide-to-the-Lobo-Area-in-the-Northern-Serengeti.jpg',
+                'itinerary' => [],
+                'inclusions' => [],
+                'exclusions' => [],
+            ],
+            [
+                'title' => '10-Day Wildebeest Migration Safari with Culture & Acidic Lakes',
+                'summary' => 'Beyond the animals: experience the culture of the Hadzabe and the unique scenery of Lake Natron.',
+                'price' => 3655,
+                'days' => 10,
+                'image' => 'images/images/tanzania-migratie-600x407.jpg',
+                'itinerary' => [],
+                'inclusions' => [],
+                'exclusions' => [],
             ]
         ];
 
         foreach ($packages as $pkg) {
-            SafariPackage::create([
-                'title' => $pkg['title'],
-                'slug' => Str::slug($pkg['title']),
-                'summary' => $pkg['summary'],
-                'itinerary' => $pkg['itinerary'] ?? [],
-                'inclusions' => $pkg['inclusions'] ?? [],
-                'exclusions' => $pkg['exclusions'] ?? [],
-                'price' => $pkg['price'],
-                'image' => $pkg['image'],
-                'days' => $pkg['days'],
-            ]);
+            SafariPackage::updateOrCreate(
+                ['slug' => Str::slug($pkg['title'])],
+                [
+                    'title' => $pkg['title'],
+                    'summary' => $pkg['summary'],
+                    'itinerary' => $pkg['itinerary'] ?? [],
+                    'inclusions' => $pkg['inclusions'] ?? [],
+                    'exclusions' => $pkg['exclusions'] ?? [],
+                    'price' => $pkg['price'],
+                    'image' => $pkg['image'],
+                    'days' => $pkg['days'],
+                ]
+            );
         }
     }
 }
