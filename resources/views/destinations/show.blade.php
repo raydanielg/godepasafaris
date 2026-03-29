@@ -164,8 +164,16 @@
 
                     @if($destination->map_iframe)
                     <div id="location-map" class="mb-5 pt-4 border-top">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-map-marker-alt text-primary me-2"></i> Explore the Location</h3>
-                        <div class="map-container rounded-4 shadow-sm overflow-hidden" style="height: 450px;">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="bg-earth text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; flex-shrink: 0;">
+                                <i class="fas fa-map-marked-alt fa-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif;">Explore {{ $destination->title }} on Map</h3>
+                                <p class="text-muted small mb-0">Get a better view of the location and surroundings</p>
+                            </div>
+                        </div>
+                        <div class="map-container rounded-4 shadow-lg overflow-hidden border" style="height: 500px; border-color: rgba(139, 69, 19, 0.1) !important;">
                             {!! $destination->map_iframe !!}
                         </div>
                         <style>
@@ -173,6 +181,11 @@
                                 width: 100% !important;
                                 height: 100% !important;
                                 border: 0 !important;
+                                filter: grayscale(0.2) contrast(1.1);
+                                transition: all 0.5s ease;
+                            }
+                            .map-container:hover iframe {
+                                filter: grayscale(0) contrast(1);
                             }
                         </style>
                     </div>
