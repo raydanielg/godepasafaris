@@ -1,4 +1,10 @@
 <header class="main-header">
+    <!-- Announcement Bar -->
+    <div class="announcement-bar py-2 text-center animate__animated animate__fadeInDown">
+        <div class="container">
+            <span class="small fw-bold">Save up to 20% when you book by June. <a href="{{ route('contact') }}" class="text-white text-decoration-underline ms-2">Book Now</a></span>
+        </div>
+    </div>
     <!-- Top Header: Logo, Email, Contact Info -->
     <div class="top-header py-3 px-4 px-lg-5 animate__animated animate__fadeInDown">
         <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -68,39 +74,23 @@
                     <li class="nav-item">
                         <a class="nav-link active py-3 px-3" href="{{ url('/') }}">HOME</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle py-3 px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            SAFARI
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Serengeti Safari</a></li>
-                            <li><a class="dropdown-item" href="#">Ngorongoro Crater</a></li>
-                            <li><a class="dropdown-item" href="#">Tarangire National Park</a></li>
-                            <li><a class="dropdown-item" href="#">Lake Manyara</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link py-3 px-3" href="{{ route('safari') }}">ALL TOURS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="{{ route('destinations') }}">DESTINATIONS</a>
+                        <a class="nav-link py-3 px-3" href="{{ route('safari') }}">SAFARI</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle py-3 px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            KILIMANJARO
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Machame Route</a></li>
-                            <li><a class="dropdown-item" href="#">Lemosho Route</a></li>
-                            <li><a class="dropdown-item" href="#">Marangu Route</a></li>
-                            <li><a class="dropdown-item" href="#">Rongai Route</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link py-3 px-3" href="{{ route('kilimanjaro') }}">KILIMANJARO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-3 px-3" href="#">KENYA SAFARI</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link py-3 px-3" href="{{ route('blog') }}">BLOG</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="{{ route('about') }}">ABOUT US</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="{{ route('contact') }}">CONTACTS</a>
+                        <a class="nav-link py-3 px-3" href="{{ route('contact') }}">CONTACT US</a>
                     </li>
                 </ul>
                 

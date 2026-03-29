@@ -1,6 +1,16 @@
 @use 'variables' as vars;
 @use 'bootstrap/scss/bootstrap' as bs;
 
+// Announcement Bar
+.announcement-bar {
+    background-color: #d32f2f;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.5px;
+    z-index: 1001;
+    position: relative;
+}
+
 // WhatsApp Floating Icon Styles
 .whatsapp-float {
     position: fixed;
@@ -776,7 +786,54 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
     100% { transform: translateY(0px); }
 }
 
-// Destination Details Page Styles
+// Kilimanjaro Details Styles
+.itinerary-steps {
+    position: relative;
+    padding-left: 20px;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        left: 25px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: vars.$earth-light;
+        opacity: 0.3;
+    }
+}
+
+.itinerary-item {
+    position: relative;
+    z-index: 2;
+    
+    .day-circle {
+        width: 55px;
+        height: 55px;
+        background: vars.$primary;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.8rem;
+        box-shadow: 0 4px 10px rgba(139, 69, 19, 0.2);
+    }
+}
+
+.booking-card {
+    border: 1px solid rgba(0,0,0,0.05);
+    .form-control {
+        border-radius: 10px;
+        padding: 12px;
+        border: 2px solid #f8f9fa;
+        &:focus {
+            border-color: vars.$primary;
+            box-shadow: none;
+        }
+    }
+}
 .page-header-details {
     height: 50vh;
     min-height: 350px;
