@@ -1,8 +1,9 @@
     <style>
         .hero-slider-section {
             position: relative;
-            height: 90vh;
+            height: 100vh;
             min-height: 600px;
+            overflow: hidden;
         }
         .carousel, .carousel-inner, .carousel-item {
             height: 100%;
@@ -16,54 +17,93 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            transform: scale(1.1);
+            transition: transform 8s linear;
+        }
+        .carousel-item.active .hero-slide-bg {
+            transform: scale(1);
         }
         .carousel-caption {
             right: 0;
             left: 0;
             padding: 0;
             text-align: left;
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 100%);
+        }
+        .hero-text-block {
+            padding: 2rem;
+            max-width: 800px;
         }
         .hero-text-block h1 {
             line-height: 1.1;
             margin-bottom: 0.5rem;
-        }
-        @media (max-width: 768px) {
-            .hero-slider-section {
-                height: 80vh;
-                min-height: 500px;
-            }
-            .hero-text-block h1 {
-                font-size: 2.5rem !important;
-            }
-            .hero-text-block p {
-                font-size: 1rem !important;
-                max-width: 100% !important;
-            }
-            .hero-features-overlay {
-                display: none;
-            }
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .btn-hero-primary {
             background-color: #8b4513;
             border: 2px solid #8b4513;
             color: white;
             font-weight: 700;
+            padding: 12px 35px;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .btn-hero-primary:hover {
             background-color: transparent;
             color: white;
+            border-color: white;
+            transform: translateY(-3px);
         }
         .btn-hero-secondary {
-            background-color: transparent;
+            background-color: rgba(255,255,255,0.1);
             border: 2px solid white;
             color: white;
             font-weight: 700;
+            padding: 12px 35px;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(5px);
         }
         .btn-hero-secondary:hover {
             background-color: white;
             color: #8b4513;
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            .hero-slider-section {
+                height: 100vh;
+            }
+            .hero-text-block {
+                padding: 1.5rem;
+                text-align: center;
+            }
+            .carousel-caption {
+                background: rgba(0,0,0,0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .hero-text-block h1 {
+                font-size: 2.8rem !important;
+                margin-bottom: 1rem;
+            }
+            .hero-text-block p {
+                font-size: 1.1rem !important;
+                margin-bottom: 2rem !important;
+            }
+            .hero-buttons {
+                justify-content: center;
+                gap: 1rem;
+            }
+            .btn-hero-primary, .btn-hero-secondary {
+                width: 100%;
+                padding: 15px 20px;
+            }
+            .hero-features-overlay {
+                display: none;
+            }
         }
     </style>
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
