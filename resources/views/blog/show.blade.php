@@ -105,12 +105,15 @@
                         </style>
                         <div class="content-body">
                             @php
-                                $markdown = $post->content;
-                                // Angalia kama ni HTML au Markdown. Kama haina tag za HTML, tibu kama Markdown.
-                                if (strip_tags($markdown) === $markdown) {
-                                    echo \Michelf\Markdown::defaultTransform($markdown);
+                                $content = $post->content;
+                                // Badilisha \n kuwa mistari mipya kabla ya kuitibu kama Markdown
+                                $content = str_replace('\n', "\n", $content);
+                                
+                                // Angalia kama ni HTML au Markdown.
+                                if (strip_tags($content) === $content) {
+                                    echo \Michelf\Markdown::defaultTransform($content);
                                 } else {
-                                    echo $markdown;
+                                    echo $content;
                                 }
                             @endphp
                         </div>
