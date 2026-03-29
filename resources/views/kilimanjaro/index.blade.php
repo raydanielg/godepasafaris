@@ -297,7 +297,7 @@
     </section>
 
     @include('partials.footer')
-    @include('partials.whatsapp')
+    @include('partials.ai_chatbot')
     @include('partials.booking_modal')
 
     <script>

@@ -272,7 +272,7 @@
         .accordion-button:focus { border-color: #8b4513; box-shadow: 0 0 0 0.25rem rgba(139, 69, 19, 0.1); }
     </style>
     @include('partials.footer')
-    @include('partials.whatsapp')
+    @include('partials.ai_chatbot')
     @include('partials.general_inquiry_modal')
 </body>
 </html>

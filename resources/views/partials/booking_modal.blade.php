@@ -36,7 +36,7 @@
                         <div class="col-md-6">
                             <label class="form-label fw-bold small text-muted text-uppercase">Travel Date</label>
                             <div class="input-group">
-                                <span class="input-group-text bg-light border-0"><i class="fas fa-calendar-alt text-earth"></i></span>
+                                <span class="input-group-text bg-light border-0" onclick="this.nextElementSibling.showPicker()" style="cursor: pointer;"><i class="fas fa-calendar-alt text-earth"></i></span>
                                 <input type="date" name="travel_date" class="form-control bg-light border-0" required>
                             </div>
                         </div>

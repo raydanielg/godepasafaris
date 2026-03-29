@@ -72,7 +72,21 @@
     </div>
 
     @include('partials.footer')
-    @include('partials.whatsapp')
+    @include('partials.ai_chatbot')
+    
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("input[type=date]", {
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                animate: true
+            });
+        });
+    </script>
+
     @include('partials.general_inquiry_modal')
     @include('partials.booking_modal')
 

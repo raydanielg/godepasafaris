@@ -295,27 +295,29 @@ class DashboardController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string',
-            'description' => 'required|string',
+            'category' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'rich_content' => 'nullable|string',
-            'rate_range' => 'nullable|string',
-            'best_time' => 'nullable|string',
-            'high_season' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rate_range' => 'nullable|string|max:255',
+            'best_time' => 'nullable|string|max:255',
+            'high_season' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'map_iframe' => 'nullable|string',
         ]);
 
-        $data = $request->all();
-        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+        $data = $request->except('image');
+        $data['slug'] = Str::slug($request->title);
 
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('images/destinations'), $imageName);
-            $data['image'] = 'images/destinations/' . $imageName;
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/destinations'), $filename);
+            $data['image'] = 'images/destinations/' . $filename;
         }
 
-        \App\Models\Destination::create($data);
+        Destination::create($data);
 
-        return redirect()->route('admin.destinations')->with('success', 'Destination created successfully.');
+        return redirect()->route('admin.destinations')->with('success', 'Destination created successfully');
     }
 
     public function editDestination(\App\Models\Destination $destination)
@@ -327,27 +329,34 @@ class DashboardController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string',
-            'description' => 'required|string',
+            'category' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'rich_content' => 'nullable|string',
-            'rate_range' => 'nullable|string',
-            'best_time' => 'nullable|string',
-            'high_season' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rate_range' => 'nullable|string|max:255',
+            'best_time' => 'nullable|string|max:255',
+            'high_season' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'map_iframe' => 'nullable|string',
         ]);
 
-        $data = $request->all();
-        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+        $data = $request->except('image');
+        $data['slug'] = Str::slug($request->title);
 
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('images/destinations'), $imageName);
-            $data['image'] = 'images/destinations/' . $imageName;
+            // Delete old image if exists
+            if ($destination->image && file_exists(public_path($destination->image))) {
+                unlink(public_path($destination->image));
+            }
+
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/destinations'), $filename);
+            $data['image'] = 'images/destinations/' . $filename;
         }
 
         $destination->update($data);
 
-        return redirect()->route('admin.destinations')->with('success', 'Destination updated successfully.');
+        return redirect()->route('admin.destinations')->with('success', 'Destination updated successfully');
     }
 
     public function deleteDestination(\App\Models\Destination $destination)

@@ -118,6 +118,7 @@ class ComposerStaticInitc57754c93ae34ac3b9b716a0fd2f2149
         array (
             'Monolog\\' => 8,
             'Mockery\\' => 8,
+            'Michelf\\' => 8,
         ),
         'L' =>
         array (
@@ -385,6 +386,10 @@ class ComposerStaticInitc57754c93ae34ac3b9b716a0fd2f2149
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
         ),
+        'Michelf\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
+        ),
         'League\\Uri\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/uri',
@@ -531,7 +536,33 @@ class ComposerStaticInitc57754c93ae34ac3b9b716a0fd2f2149
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
+        'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
+        'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
+        'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
+        'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
+        'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\BlogController' => __DIR__ . '/../..' . '/app/Http/Controllers/BlogController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DestinationController' => __DIR__ . '/../..' . '/app/Http/Controllers/DestinationController.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\KilimanjaroController' => __DIR__ . '/../..' . '/app/Http/Controllers/KilimanjaroController.php',
+        'App\\Http\\Controllers\\NewsletterController' => __DIR__ . '/../..' . '/app/Http/Controllers/NewsletterController.php',
+        'App\\Http\\Controllers\\SafariController' => __DIR__ . '/../..' . '/app/Http/Controllers/SafariController.php',
+        'App\\Http\\Controllers\\SitemapController' => __DIR__ . '/../..' . '/app/Http/Controllers/SitemapController.php',
+        'App\\Http\\Controllers\\TourController' => __DIR__ . '/../..' . '/app/Http/Controllers/TourController.php',
+        'App\\Http\\Controllers\\WelcomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/WelcomeController.php',
+        'App\\Mail\\BookingInquiry' => __DIR__ . '/../..' . '/app/Mail/BookingInquiry.php',
+        'App\\Models\\Announcement' => __DIR__ . '/../..' . '/app/Models/Announcement.php',
+        'App\\Models\\Booking' => __DIR__ . '/../..' . '/app/Models/Booking.php',
+        'App\\Models\\Comment' => __DIR__ . '/../..' . '/app/Models/Comment.php',
+        'App\\Models\\Destination' => __DIR__ . '/../..' . '/app/Models/Destination.php',
+        'App\\Models\\KilimanjaroPackage' => __DIR__ . '/../..' . '/app/Models/KilimanjaroPackage.php',
+        'App\\Models\\Newsletter' => __DIR__ . '/../..' . '/app/Models/Newsletter.php',
+        'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
+        'App\\Models\\SafariPackage' => __DIR__ . '/../..' . '/app/Models/SafariPackage.php',
+        'App\\Models\\SiteSetting' => __DIR__ . '/../..' . '/app/Models/SiteSetting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -657,7 +688,11 @@ class ComposerStaticInitc57754c93ae34ac3b9b716a0fd2f2149
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
+        'Database\\Seeders\\BlogSeeder' => __DIR__ . '/../..' . '/database/seeders/BlogSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\DestinationSeeder' => __DIR__ . '/../..' . '/database/seeders/DestinationSeeder.php',
+        'Database\\Seeders\\KilimanjaroSeeder' => __DIR__ . '/../..' . '/database/seeders/KilimanjaroSeeder.php',
+        'Database\\Seeders\\SafariSeeder' => __DIR__ . '/../..' . '/database/seeders/SafariSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
@@ -3609,6 +3644,9 @@ class ComposerStaticInitc57754c93ae34ac3b9b716a0fd2f2149
         'League\\Uri\\UriTemplate\\VariableBag' => __DIR__ . '/..' . '/league/uri/UriTemplate/VariableBag.php',
         'League\\Uri\\Urn' => __DIR__ . '/..' . '/league/uri/Urn.php',
         'League\\Uri\\UrnComparisonMode' => __DIR__ . '/..' . '/league/uri-interfaces/UrnComparisonMode.php',
+        'Michelf\\Markdown' => __DIR__ . '/..' . '/michelf/php-markdown/Michelf/Markdown.php',
+        'Michelf\\MarkdownExtra' => __DIR__ . '/..' . '/michelf/php-markdown/Michelf/MarkdownExtra.php',
+        'Michelf\\MarkdownInterface' => __DIR__ . '/..' . '/michelf/php-markdown/Michelf/MarkdownInterface.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',

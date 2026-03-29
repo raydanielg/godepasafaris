@@ -19,7 +19,8 @@ class Destination extends Model
         'best_time', 
         'high_season',
         'tripadvisor_reviews',
-        'rating'
+        'rating',
+        'map_iframe'
     ];
 
     protected $casts = [

@@ -175,7 +175,7 @@
     </section>
 
     @include('partials.footer')
-    @include('partials.whatsapp')
+    @include('partials.ai_chatbot')
     @include('partials.general_inquiry_modal')
 </body>
 </html>

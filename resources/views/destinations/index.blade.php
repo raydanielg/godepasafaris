@@ -91,6 +91,6 @@
         .text-primary { color: #8b4513 !important; }
     </style>
     @include('partials.footer')
-    @include('partials.whatsapp')
+    @include('partials.ai_chatbot')
 </body>
 </html>

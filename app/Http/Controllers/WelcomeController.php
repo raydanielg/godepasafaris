@@ -47,6 +47,29 @@ class WelcomeController extends Controller
         return view('welcome', compact('packages', 'posts', 'allTourOptions', 'testimonials'));
     }
 
+    public function allTours()
+    {
+        $safaris = SafariPackage::latest()->get();
+        $kilimanjaros = KilimanjaroPackage::latest()->get();
+        $tours = $safaris->concat($kilimanjaros);
+        
+        // Define filters for the sidebar
+        $filters = [
+            'starting_from' => ['Arusha', 'Moshi', 'Zanzibar', 'Dar es Salaam'],
+            'duration' => ['1-3 Days', '4-7 Days', '8-12 Days', '12+ Days'],
+            'trip_type' => ['Private Safari', 'Group Join-in', 'Luxury Expedition', 'Budget Adventure'],
+            'standard_level' => ['Luxury', 'Mid-range', 'Budget'],
+            'specialized_tours' => ['Honeymoon', 'Family Friendly', 'Photographic', 'Bird Watching']
+        ];
+        
+        // Fetch all tour titles for the inquiry modal
+        $safariTours = SafariPackage::select('id', 'title')->get();
+        $kiliTours = KilimanjaroPackage::select('id', 'title')->get();
+        $allTourOptions = $safariTours->concat($kiliTours);
+
+        return view('tours.index', compact('safaris', 'kilimanjaros', 'tours', 'filters', 'allTourOptions'));
+    }
+
     public function testimonials()
     {
         $testimonials = [

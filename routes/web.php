@@ -8,7 +8,7 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/all-tours', [App\Http\Controllers\TourController::class, 'index'])->name('tours.all');
+Route::get('/all-tours', [App\Http\Controllers\WelcomeController::class, 'allTours'])->name('tours.all');
 
 Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');

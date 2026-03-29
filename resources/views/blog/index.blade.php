@@ -107,6 +107,6 @@
         .bg-earth-light { background-color: rgba(139, 69, 19, 0.1) !important; }
     </style>
     @include('partials.footer')
-    @include('partials.whatsapp')
+    @include('partials.ai_chatbot')
 </body>
 </html>

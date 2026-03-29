@@ -35,6 +35,15 @@
                         <textarea name="rich_content" id="editor-rich-content" class="form-control @error('rich_content') is-invalid @enderror">{{ old('rich_content', $destination->rich_content) }}</textarea>
                         @error('rich_content') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
+
+                    <div class="mb-0">
+                        <label class="form-label fw-bold text-dark">Map Iframe (Google Maps Embed Code)</label>
+                        <textarea name="map_iframe" class="form-control @error('map_iframe') is-invalid @enderror" rows="4" placeholder="Paste Google Maps iframe code here...">{{ old('map_iframe', $destination->map_iframe) }}</textarea>
+                        <div class="form-text small mt-2">
+                            <i class="fas fa-info-circle me-1"></i> How to get this: Go to <a href="https://www.google.com/maps" target="_blank">Google Maps</a> -> Search location -> Share -> Embed a map -> Copy HTML
+                        </div>
+                        @error('map_iframe') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
             </div>
 

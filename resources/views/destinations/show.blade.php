@@ -30,7 +30,7 @@
     </div>
 
     <!-- Page Header -->
-    <section class="page-header-details animate__animated animate__fadeIn" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ asset($destination->image) }}');">
+    <section class="page-header-details animate__animated animate__fadeIn position-relative" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ asset($destination->image) }}');">
         <div class="container">
             <nav aria-label="breadcrumb" class="mb-3">
                 <ol class="breadcrumb mb-0">
@@ -41,7 +41,57 @@
             </nav>
             <h1 class="display-3 fw-bold animate__animated animate__fadeInUp">{{ $destination->title }}</h1>
         </div>
+
+        <!-- Floating Price/Booking Card -->
+        <div class="container position-absolute start-50 translate-middle-x" style="bottom: -40px; z-index: 10;">
+            <div class="booking-float-card bg-white rounded-4 shadow-lg p-3 p-md-4 animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="row align-items-center">
+                    <div class="col-md-4 border-end-md">
+                        <div class="d-flex flex-column">
+                            <span class="text-dark fw-bold h5 mb-1">Price from</span>
+                            <a href="#" class="text-earth small text-decoration-underline" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">What's included in the price?</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3 mt-md-0">
+                        <div class="price-display d-flex align-items-baseline gap-2">
+                            <span class="h2 fw-bold mb-0" style="color: #3E2723;">{{ $destination->rate_range }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3 mt-md-0 text-md-end">
+                        <div class="d-flex gap-2 justify-content-md-end align-items-center">
+                            <a href="https://wa.me/255794636471" target="_blank" class="btn btn-outline-success rounded-pill px-4 fw-bold d-flex align-items-center gap-2 transition-all">
+                                <i class="fab fa-whatsapp"></i> CHAT ON WHATSAPP
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <style>
+        .booking-float-card {
+            border: 1px solid rgba(0,0,0,0.05);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .border-end-md {
+                border-right: 1px solid #dee2e6 !important;
+            }
+        }
+        .btn-outline-success {
+            color: #25D366;
+            border-color: #25D366;
+            background: transparent;
+        }
+        .btn-outline-success:hover {
+            background-color: #25D366;
+            color: white;
+            border-color: #25D366;
+            transform: translateY(-2px);
+        }
+    </style>
 
     <div class="container py-5">
         <div class="row g-5">
@@ -54,6 +104,9 @@
                             <li class="active"><a href="#about" class="active">{{ $destination->title }}</a></li>
                             <li><a href="#weather">Weather & Climate</a></li>
                             <li><a href="#faq">Frequently Asked Questions</a></li>
+                            @if($destination->map_iframe)
+                            <li><a href="#location-map">Location Map</a></li>
+                            @endif
                             <li><a href="#tours">Suggested Tours</a></li>
                         </ul>
                     </div>
@@ -109,6 +162,22 @@
                         </div>
                     </div>
 
+                    @if($destination->map_iframe)
+                    <div id="location-map" class="mb-5 pt-4 border-top">
+                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-map-marker-alt text-primary me-2"></i> Explore the Location</h3>
+                        <div class="map-container rounded-4 shadow-sm overflow-hidden" style="height: 450px;">
+                            {!! $destination->map_iframe !!}
+                        </div>
+                        <style>
+                            .map-container iframe {
+                                width: 100% !important;
+                                height: 100% !important;
+                                border: 0 !important;
+                            }
+                        </style>
+                    </div>
+                    @endif
+
                     <div id="tours" class="pt-4 border-top">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif;">Suggested {{ $destination->title }} Tours</h3>
@@ -161,6 +230,6 @@
         .text-primary { color: #8b4513 !important; }
     </style>
     @include('partials.footer')
-    @include('partials.whatsapp')
+    @include('partials.ai_chatbot')
 </body>
 </html>

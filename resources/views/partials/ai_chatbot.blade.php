@@ -2,7 +2,7 @@
     <!-- Floating Button -->
     <div class="chatbot-btn shadow-lg animate__animated animate__bounceInUp" id="chatbotBtn">
         <div class="btn-inner">
-            <i class="fas fa-robot"></i>
+            <i class="fas fa-comment-dots"></i>
             <span class="pulse"></span>
         </div>
     </div>
@@ -12,7 +12,7 @@
         <div class="chat-header">
             <div class="d-flex align-items-center gap-3">
                 <div class="bot-avatar">
-                    <i class="fas fa-robot"></i>
+                    <i class="fas fa-comment-dots"></i>
                 </div>
                 <div>
                     <h6 class="mb-0 fw-bold text-white">Expedition Bot</h6>
