@@ -48,16 +48,31 @@ Route::middleware(['auth'])->group(function () {
         
         // Destinations
         Route::get('/admin/destinations', [App\Http\Controllers\Admin\DashboardController::class, 'destinations'])->name('admin.destinations');
+        Route::get('/admin/destinations/create', [App\Http\Controllers\Admin\DashboardController::class, 'createDestination'])->name('admin.destinations.create');
+        Route::post('/admin/destinations', [App\Http\Controllers\Admin\DashboardController::class, 'storeDestination'])->name('admin.destinations.store');
+        Route::get('/admin/destinations/{destination}/edit', [App\Http\Controllers\Admin\DashboardController::class, 'editDestination'])->name('admin.destinations.edit');
+        Route::put('/admin/destinations/{destination}', [App\Http\Controllers\Admin\DashboardController::class, 'updateDestination'])->name('admin.destinations.update');
+        Route::delete('/admin/destinations/{destination}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteDestination'])->name('admin.destinations.delete');
         
         // Bookings
     Route::get('/admin/bookings', [App\Http\Controllers\Admin\DashboardController::class, 'bookings'])->name('admin.bookings');
     
     // Safari Packages
     Route::get('/admin/safari-packages', [App\Http\Controllers\Admin\DashboardController::class, 'safariPackages'])->name('admin.safaris');
+    Route::get('/admin/safari-packages/create', [App\Http\Controllers\Admin\DashboardController::class, 'createSafari'])->name('admin.safaris.create');
+    Route::post('/admin/safari-packages', [App\Http\Controllers\Admin\DashboardController::class, 'storeSafari'])->name('admin.safaris.store');
+    Route::get('/admin/safari-packages/{package}/edit', [App\Http\Controllers\Admin\DashboardController::class, 'editSafari'])->name('admin.safaris.edit');
+    Route::put('/admin/safari-packages/{package}', [App\Http\Controllers\Admin\DashboardController::class, 'updateSafari'])->name('admin.safaris.update');
+    Route::delete('/admin/safari-packages/{package}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteSafari'])->name('admin.safaris.delete');
     
     // Kilimanjaro Packages
     Route::get('/admin/kili-packages', [App\Http\Controllers\Admin\DashboardController::class, 'kiliPackages'])->name('admin.kilimanjaro');
-    
+    Route::get('/admin/kili-packages/create', [App\Http\Controllers\Admin\DashboardController::class, 'createKili'])->name('admin.kilimanjaro.create');
+    Route::post('/admin/kili-packages', [App\Http\Controllers\Admin\DashboardController::class, 'storeKili'])->name('admin.kilimanjaro.store');
+    Route::get('/admin/kili-packages/{package}/edit', [App\Http\Controllers\Admin\DashboardController::class, 'editKili'])->name('admin.kilimanjaro.edit');
+    Route::put('/admin/kili-packages/{package}', [App\Http\Controllers\Admin\DashboardController::class, 'updateKili'])->name('admin.kilimanjaro.update');
+    Route::delete('/admin/kili-packages/{package}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteKili'])->name('admin.kilimanjaro.delete');
+
     // Blog Posts
     Route::get('/admin/posts', [App\Http\Controllers\Admin\DashboardController::class, 'posts'])->name('admin.posts');
     Route::get('/admin/posts/create', [App\Http\Controllers\Admin\DashboardController::class, 'createPost'])->name('admin.posts.create');

@@ -9,7 +9,7 @@
             <h1 class="h3 mb-0 text-gray-800 fw-bold">Kilimanjaro Packages</h1>
             <p class="text-muted small mb-0">Manage your mountain trekking packages</p>
         </div>
-        <a href="#" class="btn btn-earth px-4 rounded-pill fw-bold text-white shadow-sm" style="background-color: #8b4513;">
+        <a href="{{ route('admin.kilimanjaro.create') }}" class="btn btn-earth text-white rounded-pill px-4 shadow-sm" style="background-color: #8b4513;">
             <i class="fas fa-plus me-2"></i>Add New Package
         </a>
     </div>
@@ -57,10 +57,10 @@
                             </td>
                             <td class="text-end pe-4">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
+                                    <a href="{{ route('admin.kilimanjaro.edit', $package) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
                                         Edit
                                     </a>
-                                    <form action="#" method="POST" onsubmit="return confirm('Delete this package?')">
+                                    <form action="{{ route('admin.kilimanjaro.delete', $package) }}" method="POST" onsubmit="return confirm('Delete this package?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">

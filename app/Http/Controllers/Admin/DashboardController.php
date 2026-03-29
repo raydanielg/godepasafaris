@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\SafariPackage;
 use App\Models\KilimanjaroPackage;
+use App\Models\Destination;
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Announcement;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -144,6 +148,206 @@ class DashboardController extends Controller
             return response()->json(['location' => asset('images/blog/content/' . $filename)]);
         }
         return response()->json(['error' => 'No file uploaded'], 400);
+    }
+
+    public function createSafari()
+    {
+        return view('admin.safaris.create');
+    }
+
+    public function storeSafari(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'itinerary' => 'nullable|string',
+            'inclusions' => 'nullable|string',
+            'exclusions' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/safaris'), $imageName);
+            $data['image'] = 'images/safaris/' . $imageName;
+        }
+
+        \App\Models\SafariPackage::create($data);
+
+        return redirect()->route('admin.safaris')->with('success', 'Safari package created successfully.');
+    }
+
+    public function editSafari(\App\Models\SafariPackage $package)
+    {
+        return view('admin.safaris.edit', compact('package'));
+    }
+
+    public function updateSafari(Request $request, \App\Models\SafariPackage $package)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'itinerary' => 'nullable|string',
+            'inclusions' => 'nullable|string',
+            'exclusions' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/safaris'), $imageName);
+            $data['image'] = 'images/safaris/' . $imageName;
+        }
+
+        $package->update($data);
+
+        return redirect()->route('admin.safaris')->with('success', 'Safari package updated successfully.');
+    }
+
+    public function deleteSafari(\App\Models\SafariPackage $package)
+    {
+        $package->delete();
+        return back()->with('success', 'Safari package deleted successfully.');
+    }
+
+    public function createKili()
+    {
+        return view('admin.kilimanjaro.create');
+    }
+
+    public function storeKili(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'days' => 'required|integer',
+            'route_name' => 'required|string',
+            'description' => 'required|string',
+            'itinerary' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/kilimanjaro'), $imageName);
+            $data['image'] = 'images/kilimanjaro/' . $imageName;
+        }
+
+        \App\Models\KilimanjaroPackage::create($data);
+
+        return redirect()->route('admin.kilimanjaro')->with('success', 'Kilimanjaro package created successfully.');
+    }
+
+    public function editKili(\App\Models\KilimanjaroPackage $package)
+    {
+        return view('admin.kilimanjaro.edit', compact('package'));
+    }
+
+    public function updateKili(Request $request, \App\Models\KilimanjaroPackage $package)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'days' => 'required|integer',
+            'route_name' => 'required|string',
+            'description' => 'required|string',
+            'itinerary' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/kilimanjaro'), $imageName);
+            $data['image'] = 'images/kilimanjaro/' . $imageName;
+        }
+
+        $package->update($data);
+
+        return redirect()->route('admin.kilimanjaro')->with('success', 'Kilimanjaro package updated successfully.');
+    }
+
+    public function deleteKili(\App\Models\KilimanjaroPackage $package)
+    {
+        $package->delete();
+        return back()->with('success', 'Kilimanjaro package deleted successfully.');
+    }
+
+    public function createDestination()
+    {
+        return view('admin.destinations.create');
+    }
+
+    public function storeDestination(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'location' => 'required|string',
+            'type' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = \Illuminate\Support\Str::slug($request->name);
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/destinations'), $imageName);
+            $data['image'] = 'images/destinations/' . $imageName;
+        }
+
+        \App\Models\Destination::create($data);
+
+        return redirect()->route('admin.destinations')->with('success', 'Destination created successfully.');
+    }
+
+    public function editDestination(\App\Models\Destination $destination)
+    {
+        return view('admin.destinations.edit', compact('destination'));
+    }
+
+    public function updateDestination(Request $request, \App\Models\Destination $destination)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'location' => 'required|string',
+            'type' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = \Illuminate\Support\Str::slug($request->name);
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/destinations'), $imageName);
+            $data['image'] = 'images/destinations/' . $imageName;
+        }
+
+        $destination->update($data);
+
+        return redirect()->route('admin.destinations')->with('success', 'Destination updated successfully.');
+    }
+
+    public function deleteDestination(\App\Models\Destination $destination)
+    {
+        $destination->delete();
+        return back()->with('success', 'Destination deleted successfully.');
     }
 
     public function users()
