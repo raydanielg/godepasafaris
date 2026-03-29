@@ -215,6 +215,47 @@
     @include('partials.styles')
     @include('partials.testimonials')
     @include('partials.blog')
+    
+    <!-- Professional Quote/CTA Section -->
+    <section class="quote-section py-5 position-relative overflow-hidden" style="background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.9)), url('https://images.unsplash.com/photo-1516422213484-21db3332906c?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center text-white">
+                    <h6 class="text-uppercase fw-bold mb-3" style="color: #DEB887; letter-spacing: 3px;">Ready for your next big adventure?</h6>
+                    <h2 class="display-4 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Get a Personalized Safari Quote Today</h2>
+                    <p class="lead mb-5 opacity-75 mx-auto" style="max-width: 700px;">Tell us your dreams, and our Tanzania-based experts will craft a custom itinerary that fits your budget and interests perfectly.</p>
+                    
+                    <div class="d-flex flex-wrap justify-content-center gap-4 animate__animated animate__fadeInUp">
+                        <div class="quote-feature-item">
+                            <div class="icon-circle mb-3 mx-auto" style="background: rgba(222, 184, 135, 0.2); color: #DEB887; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h6 class="fw-bold mb-0">3-Hour Response</h6>
+                        </div>
+                        <div class="quote-feature-item">
+                            <div class="icon-circle mb-3 mx-auto" style="background: rgba(222, 184, 135, 0.2); color: #DEB887; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <h6 class="fw-bold mb-0">Custom Routes</h6>
+                        </div>
+                        <div class="quote-feature-item">
+                            <div class="icon-circle mb-3 mx-auto" style="background: rgba(222, 184, 135, 0.2); color: #DEB887; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h6 class="fw-bold mb-0">Best Price Guarantee</h6>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <button class="btn btn-earth btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
+                            REQUEST A FREE QUOTE <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     @include('partials.prefooter_cta')
     @include('partials.footer')
     @include('partials.whatsapp')
