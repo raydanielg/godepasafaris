@@ -15,7 +15,29 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
+        /* Flatpickr Custom Styling */
+        .flatpickr-calendar {
+            border-radius: 15px !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+            border: none !important;
+            background: #fff !important;
+        }
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+            background: #8b4513 !important;
+            border-color: #8b4513 !important;
+        }
+        .flatpickr-months .flatpickr-month, .flatpickr-current-month .flatpickr-monthDropdown-months, .flatpickr-current-month input.cur-year {
+            color: #3E2723 !important;
+            fill: #3E2723 !important;
+        }
+        .flatpickr-weekday {
+            background: transparent !important;
+            color: #3E2723 !important;
+            font-weight: bold !important;
+        }
+
         :root {
             --primary-earth: #8B4513;
             --secondary-earth: #A0522D;
@@ -44,7 +66,7 @@
             align-items: center;
             text-align: center;
             color: white;
-            padding: 20px;
+            padding: 20px 15px;
         }
 
         .hero h1 {
@@ -67,7 +89,7 @@
             position: absolute;
             top: 0;
             width: 100%;
-            padding: 20px 50px;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -130,7 +152,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            padding: 0 50px 60px;
+            padding: 0 30px 60px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -163,10 +185,51 @@
             font-weight: 800;
         }
 
-        .service-content p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #555;
+        .destination-card-home {
+            height: 400px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        }
+
+        .destination-card-home:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.2) !important;
+        }
+
+        .destination-card-home img {
+            transition: all 0.5s ease;
+        }
+
+        .destination-card-home:hover img {
+            transform: scale(1.1);
+        }
+
+        .dest-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+            transition: all 0.4s ease;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .destination-card-home:hover .dest-overlay {
+            height: 100%;
+            background: linear-gradient(to top, rgba(139, 69, 19, 0.9) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .dest-overlay p {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-bottom: 0 !important;
+        }
+
+        .destination-card-home:hover .dest-overlay p {
+            max-height: 100px;
+            margin-bottom: 1rem !important;
         }
 
         .cta-btn {
@@ -190,7 +253,7 @@
         footer {
             background: var(--dark-earth);
             color: var(--beige-bg);
-            padding: 40px 50px;
+            padding: 40px 30px;
             text-align: center;
         }
 
@@ -202,8 +265,16 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.1rem; }
-            .nav-top { padding: 20px; }
+            .nav-top { padding: 15px; }
             .logo-img { height: 40px; }
+            .services-grid { padding: 0 15px 40px; }
+            footer { padding: 30px 15px; }
+        }
+
+        @media (max-width: 576px) {
+            .hero { padding: 15px 10px; }
+            .services-grid { padding: 0 10px 30px; }
+            .section-title { margin: 40px 0 30px; font-size: 2rem; }
         }
     </style>
 </head>
@@ -216,36 +287,6 @@
     @include('partials.testimonials')
     @include('partials.blog')
     
-    <!-- Destinations Grid Preview -->
-    <section class="destinations-preview py-5" style="background-color: #fdfaf5;">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h6 class="text-uppercase fw-bold mb-3" style="color: #DEB887; letter-spacing: 3px;">Explore Tanzania</h6>
-                <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif; color: #3E2723;">Iconic Destinations</h2>
-                <div class="mx-auto mt-2 mb-3" style="width: 80px; height: 4px; background: #8B4513;"></div>
-            </div>
-            
-            <div class="row g-4">
-                @foreach($destinations ?? [] as $dest)
-                <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
-                    <div class="destination-card-home rounded-4 overflow-hidden shadow-sm position-relative">
-                        <img src="{{ asset($dest->image) }}" class="w-100 object-fit-cover" height="350" alt="{{ $dest->title }}">
-                        <div class="dest-overlay position-absolute bottom-0 start-0 w-100 p-4 text-white">
-                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;">{{ $dest->title }}</h4>
-                            <p class="small mb-3 opacity-75">{{ Str::limit($dest->description, 60) }}</p>
-                            <a href="{{ route('destinations.show', $dest->slug) }}" class="btn btn-sm btn-outline-light rounded-pill px-4">EXPLORE</a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            
-            <div class="text-center mt-5">
-                <a href="{{ route('destinations') }}" class="btn btn-earth rounded-pill px-5 py-3 fw-bold shadow-sm">VIEW ALL DESTINATIONS</a>
-            </div>
-        </div>
-    </section>
-
     <!-- Professional Quote/CTA Section -->
     <section class="quote-section py-5 position-relative overflow-hidden" style="background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.9)), url('https://images.unsplash.com/photo-1516422213484-21db3332906c?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
         <div class="container py-5">
@@ -276,8 +317,8 @@
                         </div>
                     </div>
 
-                    <div class="mt-5">
-                        <button class="btn btn-earth btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation" data-bs-toggle="modal" data-bs-target="#generalInquiryModal" style="background-color: #8b4513 !important; border: none !important; color: #ffffff !important;">
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation d-inline-block border-0" style="background-color: #8B4513 !important; font-size: 1.1rem; letter-spacing: 1px; white-space: nowrap; min-width: auto;" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
                             REQUEST A FREE QUOTE <i class="fas fa-arrow-right ms-2"></i>
                         </button>
                     </div>

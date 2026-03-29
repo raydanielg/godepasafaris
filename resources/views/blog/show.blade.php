@@ -11,7 +11,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
-        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+        /* Flatpickr Custom Styling */
+        .flatpickr-calendar {
+            border-radius: 15px !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+            border: none !important;
+            background: #fff !important;
+        }
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
             background: #8b4513 !important;
             border-color: #8b4513 !important;
         }
@@ -19,10 +26,10 @@
             color: #3E2723 !important;
             fill: #3E2723 !important;
         }
-        .flatpickr-calendar {
-            border-radius: 15px !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-            border: none !important;
+        .flatpickr-weekday {
+            background: transparent !important;
+            color: #3E2723 !important;
+            font-weight: bold !important;
         }
     </style>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])

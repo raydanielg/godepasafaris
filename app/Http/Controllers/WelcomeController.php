@@ -13,7 +13,7 @@ class WelcomeController extends Controller
     {
         $packages = SafariPackage::latest()->take(3)->get();
         $posts = Post::latest()->take(3)->get();
-        $destinations = \App\Models\Destination::latest()->take(3)->get();
+        $destinations = \App\Models\Destination::latest()->get();
         
         // Fetch all tour titles for the inquiry modal
         $safariTours = SafariPackage::select('id', 'title')->get();

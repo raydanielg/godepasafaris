@@ -187,6 +187,45 @@
                             .map-container:hover iframe {
                                 filter: grayscale(0) contrast(1);
                             }
+                            .flatpickr-calendar {
+                                border-radius: 15px !important;
+                                box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+                                border: none !important;
+                                background: #fff !important;
+                                width: 307.5px !important;
+                            }
+                            .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+                                background: #8b4513 !important;
+                                border-color: #8b4513 !important;
+                            }
+                            .flatpickr-months .flatpickr-month, .flatpickr-current-month .flatpickr-monthDropdown-months, .flatpickr-current-month input.cur-year {
+                                color: #3E2723 !important;
+                                fill: #3E2723 !important;
+                            }
+                            .flatpickr-weekday {
+                                background: transparent !important;
+                                color: #3E2723 !important;
+                                font-weight: bold !important;
+                            }
+                            .flatpickr-days {
+                                width: 307.5px !important;
+                            }
+                            .dayContainer {
+                                width: 307.5px !important;
+                                min-width: 307.5px !important;
+                                max-width: 307.5px !important;
+                            }
+                            .flatpickr-day {
+                                max-width: 39px !important;
+                                height: 39px !important;
+                                line-height: 39px !important;
+                            }
+                            .flatpickr-innerContainer {
+                                overflow: hidden !important;
+                            }
+                            .flatpickr-rContainer {
+                                display: inline-block !important;
+                            }
                         </style>
                     </div>
                     @endif
