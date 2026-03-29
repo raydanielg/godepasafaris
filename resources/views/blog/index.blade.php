@@ -45,17 +45,17 @@
                             <img src="{{ asset($post->image) }}" class="card-img-top h-100 w-100 object-fit-cover transition-all" alt="{{ $post->title }}">
                             <div class="blog-date-badge">{{ $post->created_at->format('M d, Y') }}</div>
                         </div>
-                        <div class="card-body p-4">
-                            <span class="badge bg-earth-light text-primary text-uppercase mb-2">{{ $post->category }}</span>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <span class="badge bg-earth-light text-primary text-uppercase mb-2" style="width: fit-content;">{{ $post->category }}</span>
                             <h5 class="card-title fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
                                 <a href="{{ route('blog.show', $post->slug) }}" class="text-dark text-decoration-none hover-primary">{{ $post->title }}</a>
                             </h5>
-                            <p class="card-text text-muted small mb-4">{{ $post->summary }}</p>
+                            <p class="card-text text-muted small mb-4">{{ Str::limit($post->summary, 120) }}</p>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-link text-primary p-0 fw-bold text-decoration-none small">
                                     READ MORE <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
-                                <span class="text-muted small"><i class="far fa-eye me-1"></i> {{ $post->views }}</span>
+                                <span class="text-muted small"><i class="far fa-eye me-1"></i> {{ $post->views ?? 0 }}</span>
                             </div>
                         </div>
                     </div>

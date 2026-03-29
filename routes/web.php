@@ -60,6 +60,27 @@ Route::middleware(['auth'])->group(function () {
     
     // Blog Posts
     Route::get('/admin/posts', [App\Http\Controllers\Admin\DashboardController::class, 'posts'])->name('admin.posts');
+    Route::get('/admin/posts/create', [App\Http\Controllers\Admin\DashboardController::class, 'createPost'])->name('admin.posts.create');
+    Route::post('/admin/posts', [App\Http\Controllers\Admin\DashboardController::class, 'storePost'])->name('admin.posts.store');
+    Route::get('/admin/posts/{post}/edit', [App\Http\Controllers\Admin\DashboardController::class, 'editPost'])->name('admin.posts.edit');
+    Route::put('/admin/posts/{post}', [App\Http\Controllers\Admin\DashboardController::class, 'updatePost'])->name('admin.posts.update');
+    Route::delete('/admin/posts/{post}', [App\Http\Controllers\Admin\DashboardController::class, 'deletePost'])->name('admin.posts.delete');
+    Route::post('/admin/posts/upload-image', [App\Http\Controllers\Admin\DashboardController::class, 'uploadEditorImage'])->name('admin.posts.image.upload');
+    
+    // User Management
+    Route::get('/admin/users', [App\Http\Controllers\Admin\DashboardController::class, 'users'])->name('admin.users');
+    Route::post('/admin/users/{user}/role', [App\Http\Controllers\Admin\DashboardController::class, 'updateRole'])->name('admin.users.role');
+    Route::delete('/admin/users/{user}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteUser'])->name('admin.users.delete');
+
+    // Announcements
+    Route::get('/admin/announcements', [App\Http\Controllers\Admin\DashboardController::class, 'announcements'])->name('admin.announcements');
+    Route::post('/admin/announcements', [App\Http\Controllers\Admin\DashboardController::class, 'storeAnnouncement'])->name('admin.announcements.store');
+    Route::delete('/admin/announcements/{announcement}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteAnnouncement'])->name('admin.announcements.delete');
+    Route::post('/admin/announcements/{announcement}/status', [App\Http\Controllers\Admin\DashboardController::class, 'updateAnnouncementStatus'])->name('admin.announcements.status');
+
+    // Settings
+    Route::get('/admin/settings', [App\Http\Controllers\Admin\DashboardController::class, 'settings'])->name('admin.settings');
+    Route::post('/admin/settings/update', [App\Http\Controllers\Admin\DashboardController::class, 'updateSettings'])->name('admin.settings.update');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');

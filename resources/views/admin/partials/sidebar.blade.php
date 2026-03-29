@@ -19,15 +19,20 @@
         <a href="{{ route('admin.destinations') }}" class="nav-link {{ Route::is('admin.destinations') ? 'active' : '' }}">
             <i class="fas fa-map-marker-alt"></i> Destinations
         </a>
-        <a href="{{ route('admin.posts') }}" class="nav-link {{ Route::is('admin.posts') ? 'active' : '' }}">
+        <a href="{{ route('admin.posts') }}" class="nav-link {{ Route::is('admin.posts*') ? 'active' : '' }}">
             <i class="fas fa-newspaper"></i> Blog Posts
         </a>
-        <a href="#" class="nav-link">
+        <a href="{{ route('admin.announcements') }}" class="nav-link {{ Route::is('admin.announcements') ? 'active' : '' }}">
             <i class="fas fa-bullhorn"></i> Announcements
         </a>
-        <a href="#" class="nav-link">
+        @if(auth()->user()->isAdmin())
+        <a href="{{ route('admin.users') }}" class="nav-link {{ Route::is('admin.users') ? 'active' : '' }}">
             <i class="fas fa-users"></i> Users
         </a>
+        <a href="{{ route('admin.settings') }}" class="nav-link {{ Route::is('admin.settings') ? 'active' : '' }}">
+            <i class="fas fa-cog"></i> Settings
+        </a>
+        @endif
         <hr class="mx-3 opacity-10 border-white">
         <a href="{{ url('/') }}" class="nav-link" target="_blank">
             <i class="fas fa-external-link-alt"></i> View Site

@@ -3,62 +3,117 @@
 @section('title', 'Manage Bookings')
 
 @section('content')
-<div class="container-fluid p-0">
+<div class="container-fluid px-4 py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold">Customer Inquiries</h3>
+        <div>
+            <h1 class="h3 mb-0 text-gray-800 fw-bold">Customer Inquiries</h1>
+            <p class="text-muted small mb-0">Track and respond to tour booking inquiries</p>
+        </div>
     </div>
 
-    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-        <div class="table-responsive">
-            <table class="table align-middle mb-0">
-                <thead class="bg-light">
-                    <tr>
-                        <th class="border-0 px-4">Customer</th>
-                        <th class="border-0">Phone</th>
-                        <th class="border-0">Tour/Interested In</th>
-                        <th class="border-0">Travel Date</th>
-                        <th class="border-0">Travelers</th>
-                        <th class="border-0">Status</th>
-                        <th class="border-0 text-end px-4">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($bookings as $booking)
-                    <tr>
-                        <td class="px-4">
-                            <p class="fw-bold mb-0 small">{{ $booking->name }}</p>
-                            <small class="text-muted">{{ $booking->email }}</small>
-                        </td>
-                        <td><span class="small">{{ $booking->phone ?? 'N/A' }}</span></td>
-                        <td><span class="small">{{ $booking->tour_name ?? 'General Inquiry' }}</span></td>
-                        <td><span class="small">{{ $booking->travel_date ? $booking->travel_date->format('M d, Y') : 'Not Set' }}</span></td>
-                        <td><span class="small">{{ $booking->travelers ?? 'N/A' }}</span></td>
-                        <td><span class="badge bg-success-subtle text-success rounded-pill px-3 text-uppercase" style="font-size: 0.65rem;">{{ $booking->status }}</span></td>
-                        <td class="text-end px-4">
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-light rounded-circle" data-bs-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-                                    <li><a class="dropdown-item py-2" href="#"><i class="fas fa-eye me-2"></i> View Details</a></li>
-                                    <li><a class="dropdown-item py-2 text-danger" href="#"><i class="fas fa-trash me-2"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center py-5 text-muted">No inquiries found.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="card-header border-0 py-3 d-flex align-items-center" style="background-color: #3E2723;">
+            <i class="fas fa-calendar-check text-white me-2"></i>
+            <h6 class="m-0 font-weight-bold text-white">Latest Booking Requests</h6>
         </div>
-        @if($bookings->hasPages())
-        <div class="card-footer bg-white border-0 py-3">
-            {{ $bookings->links() }}
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead style="background-color: #fdfaf5;">
+                        <tr class="text-uppercase small fw-bold text-muted">
+                            <th class="ps-4">Customer</th>
+                            <th>Contact Info</th>
+                            <th>Interested In</th>
+                            <th>Travel Details</th>
+                            <th>Status</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($bookings as $booking)
+                        <tr>
+                            <td class="ps-4 py-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-circle-sm me-3 d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" 
+                                         style="width: 35px; height: 35px; border-radius: 50%; background: linear-gradient(45deg, #3E2723, #5d4037);">
+                                        {{ strtoupper(substr($booking->name, 0, 1)) }}
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark small">{{ $booking->name }}</div>
+                                        <div class="smaller text-muted" style="font-size: 0.7rem;">{{ $booking->created_at->diffForHumans() }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="smaller text-dark" style="font-size: 0.75rem;">
+                                    <div><i class="fas fa-envelope me-1 text-muted"></i>{{ $booking->email }}</div>
+                                    <div><i class="fas fa-phone me-1 text-muted"></i>{{ $booking->phone ?? 'N/A' }}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border rounded-pill px-3 py-1 smaller fw-medium" style="font-size: 0.7rem;">
+                                    {{ $booking->tour_name ?? 'General Inquiry' }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="smaller text-dark" style="font-size: 0.75rem;">
+                                    <div><i class="far fa-calendar-alt me-1 text-muted"></i>{{ $booking->travel_date ? $booking->travel_date->format('M d, Y') : 'Date: Not Set' }}</div>
+                                    <div><i class="fas fa-users me-1 text-muted"></i>{{ $booking->travelers ?? 'N/A' }} travelers</div>
+                                </div>
+                            </td>
+                            <td>
+                                @php
+                                    $statusColor = match($booking->status) {
+                                        'confirmed' => ['bg' => '#e8f5e9', 'text' => '#2e7d32'],
+                                        'cancelled' => ['bg' => '#ffebee', 'text' => '#c62828'],
+                                        default => ['bg' => '#fff3e0', 'text' => '#ef6c00'],
+                                    };
+                                @endphp
+                                <span class="badge rounded-pill px-3 py-1 smaller fw-medium text-uppercase" 
+                                      style="background-color: {{ $statusColor['bg'] }}; color: {{ $statusColor['text'] }}; font-size: 0.65rem;">
+                                    {{ $booking->status ?: 'Pending' }}
+                                </span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
+                                        View
+                                    </a>
+                                    <form action="#" method="POST" onsubmit="return confirm('Delete this inquiry?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <i class="fas fa-calendar-check fa-3x text-light mb-3"></i>
+                                <p class="text-muted small">No inquiries found yet.</p>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            @if($bookings->hasPages())
+            <div class="card-footer bg-white border-0 py-3 text-center">
+                {{ $bookings->links() }}
+            </div>
+            @endif
         </div>
-        @endif
     </div>
 </div>
+
+<style>
+    .btn-earth:hover {
+        background-color: #3E2723 !important;
+        opacity: 0.9;
+    }
+    .smaller { font-size: 0.8rem; }
+</style>
 @endsection

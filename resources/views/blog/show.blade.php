@@ -31,7 +31,53 @@
                 <!-- Main Content -->
                 <div class="col-lg-8">
                     <div class="blog-details-content animate__animated animate__fadeIn">
-                        {!! $post->content !!}
+                        <style>
+                            .blog-details-content {
+                                font-size: 1.15rem;
+                                line-height: 1.8;
+                                color: #333;
+                            }
+                            .blog-details-content h2, .blog-details-content h3, .blog-details-content h4 {
+                                font-family: 'Playfair Display', serif;
+                                color: #3E2723;
+                                margin-top: 2.5rem;
+                                margin-bottom: 1.25rem;
+                                font-weight: 700;
+                            }
+                            .blog-details-content p {
+                                margin-bottom: 1.5rem;
+                            }
+                            .blog-details-content img {
+                                max-width: 100%;
+                                height: auto;
+                                border-radius: 15px;
+                                margin: 2.5rem 0;
+                                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                            }
+                            .blog-details-content ul, .blog-details-content ol {
+                                margin-bottom: 1.5rem;
+                                padding-left: 1.5rem;
+                            }
+                            .blog-details-content li {
+                                margin-bottom: 0.75rem;
+                            }
+                            .blog-details-content blockquote {
+                                border-left: 5px solid #8b4513;
+                                padding: 2rem;
+                                background: #fdfaf5;
+                                font-style: italic;
+                                margin: 2.5rem 0;
+                                border-radius: 0 15px 15px 0;
+                                font-size: 1.2rem;
+                                color: #5d4037;
+                            }
+                            .blog-details-content strong {
+                                color: #3E2723;
+                            }
+                        </style>
+                        <div class="content-body">
+                            {!! $post->content !!}
+                        </div>
                     </div>
 
                     <!-- Comment Section -->
@@ -105,26 +151,48 @@
                 <!-- Sidebar -->
                 <div class="col-lg-4">
                     <div class="blog-sidebar sticky-top" style="top: 100px;">
-                        <div class="sidebar-card p-4 rounded-4 shadow-sm bg-white mb-4">
-                            <h5 class="fw-bold mb-3 border-bottom pb-2">Related Articles</h5>
-                            @foreach($relatedPosts as $rp)
-                            <div class="d-flex gap-3 mb-3">
-                                <img src="{{ asset($rp->image) }}" class="rounded-3 object-fit-cover" width="80" height="60" alt="{{ $rp->title }}">
-                                <div>
-                                    <h6 class="small fw-bold mb-1"><a href="{{ route('blog.show', $rp->slug) }}" class="text-dark text-decoration-none hover-primary">{{ Str::limit($rp->title, 40) }}</a></h6>
-                                    <small class="text-muted">{{ $rp->created_at->format('M d, Y') }}</small>
+                        <!-- Related Articles Card -->
+                        <div class="sidebar-card p-4 rounded-4 shadow-sm bg-white mb-4 border-0">
+                            <h5 class="fw-bold mb-4 position-relative pb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                                Related Articles
+                                <div class="position-absolute bottom-0 start-0" style="width: 40px; height: 3px; background: #8b4513;"></div>
+                            </h5>
+                            <div class="related-posts-list">
+                                @foreach($relatedPosts as $rp)
+                                <div class="d-flex gap-3 mb-4 align-items-center group">
+                                    <div class="flex-shrink-0 overflow-hidden rounded-3" style="width: 85px; height: 65px;">
+                                        <img src="{{ asset($rp->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $rp->title }}" style="transition: transform 0.3s ease;">
+                                    </div>
+                                    <div>
+                                        <h6 class="small fw-bold mb-1 line-clamp-2">
+                                            <a href="{{ route('blog.show', $rp->slug) }}" class="text-dark text-decoration-none hover-primary" style="font-size: 0.9rem; line-height: 1.4;">
+                                                {{ $rp->title }}
+                                            </a>
+                                        </h6>
+                                        <div class="text-muted smaller d-flex align-items-center" style="font-size: 0.75rem;">
+                                            <i class="far fa-calendar-alt me-1"></i> {{ $rp->created_at->format('M d, Y') }}
+                                        </div>
+                                    </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
 
-                        <div class="sidebar-card p-4 rounded-4 shadow-sm bg-earth-dark text-white text-center border-0">
-                            <div class="card-icon-header mb-3">
-                                <i class="fas fa-compass fa-3x text-earth-light"></i>
+                        <!-- Plan Your Safari CTA Card -->
+                        <div class="sidebar-card p-4 rounded-4 shadow-lg text-center border-0 position-relative overflow-hidden" style="background: linear-gradient(135deg, #3E2723 0%, #5d4037 100%);">
+                            <!-- Decorative Circle background -->
+                            <div class="position-absolute top-0 end-0 opacity-10" style="width: 150px; height: 150px; background: #deb887; border-radius: 50%; margin-top: -75px; margin-right: -75px;"></div>
+                            
+                            <div class="card-icon-header mb-3 position-relative">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 70px; height: 70px; background: rgba(222, 184, 135, 0.15);">
+                                    <i class="fas fa-compass fa-2x" style="color: #DEB887;"></i>
+                                </div>
                             </div>
-                            <h5 class="fw-bold mb-3 text-white">Plan Your Safari</h5>
-                            <p class="small opacity-75 mb-4 text-white">Let our experts help you create the perfect Tanzanian adventure tailored to your style.</p>
-                            <a href="{{ route('contact') }}" class="btn btn-earth w-100 rounded-pill py-2">GET A QUOTE</a>
+                            <h4 class="fw-bold mb-3 text-white" style="font-family: 'Playfair Display', serif;">Plan Your Safari</h4>
+                            <p class="small mb-4 px-2" style="color: #e0e0e0; line-height: 1.6;">Let our experts help you create the perfect Tanzanian adventure tailored to your style.</p>
+                            <a href="{{ route('contact') }}" class="btn btn-earth w-100 rounded-pill py-3 fw-bold text-white shadow-sm transition-all" style="background-color: #8b4513; border: none; letter-spacing: 1px;">
+                                GET A FREE QUOTE <i class="fas fa-arrow-right ms-2 small"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

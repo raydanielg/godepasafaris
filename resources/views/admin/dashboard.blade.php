@@ -33,9 +33,23 @@
 @endpush
 
 @section('content')
-<div class="container-fluid p-0">
+<div class="container-fluid p-0 py-2">
+    <!-- Header Greeting -->
+    <div class="d-flex justify-content-between align-items-center mb-4 px-3">
+        <div>
+            <h2 class="h4 mb-0 text-gray-800 fw-bold">Habari, {{ auth()->user()->name }}!</h2>
+            <p class="text-muted small mb-0">Karibu kwenye mfumo wako wa usimamizi wa safari.</p>
+        </div>
+        <div class="text-end d-none d-md-block">
+            <div class="badge bg-white text-dark border rounded-pill px-3 py-2 shadow-sm">
+                <i class="fas fa-calendar-alt text-earth me-2" style="color: #8b4513;"></i>
+                {{ date('M d, Y') }}
+            </div>
+        </div>
+    </div>
+
     <!-- Stats -->
-    <div class="row g-4 mb-4">
+    <div class="row g-4 mb-4 px-3">
         <div class="col-md-2">
             <div class="stat-card h-100">
                 <div class="stat-icon bg-earth-light"><i class="fas fa-shopping-cart"></i></div>
@@ -75,7 +89,7 @@
             <div class="stat-card h-100">
                 <div class="stat-icon bg-earth-light"><i class="fas fa-users"></i></div>
                 <h4 class="fw-bold mb-1">{{ $stats['total_users'] }}</h4>
-                <p class="text-muted mb-0 small">Admin Users</p>
+                <p class="text-muted mb-0 small">System Users</p>
             </div>
         </div>
     </div>
@@ -109,7 +123,7 @@
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
                 <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 fw-bold">Recent Inquiries</h5>
-                    <a href="#" class="btn btn-sm btn-earth text-white rounded-pill px-3">View All</a>
+                    <a href="{{ route('admin.bookings') }}" class="btn btn-sm btn-earth text-white rounded-pill px-3">View All</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-middle mb-0">
@@ -126,14 +140,38 @@
                             @forelse($recentBookings as $booking)
                             <tr>
                                 <td class="px-4">
-                                    <p class="fw-bold mb-0 small">{{ $booking->name }}</p>
-                                    <small class="text-muted">{{ $booking->email }}</small>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-sm bg-earth-light text-earth rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                                            <i class="fas fa-user small"></i>
+                                        </div>
+                                        <div>
+                                            <p class="fw-bold mb-0 small">{{ $booking->name }}</p>
+                                            <small class="text-muted" style="font-size: 0.7rem;">{{ $booking->email }}</small>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td><span class="small">{{ $booking->tour_name ?? 'General Inquiry' }}</span></td>
-                                <td><span class="small">{{ $booking->created_at->format('M d, Y') }}</span></td>
-                                <td><span class="badge bg-success-subtle text-success rounded-pill px-3">New</span></td>
+                                <td>
+                                    <span class="small text-truncate d-inline-block" style="max-width: 150px;" title="{{ $booking->tour_name ?? 'General Inquiry' }}">
+                                        {{ $booking->tour_name ?? 'General Inquiry' }}
+                                    </span>
+                                </td>
+                                <td><span class="small text-muted">{{ $booking->created_at->format('M d, Y') }}</span></td>
+                                <td>
+                                    @if($booking->status == 'pending' || !$booking->status)
+                                        <span class="badge bg-warning-subtle text-warning rounded-pill px-3" style="font-size: 0.65rem;">PENDING</span>
+                                    @else
+                                        <span class="badge bg-success-subtle text-success rounded-pill px-3" style="font-size: 0.65rem;">{{ strtoupper($booking->status) }}</span>
+                                    @endif
+                                </td>
                                 <td class="text-end px-4">
-                                    <button class="btn btn-sm btn-light rounded-pill px-3">View</button>
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <a href="mailto:{{ $booking->email }}" class="btn btn-sm btn-light rounded-circle" title="Email Customer">
+                                            <i class="fas fa-envelope text-earth small"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-light rounded-circle" title="View Details">
+                                            <i class="fas fa-eye text-earth small"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                             @empty
@@ -184,48 +222,98 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Main Multi-Line Chart
+    // Main Multi-Line Chart (Inquiry Trends)
     const ctxMain = document.getElementById('mainChart').getContext('2d');
+    
+    // Gradient for the primary line
+    const gradient = ctxMain.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(139, 69, 19, 0.2)');
+    gradient.addColorStop(1, 'rgba(139, 69, 19, 0)');
+
     new Chart(ctxMain, {
         type: 'line',
         data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
             datasets: [
                 {
-                    label: 'Inquiries',
-                    data: [12, 19, 3, 5, 2, 3, 9],
+                    label: 'New Inquiries',
+                    data: [65, 59, 80, 81, 56, 55, 40],
                     borderColor: '#8b4513',
-                    backgroundColor: 'rgba(139, 69, 19, 0.1)',
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#8b4513',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
                     tension: 0.4,
                     fill: true
                 },
                 {
-                    label: 'Destinations',
-                    data: [2, 5, 1, 8, 4, 6, 3],
+                    label: 'Website Visits',
+                    data: [28, 48, 40, 19, 86, 27, 90],
                     borderColor: '#deb887',
                     backgroundColor: 'transparent',
+                    borderWidth: 2,
                     borderDash: [5, 5],
-                    tension: 0.4
+                    pointRadius: 0,
+                    tension: 0.4,
+                    fill: false
                 }
             ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { position: 'top', align: 'end' } },
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            plugins: { 
+                legend: { 
+                    position: 'top', 
+                    align: 'end',
+                    labels: {
+                        boxWidth: 10,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#fff',
+                    titleColor: '#3E2723',
+                    bodyColor: '#666',
+                    borderColor: '#eee',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: true,
+                    callbacks: {
+                        labelPointStyle: function(context) {
+                            return { pointStyle: 'circle', rotation: 0 };
+                        }
+                    }
+                }
+            },
             scales: {
-                y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
-                x: { grid: { display: false } }
+                y: { 
+                    beginAtZero: true, 
+                    grid: { color: '#f8f9fa', drawBorder: false },
+                    ticks: { color: '#adb5bd', font: { size: 11 } }
+                },
+                x: { 
+                    grid: { display: false, drawBorder: false },
+                    ticks: { color: '#adb5bd', font: { size: 11 } }
+                }
             }
         }
     });
 
-    // Distribution Chart (Enhanced)
+    // Distribution Chart (Enhanced Doughnut)
     const ctxDist = document.getElementById('distributionChart').getContext('2d');
     new Chart(ctxDist, {
         type: 'doughnut',
         data: {
-            labels: ['Safari', 'Kili', 'Destinations', 'Blogs'],
+            labels: ['Safari', 'Kilimanjaro', 'Destinations', 'Blogs'],
             datasets: [{
                 data: [
                     {{ $stats['safari_packages'] }}, 
@@ -234,16 +322,37 @@
                     {{ $stats['total_posts'] }}
                 ],
                 backgroundColor: ['#8b4513', '#deb887', '#3E2723', '#A0522D'],
-                hoverOffset: 15,
-                borderWidth: 0
+                hoverOffset: 20,
+                borderWidth: 0,
+                borderRadius: 5
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            cutout: '70%',
+            cutout: '75%',
             plugins: { 
-                legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true } } 
+                legend: { 
+                    position: 'bottom', 
+                    labels: { 
+                        padding: 25, 
+                        usePointStyle: true, 
+                        pointStyle: 'circle',
+                        font: { size: 12 }
+                    } 
+                },
+                tooltip: {
+                    padding: 12,
+                    backgroundColor: '#fff',
+                    titleColor: '#3E2723',
+                    bodyColor: '#666',
+                    borderColor: '#eee',
+                    borderWidth: 1
+                }
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
             }
         }
     });

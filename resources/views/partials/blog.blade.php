@@ -16,7 +16,7 @@
                         <div class="blog-content p-4">
                             <span class="blog-category text-earth text-uppercase small fw-bold">{{ $post->category ?? 'Safari' }}</span>
                             <h5 class="blog-title mt-2 text-dark fw-bold" style="font-family: 'Playfair Display', serif;">{{ $post->title }}</h5>
-                            <p class="text-muted small mt-2 mb-0">{{ Str::limit(strip_tags($post->content), 100) }}</p>
+                            <p class="text-muted small mt-2 mb-0">{{ Str::limit($post->summary, 100) }}</p>
                         </div>
                     </div>
                 </a>

@@ -80,6 +80,33 @@
                 </ul>
                 
                 <div class="auth-buttons d-flex gap-2 align-items-center">
+                    @auth
+                        <div class="dropdown">
+                            <button class="btn btn-earth btn-sm px-4 rounded-pill fw-bold text-white shadow-sm dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #3E2723 !important; border: none;">
+                                <i class="fas fa-user-circle me-1"></i> {{ auth()->user()->name }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="userMenu">
+                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt me-2 text-muted"></i>Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="fas fa-user me-2 text-muted"></i>Profile</a></li>
+                                @if(auth()->user()->isAdmin())
+                                    <li><a class="dropdown-item" href="{{ route('admin.users') }}"><i class="fas fa-users me-2 text-muted"></i>Manage Users</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.settings') }}"><i class="fas fa-cog me-2 text-muted"></i>Settings</a></li>
+                                @endif
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline-earth btn-sm px-4 rounded-pill fw-bold shadow-sm me-2" style="border-color: #3E2723; color: #3E2723;">LOGIN</a>
+                        <a href="{{ route('register') }}" class="btn btn-earth btn-sm px-4 rounded-pill fw-bold text-white shadow-sm" style="background-color: #3E2723 !important; border: none;">REGISTER</a>
+                    @endauth
                     <a href="#" class="btn btn-earth btn-sm px-4 rounded-pill fw-bold text-white shadow-sm" data-bs-toggle="modal" data-bs-target="#generalInquiryModal" style="background-color: #8b4513 !important; border: none;">INQUIRY NOW</a>
                 </div>
             </div>
