@@ -117,7 +117,7 @@ Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');
 Route::post('/safari/{id}/enquire', [App\Http\Controllers\SafariController::class, 'enquire'])->name('safari.enquire');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::post('/newsletter/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 

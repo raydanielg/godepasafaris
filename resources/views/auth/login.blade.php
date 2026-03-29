@@ -31,14 +31,10 @@
         {{ __('Login') }}
     </button>
 
-    <div class="auth-links">
+    <div class="auth-links mt-auto">
         @if (Route::has('password.request'))
             <p><a href="{{ route('password.request') }}">{{ __('Forgot Password?') }}</a></p>
         @endif
-        
-        <hr>
-        
-        <p>Don't have an account? <a href="{{ route('register') }}">Register Here</a></p>
     </div>
 </form>
 @endsection
