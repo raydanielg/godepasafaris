@@ -42,11 +42,18 @@
                         <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-map-marked-alt text-primary me-2"></i> Itinerary</h3>
                         <div class="itinerary-steps">
                             @foreach($package->itinerary as $step)
-                            <div class="itinerary-item d-flex gap-4 mb-4">
-                                <div class="day-circle flex-shrink-0">Day {{ $step['day'] }}</div>
-                                <div>
-                                    <h5 class="fw-bold mb-2">{{ $step['title'] }}</h5>
-                                    <p class="text-muted small mb-0">{{ $step['description'] }}</p>
+                            <div class="itinerary-item mb-5">
+                                <div class="d-flex gap-4">
+                                    <div class="day-circle flex-shrink-0">Day {{ $step['day'] }}</div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="fw-bold mb-3">{{ $step['title'] }}</h5>
+                                        @if(isset($step['image']))
+                                        <div class="itinerary-img-wrapper mb-3">
+                                            <img src="{{ asset($step['image']) }}" class="img-fluid rounded-4 shadow-sm" alt="{{ $step['title'] }}" style="max-height: 250px; width: 100%; object-fit: cover;">
+                                        </div>
+                                        @endif
+                                        <p class="text-muted small mb-0">{{ $step['description'] }}</p>
+                                    </div>
                                 </div>
                             </div>
                             @endforeach
@@ -74,22 +81,34 @@
                 </div>
 
                 <!-- You might also like section -->
-                <div class="mt-5">
+                <div class="mt-5 pt-5 border-top">
                     <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">You might also like...</h3>
                     <div class="row g-4">
                         @foreach($relatedPackages as $rp)
                         <div class="col-md-4">
                             <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white">
-                                <a href="{{ route('safari.show', $rp->slug) }}" class="text-decoration-none">
-                                    <img src="{{ asset($rp->image) }}" class="w-100 object-fit-cover" height="150" alt="{{ $rp->title }}">
-                                    <div class="p-3">
-                                        <h6 class="fw-bold mb-2 text-dark small">{{ Str::limit($rp->title, 40) }}</h6>
-                                        <div class="text-primary fw-bold small">from ${{ number_format($rp->price, 0) }}</div>
+                                <div class="package-img-wrapper" style="height: 180px; position: relative; overflow: hidden;">
+                                    <img src="{{ asset($rp->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $rp->title }}">
+                                    <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
+                                        <i class="far fa-heart text-dark small"></i>
+                                    </button>
+                                </div>
+                                <div class="p-3">
+                                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 0.9rem; min-height: 2.5rem;">{{ $rp->title }}</h6>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                        <div class="price-info">
+                                            <small class="text-muted d-block" style="font-size: 0.7rem;">from</small>
+                                            <span class="fw-bold text-dark">${{ number_format($rp->price, 0) }}</span>
+                                            <small class="text-muted" style="font-size: 0.7rem;">Per Person</small>
+                                        </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
                         @endforeach
+                    </div>
+                    <div class="text-center mt-5">
+                        <a href="{{ route('safari') }}" class="btn btn-outline-earth rounded-pill px-4 py-2">View all tours</a>
                     </div>
                 </div>
             </div>

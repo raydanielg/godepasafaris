@@ -96,6 +96,37 @@
                         </div>
                     </div>
                 </div>
+                <!-- You might also like section -->
+                <div class="mt-5 pt-5 border-top">
+                    <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">You might also like...</h3>
+                    <div class="row g-4">
+                        @foreach($relatedPackages as $rp)
+                        <div class="col-md-4">
+                            <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white">
+                                <div class="package-img-wrapper" style="height: 180px; position: relative; overflow: hidden;">
+                                    <img src="{{ asset($rp->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $rp->title }}">
+                                    <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
+                                        <i class="far fa-heart text-dark small"></i>
+                                    </button>
+                                </div>
+                                <div class="p-3">
+                                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 0.9rem; min-height: 2.5rem;">{{ $rp->title }}</h6>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                        <div class="price-info">
+                                            <small class="text-muted d-block" style="font-size: 0.7rem;">from</small>
+                                            <span class="fw-bold text-dark">${{ number_format($rp->price, 0) }}</span>
+                                            <small class="text-muted" style="font-size: 0.7rem;">Per Person</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="text-center mt-5">
+                        <a href="{{ route('kilimanjaro') }}" class="btn btn-outline-earth rounded-pill px-4 py-2">View all tours</a>
+                    </div>
+                </div>
             </div>
 
             <!-- Sidebar: Booking Form -->
