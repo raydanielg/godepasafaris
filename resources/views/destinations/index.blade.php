@@ -79,6 +79,17 @@
         </div>
     </section>
 
+    <style>
+        .hover-earth:hover { color: #8B4513 !important; }
+        .text-earth { color: #8b4513 !important; }
+        .bg-earth { background-color: #8b4513 !important; }
+        .btn-earth { background-color: #8b4513 !important; border-color: #8b4513 !important; color: white !important; }
+        .btn-earth:hover { background-color: #a0522d !important; border-color: #a0522d !important; }
+        .filter-btn { border: 1px solid #8b4513; color: #8b4513; border-radius: 50px; padding: 8px 25px; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background-color: #8b4513; color: white; }
+        .dest-category-badge { background-color: #8b4513; color: white; position: absolute; top: 15px; left: 15px; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+        .text-primary { color: #8b4513 !important; }
+    </style>
     @include('partials.footer')
     @include('partials.whatsapp')
 </body>

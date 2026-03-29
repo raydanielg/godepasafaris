@@ -42,6 +42,24 @@ Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logou
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+        // Profile
+        Route::get('/admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('admin.profile');
+        Route::post('/admin/profile/delete', [App\Http\Controllers\Admin\DashboardController::class, 'deleteAccount'])->name('admin.profile.delete');
+        
+        // Destinations
+        Route::get('/admin/destinations', [App\Http\Controllers\Admin\DashboardController::class, 'destinations'])->name('admin.destinations');
+        
+        // Bookings
+    Route::get('/admin/bookings', [App\Http\Controllers\Admin\DashboardController::class, 'bookings'])->name('admin.bookings');
+    
+    // Safari Packages
+    Route::get('/admin/safari-packages', [App\Http\Controllers\Admin\DashboardController::class, 'safariPackages'])->name('admin.safaris');
+    
+    // Kilimanjaro Packages
+    Route::get('/admin/kili-packages', [App\Http\Controllers\Admin\DashboardController::class, 'kiliPackages'])->name('admin.kilimanjaro');
+    
+    // Blog Posts
+    Route::get('/admin/posts', [App\Http\Controllers\Admin\DashboardController::class, 'posts'])->name('admin.posts');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
@@ -51,8 +69,8 @@ Route::get('/kilimanjaro/{slug}', [App\Http\Controllers\KilimanjaroController::c
 Route::get('/kilimanjaro/route/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'routeShow'])->name('kilimanjaro.route.show');
 Route::post('/kilimanjaro/{id}/enquire', [App\Http\Controllers\KilimanjaroController::class, 'enquire'])->name('kilimanjaro.enquire');
 
-Route::get('/destinations', [App\Http\Controllers\DestinationController::class, 'index'])->name('destinations');
-Route::get('/destinations/{slug}', [App\Http\Controllers\DestinationController::class, 'show'])->name('destinations.show');
+Route::get('/destinations', [App\Http\Controllers\SafariController::class, 'destinations'])->name('destinations');
+Route::get('/destinations/{slug}', [App\Http\Controllers\SafariController::class, 'destinationShow'])->name('destinations.show');
 
 Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->name('safari');
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');

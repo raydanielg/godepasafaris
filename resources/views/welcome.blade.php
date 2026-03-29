@@ -216,6 +216,36 @@
     @include('partials.testimonials')
     @include('partials.blog')
     
+    <!-- Destinations Grid Preview -->
+    <section class="destinations-preview py-5" style="background-color: #fdfaf5;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-uppercase fw-bold mb-3" style="color: #DEB887; letter-spacing: 3px;">Explore Tanzania</h6>
+                <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif; color: #3E2723;">Iconic Destinations</h2>
+                <div class="mx-auto mt-2 mb-3" style="width: 80px; height: 4px; background: #8B4513;"></div>
+            </div>
+            
+            <div class="row g-4">
+                @foreach($destinations ?? [] as $dest)
+                <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
+                    <div class="destination-card-home rounded-4 overflow-hidden shadow-sm position-relative">
+                        <img src="{{ asset($dest->image) }}" class="w-100 object-fit-cover" height="350" alt="{{ $dest->title }}">
+                        <div class="dest-overlay position-absolute bottom-0 start-0 w-100 p-4 text-white">
+                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;">{{ $dest->title }}</h4>
+                            <p class="small mb-3 opacity-75">{{ Str::limit($dest->description, 60) }}</p>
+                            <a href="{{ route('destinations.show', $dest->slug) }}" class="btn btn-sm btn-outline-light rounded-pill px-4">EXPLORE</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="{{ route('destinations') }}" class="btn btn-earth rounded-pill px-5 py-3 fw-bold shadow-sm">VIEW ALL DESTINATIONS</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Professional Quote/CTA Section -->
     <section class="quote-section py-5 position-relative overflow-hidden" style="background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.9)), url('https://images.unsplash.com/photo-1516422213484-21db3332906c?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
         <div class="container py-5">

@@ -23,6 +23,20 @@
 
     <section class="py-5 bg-light">
         <div class="container py-5">
+            <!-- Category Filter Bar -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <a href="{{ route('blog') }}" class="btn filter-btn {{ !request('category') ? 'active' : '' }}">All Posts</a>
+                        @foreach($categories as $cat)
+                            <a href="{{ route('blog', ['category' => $cat->category]) }}" class="btn filter-btn {{ request('category') == $cat->category ? 'active' : '' }}">
+                                {{ $cat->category }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
             <div class="row g-4">
                 @foreach($posts as $post)
                 <div class="col-md-4 animate__animated animate__fadeInUp">
@@ -55,6 +69,43 @@
         </div>
     </section>
 
+    <style>
+        .filter-btn {
+            border: 1px solid #8b4513;
+            color: #8b4513;
+            border-radius: 50px;
+            padding: 8px 25px;
+            transition: all 0.3s;
+            background: white;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #8b4513;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+        }
+        .blog-card {
+            transition: transform 0.3s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+        .blog-date-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(139, 69, 19, 0.9);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+        .text-primary { color: #8b4513 !important; }
+        .bg-earth-light { background-color: rgba(139, 69, 19, 0.1) !important; }
+    </style>
     @include('partials.footer')
     @include('partials.whatsapp')
 </body>

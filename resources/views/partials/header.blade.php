@@ -56,8 +56,20 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('destinations') ? 'active fw-bold' : '' }} px-3" href="{{ route('destinations') }}" style="color: #3E2723 !important;">DESTINATIONS</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('blog') ? 'active fw-bold' : '' }} px-3" href="{{ route('blog') }}" style="color: #3E2723 !important;">BLOGS</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ Route::is('blog*') ? 'active fw-bold' : '' }} px-3" href="#" id="navbarDropdownBlog" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #3E2723 !important;">
+                            BLOGS
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow-lg" aria-labelledby="navbarDropdownBlog">
+                            <li><a class="dropdown-item" href="{{ route('blog') }}">All Posts</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            @php
+                                $categories = \App\Models\Post::select('category')->distinct()->whereNotNull('category')->get();
+                            @endphp
+                            @foreach($categories as $category)
+                                <li><a class="dropdown-item" href="{{ route('blog', ['category' => $category->category]) }}">{{ $category->category }}</a></li>
+                            @endforeach
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('about') ? 'active fw-bold' : '' }} px-3" href="{{ route('about') }}" style="color: #3E2723 !important;">ABOUT US</a>

@@ -9,10 +9,32 @@ use Illuminate\Http\Request;
 
 class SafariController extends Controller
 {
-    public function index()
+    public function destinations()
     {
-        $packages = SafariPackage::latest()->get();
-        return view('safari.index', compact('packages'));
+        $destinations = \App\Models\Destination::latest()->get();
+        $categories = ['All', 'National Parks', 'Islands', 'Cultural Sites', 'Mountains'];
+        
+        // Fetch all tour titles for the inquiry modal
+        $safariTours = \App\Models\SafariPackage::select('id', 'title')->get();
+        $kiliTours = \App\Models\KilimanjaroPackage::select('id', 'title')->get();
+        $allTourOptions = $safariTours->concat($kiliTours);
+
+        return view('destinations.index', compact('destinations', 'categories', 'allTourOptions'));
+    }
+
+    public function destinationShow($slug)
+    {
+        $destination = \App\Models\Destination::where('slug', $slug)->firstOrFail();
+        
+        // Fetch all tour titles for the inquiry modal
+        $safariTours = \App\Models\SafariPackage::select('id', 'title')->get();
+        $kiliTours = \App\Models\KilimanjaroPackage::select('id', 'title')->get();
+        $allTourOptions = $safariTours->concat($kiliTours);
+
+        // Fetch related tours (e.g., packages mentioned in destination or just some recent ones)
+        $relatedTours = \App\Models\SafariPackage::latest()->take(2)->get();
+
+        return view('destinations.show', compact('destination', 'allTourOptions', 'relatedTours'));
     }
 
     public function show($slug)

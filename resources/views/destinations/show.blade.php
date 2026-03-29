@@ -139,6 +139,18 @@
         </div>
     </div>
 
+    <style>
+        .hover-earth:hover { color: #8B4513 !important; }
+        .text-earth { color: #8b4513 !important; }
+        .bg-earth { background-color: #8b4513 !important; }
+        .btn-earth { background-color: #8b4513 !important; border-color: #8b4513 !important; color: white !important; }
+        .btn-earth:hover { background-color: #a0522d !important; border-color: #a0522d !important; }
+        .rating-top-bar .text-primary { color: #8b4513 !important; }
+        .toc-list li.active a, .toc-list li a:hover { color: #8b4513 !important; border-left-color: #8b4513 !important; }
+        .rich-content-area h2, .rich-content-area h3 { color: #3E2723; }
+        .accordion-button:not(.collapsed) { background-color: #fdfaf5; color: #8b4513; }
+        .text-primary { color: #8b4513 !important; }
+    </style>
     @include('partials.footer')
     @include('partials.whatsapp')
 </body>

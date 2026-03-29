@@ -12,7 +12,7 @@
                 <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=8b4513&color=fff" class="rounded-circle shadow-sm" width="40" height="40">
             </a>
             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-3">
-                <li><a class="dropdown-item py-2" href="#"><i class="fas fa-user-circle me-2"></i> Profile</a></li>
+                <li><a class="dropdown-item py-2" href="{{ route('admin.profile') }}"><i class="fas fa-user-circle me-2"></i> Profile</a></li>
                 <li><a class="dropdown-item py-2" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>

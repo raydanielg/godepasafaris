@@ -36,31 +36,45 @@
 <div class="container-fluid p-0">
     <!-- Stats -->
     <div class="row g-4 mb-4">
-        <div class="col-md-3">
-            <div class="stat-card">
+        <div class="col-md-2">
+            <div class="stat-card h-100">
                 <div class="stat-icon bg-earth-light"><i class="fas fa-shopping-cart"></i></div>
-                <h3 class="fw-bold mb-1">{{ $stats['total_bookings'] }}</h3>
+                <h4 class="fw-bold mb-1">{{ $stats['total_bookings'] }}</h4>
                 <p class="text-muted mb-0 small">Total Inquiries</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card">
+        <div class="col-md-2">
+            <div class="stat-card h-100">
                 <div class="stat-icon bg-earth-light"><i class="fas fa-paw"></i></div>
-                <h3 class="fw-bold mb-1">{{ $stats['safari_packages'] }}</h3>
+                <h4 class="fw-bold mb-1">{{ $stats['safari_packages'] }}</h4>
                 <p class="text-muted mb-0 small">Safari Packages</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card">
+        <div class="col-md-2">
+            <div class="stat-card h-100">
                 <div class="stat-icon bg-earth-light"><i class="fas fa-mountain"></i></div>
-                <h3 class="fw-bold mb-1">{{ $stats['kili_packages'] }}</h3>
+                <h4 class="fw-bold mb-1">{{ $stats['kili_packages'] }}</h4>
                 <p class="text-muted mb-0 small">Kili Treks</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card">
+        <div class="col-md-2">
+            <div class="stat-card h-100">
+                <div class="stat-icon bg-earth-light"><i class="fas fa-map-marker-alt"></i></div>
+                <h4 class="fw-bold mb-1">{{ $stats['total_destinations'] }}</h4>
+                <p class="text-muted mb-0 small">Destinations</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="stat-card h-100">
+                <div class="stat-icon bg-earth-light"><i class="fas fa-newspaper"></i></div>
+                <h4 class="fw-bold mb-1">{{ $stats['total_posts'] }}</h4>
+                <p class="text-muted mb-0 small">Blog Posts</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="stat-card h-100">
                 <div class="stat-icon bg-earth-light"><i class="fas fa-users"></i></div>
-                <h3 class="fw-bold mb-1">{{ $stats['total_users'] }}</h3>
+                <h4 class="fw-bold mb-1">{{ $stats['total_users'] }}</h4>
                 <p class="text-muted mb-0 small">Admin Users</p>
             </div>
         </div>
@@ -70,15 +84,18 @@
     <div class="row g-4 mb-4">
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                <h5 class="fw-bold mb-4">Inquiry Trends</h5>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Inquiry & Content Trends</h5>
+                    <div class="small text-muted">Last 7 Days</div>
+                </div>
                 <div class="chart-container">
-                    <canvas id="inquiryChart"></canvas>
+                    <canvas id="mainChart"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                <h5 class="fw-bold mb-4">Package Distribution</h5>
+                <h5 class="fw-bold mb-4">Category Distribution</h5>
                 <div class="chart-container">
                     <canvas id="distributionChart"></canvas>
                 </div>
@@ -167,48 +184,67 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Inquiry Trends Chart
-    const ctxInquiry = document.getElementById('inquiryChart').getContext('2d');
-    new Chart(ctxInquiry, {
+    // Main Multi-Line Chart
+    const ctxMain = document.getElementById('mainChart').getContext('2d');
+    new Chart(ctxMain, {
         type: 'line',
         data: {
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            datasets: [{
-                label: 'Inquiries',
-                data: [12, 19, 3, 5, 2, 3, 9],
-                borderColor: '#8b4513',
-                tension: 0.4,
-                fill: true,
-                backgroundColor: 'rgba(139, 69, 19, 0.05)'
-            }]
+            datasets: [
+                {
+                    label: 'Inquiries',
+                    data: [12, 19, 3, 5, 2, 3, 9],
+                    borderColor: '#8b4513',
+                    backgroundColor: 'rgba(139, 69, 19, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                },
+                {
+                    label: 'Destinations',
+                    data: [2, 5, 1, 8, 4, 6, 3],
+                    borderColor: '#deb887',
+                    backgroundColor: 'transparent',
+                    borderDash: [5, 5],
+                    tension: 0.4
+                }
+            ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            plugins: { legend: { position: 'top', align: 'end' } },
             scales: {
-                y: { beginAtZero: true, grid: { display: false } },
+                y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
                 x: { grid: { display: false } }
             }
         }
     });
 
-    // Distribution Chart
+    // Distribution Chart (Enhanced)
     const ctxDist = document.getElementById('distributionChart').getContext('2d');
     new Chart(ctxDist, {
         type: 'doughnut',
         data: {
-            labels: ['Safari', 'Kilimanjaro'],
+            labels: ['Safari', 'Kili', 'Destinations', 'Blogs'],
             datasets: [{
-                data: [{{ $stats['safari_packages'] }}, {{ $stats['kili_packages'] }}],
-                backgroundColor: ['#8b4513', '#deb887'],
+                data: [
+                    {{ $stats['safari_packages'] }}, 
+                    {{ $stats['kili_packages'] }}, 
+                    {{ $stats['total_destinations'] }}, 
+                    {{ $stats['total_posts'] }}
+                ],
+                backgroundColor: ['#8b4513', '#deb887', '#3E2723', '#A0522D'],
+                hoverOffset: 15,
                 borderWidth: 0
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom' } }
+            cutout: '70%',
+            plugins: { 
+                legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true } } 
+            }
         }
     });
 </script>

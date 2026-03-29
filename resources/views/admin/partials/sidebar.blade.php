@@ -7,16 +7,19 @@
         <a href="{{ route('admin.dashboard') }}" class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}">
             <i class="fas fa-th-large"></i> Dashboard
         </a>
-        <a href="#" class="nav-link">
+        <a href="{{ route('admin.bookings') }}" class="nav-link {{ Route::is('admin.bookings') ? 'active' : '' }}">
             <i class="fas fa-calendar-check"></i> Bookings
         </a>
-        <a href="#" class="nav-link">
+        <a href="{{ route('admin.safaris') }}" class="nav-link {{ Route::is('admin.safaris') ? 'active' : '' }}">
             <i class="fas fa-paw"></i> Safari Packages
         </a>
-        <a href="#" class="nav-link">
+        <a href="{{ route('admin.kilimanjaro') }}" class="nav-link {{ Route::is('admin.kilimanjaro') ? 'active' : '' }}">
             <i class="fas fa-mountain"></i> Kili Packages
         </a>
-        <a href="#" class="nav-link">
+        <a href="{{ route('admin.destinations') }}" class="nav-link {{ Route::is('admin.destinations') ? 'active' : '' }}">
+            <i class="fas fa-map-marker-alt"></i> Destinations
+        </a>
+        <a href="{{ route('admin.posts') }}" class="nav-link {{ Route::is('admin.posts') ? 'active' : '' }}">
             <i class="fas fa-newspaper"></i> Blog Posts
         </a>
         <a href="#" class="nav-link">
