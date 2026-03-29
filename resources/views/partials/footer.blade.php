@@ -12,10 +12,10 @@
                         Go Deep Africa Safari helps you explore the hidden gems of Tanzania with expert guides and authentic experiences. Built for adventure.
                     </p>
                     <div class="footer-socials-new d-flex gap-2 mt-4">
-                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-circle"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/share/1DkJwJSKre/" target="_blank" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@godeepafricasafar?_r=1&_d=ea2f55g68hamde&sec_uid=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&share_author_id=7360181590935782405&sharer_language=en&source=h5_m&u_code=edjg8mim3bfcak&timestamp=1774716159&user_id=7360181590935782405&sec_user_id=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&item_author_type=1&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7620799729350444820&share_link_id=9863272e-6781-4c72-96fc-8cd3d626e0c3&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=b8727%2Cb7360&social_share_type=5&enable_checksum=1" target="_blank" class="social-circle"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.threads.com/@godeepafricasafariexpendition" target="_blank" class="social-circle"><i class="fa-brands fa-threads"></i></a>
+                        <a href="https://www.tiktok.com/@godeepafricasafar?_r=1&_d=ea2f55g68hamde&sec_uid=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&share_author_id=7360181590935782405&sharer_language=en&source=h5_m&u_code=edjg8mim3bfcak&timestamp=1774716159&user_id=7360181590935782405&sec_user_id=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&item_author_type=1&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7620799729350444820&share_link_id=9863272e-6781-4c72-96fc-8cd3d626e0c3&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=b8727%2Cb7360&social_share_type=5&enable_checksum=1" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

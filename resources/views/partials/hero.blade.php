@@ -1,4 +1,71 @@
-<section class="hero-slider-section animate__animated animate__fadeIn">
+    <style>
+        .hero-slider-section {
+            position: relative;
+            height: 90vh;
+            min-height: 600px;
+        }
+        .carousel, .carousel-inner, .carousel-item {
+            height: 100%;
+        }
+        .hero-slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .carousel-caption {
+            right: 0;
+            left: 0;
+            padding: 0;
+            text-align: left;
+        }
+        .hero-text-block h1 {
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .hero-slider-section {
+                height: 80vh;
+                min-height: 500px;
+            }
+            .hero-text-block h1 {
+                font-size: 2.5rem !important;
+            }
+            .hero-text-block p {
+                font-size: 1rem !important;
+                max-width: 100% !important;
+            }
+            .hero-features-overlay {
+                display: none;
+            }
+        }
+        .btn-hero-primary {
+            background-color: #8b4513;
+            border: 2px solid #8b4513;
+            color: white;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-hero-primary:hover {
+            background-color: transparent;
+            color: white;
+        }
+        .btn-hero-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-hero-secondary:hover {
+            background-color: white;
+            color: #8b4513;
+        }
+    </style>
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <!-- Slide 1: Serengeti Balloon Safari -->
