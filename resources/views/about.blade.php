@@ -35,7 +35,7 @@
         <div class="container py-5">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 animate__animated animate__fadeInLeft">
-                    <h6 class="text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Our Chimbuko</h6>
+                    <h6 class="text-earth fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Our Chimbuko</h6>
                     <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">A Journey Born from Passion</h2>
                     <p class="lead text-dark fw-bold mb-4">Go Deep Africa Safari was born out of a passion for the raw, untamed beauty of Tanzania.</p>
                     <p class="mb-4">Based in Arusha, the gateway to Africa's most iconic wildlife destinations, we are a locally owned tour operator dedicated to providing authentic and immersive safari experiences. Our founders, born and raised in the shadow of Mount Kilimanjaro, envisioned a company that doesn't just "show" Africa, but allows travelers to "Go Deep" into its soul.</p>
@@ -43,13 +43,13 @@
                     <div class="row g-4 mt-2">
                         <div class="col-6">
                             <div class="d-flex align-items-center gap-2">
-                                <i class="fas fa-check-circle text-primary"></i>
+                                <i class="fas fa-check-circle text-earth"></i>
                                 <span class="fw-bold">100% Local Guides</span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="d-flex align-items-center gap-2">
-                                <i class="fas fa-check-circle text-primary"></i>
+                                <i class="fas fa-check-circle text-earth"></i>
                                 <span class="fw-bold">Tailor-made Tours</span>
                             </div>
                         </div>
@@ -70,15 +70,15 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-md-6 animate__animated animate__fadeInUp">
-                    <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border-left: 5px solid vars.$primary;">
-                        <i class="fas fa-bullseye fa-3x mb-4 text-primary"></i>
+                    <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border-left: 5px solid #8b4513;">
+                        <i class="fas fa-bullseye fa-3x mb-4 text-earth"></i>
                         <h3 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Our Mission</h3>
                         <p class="opacity-75">To provide extraordinary, personalized safari and trekking experiences that connect our guests with the heart of Tanzania while promoting sustainable tourism and supporting local communities.</p>
                     </div>
                 </div>
                 <div class="col-md-6 animate__animated animate__fadeInUp animate__delay-1s">
-                    <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border-left: 5px solid vars.$earth-light;">
-                        <i class="fas fa-eye fa-3x mb-4 text-primary"></i>
+                    <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border-left: 5px solid #deb887;">
+                        <i class="fas fa-eye fa-3x mb-4 text-earth"></i>
                         <h3 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Our Vision</h3>
                         <p class="opacity-75">To be the most trusted and respected safari operator in East Africa, known for our local expertise, exceptional service, and commitment to preserving the wild spirit of Africa.</p>
                     </div>
@@ -96,8 +96,8 @@
                     <p class="mb-4">From the technical challenges of the Machame Route on Kilimanjaro to the patient stalking of a leopard in the Serengeti, our expertise covers every aspect of Tanzanian travel.</p>
                     <div class="experience-list">
                         <div class="d-flex gap-3 mb-4">
-                            <div class="icon-circle bg-earth-light">
-                                <i class="fas fa-mountain text-primary"></i>
+                            <div class="icon-circle bg-light shadow-sm">
+                                <i class="fas fa-mountain text-earth"></i>
                             </div>
                             <div>
                                 <h5 class="fw-bold mb-1">High-Altitude Trekking</h5>
@@ -105,8 +105,8 @@
                             </div>
                         </div>
                         <div class="d-flex gap-3 mb-4">
-                            <div class="icon-circle bg-earth-light">
-                                <i class="fas fa-binoculars text-primary"></i>
+                            <div class="icon-circle bg-light shadow-sm">
+                                <i class="fas fa-binoculars text-earth"></i>
                             </div>
                             <div>
                                 <h5 class="fw-bold mb-1">Wildlife Specialists</h5>
@@ -114,8 +114,8 @@
                             </div>
                         </div>
                         <div class="d-flex gap-3">
-                            <div class="icon-circle bg-earth-light">
-                                <i class="fas fa-umbrella-beach text-primary"></i>
+                            <div class="icon-circle bg-light shadow-sm">
+                                <i class="fas fa-umbrella-beach text-earth"></i>
                             </div>
                             <div>
                                 <h5 class="fw-bold mb-1">Coastal Escapes</h5>
@@ -264,7 +264,17 @@
         </div>
     </section>
 
+    <style>
+        .text-earth { color: #8b4513 !important; }
+        .bg-earth { background-color: #8b4513 !important; }
+        .icon-circle { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .value-icon { color: #8b4513; }
+        .icon-box-large { width: 80px; height: 80px; background: #fdf5e6; color: #8b4513; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .accordion-button:not(.collapsed) { background-color: #fdf5e6; color: #8b4513; }
+        .accordion-button:focus { border-color: #8b4513; box-shadow: 0 0 0 0.25rem rgba(139, 69, 19, 0.1); }
+    </style>
     @include('partials.footer')
     @include('partials.whatsapp')
+    @include('partials.general_inquiry_modal')
 </body>
 </html>

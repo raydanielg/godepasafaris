@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
 Route::get('/about', function () {
     return view('about');
@@ -19,6 +17,14 @@ Route::post('/blog/{id}/comment', [App\Http\Controllers\BlogController::class, '
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+// Footer Pages
+Route::get('/help-center', function () { return view('pages.help-center'); })->name('help.center');
+Route::get('/faq', function () { return view('pages.faq'); })->name('faq');
+Route::get('/privacy-policy', function () { return view('pages.privacy'); })->name('privacy');
+Route::get('/terms-of-service', function () { return view('pages.terms'); })->name('terms');
+Route::get('/how-it-works', function () { return view('pages.how-it-works'); })->name('how.works');
+Route::get('/testimonials', [App\Http\Controllers\WelcomeController::class, 'testimonials'])->name('testimonials');
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
 

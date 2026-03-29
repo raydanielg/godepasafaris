@@ -16,7 +16,7 @@
 
     <section class="page-header animate__animated animate__fadeIn" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/images/Serengeti-National-Park-1.jpg') }}');">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold animate__animated animate__fadeInUp">All Safari Tours</h1>
+            <h1 class="display-4 fw-bold animate__animated animate__fadeInUp">Safaris</h1>
             <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Tanzania safari, trips, tour packages & vacation</p>
         </div>
     </section>
@@ -74,11 +74,34 @@
 
     @include('partials.footer')
     @include('partials.whatsapp')
-
+    @include('partials.general_inquiry_modal')
     @include('partials.booking_modal')
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const typeFilter = urlParams.get('type');
+        
+        if (typeFilter) {
+            // Uncheck all trip types first if needed, or just handle specific ones
+            const privateCheck = document.getElementById('private');
+            const sharedCheck = document.getElementById('shared');
+            
+            // For Safari Type (Lodge/Camping)
+            const lodgeCheck = document.getElementById('lodge');
+            const campingCheck = document.getElementById('camping');
+
+            if (typeFilter === 'kilimanjaro') {
+                // Assuming you might add a 'Kilimanjaro' checkbox in the future
+                // or want to filter specifically by specialized tours
+                // For now, let's trigger the fetch with the param
+                fetchTours();
+            } else if (typeFilter === 'safari') {
+                if (lodgeCheck) lodgeCheck.checked = true;
+                fetchTours();
+            }
+        }
+
         const bookingModal = document.getElementById('bookingModal');
         if (bookingModal) {
             bookingModal.addEventListener('show.bs.modal', function(event) {

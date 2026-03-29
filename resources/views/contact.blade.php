@@ -176,5 +176,6 @@
 
     @include('partials.footer')
     @include('partials.whatsapp')
+    @include('partials.general_inquiry_modal')
 </body>
 </html>

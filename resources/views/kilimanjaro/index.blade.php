@@ -159,48 +159,45 @@
 
             <h3 class="fw-bold mb-4 text-center animate__animated animate__fadeIn" style="font-family: 'Playfair Display', serif;">Our Expedition Packages</h3>
             <div class="row g-4 mb-5">
-                @foreach($packages as $pkg)
-                <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
+                @foreach($packages->take(4) as $pkg)
+                <div class="col-lg-3 col-md-6 animate__animated animate__fadeInUp">
                     <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white">
-                        <div class="package-img-wrapper" style="height: 240px; position: relative; overflow: hidden;">
+                        <div class="package-img-wrapper" style="height: 200px; position: relative; overflow: hidden;">
                             <img src="{{ asset($pkg->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $pkg->title }}">
                             <div class="position-absolute top-0 start-0 m-3">
                                 <span class="badge bg-earth rounded-pill px-3 py-2 shadow-sm">Tanzania</span>
                             </div>
                         </div>
                         <div class="card-body p-4 d-flex flex-column">
-                            <h5 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; min-height: 3rem;">
+                            <h6 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; min-height: 2.5rem;">
                                 <a href="{{ route('kilimanjaro.show', $pkg->slug) }}" class="text-dark text-decoration-none hover-primary">{{ $pkg->title }}</a>
-                            </h5>
+                            </h6>
                             
                             <div class="tour-rating mb-3">
                                 <div class="stars d-inline-block text-warning small">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
-                                <span class="fw-bold ms-2 small">5/5 <span class="text-muted fw-normal">(Success Rate 98%)</span></span>
-                            </div>
-
-                            <div class="tour-visit-info mb-4">
-                                <div class="fw-bold mb-1 small text-dark"><i class="far fa-clock me-2 text-earth"></i> {{ $pkg->days ?? '7' }} Days Expedition</div>
-                                <div class="small text-muted"><i class="fas fa-mountain me-2 text-earth"></i> Route: {{ $pkg->route_name ?? 'Kilimanjaro' }}</div>
+                                <span class="fw-bold ms-2 small">5/5</span>
                             </div>
 
                             <div class="price-section mb-4 mt-auto">
                                 <div class="d-flex align-items-baseline gap-1">
                                     <span class="text-muted small">from</span>
-                                    <span class="fw-bold fs-3 text-earth">${{ number_format($pkg->price, 0) }}</span>
-                                    <span class="text-muted small">pp</span>
+                                    <span class="fw-bold fs-4 text-earth">${{ number_format($pkg->price, 0) }}</span>
                                 </div>
                             </div>
                             
                             <div class="d-flex gap-2">
-                                <a href="{{ route('kilimanjaro.show', $pkg->slug) }}" class="btn btn-outline-earth flex-grow-1 py-2 rounded-pill">View Trip</a>
-                                <button type="button" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white" data-bs-toggle="modal" data-bs-target="#bookingModal" data-tour-title="{{ $pkg->title }}" data-tour-id="{{ $pkg->id }}">Book Now</button>
+                                <button type="button" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white small" data-bs-toggle="modal" data-bs-target="#bookingModal" data-tour-title="{{ $pkg->title }}" data-tour-id="{{ $pkg->id }}">Book Now</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
+            </div>
+
+            <div class="text-center mb-5">
+                <a href="{{ route('kilimanjaro') }}?all=1" class="btn btn-outline-earth rounded-pill px-5 py-2 fw-bold">VIEW ALL KILIMANJARO PACKAGES</a>
             </div>
 
             <!-- Detailed Information Section -->

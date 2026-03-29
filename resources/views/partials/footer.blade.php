@@ -25,10 +25,10 @@
                 <h5 class="footer-heading mb-4">Quick Links</h5>
                 <ul class="list-unstyled footer-links-new">
                     <li><a href="{{ url('/') }}"><i class="fas fa-chevron-right me-2"></i>Home</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>About Us</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Safari Packages</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>How It Works</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Testimonials</a></li>
+                    <li><a href="{{ route('about') }}"><i class="fas fa-chevron-right me-2"></i>About Us</a></li>
+                    <li><a href="{{ route('tours.all') }}"><i class="fas fa-chevron-right me-2"></i>Safari Packages</a></li>
+                    <li><a href="{{ route('how.works') }}"><i class="fas fa-chevron-right me-2"></i>How It Works</a></li>
+                    <li><a href="{{ route('testimonials') }}"><i class="fas fa-chevron-right me-2"></i>Testimonials</a></li>
                 </ul>
             </div>
 
@@ -36,11 +36,11 @@
             <div class="col-lg-2 col-md-6">
                 <h5 class="footer-heading mb-4">Destinations</h5>
                 <ul class="list-unstyled footer-links-new">
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Serengeti</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Ngorongoro</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Kilimanjaro</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Tarangire</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Lake Manyara</a></li>
+                    <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Serengeti</a></li>
+                    <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Ngorongoro</a></li>
+                    <li><a href="{{ route('kilimanjaro') }}"><i class="fas fa-chevron-right me-2"></i>Kilimanjaro</a></li>
+                    <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Tarangire</a></li>
+                    <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Lake Manyara</a></li>
                 </ul>
             </div>
 
@@ -48,10 +48,10 @@
             <div class="col-lg-2 col-md-6">
                 <h5 class="footer-heading mb-4">Support</h5>
                 <ul class="list-unstyled footer-links-new">
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Help Center</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>FAQs</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Privacy Policy</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Terms of Service</a></li>
+                    <li><a href="{{ route('help.center') }}"><i class="fas fa-chevron-right me-2"></i>Help Center</a></li>
+                    <li><a href="{{ route('faq') }}"><i class="fas fa-chevron-right me-2"></i>FAQs</a></li>
+                    <li><a href="{{ route('privacy') }}"><i class="fas fa-chevron-right me-2"></i>Privacy Policy</a></li>
+                    <li><a href="{{ route('terms') }}"><i class="fas fa-chevron-right me-2"></i>Terms of Service</a></li>
                 </ul>
             </div>
 
@@ -92,7 +92,7 @@
             <div class="col-md-6 text-center text-md-end">
                 <div class="footer-bottom-links small">
                     <a href="{{ url('/') }}" class="text-muted text-decoration-none me-3">Home</a>
-                    <a href="#" class="text-muted text-decoration-none">Staff Portal</a>
+                    <a href="{{ route('login') }}" class="text-muted text-decoration-none">Staff Portal</a>
                 </div>
             </div>
         </div>

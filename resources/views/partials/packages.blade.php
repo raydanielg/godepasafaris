@@ -4,81 +4,38 @@
         <p class="section-subtitle mb-5 animate__animated animate__fadeIn animate__delay-1s">Get started with handpicked top rated trips.</p>
         
         <div class="row g-4">
-            <!-- Package 1 -->
-            <div class="col-md-3 animate__animated animate__fadeInUp animate__delay-1s">
-                <div class="package-card h-100">
-                    <div class="package-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tarangire & Ngorongoro" class="package-img">
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+            @foreach($packages as $package)
+            <div class="col-md-4 animate__animated animate__fadeInUp">
+                <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white">
+                    <div class="package-img-wrapper" style="height: 250px; position: relative; overflow: hidden;">
+                        <img src="{{ asset($package->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $package->title }}">
+                        <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                            <i class="far fa-heart text-dark"></i>
+                        </button>
                     </div>
-                    <div class="package-content p-4 text-start">
-                        <h5 class="package-title mb-3">3 Day Tanzania Safari Tarangire National Park and Ngorongoro Conservation Area</h5>
-                        <hr class="my-3">
-                        <div class="package-price">
-                            <span class="price-label">from</span>
-                            <span class="price-amount">$1078</span>
-                            <span class="price-unit">Per Person</span>
+                    <div class="package-content p-4 text-start d-flex flex-column">
+                        <h5 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; min-height: 3.5rem;">
+                            <a href="{{ route('safari.show', $package->slug) }}" class="text-dark text-decoration-none hover-primary">{{ $package->title }}</a>
+                        </h5>
+                        
+                        <div class="price-section mb-4 mt-auto">
+                            <span class="text-muted small">from</span>
+                            <span class="fw-bold fs-4 text-earth">${{ number_format($package->price, 0) }}</span>
+                            <small class="text-muted">pp</small>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Package 2 -->
-            <div class="col-md-3 animate__animated animate__fadeInUp animate__delay-2s">
-                <div class="package-card h-100">
-                    <div class="package-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Northern Tanzania" class="package-img">
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                    <div class="package-content p-4 text-start">
-                        <h5 class="package-title mb-3">5 Day Northern Tanzania Safari Tarangire, Serengeti National Park and Ngorongoro Conservation Area</h5>
-                        <hr class="my-3">
-                        <div class="package-price">
-                            <span class="price-label">from</span>
-                            <span class="price-amount">$0</span>
-                            <span class="price-unit">Per Person</span>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('safari.show', $package->slug) }}" class="btn btn-outline-earth flex-grow-1 py-2 rounded-pill">View Trip</a>
+                            <button type="button" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white" data-bs-toggle="modal" data-bs-target="#bookingModal" data-tour-title="{{ $package->title }}" data-tour-id="{{ $package->id }}">Book Now</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Package 3 -->
-            <div class="col-md-3 animate__animated animate__fadeInUp animate__delay-3s">
-                <div class="package-card h-100">
-                    <div class="package-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Serengeti & Lake Manyara" class="package-img">
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                    <div class="package-content p-4 text-start">
-                        <h5 class="package-title mb-3">5 Day Tanzania Safari Serengeti, Ngorongoro Conversation Area and Lake Manyara</h5>
-                        <hr class="my-3">
-                        <div class="package-price">
-                            <span class="price-label">from</span>
-                            <span class="price-amount">$2998</span>
-                            <span class="price-unit">Per Person</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Package 4 -->
-            <div class="col-md-3 animate__animated animate__fadeInUp animate__delay-4s">
-                <div class="package-card h-100">
-                    <div class="package-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1589553416260-178fa415973b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Manyara Safari" class="package-img">
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                    <div class="package-content p-4 text-start">
-                        <h5 class="package-title mb-3">6 Day Tanzania Safari Tarangire, Serengeti, Ngorongoro and Lake Manyara Safari.</h5>
-                        <hr class="my-3">
-                        <div class="package-price">
-                            <span class="price-label">from</span>
-                            <span class="price-amount">$0</span>
-                            <span class="price-unit">Per Person</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ route('tours.all') }}" class="btn btn-earth rounded-pill px-5 py-3 fw-bold">VIEW ALL TOURS</a>
         </div>
     </div>
 </section>

@@ -10,9 +10,16 @@ use Illuminate\Support\Facades\Mail;
 
 class KilimanjaroController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $packages = KilimanjaroPackage::latest()->get();
+        $query = KilimanjaroPackage::latest();
+        
+        if ($request->has('all')) {
+            $packages = $query->get();
+        } else {
+            $packages = $query->take(4)->get();
+        }
+        
         return view('kilimanjaro.index', compact('packages'));
     }
 
