@@ -74,9 +74,29 @@
                             .blog-details-content strong {
                                 color: #3E2723;
                             }
+                            /* Support for common blog structures */
+                            .content-body h3 {
+                                font-size: 1.75rem;
+                                border-bottom: 2px solid #fdfaf5;
+                                padding-bottom: 10px;
+                            }
+                            .content-body ul {
+                                list-style-type: disc;
+                            }
+                            .content-body ol {
+                                list-style-type: decimal;
+                            }
                         </style>
                         <div class="content-body">
-                            {!! $post->content !!}
+                            @php
+                                $markdown = $post->content;
+                                // Angalia kama ni HTML au Markdown. Kama haina tag za HTML, tibu kama Markdown.
+                                if (strip_tags($markdown) === $markdown) {
+                                    echo \Michelf\Markdown::defaultTransform($markdown);
+                                } else {
+                                    echo $markdown;
+                                }
+                            @endphp
                         </div>
                     </div>
 
