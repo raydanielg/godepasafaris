@@ -356,6 +356,29 @@ class DashboardController extends Controller
         return back()->with('success', 'Destination deleted successfully.');
     }
 
+    public function viewBooking(Booking $booking)
+    {
+        return view('admin.bookings.show', compact('booking'));
+    }
+
+    public function deleteBooking(Booking $booking)
+    {
+        $booking->delete();
+        return redirect()->route('admin.bookings')->with('success', 'Inquiry deleted successfully.');
+    }
+
+    public function generateInvoice(Booking $booking)
+    {
+        return view('admin.bookings.invoice', compact('booking'));
+    }
+
+    public function updateBookingStatus(Request $request, Booking $booking)
+    {
+        $request->validate(['status' => 'required|string']);
+        $booking->update(['status' => $request->status]);
+        return back()->with('success', 'Status updated successfully.');
+    }
+
     public function users()
     {
         $users = User::latest()->paginate(10);

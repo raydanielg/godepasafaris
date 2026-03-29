@@ -76,10 +76,13 @@
                             </td>
                             <td class="text-end pe-4">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
+                                    <a href="{{ route('admin.bookings.show', $booking) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
                                         View
                                     </a>
-                                    <form action="#" method="POST" onsubmit="return confirm('Delete this inquiry?')">
+                                    <a href="{{ route('admin.bookings.invoice', $booking) }}" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
+                                        Invoice
+                                    </a>
+                                    <form action="{{ route('admin.bookings.delete', $booking) }}" method="POST" onsubmit="return confirm('Delete this inquiry?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">

@@ -54,8 +54,12 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/admin/destinations/{destination}', [App\Http\Controllers\Admin\DashboardController::class, 'updateDestination'])->name('admin.destinations.update');
         Route::delete('/admin/destinations/{destination}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteDestination'])->name('admin.destinations.delete');
         
-        // Bookings
-    Route::get('/admin/bookings', [App\Http\Controllers\Admin\DashboardController::class, 'bookings'])->name('admin.bookings');
+        // Bookings/Inquiries
+        Route::get('/admin/bookings', [App\Http\Controllers\Admin\DashboardController::class, 'bookings'])->name('admin.bookings');
+        Route::get('/admin/bookings/{booking}', [App\Http\Controllers\Admin\DashboardController::class, 'viewBooking'])->name('admin.bookings.show');
+        Route::patch('/admin/bookings/{booking}/status', [App\Http\Controllers\Admin\DashboardController::class, 'updateBookingStatus'])->name('admin.bookings.status');
+        Route::get('/admin/bookings/{booking}/invoice', [App\Http\Controllers\Admin\DashboardController::class, 'generateInvoice'])->name('admin.bookings.invoice');
+        Route::delete('/admin/bookings/{booking}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteBooking'])->name('admin.bookings.delete');
     
     // Safari Packages
     Route::get('/admin/safari-packages', [App\Http\Controllers\Admin\DashboardController::class, 'safariPackages'])->name('admin.safaris');
