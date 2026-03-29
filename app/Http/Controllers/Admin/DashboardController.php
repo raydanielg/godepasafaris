@@ -14,13 +14,13 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = [
-            'total_bookings' => Booking::count(),
-            'safari_packages' => SafariPackage::count(),
-            'kili_packages' => KilimanjaroPackage::count(),
-            'total_users' => User::count(),
+            'total_bookings' => \App\Models\Booking::count(),
+            'safari_packages' => \App\Models\SafariPackage::count(),
+            'kili_packages' => \App\Models\KilimanjaroPackage::count(),
+            'total_users' => \App\Models\User::count(),
         ];
 
-        $recentBookings = Booking::latest()->take(5)->get();
+        $recentBookings = \App\Models\Booking::latest()->take(5)->get();
 
         return view('admin.dashboard', compact('stats', 'recentBookings'));
     }
