@@ -14,11 +14,11 @@
                                 Expert guides who know every corner of the savanna.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
-                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
+                                <a href="{{ route('tours.all') }}" class="btn btn-hero-primary rounded-pill px-4 py-2">
                                     <span class="d-none d-md-inline">View Tanzania Safari Packages</span>
                                     <span class="d-inline d-md-none">Safaris</span>
                                 </a>
-                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">
+                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
                                     <span class="d-none d-md-inline">Get a Custom Safari Quote</span>
                                     <span class="d-inline d-md-none">Get Quote</span>
                                 </a>
@@ -41,11 +41,11 @@
                                 with a focus on safety, comfort, and success.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
-                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
+                                <a href="{{ route('tours.all') }}" class="btn btn-hero-primary rounded-pill px-4 py-2">
                                     <span class="d-none d-md-inline">View Tanzania Safari Packages</span>
                                     <span class="d-inline d-md-none">Safaris</span>
                                 </a>
-                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">
+                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
                                     <span class="d-none d-md-inline">Get a Custom Safari Quote</span>
                                     <span class="d-inline d-md-none">Get Quote</span>
                                 </a>
@@ -68,11 +68,11 @@
                                 and ancient landscapes with our expert team.
                             </p>
                             <div class="hero-buttons d-flex flex-wrap gap-3">
-                                <a href="#" class="btn btn-hero-primary rounded-pill px-4 py-2">
+                                <a href="{{ route('tours.all') }}" class="btn btn-hero-primary rounded-pill px-4 py-2">
                                     <span class="d-none d-md-inline">View Tanzania Safari Packages</span>
                                     <span class="d-inline d-md-none">Safaris</span>
                                 </a>
-                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2">
+                                <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
                                     <span class="d-none d-md-inline">Get a Custom Safari Quote</span>
                                     <span class="d-inline d-md-none">Get Quote</span>
                                 </a>

@@ -6,7 +6,7 @@
             <p class="text-muted">Handpicked top-rated adventures for an unforgettable experience.</p>
         </div>
         
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             @foreach($packages as $package)
             <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
                 <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-lg bg-white position-relative">

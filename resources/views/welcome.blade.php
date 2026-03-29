@@ -247,7 +247,7 @@
                     </div>
 
                     <div class="mt-5">
-                        <button class="btn btn-earth btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
+                        <button class="btn btn-earth btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation" data-bs-toggle="modal" data-bs-target="#generalInquiryModal" style="background-color: #8b4513 !important; border: none !important; color: #ffffff !important;">
                             REQUEST A FREE QUOTE <i class="fas fa-arrow-right ms-2"></i>
                         </button>
                     </div>
