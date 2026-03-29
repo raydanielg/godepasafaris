@@ -99,32 +99,40 @@
                 <div class="sticky-top" style="top: 100px;">
                     <div class="booking-card p-4 rounded-4 shadow-lg bg-white border-0 animate__animated animate__fadeInRight">
                         <h4 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Book This Safari</h4>
-                        <form id="safariBookingForm">
+                        
+                        @if(session('success'))
+                            <div class="alert alert-success border-0 shadow-sm rounded-4 mb-4 small">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        <form id="safariBookingForm" action="{{ route('safari.enquire', $package->id) }}" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Full Name*</label>
-                                <input type="text" class="form-control" placeholder="Enter your full name" required>
+                                <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Email Address*</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Contact Number*</label>
-                                <input type="text" class="form-control" placeholder="Enter contact number" required>
+                                <input type="text" name="phone" class="form-control" placeholder="Enter contact number" required>
                             </div>
                             <div class="row g-2 mb-3">
                                 <div class="col-6">
                                     <label class="form-label fw-bold small">Adults*</label>
-                                    <input type="number" class="form-control" min="1" value="1">
+                                    <input type="number" name="adults" class="form-control" min="1" value="1">
                                 </div>
                                 <div class="col-6">
                                     <label class="form-label fw-bold small">Children</label>
-                                    <input type="number" class="form-control" min="0" value="0">
+                                    <input type="number" name="children" class="form-control" min="0" value="0">
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label class="form-label fw-bold small">Your Message*</label>
-                                <textarea class="form-control" rows="3" placeholder="Enter your message" required></textarea>
+                                <textarea name="message" class="form-control" rows="3" placeholder="Enter your message" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-earth w-100 py-3 fw-bold">SEND MAIL</button>
                         </form>

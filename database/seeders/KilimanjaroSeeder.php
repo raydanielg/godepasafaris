@@ -22,11 +22,11 @@ class KilimanjaroSeeder extends Seeder
                 'rich_content' => '<p>The Marangu Route is iconic for being the only route that offers hut accommodation, meaning you don\'t have to sleep in tents. It is often considered the easiest path, but don\'t be fooled—the final summit push is still a significant challenge.</p>
                 <p>Enjoy beautiful rainforests, alpine meadows, and the unique lunar landscape of the saddle between Mawenzi and Kibo peaks.</p>',
                 'itinerary' => [
-                    ['day' => 1, 'title' => 'Marangu Gate to Mandara Hut', 'description' => 'Trek through the lush rainforest to reach Mandara Hut at 2,700m.'],
-                    ['day' => 2, 'title' => 'Mandara Hut to Horombo Hut', 'description' => 'Leave the forest and enter the moorland zone. Views of Mawenzi peak are spectacular.'],
-                    ['day' => 3, 'title' => 'Horombo Hut to Kibo Hut', 'description' => 'Crossing the "Saddle," a high-altitude desert between the two main peaks.'],
-                    ['day' => 4, 'title' => 'Summit Day: Kibo Hut to Uhuru Peak', 'description' => 'The final push to the roof of Africa at 5,895m, then descending back to Horombo.'],
-                    ['day' => 5, 'title' => 'Horombo Hut to Marangu Gate', 'description' => 'Descending back through the forest to receive your summit certificates.'],
+                    ['day' => 1, 'title' => 'Marangu Gate to Mandara Hut', 'description' => 'Trek through the lush rainforest to reach Mandara Hut at 2,700m.', 'image' => 'images/images/A-guide-to-the-Lobo-Area-in-the-Northern-Serengeti.jpg'],
+                    ['day' => 2, 'title' => 'Mandara Hut to Horombo Hut', 'description' => 'Leave the forest and enter the moorland zone. Views of Mawenzi peak are spectacular.', 'image' => 'images/images/Things-to-do-in-Kilimanjaro-National-Park-Camp.jpg'],
+                    ['day' => 3, 'title' => 'Horombo Hut to Kibo Hut', 'description' => 'Crossing the "Saddle," a high-altitude desert between the two main peaks.', 'image' => 'images/images/Kilimanjaro.jpg'],
+                    ['day' => 4, 'title' => 'Summit Day: Kibo Hut to Uhuru Peak', 'description' => 'The final push to the roof of Africa at 5,895m, then descending back to Horombo.', 'image' => 'images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg'],
+                    ['day' => 5, 'title' => 'Horombo Hut to Marangu Gate', 'description' => 'Descending back through the forest to receive your summit certificates.', 'image' => 'images/images/Kilimanjaro-Peak.webp'],
                 ],
                 'inclusions' => ['Professional English-speaking guides', 'National Park fees', 'Hut accommodation', 'All meals on the mountain', 'Rescue fees'],
                 'exclusions' => ['International flights', 'Tips for guides and porters', 'Personal trekking gear', 'Visa fees'],

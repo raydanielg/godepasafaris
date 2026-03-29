@@ -84,9 +84,6 @@
                         <a class="nav-link py-3 px-3" href="{{ route('kilimanjaro') }}">KILIMANJARO</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link py-3 px-3" href="#">KENYA SAFARI</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link py-3 px-3" href="{{ route('blog') }}">BLOG</a>
                     </li>
                     <li class="nav-item">
