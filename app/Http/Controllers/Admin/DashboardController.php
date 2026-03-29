@@ -294,15 +294,18 @@ class DashboardController extends Controller
     public function storeDestination(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string',
-            'type' => 'required|string',
+            'title' => 'required|string|max:255',
+            'category' => 'required|string',
             'description' => 'required|string',
+            'rich_content' => 'nullable|string',
+            'rate_range' => 'nullable|string',
+            'best_time' => 'nullable|string',
+            'high_season' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = $request->all();
-        $data['slug'] = \Illuminate\Support\Str::slug($request->name);
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
 
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
@@ -323,15 +326,18 @@ class DashboardController extends Controller
     public function updateDestination(Request $request, \App\Models\Destination $destination)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string',
-            'type' => 'required|string',
+            'title' => 'required|string|max:255',
+            'category' => 'required|string',
             'description' => 'required|string',
+            'rich_content' => 'nullable|string',
+            'rate_range' => 'nullable|string',
+            'best_time' => 'nullable|string',
+            'high_season' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = $request->all();
-        $data['slug'] = \Illuminate\Support\Str::slug($request->name);
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
 
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();

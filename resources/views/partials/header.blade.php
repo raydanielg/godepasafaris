@@ -79,19 +79,14 @@
                     </li>
                 </ul>
                 
-                <div class="auth-buttons d-flex gap-2 align-items-center">
+                <div class="auth-buttons d-flex gap-3 align-items-center">
                     @auth
                         <div class="dropdown">
                             <button class="btn btn-earth btn-sm px-4 rounded-pill fw-bold text-white shadow-sm dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #3E2723 !important; border: none;">
-                                <i class="fas fa-user-circle me-1"></i> {{ auth()->user()->name }}
+                                <i class="fas fa-user-circle me-1"></i> Admin
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="userMenu">
                                 <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt me-2 text-muted"></i>Dashboard</a></li>
-                                <li><a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="fas fa-user me-2 text-muted"></i>Profile</a></li>
-                                @if(auth()->user()->isAdmin())
-                                    <li><a class="dropdown-item" href="{{ route('admin.users') }}"><i class="fas fa-users me-2 text-muted"></i>Manage Users</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('admin.settings') }}"><i class="fas fa-cog me-2 text-muted"></i>Settings</a></li>
-                                @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
@@ -103,12 +98,33 @@
                                 </li>
                             </ul>
                         </div>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-earth btn-sm px-4 rounded-pill fw-bold shadow-sm me-2" style="border-color: #3E2723; color: #3E2723;">LOGIN</a>
-                        <a href="{{ route('register') }}" class="btn btn-earth btn-sm px-4 rounded-pill fw-bold text-white shadow-sm" style="background-color: #3E2723 !important; border: none;">REGISTER</a>
                     @endauth
-                    <a href="#" class="btn btn-earth btn-sm px-4 rounded-pill fw-bold text-white shadow-sm" data-bs-toggle="modal" data-bs-target="#generalInquiryModal" style="background-color: #8b4513 !important; border: none;">INQUIRY NOW</a>
+                    <a href="#" class="btn btn-inquiry btn-sm px-4 rounded-pill fw-bold text-white shadow-lg animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
+                        INQUIRY NOW <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
                 </div>
+
+                <style>
+                    .btn-inquiry {
+                        background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+                        border: none;
+                        letter-spacing: 1px;
+                        padding: 12px 28px !important;
+                        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+                    }
+
+                    .btn-inquiry:hover {
+                        transform: translateY(-3px) scale(1.05);
+                        background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+                        box-shadow: 0 8px 25px rgba(139, 69, 19, 0.5);
+                        color: white;
+                    }
+
+                    .btn-inquiry:active {
+                        transform: translateY(0) scale(0.98);
+                    }
+                </style>
             </div>
         </div>
     </nav>
