@@ -99,7 +99,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Settings
     Route::get('/admin/settings', [App\Http\Controllers\Admin\DashboardController::class, 'settings'])->name('admin.settings');
-    Route::post('/admin/settings/update', [App\Http\Controllers\Admin\DashboardController::class, 'updateSettings'])->name('admin.settings.update');
+    Route::post('/admin/settings', [App\Http\Controllers\Admin\DashboardController::class, 'updateSettings'])->name('admin.settings.update');
+    Route::post('/admin/settings/clear-cache', [App\Http\Controllers\Admin\DashboardController::class, 'clearCache'])->name('admin.settings.clear-cache');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');

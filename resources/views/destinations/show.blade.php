@@ -112,28 +112,37 @@
                     <div id="tours" class="pt-4 border-top">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif;">Suggested {{ $destination->title }} Tours</h3>
-                            <a href="#" class="text-primary fw-bold text-decoration-none small">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                            <a href="{{ route('tours.all') }}" class="text-primary fw-bold text-decoration-none small">View All <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                         <div class="row g-4">
                             @foreach($relatedTours as $tour)
                             <div class="col-md-6">
-                                <div class="tour-card-mini rounded-4 shadow-sm overflow-hidden bg-white border h-100">
-                                    <img src="{{ asset($tour->image) }}" class="w-100 object-fit-cover" height="180" alt="{{ $tour->title }}">
-                                    <div class="p-3">
-                                        <div class="stars text-warning small mb-2">
-                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                        </div>
-                                        <h6 class="fw-bold mb-2">{{ $tour->title }}</h6>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <div class="text-primary fw-bold">$ 2,370 <small class="text-muted fw-normal">pp</small></div>
-                                            <small class="text-muted"><i class="far fa-clock me-1"></i> 9 Days</small>
+                                <a href="{{ route('safari.show', $tour->slug) }}" class="text-decoration-none">
+                                    <div class="tour-card-mini rounded-4 shadow-sm overflow-hidden bg-white border h-100 transition-all hover-lift">
+                                        <img src="{{ asset($tour->image) }}" class="w-100 object-fit-cover" height="180" alt="{{ $tour->title }}">
+                                        <div class="p-3">
+                                            <div class="stars text-warning small mb-2">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            </div>
+                                            <h6 class="fw-bold mb-2 text-dark">{{ $tour->title }}</h6>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                <div class="text-primary fw-bold">${{ number_format($tour->price, 0) }} <small class="text-muted fw-normal">pp</small></div>
+                                                <small class="text-muted"><i class="far fa-clock me-1"></i> {{ $tour->days ?? '5' }} Days</small>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             @endforeach
                         </div>
                     </div>
+
+                    <style>
+                        .hover-lift:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+                        }
+                    </style>
                 </div>
             </div>
         </div>

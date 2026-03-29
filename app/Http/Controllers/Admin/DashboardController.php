@@ -438,17 +438,48 @@ class DashboardController extends Controller
 
     public function settings()
     {
-        $settings = [
+        $settings = \App\Models\SiteSetting::all()->pluck('value', 'key')->toArray();
+        
+        // Ensure defaults if empty
+        $defaults = [
             'site_name' => config('app.name'),
             'contact_email' => 'info@godeepafricasafari.com',
             'contact_phone' => '+255 794 636 471',
+            'openai_api_key' => '',
+            'anthropic_api_key' => '',
+            'gemini_api_key' => '',
         ];
+
+        $settings = array_merge($defaults, $settings);
+
         return view('admin.settings', compact('settings'));
     }
 
     public function updateSettings(Request $request)
     {
-        // For now, just a placeholder for updating settings
+        $data = $request->except('_token');
+
+        foreach ($data as $key => $value) {
+            \App\Models\SiteSetting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
         return back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function clearCache()
+    {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('cache:clear');
+            \Illuminate\Support\Facades\Artisan::call('view:clear');
+            \Illuminate\Support\Facades\Artisan::call('config:clear');
+            \Illuminate\Support\Facades\Artisan::call('route:clear');
+            
+            return back()->with('success', 'Website cache has been cleared successfully for all users.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error clearing cache: ' . $e->getMessage());
+        }
     }
 }
