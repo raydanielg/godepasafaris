@@ -15,12 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('category'); // National Parks, Mountains, etc.
+            $table->string('category');
             $table->text('description');
+            $table->longText('rich_content')->nullable(); // For detailed storytelling
+            $table->text('weather_info')->nullable();
+            $table->json('faqs')->nullable(); // Store FAQs as JSON
             $table->string('image')->nullable();
-            $table->string('rate_range'); // e.g., "$120 to $2820"
-            $table->string('best_time'); // e.g., "June to October"
-            $table->string('high_season'); // e.g., "July to October"
+            $table->string('rate_range');
+            $table->string('best_time');
+            $table->string('high_season');
+            $table->integer('tripadvisor_reviews')->default(2154);
+            $table->float('rating')->default(5.0);
             $table->timestamps();
         });
     }

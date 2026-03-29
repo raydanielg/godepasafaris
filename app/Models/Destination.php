@@ -11,10 +11,19 @@ class Destination extends Model
         'slug', 
         'category', 
         'description', 
+        'rich_content',
+        'weather_info',
+        'faqs',
         'image', 
         'rate_range', 
         'best_time', 
-        'high_season'
+        'high_season',
+        'tripadvisor_reviews',
+        'rating'
+    ];
+
+    protected $casts = [
+        'faqs' => 'array',
     ];
 
     //

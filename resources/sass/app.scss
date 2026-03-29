@@ -776,7 +776,137 @@ h1, h2, h3, h4, h5, h6, .section-title, .footer-heading, .blog-title {
     100% { transform: translateY(0px); }
 }
 
-// Hero// Destinations Page Styles
+// Destination Details Page Styles
+.page-header-details {
+    height: 50vh;
+    min-height: 350px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+        z-index: 1;
+    }
+    
+    .container {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.toc-card {
+    border: none;
+    background: transparent !important;
+    padding: 0 !important;
+    
+    .toc-list {
+        position: relative;
+        padding-left: 25px;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        li {
+            position: relative;
+            margin-bottom: 30px;
+            
+            &::before {
+                content: '';
+                position: absolute;
+                left: -22px;
+                top: 6px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #fff;
+                border: 2px solid #e2e8f0;
+                z-index: 2;
+                transition: all 0.3s ease;
+            }
+
+            a {
+                color: #666;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 0.95rem;
+                transition: all 0.3s;
+                padding: 0;
+                border: none;
+                
+                &:hover, &.active {
+                    color: vars.$primary;
+                }
+            }
+
+            &.active::before {
+                background: vars.$primary;
+                border-color: vars.$primary;
+                box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.1);
+            }
+        }
+    }
+}
+
+.rating-top-bar {
+    .text-primary {
+        color: vars.$primary !important;
+    }
+}
+
+.rich-content-area {
+    line-height: 1.8;
+    color: #444;
+    
+    blockquote {
+        border-left: 5px solid vars.$primary;
+        padding: 25px;
+        background: rgba(139, 69, 19, 0.05);
+        font-style: italic;
+        margin: 30px 0;
+        border-radius: 0 15px 15px 0;
+        color: #333;
+        font-weight: 600;
+    }
+    
+    h3 {
+        margin-top: 2.5rem;
+        margin-bottom: 1.2rem;
+        font-weight: 800;
+        color: vars.$primary;
+    }
+
+    .custom-list {
+        li {
+            display: flex;
+            align-items: flex-start;
+            i {
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+.tour-card-mini {
+    transition: transform 0.3s ease;
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
 .destination-filters {
     .filter-btn {
         background-color: #fff;

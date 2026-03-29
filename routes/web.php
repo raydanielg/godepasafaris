@@ -19,6 +19,7 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/destinations', [App\Http\Controllers\DestinationController::class, 'index'])->name('destinations');
+Route::get('/destinations/{slug}', [App\Http\Controllers\DestinationController::class, 'show'])->name('destinations.show');
 
 Auth::routes();
 
