@@ -19,6 +19,7 @@
             background-repeat: no-repeat;
             transform: scale(1.1);
             transition: transform 8s linear;
+            z-index: 1;
         }
         .carousel-item.active .hero-slide-bg {
             transform: scale(1);
@@ -28,7 +29,8 @@
             left: 0;
             padding: 0;
             text-align: left;
-            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 100%);
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, transparent 100%);
+            z-index: 2;
         }
         .hero-text-block {
             padding: 2rem;
