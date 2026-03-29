@@ -1,71 +1,111 @@
-<section class="safari-styles-section py-5 animate__animated animate__fadeIn">
+<section class="safari-styles-section py-5 bg-light animate__animated animate__fadeIn">
     <div class="container text-center">
         <div class="mb-5">
-            <a href="#" class="btn btn-outline-earth rounded-pill px-4 py-2 mb-5">View all tours</a>
-            <h2 class="section-title mb-2">SAFARI STYLES</h2>
-            <p class="section-subtitle">We design safaris based on your preferred travel style and comfort level.</p>
+            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Safari Styles</h2>
+            <div class="mx-auto mt-2 mb-3" style="width: 80px; height: 4px; background: #8B4513;"></div>
+            <p class="text-muted">Choose the adventure that fits your travel spirit and comfort level.</p>
         </div>
 
-        <div class="row g-4 justify-content-center mt-4">
-            <!-- Style 1 -->
-            <div class="col-6 col-md-4 col-lg-2">
-                <div class="style-card animate__animated animate__zoomIn">
-                    <div class="style-img-wrapper mb-3">
-                        <img src="https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Tanzania Safari Tours" class="style-img">
+        <div class="row g-4 justify-content-center">
+            <!-- Lodge Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp">
+                <a href="{{ route('styles.lodge') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Lodge Safari</h5>
                     </div>
-                    <h6 class="fw-bold">Tanzania Safari Tours</h6>
-                </div>
+                </a>
             </div>
 
-            <!-- Style 2 -->
-            <div class="col-6 col-md-4 col-lg-2">
-                <div class="style-card animate__animated animate__zoomIn animate__delay-1s">
-                    <div class="style-img-wrapper mb-3">
-                        <img src="https://images.unsplash.com/photo-1589553416260-178fa415973b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Kilimanjaro Trekking" class="style-img">
+            <!-- Camping Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-1s">
+                <a href="{{ route('styles.camping') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-campground"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Camping Safari</h5>
                     </div>
-                    <h6 class="fw-bold">Kilimanjaro Trekking</h6>
-                </div>
+                </a>
             </div>
 
-            <!-- Style 3 -->
-            <div class="col-6 col-md-4 col-lg-2">
-                <div class="style-card animate__animated animate__zoomIn animate__delay-2s">
-                    <div class="style-img-wrapper mb-3">
-                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Zanzibar Holiday" class="style-img">
+            <!-- Luxury Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="{{ route('styles.luxury') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Luxury Safari</h5>
                     </div>
-                    <h6 class="fw-bold">Zanzibar Holiday</h6>
-                </div>
+                </a>
             </div>
 
-            <!-- Style 4 -->
-            <div class="col-6 col-md-4 col-lg-2">
-                <div class="style-card animate__animated animate__zoomIn animate__delay-3s">
-                    <div class="style-img-wrapper mb-3">
-                        <img src="https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Kenya Safari" class="style-img">
+            <!-- Private Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-3s">
+                <a href="{{ route('styles.private') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Private Safari</h5>
                     </div>
-                    <h6 class="fw-bold">Kenya Safari</h6>
-                </div>
+                </a>
             </div>
 
-            <!-- Style 5 -->
-            <div class="col-6 col-md-4 col-lg-2">
-                <div class="style-card animate__animated animate__zoomIn animate__delay-4s">
-                    <div class="style-img-wrapper mb-3">
-                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Tanzania Day Trip" class="style-img">
+            <!-- Budget Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-4s">
+                <a href="{{ route('styles.budget') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Budget Safari</h5>
                     </div>
-                    <h6 class="fw-bold">Tanzania Day Trip</h6>
-                </div>
-            </div>
-
-            <!-- Style 6 -->
-            <div class="col-6 col-md-4 col-lg-2">
-                <div class="style-card animate__animated animate__zoomIn animate__delay-5s">
-                    <div class="style-img-wrapper mb-3">
-                        <img src="https://images.unsplash.com/photo-1589553416260-178fa415973b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Multi-Country Safaris" class="style-img">
-                    </div>
-                    <h6 class="fw-bold">Multi-Country Safaris</h6>
-                </div>
+                </a>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    .style-card {
+        background: white;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(139, 69, 19, 0.05);
+    }
+    .style-card-link:hover .style-card {
+        transform: translateY(-15px);
+        box-shadow: 0 20px 40px rgba(139, 69, 19, 0.1);
+        border-color: #8B4513;
+    }
+    .style-icon-box {
+        width: 70px;
+        height: 70px;
+        background: #fdf5e6;
+        color: #8B4513;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        transition: all 0.4s;
+    }
+    .style-card-link:hover .style-icon-box {
+        background: #8B4513;
+        color: white;
+        transform: rotateY(360deg);
+    }
+    .style-card h5 {
+        color: #3E2723;
+        font-size: 1rem;
+        transition: color 0.3s;
+    }
+    .style-card-link:hover h5 {
+        color: #8B4513;
+    }
+</style>

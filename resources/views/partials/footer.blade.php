@@ -65,17 +65,17 @@
                 </div>
 
                 <div class="stay-updated mt-4">
-                    <h5 class="footer-heading mb-3">Stay Updated</h5>
-                    <p class="small text-muted mb-3">Subscribe for announcements and updates.</p>
+                    <h5 class="footer-heading mb-3">Newsletter</h5>
+                    <p class="small text-muted mb-3">Subscribe for expert travel tips and exclusive safari offers.</p>
                     <form id="newsletterForm" class="newsletter-form-v2">
                         @csrf
-                        <div class="input-group">
-                            <input type="email" name="email" class="form-control" placeholder="Your email address" required>
-                            <button class="btn btn-primary" type="submit" id="btnSubscribe">
-                                <i class="fas fa-paper-plane me-1"></i> Subscribe
+                        <div class="subscription-wrapper position-relative">
+                            <input type="email" name="email" class="form-control rounded-pill ps-4 pe-5 py-3 border-0 shadow-sm" placeholder="Enter your email" required style="background: rgba(255,255,255,0.05); color: white;">
+                            <button class="btn btn-earth rounded-circle position-absolute end-0 top-50 translate-middle-y me-1 d-flex align-items-center justify-content-center" type="submit" id="btnSubscribe" style="width: 42px; height: 42px;">
+                                <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
-                        <div id="newsletterMessage" class="mt-2 small" style="display:none;"></div>
+                        <div id="newsletterMessage" class="mt-2 small px-3" style="display:none;"></div>
                     </form>
                 </div>
             </div>
@@ -97,6 +97,13 @@
             </div>
         </div>
     </div>
+    <style>
+        .btn-earth { background-color: #8b4513 !important; border-color: #8b4513 !important; color: white !important; }
+        .btn-earth:hover { background-color: #a0522d !important; border-color: #a0522d !important; }
+        .footer-heading { color: #DEB887; font-weight: 700; }
+        .newsletter-form-v2 input::placeholder { color: rgba(255,255,255,0.4); }
+        .newsletter-form-v2 input:focus { background: rgba(255,255,255,0.1) !important; box-shadow: none !important; color: white !important; }
+    </style>
 </footer>
 
 <script>

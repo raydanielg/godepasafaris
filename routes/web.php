@@ -26,6 +26,23 @@ Route::get('/terms-of-service', function () { return view('pages.terms'); })->na
 Route::get('/how-it-works', function () { return view('pages.how-it-works'); })->name('how.works');
 Route::get('/testimonials', [App\Http\Controllers\WelcomeController::class, 'testimonials'])->name('testimonials');
 
+    // Safari Styles
+    Route::get('/safari-styles/lodge', function () { return view('pages.styles.lodge'); })->name('styles.lodge');
+    Route::get('/safari-styles/camping', function () { return view('pages.styles.camping'); })->name('styles.camping');
+    Route::get('/safari-styles/luxury', function () { return view('pages.styles.luxury'); })->name('styles.luxury');
+    Route::get('/safari-styles/private', function () { return view('pages.styles.private'); })->name('styles.private');
+    Route::get('/safari-styles/budget', function () { return view('pages.styles.budget'); })->name('styles.budget');
+
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+});
+
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
 
 Route::get('/kilimanjaro', [App\Http\Controllers\KilimanjaroController::class, 'index'])->name('kilimanjaro');
