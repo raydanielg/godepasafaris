@@ -215,6 +215,7 @@
     @include('partials.styles')
     @include('partials.testimonials')
     @include('partials.blog')
+    @include('partials.prefooter_cta')
     @include('partials.footer')
     @include('partials.whatsapp')
     @include('partials.general_inquiry_modal')

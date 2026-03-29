@@ -40,7 +40,7 @@
                     <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Ngorongoro</a></li>
                     <li><a href="{{ route('kilimanjaro') }}"><i class="fas fa-chevron-right me-2"></i>Kilimanjaro</a></li>
                     <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Tarangire</a></li>
-                    <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Lake Manyara</a></li>
+                    <li><a href="{{ route('destinations') }}"><i class="fas fa-chevron-right me-2"></i>Zanzibar</a></li>
                 </ul>
             </div>
 

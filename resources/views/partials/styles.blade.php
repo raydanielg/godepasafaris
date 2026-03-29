@@ -3,48 +3,12 @@
         <div class="mb-5">
             <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Safari Styles</h2>
             <div class="mx-auto mt-2 mb-3" style="width: 80px; height: 4px; background: #8B4513;"></div>
-            <p class="text-muted">Choose the adventure that fits your travel spirit and comfort level.</p>
+            <p class="text-muted">Explore Africa your way with our diverse range of safari styles.</p>
         </div>
 
         <div class="row g-4 justify-content-center">
-            <!-- Lodge Safari -->
-            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp">
-                <a href="{{ route('styles.lodge') }}" class="style-card-link text-decoration-none">
-                    <div class="style-card text-center p-4 h-100">
-                        <div class="style-icon-box mb-3 mx-auto">
-                            <i class="fas fa-hotel"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0">Lodge Safari</h5>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Camping Safari -->
-            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-1s">
-                <a href="{{ route('styles.camping') }}" class="style-card-link text-decoration-none">
-                    <div class="style-card text-center p-4 h-100">
-                        <div class="style-icon-box mb-3 mx-auto">
-                            <i class="fas fa-campground"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0">Camping Safari</h5>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Luxury Safari -->
-            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-2s">
-                <a href="{{ route('styles.luxury') }}" class="style-card-link text-decoration-none">
-                    <div class="style-card text-center p-4 h-100">
-                        <div class="style-icon-box mb-3 mx-auto">
-                            <i class="fas fa-gem"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0">Luxury Safari</h5>
-                    </div>
-                </a>
-            </div>
-
             <!-- Private Safari -->
-            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-3s">
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp">
                 <a href="{{ route('styles.private') }}" class="style-card-link text-decoration-none">
                     <div class="style-card text-center p-4 h-100">
                         <div class="style-icon-box mb-3 mx-auto">
@@ -56,13 +20,61 @@
             </div>
 
             <!-- Budget Safari -->
-            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-4s">
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-1s">
                 <a href="{{ route('styles.budget') }}" class="style-card-link text-decoration-none">
                     <div class="style-card text-center p-4 h-100">
                         <div class="style-icon-box mb-3 mx-auto">
                             <i class="fas fa-wallet"></i>
                         </div>
                         <h5 class="fw-bold mb-0">Budget Safari</h5>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Photographic Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="{{ route('styles.photographic') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-camera-retro"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Photographic Safari</h5>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Cultural Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-3s">
+                <a href="{{ route('styles.cultural') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Cultural Safari</h5>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Walking Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-4s">
+                <a href="{{ route('styles.walking') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Walking Safari</h5>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Luxury Safari -->
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-5s">
+                <a href="{{ route('styles.luxury') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Luxury Safari</h5>
                     </div>
                 </a>
             </div>

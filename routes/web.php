@@ -27,11 +27,12 @@ Route::get('/how-it-works', function () { return view('pages.how-it-works'); })-
 Route::get('/testimonials', [App\Http\Controllers\WelcomeController::class, 'testimonials'])->name('testimonials');
 
     // Safari Styles
-    Route::get('/safari-styles/lodge', function () { return view('pages.styles.lodge'); })->name('styles.lodge');
-    Route::get('/safari-styles/camping', function () { return view('pages.styles.camping'); })->name('styles.camping');
-    Route::get('/safari-styles/luxury', function () { return view('pages.styles.luxury'); })->name('styles.luxury');
     Route::get('/safari-styles/private', function () { return view('pages.styles.private'); })->name('styles.private');
     Route::get('/safari-styles/budget', function () { return view('pages.styles.budget'); })->name('styles.budget');
+    Route::get('/safari-styles/photographic', function () { return view('pages.styles.photographic'); })->name('styles.photographic');
+    Route::get('/safari-styles/cultural', function () { return view('pages.styles.cultural'); })->name('styles.cultural');
+    Route::get('/safari-styles/walking', function () { return view('pages.styles.walking'); })->name('styles.walking');
+    Route::get('/safari-styles/luxury', function () { return view('pages.styles.luxury'); })->name('styles.luxury');
 
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
