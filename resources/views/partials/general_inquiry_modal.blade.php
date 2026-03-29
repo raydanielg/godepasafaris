@@ -1,17 +1,17 @@
 <div class="modal fade" id="generalInquiryModal" tabindex="-1" aria-labelledby="generalInquiryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 rounded-4 shadow">
-            <div class="modal-header border-0 bg-earth p-4 rounded-top-4 d-flex justify-content-between align-items-center" style="background-color: #8b4513 !important;">
+            <div class="modal-header border-0 p-4 rounded-top-4 d-flex justify-content-between align-items-center" style="background-color: #8b4513 !important; color: #ffffff !important;">
                 <div class="d-flex align-items-center gap-3">
                     <div class="bg-white rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; flex-shrink: 0;">
-                        <i class="fas fa-paper-plane text-earth" style="color: #8b4513 !important;"></i>
+                        <i class="fas fa-paper-plane" style="color: #8b4513 !important;"></i>
                     </div>
-                    <div class="text-white">
-                        <h5 class="modal-title fw-bold mb-0 text-white" id="generalInquiryModalLabel" style="color: #ffffff !important;">Plan Your Dream Adventure</h5>
-                        <p class="text-white small mb-0 opacity-75" style="color: rgba(255,255,255,0.75) !important;">Tell us what you're looking for, and we'll craft it for you.</p>
+                    <div style="color: #ffffff !important;">
+                        <h5 class="modal-title fw-bold mb-0" id="generalInquiryModalLabel" style="color: #ffffff !important; font-family: 'Playfair Display', serif;">Plan Your Dream Adventure</h5>
+                        <p class="small mb-0" style="color: rgba(255,255,255,0.8) !important;">Tell us what you're looking for, and we'll craft it for you.</p>
                     </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="filter: brightness(0) invert(1);"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="filter: brightness(0) invert(1); opacity: 0.8;"></button>
             </div>
             <div class="modal-body p-4 p-md-5">
                 <form id="generalInquiryForm" action="{{ route('booking.store') }}" method="POST">
