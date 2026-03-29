@@ -429,9 +429,15 @@ class DashboardController extends Controller
 
     public function deleteUser(User $user)
     {
+        // Protect the first user (Super Admin) from being deleted
+        if ($user->id === 1) {
+            return back()->with('error', 'The Super Admin account (User #1) is protected and cannot be deleted.');
+        }
+
         if ($user->id === auth()->id()) {
             return back()->with('error', 'You cannot delete yourself.');
         }
+        
         $user->delete();
         return back()->with('success', 'User deleted successfully.');
     }
