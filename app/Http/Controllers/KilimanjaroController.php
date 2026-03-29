@@ -23,6 +23,23 @@ class KilimanjaroController extends Controller
         return view('kilimanjaro.show', compact('package', 'relatedPackages'));
     }
 
+    public function routeShow($slug)
+    {
+        $route = [
+            'slug' => $slug,
+            'name' => ucfirst($slug) . ' Route',
+            'title' => 'Climb Kilimanjaro via ' . ucfirst($slug) . ' Route',
+            'price' => 2252,
+            'days' => 7,
+            'success_rate' => '93.1%',
+            'overview' => 'The ' . ucfirst($slug) . ' route, also known as the Whiskey Route, is a classic Kilimanjaro trail. It’s one of the most popular routes to climb Kilimanjaro. We organize hundreds of expeditions annually along this trail that starts in a beautiful tropical forest. The Machame route is available in 6- and 7-day variations, with the second offering a significantly better acclimatization profile and summit success rate.',
+        ];
+        
+        // In a real app, this would come from a database. 
+        // For now, we'll use a static array or a dedicated view for Machame as a template.
+        return view('kilimanjaro.routes.' . $slug, compact('route'));
+    }
+
     public function enquire(Request $request, $id)
     {
         $request->validate([
