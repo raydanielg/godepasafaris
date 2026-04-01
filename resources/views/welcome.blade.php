@@ -368,7 +368,7 @@
                             <span class="fw-bold">Empowering Women</span>
                         </div>
                     </div>
-                    <a href="{{ route('impact') }}" class="btn btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation d-inline-block border-0" style="background-color: #8B4513 !important;">
+                    <a href="{{ Route::has('impact') ? route('impact') : url('/impact') }}" class="btn btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation d-inline-block border-0" style="background-color: #8B4513 !important;">
                         SEE OUR IMPACT <i class="fas fa-arrow-right ms-2"></i>
                     </a>
                 </div>
