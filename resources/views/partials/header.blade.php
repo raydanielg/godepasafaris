@@ -5,7 +5,9 @@
             <div class="header-contact-info d-flex gap-4 align-items-center">
                 <div class="contact-item d-flex align-items-center gap-2">
                     <i class="fas fa-phone-alt" style="font-size: 0.85rem; color: #DEB887;"></i>
-                    <a href="tel:+255794636471" class="text-decoration-none text-white fw-bold" style="font-size: 0.85rem;">+255 794 636 471</a>
+                    <a href="https://wa.me/966542586758" class="text-white text-decoration-none">
+                        <i class="fab fa-whatsapp me-2"></i> +966 54 258 6758
+                    </a>
                 </div>
                 <div class="contact-item d-none d-md-flex align-items-center gap-2">
                     <i class="fas fa-envelope" style="font-size: 0.85rem; color: #DEB887;"></i>
@@ -61,6 +63,9 @@
                         <a class="nav-link {{ Route::is('blog*') ? 'active' : '' }} px-4" href="{{ route('blog') }}" style="color: #3E2723 !important;">BLOG</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ Route::is('impact') ? 'active' : '' }} px-3" href="{{ route('impact') }}" style="color: #3E2723 !important;">GIVING BACK</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ Route::is('about') ? 'active' : '' }} px-4" href="{{ route('about') }}" style="color: #3E2723 !important;">ABOUT US</a>
                     </li>
                     <li class="nav-item">
@@ -80,6 +85,9 @@
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
+                                        <a href="tel:+966542586758" class="text-white text-decoration-none me-3">
+                                            <i class="fas fa-phone-alt me-2"></i> +966 54 258 6758
+                                        </a>
                                         <button type="submit" class="dropdown-item text-danger">
                                             <i class="fas fa-sign-out-alt me-2"></i>Logout
                                         </button>

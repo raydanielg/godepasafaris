@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
+Route::get('/impact', function () {
+    return view('pages.impact');
+})->name('impact');
+
 Route::get('/about', function () {
     return view('about');
 })->name('about');

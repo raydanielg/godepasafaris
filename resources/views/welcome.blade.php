@@ -17,6 +17,35 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
+        /* Global Mobile Optimizations */
+        @media (max-width: 768px) {
+            .main-header {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                z-index: 1000;
+            }
+            .top-header {
+                display: none !important; /* Hide black top bar on mobile */
+            }
+            .bottom-header {
+                margin: 10px !important;
+                background-color: rgba(255, 255, 255, 0.9) !important;
+                backdrop-filter: blur(10px);
+            }
+            .section-title {
+                font-size: 1.8rem !important;
+                margin: 40px 0 25px !important;
+            }
+            .container {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+            p.lead {
+                font-size: 1rem !important;
+            }
+        }
+
         /* Flatpickr Custom Styling */
         .flatpickr-calendar {
             border-radius: 15px !important;
@@ -57,9 +86,10 @@
 
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -67,22 +97,36 @@
             text-align: center;
             color: white;
             padding: 20px 15px;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to top, var(--beige-bg), transparent);
+            pointer-events: none;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             max-width: 800px;
             margin-bottom: 30px;
             font-weight: 600;
-            color: var(--light-earth);
+            color: #fff;
+            text-shadow: 1px 2px 5px rgba(0,0,0,0.5);
         }
 
         .nav-top {
@@ -263,18 +307,40 @@
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-            .nav-top { padding: 15px; }
-            .logo-img { height: 40px; }
-            .services-grid { padding: 0 15px 40px; }
-            footer { padding: 30px 15px; }
+            .hero {
+                height: 80vh;
+                background-attachment: scroll;
+                padding-top: 60px;
+            }
+            .hero h1 {
+                font-size: 2rem !important;
+                letter-spacing: 1px;
+            }
+            .hero p {
+                font-size: 1rem !important;
+                margin-bottom: 20px;
+            }
+            .nav-top {
+                padding: 15px 20px;
+            }
+            .logo-img {
+                height: 45px;
+            }
         }
 
         @media (max-width: 576px) {
             .hero { padding: 15px 10px; }
-            .services-grid { padding: 0 10px 30px; }
-            .section-title { margin: 40px 0 30px; font-size: 2rem; }
+            .services-grid { 
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 15px 30px; 
+            }
+            .section-title { margin: 35px 0 25px; font-size: 1.75rem !important; }
+            .cta-btn {
+                width: 100%;
+                text-align: center;
+                padding: 12px 25px;
+            }
         }
     </style>
 </head>
@@ -283,6 +349,45 @@
     @include('partials.hero')
     @include('partials.discover')
     @include('partials.packages')
+    
+    <!-- Giving Back / Impact Section -->
+    <section class="giving-back-section py-5 position-relative overflow-hidden" style="background: linear-gradient(rgba(62, 39, 35, 0.95), rgba(62, 39, 35, 0.95)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 text-white animate__animated animate__fadeInLeft">
+                    <h6 class="text-uppercase fw-bold mb-3" style="color: #DEB887; letter-spacing: 3px;">Safari with a Purpose</h6>
+                    <h2 class="display-4 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Your Journey Changes Lives</h2>
+                    <p class="lead mb-4 opacity-75">At Go Deep Africa Safari, a portion of every booking goes directly to supporting orphans, vulnerable children, and marginalized women in Tanzania. When you travel with us, you are giving back to the heart of Africa.</p>
+                    <div class="d-flex flex-wrap gap-4 mb-5">
+                        <div class="impact-mini-card">
+                            <i class="fas fa-heart mb-2 d-block" style="color: #DEB887; font-size: 1.5rem;"></i>
+                            <span class="fw-bold">Supporting Orphans</span>
+                        </div>
+                        <div class="impact-mini-card">
+                            <i class="fas fa-female mb-2 d-block" style="color: #DEB887; font-size: 1.5rem;"></i>
+                            <span class="fw-bold">Empowering Women</span>
+                        </div>
+                    </div>
+                    <a href="{{ route('impact') }}" class="btn btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg pulse-animation d-inline-block border-0" style="background-color: #8B4513 !important;">
+                        SEE OUR IMPACT <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+                <div class="col-lg-6 animate__animated animate__fadeInRight">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg mb-3" alt="Impact 1">
+                            <img src="https://images.unsplash.com/photo-1509059852496-f3822ae057bf?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg" alt="Impact 2">
+                        </div>
+                        <div class="col-6 pt-lg-5">
+                            <img src="https://images.unsplash.com/photo-1526622055182-4c07e3c9c47a?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg mb-3" alt="Impact 3">
+                            <img src="https://images.unsplash.com/photo-1489914169085-9b54fdd8f2a2?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg" alt="Impact 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     @include('partials.styles')
     @include('partials.testimonials')
     @include('partials.blog')

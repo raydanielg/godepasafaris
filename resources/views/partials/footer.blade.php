@@ -61,7 +61,7 @@
                 <div class="footer-contact-info mb-4">
                     <p class="small mb-2"><i class="fas fa-map-marker-alt text-primary me-2"></i> Arusha, Tanzania</p>
                     <p class="small mb-2"><i class="fas fa-envelope text-primary me-2"></i> info@godeepafricasafari.com</p>
-                    <p class="small mb-0"><i class="fas fa-phone-alt text-primary me-2"></i> +255 794 636 471</p>
+                    <p class="small mb-0"><i class="fas fa-phone-alt text-primary me-2"></i> +966 54 258 6758</p>
                 </div>
 
                 <div class="stay-updated mt-4">
