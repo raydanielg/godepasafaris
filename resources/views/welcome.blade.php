@@ -452,7 +452,8 @@
     <!-- Auto Cache Clear Script -->
     <script>
         setInterval(function() {
-            fetch('{{ route('cache.clear.ajax') }}', {
+            const cacheClearUrl = @json(Route::has('cache.clear.ajax') ? route('cache.clear.ajax') : url('/clear-cache'));
+            fetch(cacheClearUrl, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
