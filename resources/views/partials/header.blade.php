@@ -63,7 +63,7 @@
                         <a class="nav-link {{ Route::is('blog*') ? 'active' : '' }} px-4" href="{{ route('blog') }}" style="color: #3E2723 !important;">BLOG</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('impact') ? 'active' : '' }} px-3" href="{{ route('impact') }}" style="color: #3E2723 !important;">GIVING BACK</a>
+                        <a class="nav-link {{ (Route::has('impact') && Route::is('impact')) ? 'active' : '' }} px-3" href="{{ Route::has('impact') ? route('impact') : url('/impact') }}" style="color: #3E2723 !important;">GIVING BACK</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('about') ? 'active' : '' }} px-4" href="{{ route('about') }}" style="color: #3E2723 !important;">ABOUT US</a>

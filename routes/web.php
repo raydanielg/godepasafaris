@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
+Route::post('/clear-cache', function () {
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    return response()->json(['status' => 'success', 'message' => 'Cache cleared']);
+})->name('cache.clear.ajax');
+
 Route::get('/impact', function () {
     return view('pages.impact');
 })->name('impact');

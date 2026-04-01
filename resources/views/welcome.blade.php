@@ -375,12 +375,12 @@
                 <div class="col-lg-6 animate__animated animate__fadeInRight">
                     <div class="row g-3">
                         <div class="col-6">
-                            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg mb-3" alt="Impact 1">
-                            <img src="https://images.unsplash.com/photo-1509059852496-f3822ae057bf?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg" alt="Impact 2">
+                            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg mb-3" alt="Supporting orphans and children in Tanzania - Go Deep Africa Safari">
+                            <img src="https://images.unsplash.com/photo-1509059852496-f3822ae057bf?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg" alt="Community impact and wildlife conservation in Tanzania">
                         </div>
                         <div class="col-6 pt-lg-5">
-                            <img src="https://images.unsplash.com/photo-1526622055182-4c07e3c9c47a?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg mb-3" alt="Impact 3">
-                            <img src="https://images.unsplash.com/photo-1489914169085-9b54fdd8f2a2?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg" alt="Impact 4">
+                            <img src="https://images.unsplash.com/photo-1526622055182-4c07e3c9c47a?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg mb-3" alt="Empowering local women through sustainable tourism">
+                            <img src="https://images.unsplash.com/photo-1489914169085-9b54fdd8f2a2?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded-4 shadow-lg" alt="Educational support for marginalized youth in Tanzania">
                         </div>
                     </div>
                 </div>
@@ -448,6 +448,22 @@
                 animate: true
             });
         });
+    </script>
+    <!-- Auto Cache Clear Script -->
+    <script>
+        setInterval(function() {
+            fetch('{{ route('cache.clear.ajax') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .catch(error => {
+                // Background error handling without console noise
+            });
+        }, 60000); // 60 seconds
     </script>
 </body>
 </html>
