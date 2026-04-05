@@ -145,7 +145,7 @@
                     <div id="faq" class="mb-5 pt-4 border-top">
                         <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-question-circle text-primary me-2"></i> Frequently Asked Questions</h3>
                         <div class="accordion accordion-flush" id="destFaq">
-                            @foreach($destination->faqs as $index => $faq)
+                            @foreach($destination->faqs ?? [] as $index => $faq)
                             <div class="accordion-item border rounded-3 mb-3 overflow-hidden">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button fw-bold {{ $index == 0 ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ $index }}">
