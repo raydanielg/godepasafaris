@@ -111,6 +111,55 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/settings', [App\Http\Controllers\Admin\DashboardController::class, 'settings'])->name('admin.settings');
     Route::post('/admin/settings', [App\Http\Controllers\Admin\DashboardController::class, 'updateSettings'])->name('admin.settings.update');
     Route::post('/admin/settings/clear-cache', [App\Http\Controllers\Admin\DashboardController::class, 'clearCache'])->name('admin.settings.clear-cache');
+
+    // Impact / Giving Back Management
+    Route::get('/admin/impact', [App\Http\Controllers\Admin\ImpactController::class, 'index'])->name('admin.impact.index');
+
+    // Stats
+    Route::get('/admin/impact/stats', [App\Http\Controllers\Admin\ImpactController::class, 'stats'])->name('admin.impact.stats');
+    Route::get('/admin/impact/stats/create', [App\Http\Controllers\Admin\ImpactController::class, 'createStat'])->name('admin.impact.stats.create');
+    Route::post('/admin/impact/stats', [App\Http\Controllers\Admin\ImpactController::class, 'storeStat'])->name('admin.impact.stats.store');
+    Route::get('/admin/impact/stats/{stat}/edit', [App\Http\Controllers\Admin\ImpactController::class, 'editStat'])->name('admin.impact.stats.edit');
+    Route::put('/admin/impact/stats/{stat}', [App\Http\Controllers\Admin\ImpactController::class, 'updateStat'])->name('admin.impact.stats.update');
+    Route::delete('/admin/impact/stats/{stat}', [App\Http\Controllers\Admin\ImpactController::class, 'deleteStat'])->name('admin.impact.stats.delete');
+    Route::patch('/admin/impact/stats/{stat}/toggle', [App\Http\Controllers\Admin\ImpactController::class, 'toggleStatStatus'])->name('admin.impact.stats.toggle');
+
+    // Stories
+    Route::get('/admin/impact/stories', [App\Http\Controllers\Admin\ImpactController::class, 'stories'])->name('admin.impact.stories');
+    Route::get('/admin/impact/stories/create', [App\Http\Controllers\Admin\ImpactController::class, 'createStory'])->name('admin.impact.stories.create');
+    Route::post('/admin/impact/stories', [App\Http\Controllers\Admin\ImpactController::class, 'storeStory'])->name('admin.impact.stories.store');
+    Route::get('/admin/impact/stories/{story}/edit', [App\Http\Controllers\Admin\ImpactController::class, 'editStory'])->name('admin.impact.stories.edit');
+    Route::put('/admin/impact/stories/{story}', [App\Http\Controllers\Admin\ImpactController::class, 'updateStory'])->name('admin.impact.stories.update');
+    Route::delete('/admin/impact/stories/{story}', [App\Http\Controllers\Admin\ImpactController::class, 'deleteStory'])->name('admin.impact.stories.delete');
+    Route::patch('/admin/impact/stories/{story}/toggle', [App\Http\Controllers\Admin\ImpactController::class, 'toggleStoryStatus'])->name('admin.impact.stories.toggle');
+    Route::patch('/admin/impact/stories/{story}/featured', [App\Http\Controllers\Admin\ImpactController::class, 'toggleStoryFeatured'])->name('admin.impact.stories.featured');
+
+    // Gallery
+    Route::get('/admin/impact/gallery', [App\Http\Controllers\Admin\ImpactController::class, 'gallery'])->name('admin.impact.gallery');
+    Route::get('/admin/impact/gallery/create', [App\Http\Controllers\Admin\ImpactController::class, 'createGallery'])->name('admin.impact.gallery.create');
+    Route::post('/admin/impact/gallery', [App\Http\Controllers\Admin\ImpactController::class, 'storeGallery'])->name('admin.impact.gallery.store');
+    Route::get('/admin/impact/gallery/{gallery}/edit', [App\Http\Controllers\Admin\ImpactController::class, 'editGallery'])->name('admin.impact.gallery.edit');
+    Route::put('/admin/impact/gallery/{gallery}', [App\Http\Controllers\Admin\ImpactController::class, 'updateGallery'])->name('admin.impact.gallery.update');
+    Route::delete('/admin/impact/gallery/{gallery}', [App\Http\Controllers\Admin\ImpactController::class, 'deleteGallery'])->name('admin.impact.gallery.delete');
+    Route::patch('/admin/impact/gallery/{gallery}/toggle', [App\Http\Controllers\Admin\ImpactController::class, 'toggleGalleryStatus'])->name('admin.impact.gallery.toggle');
+
+    // Timeline
+    Route::get('/admin/impact/timeline', [App\Http\Controllers\Admin\ImpactController::class, 'timeline'])->name('admin.impact.timeline');
+    Route::get('/admin/impact/timeline/create', [App\Http\Controllers\Admin\ImpactController::class, 'createTimeline'])->name('admin.impact.timeline.create');
+    Route::post('/admin/impact/timeline', [App\Http\Controllers\Admin\ImpactController::class, 'storeTimeline'])->name('admin.impact.timeline.store');
+    Route::get('/admin/impact/timeline/{timeline}/edit', [App\Http\Controllers\Admin\ImpactController::class, 'editTimeline'])->name('admin.impact.timeline.edit');
+    Route::put('/admin/impact/timeline/{timeline}', [App\Http\Controllers\Admin\ImpactController::class, 'updateTimeline'])->name('admin.impact.timeline.update');
+    Route::delete('/admin/impact/timeline/{timeline}', [App\Http\Controllers\Admin\ImpactController::class, 'deleteTimeline'])->name('admin.impact.timeline.delete');
+    Route::patch('/admin/impact/timeline/{timeline}/toggle', [App\Http\Controllers\Admin\ImpactController::class, 'toggleTimelineStatus'])->name('admin.impact.timeline.toggle');
+
+    // Partners
+    Route::get('/admin/impact/partners', [App\Http\Controllers\Admin\ImpactController::class, 'partners'])->name('admin.impact.partners');
+    Route::get('/admin/impact/partners/create', [App\Http\Controllers\Admin\ImpactController::class, 'createPartner'])->name('admin.impact.partners.create');
+    Route::post('/admin/impact/partners', [App\Http\Controllers\Admin\ImpactController::class, 'storePartner'])->name('admin.impact.partners.store');
+    Route::get('/admin/impact/partners/{partner}/edit', [App\Http\Controllers\Admin\ImpactController::class, 'editPartner'])->name('admin.impact.partners.edit');
+    Route::put('/admin/impact/partners/{partner}', [App\Http\Controllers\Admin\ImpactController::class, 'updatePartner'])->name('admin.impact.partners.update');
+    Route::delete('/admin/impact/partners/{partner}', [App\Http\Controllers\Admin\ImpactController::class, 'deletePartner'])->name('admin.impact.partners.delete');
+    Route::patch('/admin/impact/partners/{partner}/toggle', [App\Http\Controllers\Admin\ImpactController::class, 'togglePartnerStatus'])->name('admin.impact.partners.toggle');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
