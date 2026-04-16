@@ -374,17 +374,19 @@
                 </div>
 
                 <style>
-                    /* Base Nav Styles */
+                    /* Base Nav Styles - Compact */
                     .navbar-nav .nav-link {
                         color: #3E2723 !important;
                         font-weight: 600;
                         transition: all 0.3s ease;
                         position: relative;
-                        padding: 10px 20px !important;
-                        margin: 0 5px;
+                        padding: 8px 14px !important;
+                        margin: 0 3px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        font-size: 0.85rem;
+                        white-space: nowrap;
                     }
 
                     .navbar-nav .nav-link:hover {
@@ -397,7 +399,7 @@
                         border-radius: 4px;
                     }
 
-                    /* Mega Menu Styles */
+                    /* Mega Menu Styles - Compact */
                     .has-mega-menu {
                         position: static !important;
                     }
@@ -408,7 +410,8 @@
 
                     .has-mega-menu > .nav-link i.fa-chevron-down {
                         transition: transform 0.3s ease;
-                        font-size: 0.7rem;
+                        font-size: 0.6rem;
+                        margin-left: 4px !important;
                     }
 
                     .has-mega-menu:hover > .nav-link i.fa-chevron-down {
@@ -418,31 +421,29 @@
                     .mega-menu-wrapper {
                         position: absolute;
                         top: 100%;
-                        left: 0;
-                        right: 0;
-                        width: 100%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(10px);
+                        width: 900px;
+                        max-width: 95vw;
                         opacity: 0;
                         visibility: hidden;
-                        transform: translateY(10px);
                         transition: all 0.3s ease;
                         z-index: 1000;
-                        padding-top: 10px;
+                        padding-top: 8px;
                     }
 
                     .has-mega-menu:hover .mega-menu-wrapper {
                         opacity: 1;
                         visibility: visible;
-                        transform: translateY(0);
+                        transform: translateX(-50%) translateY(0);
                     }
 
                     .mega-menu-container {
-                        max-width: 1140px;
-                        margin: 0 auto;
                         background: #fff;
-                        border-radius: 16px;
-                        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+                        border-radius: 12px;
+                        box-shadow: 0 15px 50px rgba(0,0,0,0.12);
                         overflow: hidden;
-                        border: 1px solid rgba(139, 69, 19, 0.1);
+                        border: 1px solid rgba(139, 69, 19, 0.08);
                     }
 
                     .mega-menu-content {
@@ -451,55 +452,107 @@
 
                     .mega-menu-links {
                         background: #fff;
+                        padding: 12px !important;
+                    }
+
+                    .mega-menu-links h6 {
+                        font-size: 0.7rem !important;
+                        margin-bottom: 10px !important;
                     }
 
                     .mega-links-list {
                         display: flex;
                         flex-direction: column;
-                        gap: 4px;
+                        gap: 3px;
                     }
 
                     .mega-link-item {
                         transition: all 0.2s ease;
                         border: 1px solid transparent;
+                        padding: 6px 8px !important;
                     }
 
                     .mega-link-item:hover {
                         background: rgba(139, 69, 19, 0.05);
                         border-color: rgba(139, 69, 19, 0.1);
-                        transform: translateX(5px);
-                    }
-
-                    .mega-link-item:hover .mega-link-icon {
-                        background: rgba(139, 69, 19, 0.2) !important;
+                        transform: translateX(3px);
                     }
 
                     .mega-link-icon {
-                        transition: all 0.2s ease;
+                        width: 32px !important;
+                        height: 32px !important;
+                        margin-right: 10px !important;
+                        font-size: 0.85rem;
+                    }
+
+                    .mega-link-item span.fw-medium {
+                        font-size: 0.8rem;
+                    }
+
+                    .mega-link-item small {
+                        font-size: 0.7rem !important;
+                    }
+
+                    .mega-link-item .badge {
+                        font-size: 0.6rem !important;
+                        padding: 2px 6px !important;
+                    }
+
+                    .mega-link-item i.fa-chevron-right {
+                        font-size: 0.6rem !important;
                     }
 
                     .mega-menu-featured {
                         background: linear-gradient(135deg, rgba(62,39,35,0.03) 0%, rgba(139,69,19,0.03) 100%);
+                        padding: 16px !important;
+                    }
+
+                    .mega-menu-featured h4 {
+                        font-size: 1.1rem !important;
+                        margin-bottom: 8px !important;
+                    }
+
+                    .mega-menu-featured p {
+                        font-size: 0.8rem !important;
+                        line-height: 1.5 !important;
+                        margin-bottom: 12px !important;
+                    }
+
+                    .mega-menu-featured .badge {
+                        font-size: 0.65rem !important;
+                        padding: 4px 8px !important;
+                        margin-bottom: 8px !important;
+                    }
+
+                    .mega-menu-featured .btn {
+                        padding: 8px 16px !important;
+                        font-size: 0.75rem !important;
                     }
 
                     .mega-menu-image {
                         transition: transform 0.3s ease;
+                        border-radius: 10px !important;
+                    }
+
+                    .mega-menu-image img {
+                        height: 160px !important;
                     }
 
                     .mega-menu-image:hover {
                         transform: scale(1.02);
                     }
 
-                    /* Inquiry Button */
+                    /* Inquiry Button - Compact */
                     .btn-inquiry {
                         background: #8b4513;
                         border: 2px solid #8b4513;
                         letter-spacing: 1px;
-                        padding: 12px 30px !important;
+                        padding: 10px 20px !important;
                         transition: all 0.3s ease;
                         box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
                         text-transform: uppercase;
-                        font-size: 0.85rem;
+                        font-size: 0.8rem;
+                        white-space: nowrap;
                     }
 
                     .btn-inquiry:hover {
@@ -509,24 +562,81 @@
                         box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
                     }
 
+                    /* Tablet Responsive */
+                    @media (max-width: 1199px) {
+                        .mega-menu-wrapper {
+                            width: 800px;
+                        }
+                        
+                        .navbar-nav .nav-link {
+                            padding: 8px 10px !important;
+                            font-size: 0.8rem;
+                        }
+                    }
+
                     /* Mobile Responsive */
                     @media (max-width: 991px) {
                         .mega-menu-wrapper {
                             position: static;
+                            width: 100%;
+                            max-width: 100%;
+                            transform: none;
                             opacity: 1;
                             visibility: visible;
-                            transform: none;
-                            padding-top: 0;
                             display: none;
+                            padding-top: 0;
                         }
                         
-                        .has-mega-menu:hover .mega-menu-wrapper {
+                        .has-mega-menu:hover .mega-menu-wrapper,
+                        .has-mega-menu.active .mega-menu-wrapper {
                             display: block;
                         }
                         
                         .mega-menu-container {
                             border-radius: 8px;
-                            margin: 10px;
+                            margin: 5px 10px;
+                        }
+
+                        .mega-menu-featured .row {
+                            flex-direction: column-reverse;
+                        }
+
+                        .mega-menu-image img {
+                            height: 120px !important;
+                        }
+
+                        .mega-menu-links {
+                            padding: 10px !important;
+                        }
+
+                        .mega-menu-featured {
+                            padding: 12px !important;
+                        }
+
+                        .navbar-nav .nav-link {
+                            padding: 10px 15px !important;
+                            font-size: 0.9rem;
+                        }
+                    }
+
+                    /* Small Mobile */
+                    @media (max-width: 576px) {
+                        .mega-link-item {
+                            padding: 5px !important;
+                        }
+
+                        .mega-link-icon {
+                            width: 28px !important;
+                            height: 28px !important;
+                            font-size: 0.75rem;
+                        }
+
+                        .mega-menu-featured h4 {
+                            font-size: 1rem !important;
+                        }
+
+                        .mega-menu-featured p {
+                            font-size: 0.75rem !important;
                         }
                     }
                 </style>
