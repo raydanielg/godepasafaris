@@ -310,58 +310,28 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <div class="timeline position-relative">
-                        <!-- Timeline Item 1 -->
-                        <div class="timeline-item d-flex mb-5" data-aos="fade-right">
+                        @forelse($timeline as $event)
+                        <div class="timeline-item d-flex {{ !$loop->last ? 'mb-5' : '' }}" data-aos="{{ $loop->iteration % 2 == 0 ? 'fade-left' : 'fade-right' }}">
                             <div class="timeline-year text-end pe-4" style="min-width: 100px;">
-                                <span class="fw-bold" style="color: #8B4513; font-size: 1.5rem;">2018</span>
+                                <span class="fw-bold" style="color: #8B4513; font-size: 1.5rem;">{{ $event->year }}</span>
                             </div>
                             <div class="timeline-dot position-relative">
-                                <div class="rounded-circle" style="width: 20px; height: 20px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); border: 4px solid #fff; box-shadow: 0 0 0 4px #8B4513;"></div>
+                                <div class="rounded-circle" style="width: 20px; height: 20px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); border: 4px solid #fff; box-shadow: 0 0 0 4px #8B4513;">
+                                    @if($event->icon)
+                                    <i class="fas {{ $event->icon }}" style="font-size: 8px; color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="timeline-content ps-4 pb-4" style="border-left: 2px solid #e0e0e0;">
-                                <h5 class="fw-bold mb-2" style="color: #3E2723;">Foundation Established</h5>
-                                <p class="text-muted mb-0">Started with a vision to give back to our community. First partnership with 3 orphanages in Arusha.</p>
-                            </div>
-                        </div>
-                        <!-- Timeline Item 2 -->
-                        <div class="timeline-item d-flex mb-5" data-aos="fade-left">
-                            <div class="timeline-year text-end pe-4" style="min-width: 100px;">
-                                <span class="fw-bold" style="color: #8B4513; font-size: 1.5rem;">2020</span>
-                            </div>
-                            <div class="timeline-dot position-relative">
-                                <div class="rounded-circle" style="width: 20px; height: 20px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); border: 4px solid #fff; box-shadow: 0 0 0 4px #8B4513;"></div>
-                            </div>
-                            <div class="timeline-content ps-4 pb-4" style="border-left: 2px solid #e0e0e0;">
-                                <h5 class="fw-bold mb-2" style="color: #3E2723;">Women's Empowerment Program</h5>
-                                <p class="text-muted mb-0">Launched micro-finance initiative supporting 100+ women entrepreneurs in rural Tanzania.</p>
+                            <div class="timeline-content ps-4 {{ !$loop->last ? 'pb-4' : '' }}" style="border-left: 2px solid #e0e0e0;">
+                                <h5 class="fw-bold mb-2" style="color: #3E2723;">{{ $event->title }}</h5>
+                                <p class="text-muted mb-0">{{ $event->description }}</p>
                             </div>
                         </div>
-                        <!-- Timeline Item 3 -->
-                        <div class="timeline-item d-flex mb-5" data-aos="fade-right">
-                            <div class="timeline-year text-end pe-4" style="min-width: 100px;">
-                                <span class="fw-bold" style="color: #8B4513; font-size: 1.5rem;">2022</span>
-                            </div>
-                            <div class="timeline-dot position-relative">
-                                <div class="rounded-circle" style="width: 20px; height: 20px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); border: 4px solid #fff; box-shadow: 0 0 0 4px #8B4513;"></div>
-                            </div>
-                            <div class="timeline-content ps-4 pb-4" style="border-left: 2px solid #e0e0e0;">
-                                <h5 class="fw-bold mb-2" style="color: #3E2723;">Street Children Rehabilitation</h5>
-                                <p class="text-muted mb-0">Partnered with 5 rehabilitation centers, providing education and vocational training to 200+ street children.</p>
-                            </div>
+                        @empty
+                        <div class="text-center py-4">
+                            <p class="text-muted">No timeline events available.</p>
                         </div>
-                        <!-- Timeline Item 4 -->
-                        <div class="timeline-item d-flex" data-aos="fade-left">
-                            <div class="timeline-year text-end pe-4" style="min-width: 100px;">
-                                <span class="fw-bold" style="color: #8B4513; font-size: 1.5rem;">2024</span>
-                            </div>
-                            <div class="timeline-dot position-relative">
-                                <div class="rounded-circle" style="width: 20px; height: 20px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); border: 4px solid #fff; box-shadow: 0 0 0 4px #8B4513;"></div>
-                            </div>
-                            <div class="timeline-content ps-4">
-                                <h5 class="fw-bold mb-2" style="color: #3E2723;">10,000 Lives Touched</h5>
-                                <p class="text-muted mb-0">Milestone achievement: Over 10,000 people helped through our various programs across Tanzania.</p>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -378,38 +348,23 @@
                 <p class="text-muted mx-auto" style="max-width: 700px;">Working together with local and international organizations to maximize our impact</p>
             </div>
             <div class="row g-4 justify-content-center">
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="0">
+                @forelse($partners as $partner)
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="partner-card bg-white rounded-4 p-4 text-center shadow-sm h-100 d-flex align-items-center justify-content-center">
                         <div>
-                            <i class="fas fa-hands-helping fa-3x mb-3" style="color: #8B4513;"></i>
-                            <h6 class="fw-bold mb-0">Arusha Orphanage Center</h6>
+                            <i class="fas {{ $partner->icon }} fa-3x mb-3" style="color: #8B4513;"></i>
+                            <h6 class="fw-bold mb-0">{{ $partner->name }}</h6>
+                            @if($partner->description)
+                            <small class="text-muted d-block mt-2">{{ Str::limit($partner->description, 60) }}</small>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="partner-card bg-white rounded-4 p-4 text-center shadow-sm h-100 d-flex align-items-center justify-content-center">
-                        <div>
-                            <i class="fas fa-female fa-3x mb-3" style="color: #8B4513;"></i>
-                            <h6 class="fw-bold mb-0">Tanzania Women's Alliance</h6>
-                        </div>
-                    </div>
+                @empty
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">No partners available.</p>
                 </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="partner-card bg-white rounded-4 p-4 text-center shadow-sm h-100 d-flex align-items-center justify-content-center">
-                        <div>
-                            <i class="fas fa-child fa-3x mb-3" style="color: #8B4513;"></i>
-                            <h6 class="fw-bold mb-0">Street Kids Rehabilitation</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="partner-card bg-white rounded-4 p-4 text-center shadow-sm h-100 d-flex align-items-center justify-content-center">
-                        <div>
-                            <i class="fas fa-graduation-cap fa-3x mb-3" style="color: #8B4513;"></i>
-                            <h6 class="fw-bold mb-0">Education for All Initiative</h6>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
