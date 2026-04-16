@@ -47,42 +47,21 @@
     <section id="impact-numbers" class="py-5 position-relative" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 50%, #3E2723 100%);">
         <div class="container py-4">
             <div class="row text-center g-4">
-                <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                @forelse($stats as $stat)
+                <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="counter-box p-4">
                         <div class="counter-icon mb-3" style="color: #DEB887; font-size: 2.5rem;">
-                            <i class="fas fa-hands-helping"></i>
+                            <i class="fas {{ $stat->icon }}"></i>
                         </div>
-                        <h2 class="display-4 fw-bold text-white counter" data-target="12500">0</h2>
-                        <p class="text-white-50 text-uppercase fw-bold mb-0" style="font-size: 0.85rem; letter-spacing: 1px;">People Helped</p>
+                        <h2 class="display-4 fw-bold text-white counter" data-target="{{ $stat->value }}">0</h2>
+                        <p class="text-white-50 text-uppercase fw-bold mb-0" style="font-size: 0.85rem; letter-spacing: 1px;">{{ $stat->label }}</p>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="counter-box p-4">
-                        <div class="counter-icon mb-3" style="color: #DEB887; font-size: 2.5rem;">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h2 class="display-4 fw-bold text-white counter" data-target="3200">0</h2>
-                        <p class="text-white-50 text-uppercase fw-bold mb-0" style="font-size: 0.85rem; letter-spacing: 1px;">Children Educated</p>
-                    </div>
+                @empty
+                <div class="col-12 text-center text-white-50 py-4">
+                    <p>No statistics available at this time.</p>
                 </div>
-                <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="counter-box p-4">
-                        <div class="counter-icon mb-3" style="color: #DEB887; font-size: 2.5rem;">
-                            <i class="fas fa-female"></i>
-                        </div>
-                        <h2 class="display-4 fw-bold text-white counter" data-target="850">0</h2>
-                        <p class="text-white-50 text-uppercase fw-bold mb-0" style="font-size: 0.85rem; letter-spacing: 1px;">Women Empowered</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="counter-box p-4">
-                        <div class="counter-icon mb-3" style="color: #DEB887; font-size: 2.5rem;">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h2 class="display-4 fw-bold text-white counter" data-target="45">0</h2>
-                        <p class="text-white-50 text-uppercase fw-bold mb-0" style="font-size: 0.85rem; letter-spacing: 1px;">Community Projects</p>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -257,61 +236,23 @@
                 <p class="text-muted mx-auto" style="max-width: 700px;">Glimpses of the lives we've touched and the communities we've helped transform</p>
             </div>
             <div class="row g-3">
-                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="0">
+                @forelse($gallery as $item)
+                <div class="col-md-{{ $item->column_width }}" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="gallery-item position-relative rounded-4 overflow-hidden" style="height: 280px;">
-                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-100 h-100" style="object-fit: cover;" alt="Community Support">
+                        <img src="{{ asset($item->image) }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $item->title }}">
                         <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end p-4" style="background: linear-gradient(to top, rgba(62,39,35,0.9) 0%, transparent 100%);">
                             <div class="text-white">
-                                <h6 class="fw-bold mb-1">Education Support</h6>
-                                <small class="opacity-75">Arusha, Tanzania</small>
+                                <h6 class="fw-bold mb-1">{{ $item->title }}</h6>
+                                <small class="opacity-75">{{ $item->subtitle ?? $item->location }}</small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="gallery-item position-relative rounded-4 overflow-hidden" style="height: 280px;">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-100 h-100" style="object-fit: cover;" alt="Children's Home">
-                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end p-4" style="background: linear-gradient(to top, rgba(62,39,35,0.9) 0%, transparent 100%);">
-                            <div class="text-white">
-                                <h6 class="fw-bold mb-1">Children's Home Visit</h6>
-                                <small class="opacity-75">Moshi, Tanzania</small>
-                            </div>
-                        </div>
-                    </div>
+                @empty
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">No gallery images available.</p>
                 </div>
-                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="gallery-item position-relative rounded-4 overflow-hidden" style="height: 280px;">
-                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-100 h-100" style="object-fit: cover;" alt="Women's Group">
-                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end p-4" style="background: linear-gradient(to top, rgba(62,39,35,0.9) 0%, transparent 100%);">
-                            <div class="text-white">
-                                <h6 class="fw-bold mb-1">Women's Cooperative</h6>
-                                <small class="opacity-75">Karatu, Tanzania</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="gallery-item position-relative rounded-4 overflow-hidden" style="height: 280px;">
-                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-100 h-100" style="object-fit: cover;" alt="School Donation">
-                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end p-4" style="background: linear-gradient(to top, rgba(62,39,35,0.9) 0%, transparent 100%);">
-                            <div class="text-white">
-                                <h6 class="fw-bold mb-1">School Supplies Distribution</h6>
-                                <small class="opacity-75">500+ students received books and supplies</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="gallery-item position-relative rounded-4 overflow-hidden" style="height: 280px;">
-                        <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-100 h-100" style="object-fit: cover;" alt="Community Event">
-                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end p-4" style="background: linear-gradient(to top, rgba(62,39,35,0.9) 0%, transparent 100%);">
-                            <div class="text-white">
-                                <h6 class="fw-bold mb-1">Annual Community Day</h6>
-                                <small class="opacity-75">Bringing joy to over 1,000 children</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -325,60 +266,35 @@
                 <div class="mx-auto mt-2 mb-4" style="width: 80px; height: 4px; background: #8B4513;"></div>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+                @forelse($stories as $story)
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="story-card bg-white rounded-4 shadow-sm h-100 overflow-hidden">
                         <div class="position-relative" style="height: 200px;">
-                            <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-100 h-100" style="object-fit: cover;" alt="Neema's Story">
+                            <img src="{{ asset($story->image) }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $story->name }}'s Story">
                             <div class="position-absolute top-0 start-0 m-3">
-                                <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">Success Story</span>
+                                <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">{{ $story->badge }}</span>
                             </div>
+                            @if($story->is_featured)
+                            <div class="position-absolute top-0 end-0 m-3">
+                                <span class="badge bg-warning text-dark"><i class="fas fa-star me-1"></i>Featured</span>
+                            </div>
+                            @endif
                         </div>
                         <div class="p-4">
-                            <h5 class="fw-bold mb-2" style="color: #3E2723;">Neema's Journey to Education</h5>
-                            <p class="text-muted small mb-3">"Thanks to Go Deep Africa Safari, I received school supplies and now I'm top of my class. I want to become a doctor and help my community."</p>
+                            <h5 class="fw-bold mb-2" style="color: #3E2723;">{{ $story->title }}</h5>
+                            <p class="text-muted small mb-3">"{{ $story->quote }}"</p>
                             <div class="d-flex align-items-center gap-2">
                                 <i class="fas fa-map-marker-alt" style="color: #8B4513;"></i>
-                                <small class="text-muted">Arusha, Tanzania</small>
+                                <small class="text-muted">{{ $story->location }}</small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="story-card bg-white rounded-4 shadow-sm h-100 overflow-hidden">
-                        <div class="position-relative" style="height: 200px;">
-                            <img src="https://images.unsplash.com/photo-1525896650794-60ad4ec40d0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-100 h-100" style="object-fit: cover;" alt="Maria's Story">
-                            <div class="position-absolute top-0 start-0 m-3">
-                                <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">Women Empowerment</span>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="fw-bold mb-2" style="color: #3E2723;">Maria's Business Success</h5>
-                            <p class="text-muted small mb-3">"The micro-loan and training I received helped me start my tailoring business. Now I employ 3 other women and support my children's education."</p>
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="fas fa-map-marker-alt" style="color: #8B4513;"></i>
-                                <small class="text-muted">Moshi, Tanzania</small>
-                            </div>
-                        </div>
-                    </div>
+                @empty
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">No stories available at this time.</p>
                 </div>
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="story-card bg-white rounded-4 shadow-sm h-100 overflow-hidden">
-                        <div class="position-relative" style="height: 200px;">
-                            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-100 h-100" style="object-fit: cover;" alt="Juma's Story">
-                            <div class="position-absolute top-0 start-0 m-3">
-                                <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">Rehabilitation</span>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="fw-bold mb-2" style="color: #3E2723;">Juma's New Beginning</h5>
-                            <p class="text-muted small mb-3">"From living on the streets to becoming a skilled carpenter. The rehabilitation center gave me hope and a future I never thought possible."</p>
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="fas fa-map-marker-alt" style="color: #8B4513;"></i>
-                                <small class="text-muted">Dar es Salaam, Tanzania</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
