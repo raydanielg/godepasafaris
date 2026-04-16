@@ -10,9 +10,7 @@ Route::post('/clear-cache', function () {
     return response()->json(['status' => 'success', 'message' => 'Cache cleared']);
 })->name('cache.clear.ajax');
 
-Route::get('/impact', function () {
-    return view('pages.impact');
-})->name('impact');
+Route::get('/impact', [App\Http\Controllers\WelcomeController::class, 'impact'])->name('impact');
 
 Route::get('/about', function () {
     return view('about');
