@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\SafariPackage;
 use App\Models\KilimanjaroPackage;
 use App\Models\Post;
+use App\Models\ImpactStat;
+use App\Models\ImpactStory;
+use App\Models\ImpactGallery;
+use App\Models\ImpactTimeline;
+use App\Models\ImpactPartner;
 
 class WelcomeController extends Controller
 {
