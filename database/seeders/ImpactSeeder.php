@@ -46,7 +46,10 @@ class ImpactSeeder extends Seeder
         ];
 
         foreach ($stats as $stat) {
-            ImpactStat::create($stat);
+            ImpactStat::firstOrCreate(
+                ['label' => $stat['label']],
+                $stat
+            );
         }
 
         // Impact Stories
@@ -87,7 +90,10 @@ class ImpactSeeder extends Seeder
         ];
 
         foreach ($stories as $story) {
-            ImpactStory::create($story);
+            ImpactStory::firstOrCreate(
+                ['title' => $story['title']],
+                $story
+            );
         }
 
         // Impact Gallery
@@ -140,7 +146,10 @@ class ImpactSeeder extends Seeder
         ];
 
         foreach ($gallery as $item) {
-            ImpactGallery::create($item);
+            ImpactGallery::firstOrCreate(
+                ['title' => $item['title']],
+                $item
+            );
         }
 
         // Impact Timeline
@@ -176,7 +185,10 @@ class ImpactSeeder extends Seeder
         ];
 
         foreach ($timeline as $event) {
-            ImpactTimeline::create($event);
+            ImpactTimeline::firstOrCreate(
+                ['title' => $event['title']],
+                $event
+            );
         }
 
         // Impact Partners
@@ -208,7 +220,10 @@ class ImpactSeeder extends Seeder
         ];
 
         foreach ($partners as $partner) {
-            ImpactPartner::create($partner);
+            ImpactPartner::firstOrCreate(
+                ['name' => $partner['name']],
+                $partner
+            );
         }
     }
 }
