@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             KilimanjaroSeeder::class,
             SafariSeeder::class,
             ImpactSeeder::class,
+            MenuSeeder::class,
         ]);
     }
 }
