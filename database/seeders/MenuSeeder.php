@@ -68,24 +68,25 @@ class MenuSeeder extends Seeder
         ];
 
         foreach ($kiliLinks as $index => $link) {
-            MenuLink::create(array_merge($link, [
-                'menu_section_id' => $kiliSection->id,
-                'display_order' => $index + 1,
-            ]));
+            MenuLink::firstOrCreate(
+                ['menu_section_id' => $kiliSection->id, 'title' => $link['title']],
+                array_merge($link, ['display_order' => $index + 1])
+            );
         }
 
         // Impact / Giving Back Mega Menu
-        $impactSection = MenuSection::create([
-            'nav_item' => 'impact',
-            'title' => 'Giving Back to Tanzania',
-            'description' => 'Your journey with us directly supports local communities, orphans, and women in need. Every safari makes a difference. Learn how 10% of every booking transforms lives.',
-            'image' => 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-            'link_url' => '/impact',
-            'link_text' => 'See Our Impact',
-            'badge' => '12,500+ Helped',
-            'badge_color' => 'success',
-            'display_order' => 1,
-        ]);
+        $impactSection = MenuSection::firstOrCreate(
+            ['nav_item' => 'impact', 'title' => 'Giving Back to Tanzania'],
+            [
+                'description' => 'Your journey with us directly supports local communities, orphans, and women in need. Every safari makes a difference. Learn how 10% of every booking transforms lives.',
+                'image' => 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'link_url' => '/impact',
+                'link_text' => 'See Our Impact',
+                'badge' => '12,500+ Helped',
+                'badge_color' => 'success',
+                'display_order' => 1,
+            ]
+        );
 
         $impactLinks = [
             ['title' => 'Our Impact Story', 'url' => '/impact', 'icon' => 'fa-heart', 'description' => 'How we give back', 'badge' => 'Read More', 'badge_color' => 'success'],
@@ -99,24 +100,25 @@ class MenuSeeder extends Seeder
         ];
 
         foreach ($impactLinks as $index => $link) {
-            MenuLink::create(array_merge($link, [
-                'menu_section_id' => $impactSection->id,
-                'display_order' => $index + 1,
-            ]));
+            MenuLink::firstOrCreate(
+                ['menu_section_id' => $impactSection->id, 'title' => $link['title']],
+                array_merge($link, ['display_order' => $index + 1])
+            );
         }
 
         // Destinations Mega Menu
-        $destSection = MenuSection::create([
-            'nav_item' => 'destinations',
-            'title' => 'Explore Tanzania',
-            'description' => 'From the endless plains of the Serengeti to the tropical beaches of Zanzibar, discover Tanzania\'s most breathtaking destinations with our expert local guides.',
-            'image' => 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-            'link_url' => '/destinations',
-            'link_text' => 'View All Destinations',
-            'badge' => '15+ Parks',
-            'badge_color' => 'info',
-            'display_order' => 1,
-        ]);
+        $destSection = MenuSection::firstOrCreate(
+            ['nav_item' => 'destinations', 'title' => 'Explore Tanzania'],
+            [
+                'description' => 'From the endless plains of the Serengeti to the tropical beaches of Zanzibar, discover Tanzania\'s most breathtaking destinations with our expert local guides.',
+                'image' => 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'link_url' => '/destinations',
+                'link_text' => 'View All Destinations',
+                'badge' => '15+ Parks',
+                'badge_color' => 'info',
+                'display_order' => 1,
+            ]
+        );
 
         $destLinks = [
             ['title' => 'Northern Circuit', 'url' => '/destinations?region=north', 'icon' => 'fa-map', 'description' => 'Serengeti, Ngorongoro, Manyara', 'badge' => 'Popular', 'badge_color' => 'danger'],
@@ -130,10 +132,10 @@ class MenuSeeder extends Seeder
         ];
 
         foreach ($destLinks as $index => $link) {
-            MenuLink::create(array_merge($link, [
-                'menu_section_id' => $destSection->id,
-                'display_order' => $index + 1,
-            ]));
+            MenuLink::firstOrCreate(
+                ['menu_section_id' => $destSection->id, 'title' => $link['title']],
+                array_merge($link, ['display_order' => $index + 1])
+            );
         }
     }
 }
