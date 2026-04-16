@@ -49,11 +49,12 @@ class MenuSeeder extends Seeder
                 'description' => 'A comprehensive guide to climbing Kilimanjaro by Go Deep Africa Safari experts. Based on insights from over 8,000 expeditions across all routes, it covers important updates for the 2026 season.',
                 'image' => 'https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
                 'link_url' => '/kilimanjaro',
-            'link_text' => 'Read Our Detailed Guide',
-            'badge' => '52 Reasons',
-            'badge_color' => 'success',
-            'display_order' => 1,
-        ]);
+                'link_text' => 'Read Our Detailed Guide',
+                'badge' => '52 Reasons',
+                'badge_color' => 'success',
+                'display_order' => 1,
+            ]
+        );
 
         $kiliLinks = [
             ['title' => 'Why We Set the Gold Standard', 'url' => '/kilimanjaro/why-us', 'icon' => 'fa-trophy', 'description' => '52 reasons to choose us', 'badge' => '52 Reasons', 'badge_color' => 'success'],
