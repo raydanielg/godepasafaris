@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DestinationSeeder extends Seeder
 {
@@ -62,19 +63,21 @@ class DestinationSeeder extends Seeder
         ];
 
         foreach ($destinations as $dest) {
-            \App\Models\Destination::create([
-                'title' => $dest['title'],
-                'slug' => \Illuminate\Support\Str::slug($dest['title']),
-                'category' => $dest['category'],
-                'description' => $dest['description'],
-                'rich_content' => $dest['rich_content'] ?? null,
-                'weather_info' => $dest['weather_info'] ?? null,
-                'faqs' => $dest['faqs'] ?? null,
-                'image' => $dest['image'],
-                'rate_range' => $dest['rate_range'],
-                'best_time' => $dest['best_time'],
-                'high_season' => $dest['high_season'],
-            ]);
+            \App\Models\Destination::updateOrCreate(
+                ['slug' => Str::slug($dest['title'])],
+                [
+                    'title' => $dest['title'],
+                    'category' => $dest['category'],
+                    'description' => $dest['description'],
+                    'rich_content' => $dest['rich_content'] ?? null,
+                    'weather_info' => $dest['weather_info'] ?? null,
+                    'faqs' => $dest['faqs'] ?? null,
+                    'image' => $dest['image'],
+                    'rate_range' => $dest['rate_range'],
+                    'best_time' => $dest['best_time'],
+                    'high_season' => $dest['high_season'],
+                ]
+            );
         }
     }
 }
