@@ -1,9 +1,18 @@
 <section class="hero-slider-section animate__animated animate__fadeIn">
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
-            <!-- Slide 1: Serengeti Balloon Safari -->
+            <!-- Slide 1: Video Background with Lions -->
             <div class="carousel-item active">
-                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/images/360_F_294846823_EDmzSopDAYZ9x5cX3y0ZcNmo0LXDYXDc.jpg') }}');"></div>
+                <!-- Video Background -->
+                <div class="hero-video-container position-absolute top-0 start-0 w-100 h-100 overflow-hidden">
+                    <video autoplay muted loop playsinline class="hero-video w-100 h-100 object-fit-cover">
+                        <source src="{{ asset('463052_Lion_Lions_1280x720.mp4') }}" type="video/mp4">
+                        <!-- Fallback image if video fails -->
+                        <img src="{{ asset('images/images/360_F_294846823_EDmzSopDAYZ9x5cX3y0ZcNmo0LXDYXDc.jpg') }}" alt="Serengeti Safari" class="w-100 h-100 object-fit-cover">
+                    </video>
+                    <!-- Video Overlay -->
+                    <div class="hero-video-overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45));"></div>
+                </div>
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
