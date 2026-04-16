@@ -25,6 +25,9 @@
         <a href="{{ route('admin.announcements') }}" class="nav-link {{ Route::is('admin.announcements') ? 'active' : '' }}">
             <i class="fas fa-bullhorn"></i> Announcements
         </a>
+        <a href="{{ route('admin.impact.index') }}" class="nav-link {{ Route::is('admin.impact*') ? 'active' : '' }}">
+            <i class="fas fa-heart"></i> Giving Back / Impact
+        </a>
         @if(auth()->user()->isAdmin())
         <a href="{{ route('admin.users') }}" class="nav-link {{ Route::is('admin.users') ? 'active' : '' }}">
             <i class="fas fa-users"></i> Users
