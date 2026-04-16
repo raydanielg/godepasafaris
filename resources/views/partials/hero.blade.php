@@ -137,6 +137,32 @@
 </section>
 
 <style>
+            /* Hero Video Background Styles */
+            .hero-video-container {
+                z-index: -1;
+            }
+            .hero-video {
+                object-fit: cover;
+                object-position: center;
+                min-width: 100%;
+                min-height: 100%;
+                width: auto;
+                height: auto;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .hero-video-overlay {
+                z-index: 1;
+            }
+            .hero-video-container video::-webkit-media-controls {
+                display: none !important;
+            }
+            .hero-video-container video::-webkit-media-controls-enclosure {
+                display: none !important;
+            }
+
             .hero-slider-section {
                 position: relative;
                 overflow: hidden;
