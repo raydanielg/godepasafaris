@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class KilimanjaroSeeder extends Seeder
 {
@@ -55,19 +56,21 @@ class KilimanjaroSeeder extends Seeder
         ];
 
         foreach ($packages as $pkg) {
-            \App\Models\KilimanjaroPackage::create([
-                'title' => $pkg['title'],
-                'slug' => \Illuminate\Support\Str::slug($pkg['title']),
-                'route_name' => $pkg['route_name'],
-                'days' => $pkg['days'],
-                'price' => $pkg['price'],
-                'description' => $pkg['description'],
-                'rich_content' => $pkg['rich_content'],
-                'itinerary' => $pkg['itinerary'],
-                'inclusions' => $pkg['inclusions'],
-                'exclusions' => $pkg['exclusions'],
-                'image' => $pkg['image'],
-            ]);
+            \App\Models\KilimanjaroPackage::updateOrCreate(
+                ['slug' => Str::slug($pkg['title'])],
+                [
+                    'title' => $pkg['title'],
+                    'route_name' => $pkg['route_name'],
+                    'days' => $pkg['days'],
+                    'price' => $pkg['price'],
+                    'description' => $pkg['description'],
+                    'rich_content' => $pkg['rich_content'],
+                    'itinerary' => $pkg['itinerary'],
+                    'inclusions' => $pkg['inclusions'],
+                    'exclusions' => $pkg['exclusions'],
+                    'image' => $pkg['image'],
+                ]
+            );
         }
     }
 }
