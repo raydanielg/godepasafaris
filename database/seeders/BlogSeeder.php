@@ -95,22 +95,29 @@ class BlogSeeder extends Seeder
         ];
 
         foreach ($posts as $post) {
-            $createdPost = Post::create([
-                'title' => $post['title'],
-                'slug' => Str::slug($post['title']),
-                'summary' => $post['summary'],
-                'content' => $post['content'],
-                'category' => $post['category'],
-                'image' => $post['image'],
-            ]);
+            $slug = Str::slug($post['title']);
+            
+            // Check if post already exists
+            $existingPost = Post::where('slug', $slug)->first();
+            
+            if (!$existingPost) {
+                $createdPost = Post::create([
+                    'title' => $post['title'],
+                    'slug' => $slug,
+                    'summary' => $post['summary'],
+                    'content' => $post['content'],
+                    'category' => $post['category'],
+                    'image' => $post['image'],
+                ]);
 
-            // Add some sample comments
-            $createdPost->comments()->create([
-                'name' => 'John Doe',
-                'email' => 'john@example.com',
-                'rating' => 5,
-                'comment' => 'This guide helped me plan my trip perfectly! Can\'t wait to visit the Serengeti.',
-            ]);
+                // Add some sample comments
+                $createdPost->comments()->create([
+                    'name' => 'John Doe',
+                    'email' => 'john@example.com',
+                    'rating' => 5,
+                    'comment' => 'This guide helped me plan my trip perfectly! Can\'t wait to visit the Serengeti.',
+                ]);
+            }
         }
     }
 }
