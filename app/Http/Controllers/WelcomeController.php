@@ -102,4 +102,15 @@ class WelcomeController extends Controller
         ];
         return view('pages.testimonials', compact('testimonials'));
     }
+
+    public function impact()
+    {
+        $stats = ImpactStat::active()->get();
+        $stories = ImpactStory::active()->get();
+        $gallery = ImpactGallery::active()->get();
+        $timeline = ImpactTimeline::active()->get();
+        $partners = ImpactPartner::active()->get();
+
+        return view('pages.impact', compact('stats', 'stories', 'gallery', 'timeline', 'partners'));
+    }
 }
