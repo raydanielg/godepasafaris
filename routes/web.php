@@ -10,6 +10,19 @@ Route::post('/clear-cache', function () {
     return response()->json(['status' => 'success', 'message' => 'Cache cleared']);
 })->name('cache.clear.ajax');
 
+// Emergency cache clear via browser
+Route::get('/clear-all-cache', function () {
+    try {
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        return 'All caches cleared! <a href="/">Go Home</a>';
+    } catch (Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
+
 Route::get('/impact', [App\Http\Controllers\WelcomeController::class, 'impact'])->name('impact');
 
 Route::get('/about', function () {
