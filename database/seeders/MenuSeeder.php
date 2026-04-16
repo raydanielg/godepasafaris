@@ -11,17 +11,18 @@ class MenuSeeder extends Seeder
     public function run(): void
     {
         // Safari Mega Menu
-        $safariSection = MenuSection::create([
-            'nav_item' => 'safari',
-            'title' => 'Tanzania Safari Guide',
-            'description' => 'Discover the best wildlife experiences in Tanzania. From the Serengeti Great Migration to Ngorongoro Crater, our expert guides will take you on an unforgettable journey through Africa\'s most iconic national parks.',
-            'image' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-            'link_url' => '/safari',
-            'link_text' => 'Explore All Safaris',
-            'badge' => 'New Season',
-            'badge_color' => 'success',
-            'display_order' => 1,
-        ]);
+        $safariSection = MenuSection::firstOrCreate(
+            ['nav_item' => 'safari', 'title' => 'Tanzania Safari Guide'],
+            [
+                'description' => 'Discover the best wildlife experiences in Tanzania. From the Serengeti Great Migration to Ngorongoro Crater, our expert guides will take you on an unforgettable journey through Africa\'s most iconic national parks.',
+                'image' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'link_url' => '/safari',
+                'link_text' => 'Explore All Safaris',
+                'badge' => 'New Season',
+                'badge_color' => 'success',
+                'display_order' => 1,
+            ]
+        );
 
         $safariLinks = [
             ['title' => 'Serengeti National Park', 'url' => '/destinations/serengeti', 'icon' => 'fa-paw', 'description' => 'Witness the Great Migration', 'badge' => 'Popular', 'badge_color' => 'danger'],
@@ -35,19 +36,19 @@ class MenuSeeder extends Seeder
         ];
 
         foreach ($safariLinks as $index => $link) {
-            MenuLink::create(array_merge($link, [
-                'menu_section_id' => $safariSection->id,
-                'display_order' => $index + 1,
-            ]));
+            MenuLink::firstOrCreate(
+                ['menu_section_id' => $safariSection->id, 'title' => $link['title']],
+                array_merge($link, ['display_order' => $index + 1])
+            );
         }
 
         // Kilimanjaro Mega Menu
-        $kiliSection = MenuSection::create([
-            'nav_item' => 'kilimanjaro',
-            'title' => 'Climbing Kilimanjaro Guide - 2026/2027',
-            'description' => 'A comprehensive guide to climbing Kilimanjaro by Go Deep Africa Safari experts. Based on insights from over 8,000 expeditions across all routes, it covers important updates for the 2026 season.',
-            'image' => 'https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-            'link_url' => '/kilimanjaro',
+        $kiliSection = MenuSection::firstOrCreate(
+            ['nav_item' => 'kilimanjaro', 'title' => 'Climbing Kilimanjaro Guide - 2026/2027'],
+            [
+                'description' => 'A comprehensive guide to climbing Kilimanjaro by Go Deep Africa Safari experts. Based on insights from over 8,000 expeditions across all routes, it covers important updates for the 2026 season.',
+                'image' => 'https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'link_url' => '/kilimanjaro',
             'link_text' => 'Read Our Detailed Guide',
             'badge' => '52 Reasons',
             'badge_color' => 'success',
