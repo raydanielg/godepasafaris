@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <!-- Bottom Header: Navigation Menu & Logo -->
+    <!-- Bottom Header: Navigation Menu & Logo with Mega Menu -->
     <nav class="bottom-header sticky-top navbar navbar-expand-lg navbar-light shadow-sm py-2 animate__animated animate__fadeIn mx-lg-5 mt-lg-3 rounded-pill" style="background-color: #fdfaf5;">
         <div class="container-fluid px-lg-5">
             <a href="{{ url('/') }}" class="navbar-brand me-4">
@@ -50,20 +50,295 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('/') ? 'active' : '' }} px-3" href="{{ url('/') }}" style="color: #3E2723 !important;">HOME</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('tours.all') ? 'active' : '' }} px-3" href="{{ route('tours.all') }}" style="color: #3E2723 !important;">SAFARIS</a>
+                    
+                    <!-- SAFARI Mega Menu -->
+                    <li class="nav-item has-mega-menu position-static">
+                        <a class="nav-link {{ Route::is('tours.all') || Route::is('safari*') ? 'active' : '' }} px-3" href="{{ route('tours.all') }}" style="color: #3E2723 !important;" id="safariMegaMenu">
+                            SAFARIS <i class="fas fa-chevron-down ms-1 small"></i>
+                        </a>
+                        @php
+                            $safariSection = \App\Models\MenuSection::forNavItem('safari')->first();
+                            $safariLinks = $safariSection ? $safariSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($safariSection && $safariLinks->count() > 0)
+                        <div class="mega-menu-wrapper">
+                            <div class="mega-menu-container">
+                                <div class="mega-menu-content">
+                                    <div class="row g-0">
+                                        <div class="col-lg-5 mega-menu-links">
+                                            <div class="p-4">
+                                                <h6 class="text-uppercase fw-bold mb-3" style="color: #8B4513; font-size: 0.8rem; letter-spacing: 1px;">
+                                                    <i class="fas fa-paw me-2"></i>Popular Safaris
+                                                </h6>
+                                                <div class="mega-links-list">
+                                                    @foreach($safariLinks as $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                        <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
+                                                            <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ $link->title }}</span>
+                                                                @if($link->badge)
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : '#6c757d')) }};">{{ $link->badge }}</span>
+                                                                @endif
+                                                            </div>
+                                                            @if($link->description)
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $link->description }}</small>
+                                                            @endif
+                                                        </div>
+                                                        <i class="fas fa-chevron-right ms-2 text-muted small"></i>
+                                                    </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 mega-menu-featured">
+                                            <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
+                                                <div class="row h-100 align-items-center">
+                                                    <div class="col-md-6">
+                                                        <span class="badge mb-2" style="background: {{ $safariSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
+                                                            <i class="fas fa-star me-1"></i>{{ $safariSection->badge }}
+                                                        </span>
+                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $safariSection->title }}</h4>
+                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $safariSection->description }}</p>
+                                                        <a href="{{ $safariSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            {{ $safariSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
+                                                            <img src="{{ $safariSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $safariSection->title }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('kilimanjaro') ? 'active' : '' }} px-3" href="{{ route('kilimanjaro') }}" style="color: #3E2723 !important;">KILIMANJARO</a>
+                    
+                    <!-- KILIMANJARO Mega Menu -->
+                    <li class="nav-item has-mega-menu position-static">
+                        <a class="nav-link {{ Route::is('kilimanjaro*') ? 'active' : '' }} px-3" href="{{ route('kilimanjaro') }}" style="color: #3E2723 !important;" id="kiliMegaMenu">
+                            KILIMANJARO <i class="fas fa-chevron-down ms-1 small"></i>
+                        </a>
+                        @php
+                            $kiliSection = \App\Models\MenuSection::forNavItem('kilimanjaro')->first();
+                            $kiliLinks = $kiliSection ? $kiliSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($kiliSection && $kiliLinks->count() > 0)
+                        <div class="mega-menu-wrapper">
+                            <div class="mega-menu-container">
+                                <div class="mega-menu-content">
+                                    <div class="row g-0">
+                                        <div class="col-lg-5 mega-menu-links">
+                                            <div class="p-4">
+                                                <h6 class="text-uppercase fw-bold mb-3" style="color: #8B4513; font-size: 0.8rem; letter-spacing: 1px;">
+                                                    <i class="fas fa-mountain me-2"></i>Climbing Guide
+                                                </h6>
+                                                <div class="mega-links-list">
+                                                    @foreach($kiliLinks as $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                        <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
+                                                            <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ $link->title }}</span>
+                                                                @if($link->badge)
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : '#6c757d')) }};">{{ $link->badge }}</span>
+                                                                @endif
+                                                            </div>
+                                                            @if($link->description)
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $link->description }}</small>
+                                                            @endif
+                                                        </div>
+                                                        <i class="fas fa-chevron-right ms-2 text-muted small"></i>
+                                                    </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 mega-menu-featured">
+                                            <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
+                                                <div class="row h-100 align-items-center">
+                                                    <div class="col-md-6">
+                                                        <span class="badge mb-2" style="background: {{ $kiliSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
+                                                            <i class="fas fa-star me-1"></i>{{ $kiliSection->badge }}
+                                                        </span>
+                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $kiliSection->title }}</h4>
+                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $kiliSection->description }}</p>
+                                                        <a href="{{ $kiliSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            {{ $kiliSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
+                                                            <img src="{{ $kiliSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $kiliSection->title }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('destinations') ? 'active' : '' }} px-3" href="{{ route('destinations') }}" style="color: #3E2723 !important;">DESTINATIONS</a>
+                    
+                    <!-- DESTINATIONS Mega Menu -->
+                    <li class="nav-item has-mega-menu position-static">
+                        <a class="nav-link {{ Route::is('destinations*') ? 'active' : '' }} px-3" href="{{ route('destinations') }}" style="color: #3E2723 !important;" id="destMegaMenu">
+                            DESTINATIONS <i class="fas fa-chevron-down ms-1 small"></i>
+                        </a>
+                        @php
+                            $destSection = \App\Models\MenuSection::forNavItem('destinations')->first();
+                            $destLinks = $destSection ? $destSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($destSection && $destLinks->count() > 0)
+                        <div class="mega-menu-wrapper">
+                            <div class="mega-menu-container">
+                                <div class="mega-menu-content">
+                                    <div class="row g-0">
+                                        <div class="col-lg-5 mega-menu-links">
+                                            <div class="p-4">
+                                                <h6 class="text-uppercase fw-bold mb-3" style="color: #8B4513; font-size: 0.8rem; letter-spacing: 1px;">
+                                                    <i class="fas fa-map-marker-alt me-2"></i>Explore Tanzania
+                                                </h6>
+                                                <div class="mega-links-list">
+                                                    @foreach($destLinks as $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                        <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
+                                                            <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ $link->title }}</span>
+                                                                @if($link->badge)
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : '#6c757d')) }};">{{ $link->badge }}</span>
+                                                                @endif
+                                                            </div>
+                                                            @if($link->description)
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $link->description }}</small>
+                                                            @endif
+                                                        </div>
+                                                        <i class="fas fa-chevron-right ms-2 text-muted small"></i>
+                                                    </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 mega-menu-featured">
+                                            <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
+                                                <div class="row h-100 align-items-center">
+                                                    <div class="col-md-6">
+                                                        <span class="badge mb-2" style="background: {{ $destSection->badge_color == 'info' ? '#17a2b8' : '#8B4513' }}; font-size: 0.7rem;">
+                                                            <i class="fas fa-compass me-1"></i>{{ $destSection->badge }}
+                                                        </span>
+                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $destSection->title }}</h4>
+                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $destSection->description }}</p>
+                                                        <a href="{{ $destSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            {{ $destSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
+                                                            <img src="{{ $destSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $destSection->title }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </li>
+                    
+                    <!-- IMPACT / GIVING BACK Mega Menu -->
+                    <li class="nav-item has-mega-menu position-static">
+                        <a class="nav-link {{ Route::is('impact*') ? 'active' : '' }} px-3" href="{{ route('impact') }}" style="color: #3E2723 !important;" id="impactMegaMenu">
+                            GIVING BACK <i class="fas fa-chevron-down ms-1 small"></i>
+                        </a>
+                        @php
+                            $impactSection = \App\Models\MenuSection::forNavItem('impact')->first();
+                            $impactLinks = $impactSection ? $impactSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($impactSection && $impactLinks->count() > 0)
+                        <div class="mega-menu-wrapper">
+                            <div class="mega-menu-container">
+                                <div class="mega-menu-content">
+                                    <div class="row g-0">
+                                        <div class="col-lg-5 mega-menu-links">
+                                            <div class="p-4">
+                                                <h6 class="text-uppercase fw-bold mb-3" style="color: #8B4513; font-size: 0.8rem; letter-spacing: 1px;">
+                                                    <i class="fas fa-heart me-2"></i>Our Impact Areas
+                                                </h6>
+                                                <div class="mega-links-list">
+                                                    @foreach($impactLinks as $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                        <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
+                                                            <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ $link->title }}</span>
+                                                                @if($link->badge)
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : ($link->badge_color == 'info' ? '#17a2b8' : '#6c757d'))) }};">{{ $link->badge }}</span>
+                                                                @endif
+                                                            </div>
+                                                            @if($link->description)
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $link->description }}</small>
+                                                            @endif
+                                                        </div>
+                                                        <i class="fas fa-chevron-right ms-2 text-muted small"></i>
+                                                    </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 mega-menu-featured">
+                                            <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.08) 0%, rgba(139,69,19,0.08) 100%);">
+                                                <div class="row h-100 align-items-center">
+                                                    <div class="col-md-6">
+                                                        <span class="badge mb-2" style="background: {{ $impactSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
+                                                            <i class="fas fa-hands-helping me-1"></i>{{ $impactSection->badge }}
+                                                        </span>
+                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $impactSection->title }}</h4>
+                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $impactSection->description }}</p>
+                                                        <a href="{{ $impactSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            {{ $impactSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg position-relative">
+                                                            <img src="{{ $impactSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $impactSection->title }}">
+                                                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(62,39,35,0.3);">
+                                                                <div class="text-center text-white p-3">
+                                                                    <i class="fas fa-heart fa-2x mb-2"></i>
+                                                                    <p class="mb-0 fw-bold">Making a Difference</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('blog*') ? 'active' : '' }} px-4" href="{{ route('blog') }}" style="color: #3E2723 !important;">BLOG</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ (Route::has('impact') && Route::is('impact')) ? 'active' : '' }} px-3" href="{{ Route::has('impact') ? route('impact') : url('/impact') }}" style="color: #3E2723 !important;">GIVING BACK</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('about') ? 'active' : '' }} px-4" href="{{ route('about') }}" style="color: #3E2723 !important;">ABOUT US</a>
@@ -85,9 +360,6 @@
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <a href="tel:+966542586758" class="text-white text-decoration-none me-3">
-                                            <i class="fas fa-phone-alt me-2"></i> +966 54 258 6758
-                                        </a>
                                         <button type="submit" class="dropdown-item text-danger">
                                             <i class="fas fa-sign-out-alt me-2"></i>Logout
                                         </button>
@@ -102,6 +374,7 @@
                 </div>
 
                 <style>
+                    /* Base Nav Styles */
                     .navbar-nav .nav-link {
                         color: #3E2723 !important;
                         font-weight: 600;
@@ -116,7 +389,6 @@
 
                     .navbar-nav .nav-link:hover {
                         color: #8b4513 !important;
-                        background-color: rgba(139, 69, 19, 0.05);
                     }
 
                     .navbar-nav .nav-link.active {
@@ -125,10 +397,100 @@
                         border-radius: 4px;
                     }
 
-                    .navbar-nav .nav-link.active[style] {
-                        color: #ffffff !important;
+                    /* Mega Menu Styles */
+                    .has-mega-menu {
+                        position: static !important;
                     }
 
+                    .has-mega-menu > .nav-link {
+                        cursor: pointer;
+                    }
+
+                    .has-mega-menu > .nav-link i.fa-chevron-down {
+                        transition: transform 0.3s ease;
+                        font-size: 0.7rem;
+                    }
+
+                    .has-mega-menu:hover > .nav-link i.fa-chevron-down {
+                        transform: rotate(180deg);
+                    }
+
+                    .mega-menu-wrapper {
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        right: 0;
+                        width: 100%;
+                        opacity: 0;
+                        visibility: hidden;
+                        transform: translateY(10px);
+                        transition: all 0.3s ease;
+                        z-index: 1000;
+                        padding-top: 10px;
+                    }
+
+                    .has-mega-menu:hover .mega-menu-wrapper {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateY(0);
+                    }
+
+                    .mega-menu-container {
+                        max-width: 1140px;
+                        margin: 0 auto;
+                        background: #fff;
+                        border-radius: 16px;
+                        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+                        overflow: hidden;
+                        border: 1px solid rgba(139, 69, 19, 0.1);
+                    }
+
+                    .mega-menu-content {
+                        padding: 0;
+                    }
+
+                    .mega-menu-links {
+                        background: #fff;
+                    }
+
+                    .mega-links-list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+                    }
+
+                    .mega-link-item {
+                        transition: all 0.2s ease;
+                        border: 1px solid transparent;
+                    }
+
+                    .mega-link-item:hover {
+                        background: rgba(139, 69, 19, 0.05);
+                        border-color: rgba(139, 69, 19, 0.1);
+                        transform: translateX(5px);
+                    }
+
+                    .mega-link-item:hover .mega-link-icon {
+                        background: rgba(139, 69, 19, 0.2) !important;
+                    }
+
+                    .mega-link-icon {
+                        transition: all 0.2s ease;
+                    }
+
+                    .mega-menu-featured {
+                        background: linear-gradient(135deg, rgba(62,39,35,0.03) 0%, rgba(139,69,19,0.03) 100%);
+                    }
+
+                    .mega-menu-image {
+                        transition: transform 0.3s ease;
+                    }
+
+                    .mega-menu-image:hover {
+                        transform: scale(1.02);
+                    }
+
+                    /* Inquiry Button */
                     .btn-inquiry {
                         background: #8b4513;
                         border: 2px solid #8b4513;
@@ -147,8 +509,25 @@
                         box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
                     }
 
-                    .btn-inquiry:active {
-                        transform: translateY(0) scale(0.98);
+                    /* Mobile Responsive */
+                    @media (max-width: 991px) {
+                        .mega-menu-wrapper {
+                            position: static;
+                            opacity: 1;
+                            visibility: visible;
+                            transform: none;
+                            padding-top: 0;
+                            display: none;
+                        }
+                        
+                        .has-mega-menu:hover .mega-menu-wrapper {
+                            display: block;
+                        }
+                        
+                        .mega-menu-container {
+                            border-radius: 8px;
+                            margin: 10px;
+                        }
                     }
                 </style>
             </div>
