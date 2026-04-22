@@ -54,9 +54,20 @@ class SafariSeeder extends Seeder
                 'price' => 4500,
                 'days' => 10,
                 'image' => 'images/images/The-Great-Wildebeest-Migration.jpg',
-                'itinerary' => [], // Add dummy for now
-                'inclusions' => [],
-                'exclusions' => [],
+                'itinerary' => [
+                    ['day' => 1, 'title' => 'Arusha to Tarangire National Park', 'description' => 'Depart from Arusha after breakfast and drive to Tarangire National Park for game viewing. Famous for large elephant herds and baobab trees.'],
+                    ['day' => 2, 'title' => 'Tarangire to Serengeti', 'description' => 'After breakfast, drive to Serengeti National Park via Ngorongoro Conservation Area with game drives en route.'],
+                    ['day' => 3, 'title' => 'Central Serengeti', 'description' => 'Full day game drives in Central Serengeti. Home to abundant wildlife including the Big Five.'],
+                    ['day' => 4, 'title' => 'Serengeti to Northern Serengeti', 'description' => 'Drive to Northern Serengeti to witness the dramatic Mara River crossings during migration season.'],
+                    ['day' => 5, 'title' => 'Northern Serengeti - Mara River', 'description' => 'Full day exploring the Mara River area watching wildebeest and zebras brave the crocodile-infested waters.'],
+                    ['day' => 6, 'title' => 'Northern Serengeti Game Drives', 'description' => 'Continue game viewing in the Northern Serengeti, tracking the great migration herds.'],
+                    ['day' => 7, 'title' => 'Northern to Central Serengeti', 'description' => 'Slow drive back to Central Serengeti with game viewing along the way.'],
+                    ['day' => 8, 'title' => 'Serengeti to Ngorongoro Crater', 'description' => 'Morning game drive then descend into Ngorongoro Crater for an afternoon wildlife viewing.'],
+                    ['day' => 9, 'title' => 'Full Day Ngorongoro Crater', 'description' => 'Full day game drives in Ngorongoro Crater, the world\'s largest inactive volcanic caldera with incredible wildlife density.'],
+                    ['day' => 10, 'title' => 'Ngorongoro to Arusha', 'description' => 'Final morning game drive in the crater, then drive back to Arusha with drop-off at airport or hotel.'],
+                ],
+                'inclusions' => ['Professional safari guide', '4x4 safari vehicle', 'Park fees', 'Accommodation', 'Meals', 'Airport transfers'],
+                'exclusions' => ['International flights', 'Visa fees', 'Personal expenses', 'Tips'],
             ],
             [
                 'title' => '7 Day Tanzania Migration Safari and Ngorongoro Crater',

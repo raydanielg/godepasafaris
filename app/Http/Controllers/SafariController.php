@@ -9,6 +9,18 @@ use Illuminate\Http\Request;
 
 class SafariController extends Controller
 {
+    public function index()
+    {
+        $packages = SafariPackage::latest()->get();
+        
+        // Fetch all tour titles for the inquiry modal
+        $safariTours = \App\Models\SafariPackage::select('id', 'title')->get();
+        $kiliTours = \App\Models\KilimanjaroPackage::select('id', 'title')->get();
+        $allTourOptions = $safariTours->concat($kiliTours);
+        
+        return view('safari.index', compact('packages', 'allTourOptions'));
+    }
+
     public function destinations()
     {
         $destinations = \App\Models\Destination::latest()->get();

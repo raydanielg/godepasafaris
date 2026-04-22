@@ -41,41 +41,65 @@
                     <div class="itinerary-section mb-5 pt-4 border-top">
                         <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-map-marked-alt text-primary me-2"></i> Itinerary</h3>
                         <div class="itinerary-steps">
-                            @foreach($package->itinerary as $step)
+                            @php
+                                $itinerary = is_array($package->itinerary) ? $package->itinerary : (is_string($package->itinerary) ? json_decode($package->itinerary, true) : []);
+                                if (!is_array($itinerary)) $itinerary = [];
+                            @endphp
+                            @forelse($itinerary as $step)
                             <div class="itinerary-item mb-5">
                                 <div class="d-flex gap-4">
-                                    <div class="day-circle flex-shrink-0">Day {{ $step['day'] }}</div>
+                                    <div class="day-circle flex-shrink-0">Day {{ $step['day'] ?? ($loop->iteration) }}</div>
                                     <div class="flex-grow-1">
-                                        <h5 class="fw-bold mb-3">{{ $step['title'] }}</h5>
-                                        @if(isset($step['image']))
+                                        <h5 class="fw-bold mb-3">{{ $step['title'] ?? 'Day ' . ($loop->iteration) }}</h5>
+                                        @if(isset($step['image']) && $step['image'])
                                         <div class="itinerary-img-wrapper mb-3">
-                                            <img src="{{ asset($step['image']) }}" class="img-fluid rounded-4 shadow-sm" alt="{{ $step['title'] }}" style="max-height: 250px; width: 100%; object-fit: cover;">
+                                            <img src="{{ asset($step['image']) }}" class="img-fluid rounded-4 shadow-sm" alt="{{ $step['title'] ?? '' }}" style="max-height: 250px; width: 100%; object-fit: cover;">
                                         </div>
                                         @endif
-                                        <p class="text-muted small mb-0">{{ $step['description'] }}</p>
+                                        <p class="text-muted small mb-0">{{ $step['description'] ?? 'Exciting safari activities planned for this day.' }}</p>
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+                            @empty
+                            <div class="text-center py-5">
+                                <i class="fas fa-map-marked-alt fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">Detailed itinerary coming soon. Contact us for more information.</p>
+                                <a href="#inquiry" class="btn btn-primary rounded-pill">Request Itinerary</a>
+                            </div>
+                            @endforelse
                         </div>
                     </div>
 
+                    @php
+                        $inclusions = is_array($package->inclusions) ? $package->inclusions : (is_string($package->inclusions) ? json_decode($package->inclusions, true) : []);
+                        $exclusions = is_array($package->exclusions) ? $package->exclusions : (is_string($package->exclusions) ? json_decode($package->exclusions, true) : []);
+                        if (!is_array($inclusions)) $inclusions = [];
+                        if (!is_array($exclusions)) $exclusions = [];
+                    @endphp
                     <div class="row g-4 mt-4 pt-4 border-top">
                         <div class="col-md-6">
                             <h4 class="fw-bold mb-3 text-primary"><i class="fas fa-check-circle me-2"></i> Includes</h4>
+                            @if(count($inclusions) > 0)
                             <ul class="list-unstyled custom-list">
-                                @foreach($package->inclusions as $inc)
+                                @foreach($inclusions as $inc)
                                 <li class="mb-2 small text-muted"><i class="fas fa-check text-success me-2"></i>{{ $inc }}</li>
                                 @endforeach
                             </ul>
+                            @else
+                            <p class="text-muted small">Contact us for detailed inclusions.</p>
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <h4 class="fw-bold mb-3 text-danger"><i class="fas fa-times-circle me-2"></i> Excludes</h4>
+                            @if(count($exclusions) > 0)
                             <ul class="list-unstyled custom-list">
-                                @foreach($package->exclusions as $exc)
+                                @foreach($exclusions as $exc)
                                 <li class="mb-2 small text-muted"><i class="fas fa-times text-danger me-2"></i>{{ $exc }}</li>
                                 @endforeach
                             </ul>
+                            @else
+                            <p class="text-muted small">Contact us for detailed exclusions.</p>
+                            @endif
                         </div>
                     </div>
                 </div>

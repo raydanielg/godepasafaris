@@ -155,23 +155,43 @@
             });
         }
         const tourContainer = document.getElementById('tourListContainer');
-        const filters = document.querySelectorAll('.filter-check-list input, #priceRange, #lengthRange');
+        const priceRange = document.getElementById('priceRange');
+        const lengthRange = document.getElementById('lengthRange');
+        const priceValue = document.getElementById('priceValue');
+        const lengthValue = document.getElementById('lengthValue');
+        const checkboxes = document.querySelectorAll('.filter-checkbox');
+        
+        // Update displayed values
+        if (priceRange && priceValue) {
+            priceRange.addEventListener('input', function() {
+                priceValue.textContent = '$' + parseInt(this.value).toLocaleString();
+            });
+        }
+        
+        if (lengthRange && lengthValue) {
+            lengthRange.addEventListener('input', function() {
+                lengthValue.textContent = this.value + ' Days';
+            });
+        }
         
         const fetchTours = () => {
-            const formData = new FormData();
-            filters.forEach(filter => {
-                if (filter.type === 'checkbox' && filter.checked) {
-                    formData.append(filter.id, '1');
-                } else if (filter.type === 'range') {
-                    formData.append(filter.id, filter.value);
+            const params = new URLSearchParams();
+            
+            // Add range values
+            if (priceRange) params.append('price_max', priceRange.value);
+            if (lengthRange) params.append('days_max', lengthRange.value);
+            
+            // Add checkbox values
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    params.append(checkbox.name || checkbox.id, '1');
                 }
             });
-
-            const params = new URLSearchParams(formData).toString();
             
+            // Show loading state
             tourContainer.style.opacity = '0.5';
             
-            fetch(`{{ route('tours.all') }}?${params}`, {
+            fetch(`{{ route('tours.all') }}?${params.toString()}`, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
@@ -180,16 +200,40 @@
             .then(html => {
                 tourContainer.innerHTML = html;
                 tourContainer.style.opacity = '1';
-                // Re-initialize animations if needed
+                // Re-attach event listeners to new elements
+                reattachEventListeners();
             })
             .catch(error => {
                 console.error('Error fetching tours:', error);
                 tourContainer.style.opacity = '1';
             });
         };
+        
+        const reattachEventListeners = () => {
+            // Re-attach booking modal listeners
+            const bookingModal = document.getElementById('bookingModal');
+            if (bookingModal) {
+                bookingModal.addEventListener('show.bs.modal', function(event) {
+                    const button = event.relatedTarget;
+                    const tourTitle = button.getAttribute('data-tour-title');
+                    const tourId = button.getAttribute('data-tour-id');
+                    
+                    const modalTitle = bookingModal.querySelector('.modal-title');
+                    const tourIdInput = bookingModal.querySelector('#modal_tour_id');
+                    const tourNameInput = bookingModal.querySelector('#modal_tour_name');
+                    
+                    if (modalTitle) modalTitle.textContent = 'Book Your Safari: ' + tourTitle;
+                    if (tourIdInput) tourIdInput.value = tourId;
+                    if (tourNameInput) tourNameInput.value = tourTitle;
+                });
+            }
+        };
 
-        filters.forEach(filter => {
-            filter.addEventListener('change', fetchTours);
+        // Attach event listeners
+        if (priceRange) priceRange.addEventListener('change', fetchTours);
+        if (lengthRange) lengthRange.addEventListener('change', fetchTours);
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', fetchTours);
         });
     });
     </script>
