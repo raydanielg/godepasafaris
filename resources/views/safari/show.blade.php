@@ -227,33 +227,59 @@
 
                 <!-- You might also like section -->
                 <div class="mt-5 pt-5 border-top">
-                    <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">You might also like...</h3>
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="icon-circle-lg d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">
+                            <i class="fas fa-compass text-white fa-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">You might also like...</h3>
+                            <p class="text-muted small mb-0">Similar safari adventures</p>
+                        </div>
+                    </div>
+                    
                     <div class="row g-4">
                         @foreach($relatedPackages as $rp)
                         <div class="col-md-4">
-                            <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white">
-                                <div class="package-img-wrapper" style="height: 180px; position: relative; overflow: hidden;">
-                                    <img src="{{ asset($rp->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $rp->title }}">
-                                    <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
-                                        <i class="far fa-heart text-dark small"></i>
-                                    </button>
-                                </div>
-                                <div class="p-3">
-                                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 0.9rem; min-height: 2.5rem;">{{ $rp->title }}</h6>
-                                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
-                                        <div class="price-info">
-                                            <small class="text-muted d-block" style="font-size: 0.7rem;">from</small>
-                                            <span class="fw-bold text-dark">${{ number_format($rp->price, 0) }}</span>
-                                            <small class="text-muted" style="font-size: 0.7rem;">Per Person</small>
+                            <a href="{{ route('safari.show', $rp->slug) }}" class="text-decoration-none">
+                                <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white position-relative hover-lift transition-all" style="cursor: pointer;">
+                                    <div class="package-img-wrapper" style="height: 200px; position: relative; overflow: hidden;">
+                                        <img src="{{ asset($rp->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;" alt="{{ $rp->title }}" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                                        <div class="position-absolute bottom-0 start-0 end-0 p-2" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                                            <span class="badge text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 11px;">
+                                                <i class="fas fa-clock me-1"></i>{{ $rp->days }} Days
+                                            </span>
+                                        </div>
+                                        <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center hover-scale" style="width: 35px; height: 35px; transition: all 0.3s;" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlist({{ $rp->id }})">
+                                            <i class="far fa-heart text-dark" style="font-size: 14px;"></i>
+                                        </button>
+                                    </div>
+                                    <div class="p-4">
+                                        <h6 class="fw-bold mb-2 text-dark" style="font-size: 0.95rem; line-height: 1.4; min-height: 2.7rem;">{{ $rp->title }}</h6>
+                                        <div class="d-flex align-items-center gap-2 mb-3">
+                                            <span class="badge bg-light text-dark border" style="font-size: 10px;"><i class="fas fa-paw me-1 text-warning"></i>Safari</span>
+                                            <span class="badge bg-light text-dark border" style="font-size: 10px;"><i class="fas fa-user-friends me-1 text-primary"></i>Private</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                                            <div class="price-info">
+                                                <small class="text-muted d-block" style="font-size: 0.75rem;">Starting from</small>
+                                                <span class="fw-bold fs-5" style="color: #8B4513;">${{ number_format($rp->price, 0) }}</span>
+                                                <small class="text-muted" style="font-size: 0.7rem;">/person</small>
+                                            </div>
+                                            <span class="btn btn-sm rounded-pill px-3" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white; font-size: 12px;">
+                                                View <i class="fas fa-arrow-right ms-1"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         @endforeach
                     </div>
+                    
                     <div class="text-center mt-5">
-                        <a href="{{ route('safari') }}" class="btn btn-outline-earth rounded-pill px-4 py-2">View all tours</a>
+                        <a href="{{ route('tours.all') }}" class="btn btn-lg rounded-pill px-5 py-3 fw-bold" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white; box-shadow: 0 4px 15px rgba(139,69,19,0.3);">
+                            <i class="fas fa-th-large me-2"></i>View All Safari Tours
+                        </a>
                     </div>
                 </div>
             </div>
@@ -319,5 +345,57 @@
     @include('partials.footer')
     @include('partials.ai_chatbot')
     @include('partials.booking_modal')
+
+    <script>
+    // Wishlist toggle function
+    function toggleWishlist(tourId) {
+        const btn = event.currentTarget;
+        const icon = btn.querySelector('i');
+        
+        // Toggle heart icon
+        if (icon.classList.contains('far')) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+            icon.style.color = '#dc3545';
+            
+            // Show toast notification
+            showToast('Added to your wishlist!');
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+            icon.style.color = '';
+            
+            showToast('Removed from wishlist');
+        }
+        
+        // Here you would normally send an AJAX request to save to database
+        // fetch('/wishlist/add', { method: 'POST', body: JSON.stringify({tour_id: tourId}) })
+    }
+    
+    // Simple toast notification
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'position-fixed top-0 end-0 m-3 p-3 rounded-4 text-white fw-bold';
+        toast.style.cssText = 'background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); z-index: 9999; animation: slideIn 0.3s ease;';
+        toast.innerHTML = '<i class="fas fa-heart me-2"></i>' + message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
+    }
+    </script>
+    
+    <style>
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    </style>
 </body>
 </html>
