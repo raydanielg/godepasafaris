@@ -28,6 +28,9 @@
         <a href="{{ route('admin.impact.index') }}" class="nav-link {{ Route::is('admin.impact*') ? 'active' : '' }}">
             <i class="fas fa-heart"></i> Giving Back / Impact
         </a>
+        <a href="{{ route('admin.packing-lists.index') }}" class="nav-link {{ Route::is('admin.packing-lists*') ? 'active' : '' }}">
+            <i class="fas fa-suitcase"></i> Packing Lists
+        </a>
         @if(auth()->user()->isAdmin())
         <a href="{{ route('admin.users') }}" class="nav-link {{ Route::is('admin.users') ? 'active' : '' }}">
             <i class="fas fa-users"></i> Users

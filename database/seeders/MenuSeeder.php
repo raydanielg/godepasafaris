@@ -61,7 +61,7 @@ class MenuSeeder extends Seeder
             ['title' => 'Private Tours and Pricing', 'url' => '/kilimanjaro/pricing', 'icon' => 'fa-tag', 'description' => 'Transparent pricing', 'badge' => null, 'badge_color' => 'secondary'],
             ['title' => 'Group Departures', 'url' => '/kilimanjaro/group', 'icon' => 'fa-users', 'description' => 'Join scheduled climbs', 'badge' => '$100 Deposit', 'badge_color' => 'success'],
             ['title' => 'Kilimanjaro Routes', 'url' => '/kilimanjaro', 'icon' => 'fa-route', 'description' => 'Compare all routes', 'badge' => null, 'badge_color' => 'secondary'],
-            ['title' => 'Packing List', 'url' => '/pages/help-center', 'icon' => 'fa-suitcase', 'description' => 'Essential gear guide', 'badge' => 'Free PDF', 'badge_color' => 'danger'],
+            ['title' => 'Packing List', 'url' => '/packing-list', 'icon' => 'fa-suitcase', 'description' => 'Essential gear guide', 'badge' => 'Free PDF', 'badge_color' => 'danger'],
             ['title' => 'Success Calculator', 'url' => '/kilimanjaro/calculator', 'icon' => 'fa-calculator', 'description' => 'Estimate your success', 'badge' => 'New', 'badge_color' => 'info'],
             ['title' => 'Helpful Articles', 'url' => '/blog?category=kilimanjaro', 'icon' => 'fa-book', 'description' => 'Tips & insights', 'badge' => null, 'badge_color' => 'secondary'],
             ['title' => 'Other Mountains', 'url' => '/kilimanjaro/other-mountains', 'icon' => 'fa-mountain', 'description' => 'Meru, Ol Doinyo Lengai', 'badge' => null, 'badge_color' => 'secondary'],

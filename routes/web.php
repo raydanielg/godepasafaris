@@ -47,6 +47,11 @@ Route::get('/terms-of-service', function () { return view('pages.terms'); })->na
 Route::get('/how-it-works', function () { return view('pages.how-it-works'); })->name('how.works');
 Route::get('/testimonials', [App\Http\Controllers\WelcomeController::class, 'testimonials'])->name('testimonials');
 
+// Packing List Routes
+Route::get('/packing-list', [App\Http\Controllers\PackingListController::class, 'index'])->name('packing-list.index');
+Route::get('/packing-list/category/{category}', [App\Http\Controllers\PackingListController::class, 'category'])->name('packing-list.category');
+Route::get('/packing-list/{slug}', [App\Http\Controllers\PackingListController::class, 'show'])->name('packing-list.show');
+
     // Safari Styles
     Route::get('/safari-styles/private', function () { return view('pages.styles.private'); })->name('styles.private');
     Route::get('/safari-styles/budget', function () { return view('pages.styles.budget'); })->name('styles.budget');
@@ -171,11 +176,29 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/impact/partners/{partner}', [App\Http\Controllers\Admin\ImpactController::class, 'updatePartner'])->name('admin.impact.partners.update');
     Route::delete('/admin/impact/partners/{partner}', [App\Http\Controllers\Admin\ImpactController::class, 'deletePartner'])->name('admin.impact.partners.delete');
     Route::patch('/admin/impact/partners/{partner}/toggle', [App\Http\Controllers\Admin\ImpactController::class, 'togglePartnerStatus'])->name('admin.impact.partners.toggle');
+
+    // Packing List Management
+    Route::get('/admin/packing-lists', [App\Http\Controllers\Admin\PackingListController::class, 'index'])->name('admin.packing-lists.index');
+    Route::get('/admin/packing-lists/create', [App\Http\Controllers\Admin\PackingListController::class, 'create'])->name('admin.packing-lists.create');
+    Route::post('/admin/packing-lists', [App\Http\Controllers\Admin\PackingListController::class, 'store'])->name('admin.packing-lists.store');
+    Route::get('/admin/packing-lists/{packingList}/edit', [App\Http\Controllers\Admin\PackingListController::class, 'edit'])->name('admin.packing-lists.edit');
+    Route::put('/admin/packing-lists/{packingList}', [App\Http\Controllers\Admin\PackingListController::class, 'update'])->name('admin.packing-lists.update');
+    Route::delete('/admin/packing-lists/{packingList}', [App\Http\Controllers\Admin\PackingListController::class, 'destroy'])->name('admin.packing-lists.destroy');
+    
+    // Packing List Items
+    Route::post('/admin/packing-lists/{packingList}/items', [App\Http\Controllers\Admin\PackingListController::class, 'storeItem'])->name('admin.packing-lists.items.store');
+    Route::put('/admin/packing-list-items/{item}', [App\Http\Controllers\Admin\PackingListController::class, 'updateItem'])->name('admin.packing-lists.items.update');
+    Route::delete('/admin/packing-list-items/{item}', [App\Http\Controllers\Admin\PackingListController::class, 'destroyItem'])->name('admin.packing-lists.items.destroy');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
 
 Route::get('/kilimanjaro', [App\Http\Controllers\KilimanjaroController::class, 'index'])->name('kilimanjaro');
+Route::get('/kilimanjaro/why-us', function () { return view('pages.kilimanjaro.why-us'); })->name('kilimanjaro.why-us');
+Route::get('/kilimanjaro/pricing', function () { return view('pages.kilimanjaro.pricing'); })->name('kilimanjaro.pricing');
+Route::get('/kilimanjaro/group', function () { return view('pages.kilimanjaro.group'); })->name('kilimanjaro.group');
+Route::get('/kilimanjaro/calculator', function () { return view('pages.kilimanjaro.calculator'); })->name('kilimanjaro.calculator');
+Route::get('/kilimanjaro/other-mountains', function () { return view('pages.kilimanjaro.other-mountains'); })->name('kilimanjaro.other-mountains');
 Route::get('/kilimanjaro/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'show'])->name('kilimanjaro.show');
 Route::get('/kilimanjaro/route/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'routeShow'])->name('kilimanjaro.route.show');
 Route::post('/kilimanjaro/{id}/enquire', [App\Http\Controllers\KilimanjaroController::class, 'enquire'])->name('kilimanjaro.enquire');
