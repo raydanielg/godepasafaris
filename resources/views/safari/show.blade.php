@@ -181,13 +181,13 @@
                         </form>
                     </div>
 
-                    <div class="mt-4 p-4 rounded-4 bg-earth-dark text-white shadow-sm animate__animated animate__fadeInRight animate__delay-1s">
-                        <h5 class="fw-bold mb-3">Why booking with Us?</h5>
-                        <ul class="list-unstyled small opacity-75">
-                            <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i> Free cancellation up to 24 hours</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i> Trusted by 100K+ travelers</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i> Get the lowest prices</li>
-                            <li class="mb-0"><i class="fas fa-check-circle me-2 text-primary"></i> 24-hour support</li>
+                    <div class="mt-4 p-4 rounded-4 shadow-sm animate__animated animate__fadeInRight animate__delay-1s" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
+                        <h5 class="fw-bold mb-3 text-white">Why booking with Us?</h5>
+                        <ul class="list-unstyled small text-white" style="opacity: 0.95;">
+                            <li class="mb-2 d-flex align-items-center"><i class="fas fa-check-circle me-2" style="color: #8B4513;"></i> <span>Free cancellation up to 24 hours</span></li>
+                            <li class="mb-2 d-flex align-items-center"><i class="fas fa-check-circle me-2" style="color: #8B4513;"></i> <span>Trusted by 100K+ travelers</span></li>
+                            <li class="mb-2 d-flex align-items-center"><i class="fas fa-check-circle me-2" style="color: #8B4513;"></i> <span>Get the lowest prices</span></li>
+                            <li class="mb-0 d-flex align-items-center"><i class="fas fa-check-circle me-2" style="color: #8B4513;"></i> <span>24-hour support</span></li>
                         </ul>
                     </div>
                 </div>
