@@ -38,70 +38,191 @@
                         <p class="lead text-muted">{{ $package->summary }}</p>
                     </div>
 
+                    @php
+                        $itinerary = is_array($package->itinerary) ? $package->itinerary : (is_string($package->itinerary) ? json_decode($package->itinerary, true) : []);
+                        if (!is_array($itinerary)) $itinerary = [];
+                    @endphp
+                    @if(count($itinerary) > 0)
                     <div class="itinerary-section mb-5 pt-4 border-top">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-map-marked-alt text-primary me-2"></i> Itinerary</h3>
-                        <div class="itinerary-steps">
-                            @php
-                                $itinerary = is_array($package->itinerary) ? $package->itinerary : (is_string($package->itinerary) ? json_decode($package->itinerary, true) : []);
-                                if (!is_array($itinerary)) $itinerary = [];
-                            @endphp
-                            @forelse($itinerary as $step)
-                            <div class="itinerary-item mb-5">
-                                <div class="d-flex gap-4">
-                                    <div class="day-circle flex-shrink-0">Day {{ $step['day'] ?? ($loop->iteration) }}</div>
-                                    <div class="flex-grow-1">
-                                        <h5 class="fw-bold mb-3">{{ $step['title'] ?? 'Day ' . ($loop->iteration) }}</h5>
-                                        @if(isset($step['image']) && $step['image'])
-                                        <div class="itinerary-img-wrapper mb-3">
-                                            <img src="{{ asset($step['image']) }}" class="img-fluid rounded-4 shadow-sm" alt="{{ $step['title'] ?? '' }}" style="max-height: 250px; width: 100%; object-fit: cover;">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="icon-circle-lg d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">
+                                <i class="fas fa-route text-white fa-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">Detailed Itinerary</h3>
+                                <p class="text-muted small mb-0">{{ count($itinerary) }} Days of Adventure</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline position-relative">
+                            <div class="timeline-line position-absolute" style="left: 24px; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #8B4513 0%, #D2691E 100%); border-radius: 3px;"></div>
+                            
+                            @foreach($itinerary as $step)
+                            <div class="timeline-item position-relative ps-5 pb-4">
+                                <div class="timeline-dot position-absolute d-flex align-items-center justify-content-center rounded-circle" style="left: 15px; width: 22px; height: 22px; background: #8B4513; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(139,69,19,0.3);">
+                                    <span class="text-white fw-bold" style="font-size: 10px;">{{ $step['day'] ?? $loop->iteration }}</span>
+                                </div>
+                                
+                                <div class="card border-0 rounded-4 shadow-sm overflow-hidden hover-shadow transition-all" style="background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);">
+                                    @if(isset($step['image']) && $step['image'])
+                                    <div class="card-img-top" style="height: 200px; overflow: hidden;">
+                                        <img src="{{ asset($step['image']) }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $step['title'] ?? '' }}">
+                                    </div>
+                                    @endif
+                                    <div class="card-body p-4">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="badge rounded-pill px-3 py-1" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white; font-size: 11px;">DAY {{ $step['day'] ?? $loop->iteration }}</span>
+                                            @if($loop->first)
+                                            <span class="badge bg-success rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-play me-1"></i>START</span>
+                                            @elseif($loop->last)
+                                            <span class="badge bg-primary rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-flag-checkered me-1"></i>FINISH</span>
+                                            @endif
                                         </div>
-                                        @endif
-                                        <p class="text-muted small mb-0">{{ $step['description'] ?? 'Exciting safari activities planned for this day.' }}</p>
+                                        <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $step['title'] ?? 'Day ' . $loop->iteration }}</h5>
+                                        <p class="text-muted mb-0" style="line-height: 1.7;">{{ $step['description'] ?? 'Exciting safari activities planned for this day.' }}</p>
                                     </div>
                                 </div>
                             </div>
-                            @empty
-                            <div class="text-center py-5">
-                                <i class="fas fa-map-marked-alt fa-3x text-muted mb-3"></i>
-                                <p class="text-muted">Detailed itinerary coming soon. Contact us for more information.</p>
-                                <a href="#inquiry" class="btn btn-primary rounded-pill">Request Itinerary</a>
-                            </div>
-                            @endforelse
+                            @endforeach
                         </div>
                     </div>
+                    @else
+                    <div class="itinerary-section mb-5 pt-4 border-top">
+                        <div class="text-center py-5 px-4 rounded-4" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                            <div class="icon-circle-lg d-flex align-items-center justify-content-center rounded-circle mx-auto mb-3" style="width: 80px; height: 80px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">
+                                <i class="fas fa-map-marked-alt text-white fa-2x"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #3E2723;">Detailed Itinerary Available</h5>
+                            <p class="text-muted mb-3">Contact our team for the complete day-by-day itinerary breakdown.</p>
+                            <a href="#inquiry" class="btn rounded-pill px-4 fw-bold" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white;">
+                                <i class="fas fa-envelope me-2"></i>Request Full Itinerary
+                            </a>
+                        </div>
+                    </div>
+                    @endif
 
                     @php
                         $inclusions = is_array($package->inclusions) ? $package->inclusions : (is_string($package->inclusions) ? json_decode($package->inclusions, true) : []);
                         $exclusions = is_array($package->exclusions) ? $package->exclusions : (is_string($package->exclusions) ? json_decode($package->exclusions, true) : []);
                         if (!is_array($inclusions)) $inclusions = [];
                         if (!is_array($exclusions)) $exclusions = [];
+                        
+                        // Icon mapping for common items
+                        $iconMap = [
+                            'flight' => 'fa-plane',
+                            'airport' => 'fa-plane-arrival',
+                            'pickup' => 'fa-car',
+                            'accommodation' => 'fa-bed',
+                            'lodge' => 'fa-hotel',
+                            'camp' => 'fa-campground',
+                            'meal' => 'fa-utensils',
+                            'food' => 'fa-utensils',
+                            'breakfast' => 'fa-coffee',
+                            'lunch' => 'fa-hamburger',
+                            'dinner' => 'fa-wine-glass',
+                            'park' => 'fa-tree',
+                            'fee' => 'fa-ticket-alt',
+                            'transport' => 'fa-bus',
+                            'vehicle' => 'fa-car-side',
+                            'guide' => 'fa-user-tie',
+                            'water' => 'fa-tint',
+                            'drink' => 'fa-glass-water',
+                            'tax' => 'fa-receipt',
+                            'insurance' => 'fa-shield-alt',
+                            'visa' => 'fa-passport',
+                            'tip' => 'fa-hand-holding-usd',
+                            'personal' => 'fa-shopping-bag',
+                            'alcohol' => 'fa-wine-bottle',
+                            'flight' => 'fa-plane',
+                            'fly' => 'fa-plane',
+                            'wifi' => 'fa-wifi',
+                            'internet' => 'fa-wifi',
+                            'medical' => 'fa-medkit',
+                            'camera' => 'fa-camera',
+                            'photo' => 'fa-camera',
+                            'game' => 'fa-binoculars',
+                            'drive' => 'fa-route',
+                            'transfer' => 'fa-exchange-alt',
+                        ];
+                        
+                        function getIconForItem($item, $iconMap) {
+                            $itemLower = strtolower($item);
+                            foreach ($iconMap as $keyword => $icon) {
+                                if (strpos($itemLower, $keyword) !== false) {
+                                    return $icon;
+                                }
+                            }
+                            return 'fa-check';
+                        }
                     @endphp
-                    <div class="row g-4 mt-4 pt-4 border-top">
-                        <div class="col-md-6">
-                            <h4 class="fw-bold mb-3 text-primary"><i class="fas fa-check-circle me-2"></i> Includes</h4>
-                            @if(count($inclusions) > 0)
-                            <ul class="list-unstyled custom-list">
-                                @foreach($inclusions as $inc)
-                                <li class="mb-2 small text-muted"><i class="fas fa-check text-success me-2"></i>{{ $inc }}</li>
-                                @endforeach
-                            </ul>
-                            @else
-                            <p class="text-muted small">Contact us for detailed inclusions.</p>
-                            @endif
+                    
+                    @if(count($inclusions) > 0 || count($exclusions) > 0)
+                    <div class="mt-5 pt-4">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="icon-circle-lg d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                                <i class="fas fa-clipboard-list text-white fa-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">What's Included</h3>
+                                <p class="text-muted small mb-0">Everything covered in your package</p>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <h4 class="fw-bold mb-3 text-danger"><i class="fas fa-times-circle me-2"></i> Excludes</h4>
+                        
+                        <div class="row g-4">
+                            @if(count($inclusions) > 0)
+                            <div class="col-md-6">
+                                <div class="card border-0 rounded-4 h-100" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);">
+                                    <div class="card-body p-4">
+                                        <h5 class="fw-bold mb-4 d-flex align-items-center gap-2" style="color: #155724;">
+                                            <i class="fas fa-check-circle"></i> Package Includes
+                                        </h5>
+                                        <div class="row g-3">
+                                            @foreach($inclusions as $inc)
+                                            <div class="col-12">
+                                                <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.7);">
+                                                    <div class="flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width: 36px; height: 36px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                                                        <i class="fas {{ getIconForItem($inc, $iconMap) }} text-white" style="font-size: 14px;"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="fw-semibold" style="color: #155724; font-size: 14px;">{{ $inc }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            
                             @if(count($exclusions) > 0)
-                            <ul class="list-unstyled custom-list">
-                                @foreach($exclusions as $exc)
-                                <li class="mb-2 small text-muted"><i class="fas fa-times text-danger me-2"></i>{{ $exc }}</li>
-                                @endforeach
-                            </ul>
-                            @else
-                            <p class="text-muted small">Contact us for detailed exclusions.</p>
+                            <div class="col-md-6">
+                                <div class="card border-0 rounded-4 h-100" style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);">
+                                    <div class="card-body p-4">
+                                        <h5 class="fw-bold mb-4 d-flex align-items-center gap-2" style="color: #721c24;">
+                                            <i class="fas fa-times-circle"></i> Not Included
+                                        </h5>
+                                        <div class="row g-3">
+                                            @foreach($exclusions as $exc)
+                                            <div class="col-12">
+                                                <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.7);">
+                                                    <div class="flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width: 36px; height: 36px; background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">
+                                                        <i class="fas {{ getIconForItem($exc, $iconMap) }} text-white" style="font-size: 14px;"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="fw-semibold" style="color: #721c24; font-size: 14px;">{{ $exc }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endif
                         </div>
                     </div>
+                    @endif
                 </div>
 
                 <!-- You might also like section -->
