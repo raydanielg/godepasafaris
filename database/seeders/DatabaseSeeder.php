@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DestinationSeeder::class,
             KilimanjaroSeeder::class,
             SafariSeeder::class,
+            SafariDestinationSeeder::class,
             ImpactSeeder::class,
             MenuSeeder::class,
         ]);

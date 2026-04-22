@@ -189,6 +189,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/packing-lists/{packingList}/items', [App\Http\Controllers\Admin\PackingListController::class, 'storeItem'])->name('admin.packing-lists.items.store');
     Route::put('/admin/packing-list-items/{item}', [App\Http\Controllers\Admin\PackingListController::class, 'updateItem'])->name('admin.packing-lists.items.update');
     Route::delete('/admin/packing-list-items/{item}', [App\Http\Controllers\Admin\PackingListController::class, 'destroyItem'])->name('admin.packing-lists.items.destroy');
+
+    // Safari Destinations Management
+    Route::get('/admin/safari-destinations', [App\Http\Controllers\Admin\SafariDestinationController::class, 'index'])->name('admin.safari-destinations.index');
+    Route::get('/admin/safari-destinations/create', [App\Http\Controllers\Admin\SafariDestinationController::class, 'create'])->name('admin.safari-destinations.create');
+    Route::post('/admin/safari-destinations', [App\Http\Controllers\Admin\SafariDestinationController::class, 'store'])->name('admin.safari-destinations.store');
+    Route::get('/admin/safari-destinations/{safariDestination}/edit', [App\Http\Controllers\Admin\SafariDestinationController::class, 'edit'])->name('admin.safari-destinations.edit');
+    Route::put('/admin/safari-destinations/{safariDestination}', [App\Http\Controllers\Admin\SafariDestinationController::class, 'update'])->name('admin.safari-destinations.update');
+    Route::delete('/admin/safari-destinations/{safariDestination}', [App\Http\Controllers\Admin\SafariDestinationController::class, 'destroy'])->name('admin.safari-destinations.destroy');
+    
+    // Safari Activities
+    Route::post('/admin/safari-destinations/{safariDestination}/activities', [App\Http\Controllers\Admin\SafariDestinationController::class, 'storeActivity'])->name('admin.safari-destinations.activities.store');
+    Route::delete('/admin/safari-activities/{activity}', [App\Http\Controllers\Admin\SafariDestinationController::class, 'destroyActivity'])->name('admin.safari-activities.destroy');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
@@ -203,8 +215,8 @@ Route::get('/kilimanjaro/{slug}', [App\Http\Controllers\KilimanjaroController::c
 Route::get('/kilimanjaro/route/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'routeShow'])->name('kilimanjaro.route.show');
 Route::post('/kilimanjaro/{id}/enquire', [App\Http\Controllers\KilimanjaroController::class, 'enquire'])->name('kilimanjaro.enquire');
 
-Route::get('/destinations', [App\Http\Controllers\SafariController::class, 'destinations'])->name('destinations');
-Route::get('/destinations/{slug}', [App\Http\Controllers\SafariController::class, 'destinationShow'])->name('destinations.show');
+Route::get('/destinations', [App\Http\Controllers\SafariDestinationController::class, 'index'])->name('destinations');
+Route::get('/destinations/{slug}', [App\Http\Controllers\SafariDestinationController::class, 'show'])->name('destinations.show');
 
 Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->name('safari');
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');
