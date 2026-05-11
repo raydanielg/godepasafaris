@@ -1,7 +1,7 @@
 <!-- Primary Meta Tags -->
-<title>@yield('title', 'Go Deep Africa Safari - Authentic Tanzania Safari & Kilimanjaro Trekking')</title>
-<meta name="title" content="@yield('meta_title', 'Go Deep Africa Safari - Authentic Tanzania Safari & Kilimanjaro Trekking')">
-<meta name="description" content="@yield('meta_description', 'Experience authentic Tanzania safaris, Serengeti balloon tours, and Kilimanjaro trekking with Go Deep Africa Safari. Locally owned experts in Arusha.')">
+<title>@yield('title', 'Go Deep Africa Safari | Authentic Tanzania Safari & Kilimanjaro Trekking')</title>
+<meta name="title" content="@yield('meta_title', 'Go Deep Africa Safari | Authentic Tanzania Safari & Kilimanjaro Trekking')">
+<meta name="description" content="@yield('meta_description', 'Experience authentic Tanzania safaris, Serengeti balloon tours, and Kilimanjaro trekking with Go Deep Africa Safari. Locally owned experts in Arusha supporting local communities.')">
 <meta name="keywords" content="Tanzania Safari, Kilimanjaro Trekking, Serengeti Balloon Safari, Arusha Safari, Giving Back Tanzania, Luxury Safari Tanzania, Budget Safari Tanzania">
 <meta name="author" content="Go Deep Africa Safari">
 <meta name="robots" content="index, follow">
