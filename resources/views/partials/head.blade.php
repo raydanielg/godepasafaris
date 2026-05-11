@@ -27,6 +27,24 @@
         overflow-x: hidden;
     }
 
+    /* Global Mobile Optimizations */
+    @media (max-width: 768px) {
+        .main-header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .top-header {
+            display: none !important;
+        }
+        .bottom-header {
+            margin: 10px !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(10px);
+        }
+    }
+
     /* Common Components Styling */
     .btn-earth { 
         background-color: var(--primary-earth) !important; 
