@@ -163,7 +163,7 @@
                             <span class="text-white fw-bold">{{ $destination->established }}</span>
                         </div>
 
-                        <a href="{{ route('contact') }}" class="btn w-100 rounded-pill py-3 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
+                        <a href="javascript:void(0)" class="btn w-100 rounded-pill py-3 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
                             <i class="fas fa-envelope me-2"></i>Enquire Now
                         </a>
                     </div>
@@ -173,7 +173,30 @@
     </section>
 
     @include('partials.footer')
+    @include('partials.general_inquiry_modal')
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: true });</script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        // Auto-set the destination name in the inquiry modal
+        document.querySelector('[data-bs-target="#generalInquiryModal"]').addEventListener('click', function() {
+            const select = document.getElementById('inquiry_tour_select');
+            if (select) {
+                const destinationName = "{{ $destination->name }}";
+                // Check if the option exists, if not add it or set to general
+                let found = false;
+                for (let i = 0; i < select.options.length; i++) {
+                    if (select.options[i].text.includes(destinationName)) {
+                        select.selectedIndex = i;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    select.value = "General Inquiry";
+                }
+            }
+        });
+    </script>
 </body>
 </html>
