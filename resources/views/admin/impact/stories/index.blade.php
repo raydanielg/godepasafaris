@@ -80,7 +80,7 @@
     </div>
 
     <!-- Pagination -->
-    <div class="px-3 mt-4">
+    <div class="d-flex justify-content-center mt-5 mb-4">
         {{ $stories->links() }}
     </div>
 

@@ -24,7 +24,7 @@ class SafariDestinationController extends Controller
             ->firstOrFail();
 
         $relatedPackages = SafariPackage::where('title', 'like', '%' . $destination->name . '%')
-            ->orWhere('description', 'like', '%' . $destination->name . '%')
+            ->orWhere('summary', 'like', '%' . $destination->name . '%')
             ->limit(3)
             ->get();
 
