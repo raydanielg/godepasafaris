@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-<!-- Scripts -->
-@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
     :root {
@@ -43,6 +43,27 @@
             background-color: rgba(255, 255, 255, 0.9) !important;
             backdrop-filter: blur(10px);
         }
+    }
+
+    /* Flatpickr Custom Styling */
+    .flatpickr-calendar {
+        border-radius: 15px !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        border: none !important;
+        background: #fff !important;
+    }
+    .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+        background: var(--primary-earth) !important;
+        border-color: var(--primary-earth) !important;
+    }
+    .flatpickr-months .flatpickr-month, .flatpickr-current-month .flatpickr-monthDropdown-months, .flatpickr-current-month input.cur-year {
+        color: var(--dark-earth) !important;
+        fill: var(--dark-earth) !important;
+    }
+    .flatpickr-weekday {
+        background: transparent !important;
+        color: var(--dark-earth) !important;
+        font-weight: bold !important;
     }
 
     /* Common Components Styling */

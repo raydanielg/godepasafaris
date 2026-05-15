@@ -358,7 +358,6 @@
     @include('partials.prefooter_cta')
     @include('partials.scripts')
     
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             flatpickr("input[type=date]", {
