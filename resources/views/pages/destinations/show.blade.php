@@ -17,11 +17,9 @@
 
     <!-- Hero -->
     <section class="position-relative" style="min-height: 70vh;">
-        <div class="position-absolute top-0 start-0 w-100 h-100">
-            <img src="{{ $destination->featured_image ? asset('storage/' . $destination->featured_image) : 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80' }}" 
-                 class="w-100 h-100 object-fit-cover" alt="{{ $destination->name }}">
+        <section class="destination-hero d-flex align-items-center text-white" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ $destination->hero_image ? asset('storage/' . $destination->hero_image) : 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80' }}');">
             <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(62,39,35,0.8) 100%);"></div>
-        </div>
+        </section>
         
         <div class="container position-relative text-white d-flex flex-column justify-content-end" style="min-height: 70vh; padding-bottom: 4rem;">
             <nav aria-label="breadcrumb" class="mb-3">
