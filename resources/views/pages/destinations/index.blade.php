@@ -75,7 +75,7 @@
         <div class="container py-4">
             <div class="row g-0 featured-card shadow-lg" data-aos="fade-up">
                 <div class="col-lg-7">
-                    <img src="{{ $featured->featured_image ? asset('storage/' . $featured->featured_image) : 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' }}" 
+                    <img src="{{ $featured->display_image }}" 
                          class="w-100 h-100 object-fit-cover" style="min-height: 450px;" alt="{{ $featured->name }}">
                 </div>
                 <div class="col-lg-5 d-flex align-items-center">
@@ -131,7 +131,7 @@
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="destination-card card h-100 border-0 rounded-4 shadow-sm overflow-hidden">
                         <div class="position-relative overflow-hidden" style="height: 250px;">
-                            <img src="{{ $destination->featured_image ? asset('storage/' . $destination->featured_image) : 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" 
+                            <img src="{{ $destination->display_image }}" 
                                  class="card-img w-100 h-100 object-fit-cover" alt="{{ $destination->name }}">
                             @if($destination->badge)
                             <div class="position-absolute top-0 end-0 m-3">

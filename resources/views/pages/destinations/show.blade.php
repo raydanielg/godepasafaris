@@ -17,7 +17,7 @@
 
     <!-- Hero -->
     <section class="position-relative" style="min-height: 70vh;">
-        <section class="destination-hero d-flex align-items-center text-white" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ $destination->hero_image ? asset('storage/' . $destination->hero_image) : 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80' }}');">
+        <section class="destination-hero d-flex align-items-center text-white" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ $destination->hero_display_image }}');">
             <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(62,39,35,0.8) 100%);"></div>
         </section>
         

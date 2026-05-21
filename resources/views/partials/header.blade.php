@@ -41,8 +41,12 @@
                 <img src="{{ asset('images/logo/logo.png') }}" alt="Go Deep Africa Safari" style="max-height: 55px; width: auto;">
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="mobile-sidebar-toggle d-lg-none" type="button" id="mobileSidebarToggle" aria-label="Toggle navigation">
+                <span class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
             </button>
             
             <div class="collapse navbar-collapse" id="mainNavbar">
@@ -643,4 +647,398 @@
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Sidebar Drawer -->
+    <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay"></div>
+    <aside class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <img src="{{ asset('images/logo/logo.png') }}" alt="Go Deep Africa Safari" style="max-height: 40px; width: auto;">
+            <button class="sidebar-close" id="mobileSidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-nav">
+                <li><a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}"><i class="fas fa-home me-3"></i>HOME</a></li>
+                
+                <li class="sidebar-dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+                        <i class="fas fa-paw me-3"></i>SAFARIS <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="{{ route('tours.all') }}"><i class="fas fa-compass me-2"></i>All Safari Tours</a></li>
+                        @php
+                            $safariSection = \App\Models\MenuSection::forNavItem('safari')->first();
+                            $safariLinks = $safariSection ? $safariSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($safariSection && $safariLinks->count() > 0)
+                            @foreach($safariLinks as $link)
+                            <li><a href="{{ $link->url }}"><i class="fas {{ $link->icon }} me-2"></i>{{ $link->title }}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </li>
+
+                <li class="sidebar-dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+                        <i class="fas fa-mountain me-3"></i>KILIMANJARO <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="{{ route('kilimanjaro') }}"><i class="fas fa-hiking me-2"></i>Climbing Overview</a></li>
+                        <li><a href="{{ route('kilimanjaro.why-us') }}"><i class="fas fa-info-circle me-2"></i>Why With Us</a></li>
+                        <li><a href="{{ route('kilimanjaro.pricing') }}"><i class="fas fa-tags me-2"></i>Pricing</a></li>
+                        <li><a href="{{ route('kilimanjaro.group') }}"><i class="fas fa-users me-2"></i>Group Climbs</a></li>
+                        <li><a href="{{ route('kilimanjaro.calculator') }}"><i class="fas fa-calculator me-2"></i>Cost Calculator</a></li>
+                        @php
+                            $kiliSection = \App\Models\MenuSection::forNavItem('kilimanjaro')->first();
+                            $kiliLinks = $kiliSection ? $kiliSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($kiliSection && $kiliLinks->count() > 0)
+                            @foreach($kiliLinks as $link)
+                            <li><a href="{{ $link->url }}"><i class="fas {{ $link->icon }} me-2"></i>{{ $link->title }}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </li>
+
+                <li class="sidebar-dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+                        <i class="fas fa-map-marker-alt me-3"></i>DESTINATIONS <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="{{ route('destinations') }}"><i class="fas fa-compass me-2"></i>All Destinations</a></li>
+                        @php
+                            $destSection = \App\Models\MenuSection::forNavItem('destinations')->first();
+                            $destLinks = $destSection ? $destSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($destSection && $destLinks->count() > 0)
+                            @foreach($destLinks as $link)
+                            <li><a href="{{ $link->url }}"><i class="fas {{ $link->icon }} me-2"></i>{{ $link->title }}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </li>
+
+                <li class="sidebar-dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+                        <i class="fas fa-heart me-3"></i>GIVING BACK <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="{{ route('impact') }}"><i class="fas fa-hands-helping me-2"></i>Our Impact</a></li>
+                        @php
+                            $impactSection = \App\Models\MenuSection::forNavItem('impact')->first();
+                            $impactLinks = $impactSection ? $impactSection->links()->active()->get() : collect();
+                        @endphp
+                        @if($impactSection && $impactLinks->count() > 0)
+                            @foreach($impactLinks as $link)
+                            <li><a href="{{ $link->url }}"><i class="fas {{ $link->icon }} me-2"></i>{{ $link->title }}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </li>
+
+                <li><a href="{{ route('blog') }}" class="{{ Route::is('blog*') ? 'active' : '' }}"><i class="fas fa-newspaper me-3"></i>BLOG</a></li>
+                <li><a href="{{ route('about') }}" class="{{ Route::is('about') ? 'active' : '' }}"><i class="fas fa-info-circle me-3"></i>ABOUT US</a></li>
+                <li><a href="{{ route('contact') }}" class="{{ Route::is('contact') ? 'active' : '' }}"><i class="fas fa-envelope me-3"></i>CONTACT US</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="contact-info mb-4">
+                    <a href="https://wa.me/966542586758" class="d-flex align-items-center gap-3 mb-3 text-decoration-none">
+                        <div class="icon-circle d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(37, 211, 102, 0.1);">
+                            <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">WhatsApp</small>
+                            <span class="fw-bold" style="color: #3E2723;">+966 54 258 6758</span>
+                        </div>
+                    </a>
+                    <a href="mailto:info@godeepafricasafari.com" class="d-flex align-items-center gap-3 mb-3 text-decoration-none">
+                        <div class="icon-circle d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
+                            <i class="fas fa-envelope" style="color: #8B4513;"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Email</small>
+                            <span class="fw-bold" style="color: #3E2723;">info@godeepafricasafari.com</span>
+                        </div>
+                    </a>
+                </div>
+
+                <a href="#" class="btn btn-earth w-100 py-3 rounded-pill fw-bold text-white text-center" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
+                    <i class="fas fa-paper-plane me-2"></i>INQUIRY NOW
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <style>
+        /* Mobile Sidebar Toggle - Hamburger Icon */
+        .mobile-sidebar-toggle {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1050;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 24px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #3E2723;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-sidebar-toggle.active .hamburger-icon span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-sidebar-toggle.active .hamburger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-sidebar-toggle.active .hamburger-icon span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Sidebar Drawer */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            max-width: 85vw;
+            height: 100%;
+            background: #fff;
+            z-index: 1050;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+            background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);
+        }
+
+        .sidebar-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav > li > a {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: #3E2723;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav > li > a:hover {
+            background: rgba(139, 69, 19, 0.05);
+            color: #8B4513;
+            padding-left: 25px;
+        }
+
+        .sidebar-nav > li > a.active {
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+            border-left: 4px solid #8B4513;
+        }
+
+        .sidebar-dropdown .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .sidebar-dropdown .dropdown-toggle i.fa-chevron-down {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+        }
+
+        .sidebar-dropdown.open .dropdown-toggle i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(139, 69, 19, 0.03);
+        }
+
+        .sidebar-dropdown.open .sidebar-submenu {
+            max-height: 500px;
+        }
+
+        .sidebar-submenu li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px 12px 53px;
+            color: #5D4037;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.05);
+        }
+
+        .sidebar-submenu li a:hover {
+            background: rgba(139, 69, 19, 0.08);
+            color: #8B4513;
+            padding-left: 58px;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            background: rgba(139, 69, 19, 0.03);
+            border-top: 1px solid rgba(139, 69, 19, 0.1);
+        }
+
+        .sidebar-footer .contact-info a small {
+            font-size: 0.75rem;
+        }
+
+        .sidebar-footer .contact-info span {
+            font-size: 0.9rem;
+        }
+
+        .sidebar-footer .btn-earth {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-footer .btn-earth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        /* Hide Bootstrap collapse on mobile - using sidebar instead */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                display: none !important;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('mobileSidebarToggle');
+            const sidebar = document.getElementById('mobileSidebar');
+            const sidebarClose = document.getElementById('mobileSidebarClose');
+            const sidebarOverlay = document.getElementById('mobileSidebarOverlay');
+
+            function openSidebar() {
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+                sidebarToggle.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                sidebarToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            sidebarToggle.addEventListener('click', openSidebar);
+            sidebarClose.addEventListener('click', closeSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
+
+            // Dropdown toggles in sidebar
+            const dropdownToggles = document.querySelectorAll('.sidebar-dropdown .dropdown-toggle');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parent = this.closest('.sidebar-dropdown');
+                    parent.classList.toggle('open');
+                });
+            });
+
+            // Close sidebar when clicking a link
+            const sidebarLinks = document.querySelectorAll('.sidebar-nav a, .sidebar-submenu a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (this.getAttribute('href') !== 'javascript:void(0)') {
+                        closeSidebar();
+                    }
+                });
+            });
+        });
+    </script>
+
 </header>
