@@ -18,6 +18,10 @@
     <div class="alert alert-success rounded-4">{{ session('success') }}</div>
     @endif
 
+    @if(session('error'))
+    <div class="alert alert-danger rounded-4">{{ session('error') }}</div>
+    @endif
+
     <div class="card border-0 rounded-4 shadow-sm">
         <div class="card-body p-0">
             <div class="table-responsive">

@@ -15,6 +15,9 @@
             </h4>
         </div>
         <div class="card-body p-4">
+            @if(session('error'))
+            <div class="alert alert-danger rounded-4">{{ session('error') }}</div>
+            @endif
             <form action="{{ route('admin.safari-destinations.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
