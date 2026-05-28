@@ -401,6 +401,37 @@ class SafariDestinationSeeder extends Seeder
                     ['name' => 'Photography', 'icon' => 'fa-camera', 'description' => 'Kilimanjaro backdrop'],
                 ]
             ],
+            [
+                'name'              => 'Zanzibar Island',
+                'slug'              => 'zanzibar',
+                'tagline'           => 'Spice Island paradise — turquoise waters, coral reefs, and ancient Stone Town',
+                'description'       => 'Zanzibar is a semi-autonomous archipelago off the coast of Tanzania, renowned for its stunning white-sand beaches, crystal-clear turquoise waters, vibrant coral reefs, and the UNESCO World Heritage Site of Stone Town. The island blends African, Arab, Indian, and European influences into a unique cultural tapestry. Beyond the beaches, Zanzibar offers spice tours, dolphin watching, snorkelling, kite-surfing, and exploring the historic alleys of Stone Town. It is the perfect complement to a Tanzania safari — trade your binoculars for a snorkel mask and relax in paradise.',
+                'short_description' => 'White beaches, spice tours, and the historic Stone Town — Zanzibar is Tanzania\'s island paradise.',
+                'location'          => 'Indian Ocean, Tanzania Coast',
+                'best_time'         => 'June – October & December – February',
+                'icon'              => 'fa-umbrella-beach',
+                'badge'             => 'Beach & Culture',
+                'badge_color'       => 'info',
+                'is_featured'       => false,
+                'is_active'         => true,
+                'display_order'     => 16,
+                'highlight_1'       => 'UNESCO World Heritage Stone Town',
+                'highlight_2'       => 'Pristine Coral Reefs & Marine Parks',
+                'highlight_3'       => 'Spice Plantation Tours',
+                'area'              => '2,462 km²',
+                'established'       => 'Ancient — 10th Century',
+                'wildlife_count'    => '200+ Marine Species',
+                'activities' => [
+                    ['name' => 'Beach Relaxation',      'icon' => 'fa-umbrella-beach', 'description' => 'Relax on world-class white sand beaches like Nungwi and Kendwa'],
+                    ['name' => 'Snorkelling & Diving',  'icon' => 'fa-water',          'description' => 'Explore vibrant coral reefs and marine parks'],
+                    ['name' => 'Stone Town Tour',        'icon' => 'fa-mosque',         'description' => 'Walk the historic UNESCO World Heritage Site alleys'],
+                    ['name' => 'Spice Plantation Tour',  'icon' => 'fa-seedling',       'description' => 'Discover cloves, vanilla, cinnamon, and cardamom'],
+                    ['name' => 'Dolphin Watching',       'icon' => 'fa-fish',           'description' => 'Swim with wild dolphins in Kizimkazi Bay'],
+                    ['name' => 'Kite Surfing',           'icon' => 'fa-wind',           'description' => 'World-class kite surfing at Paje Beach'],
+                    ['name' => 'Deep Sea Fishing',       'icon' => 'fa-anchor',         'description' => 'Game fishing in the Indian Ocean'],
+                    ['name' => 'Sunset Dhow Cruise',     'icon' => 'fa-ship',           'description' => 'Traditional wooden dhow sunset cruise with dinner'],
+                ],
+            ],
         ];
 
         foreach ($destinations as $destData) {
