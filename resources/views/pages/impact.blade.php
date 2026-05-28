@@ -168,7 +168,7 @@
     </section>
 
     <!-- Support Categories - Enhanced -->
-    <section class="categories-section py-5" style="background-color: #fdfaf5;">
+    <section id="orphans" class="categories-section py-5" style="background-color: #fdfaf5;">
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Our Focus Areas</span>
@@ -177,7 +177,7 @@
                 <p class="text-muted mx-auto" style="max-width: 700px;">We focus on three key areas where we can make the most meaningful impact in Tanzanian communities</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div id="orphans-card" class="col-md-4" data-aos="fade-up" data-aos-delay="0">
                     <div class="category-card p-5 text-center bg-white rounded-4 shadow-sm h-100 transition-all position-relative overflow-hidden">
                         <div class="category-bg-icon position-absolute top-0 end-0 opacity-10" style="font-size: 10rem; color: #8B4513; transform: translate(30%, -30%);">
                             <i class="fas fa-child"></i>
@@ -192,7 +192,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div id="women" class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="category-card p-5 text-center bg-white rounded-4 shadow-sm h-100 transition-all position-relative overflow-hidden">
                         <div class="category-bg-icon position-absolute top-0 end-0 opacity-10" style="font-size: 10rem; color: #8B4513; transform: translate(30%, -30%);">
                             <i class="fas fa-female"></i>
@@ -207,7 +207,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div id="street" class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="category-card p-5 text-center bg-white rounded-4 shadow-sm h-100 transition-all position-relative overflow-hidden">
                         <div class="category-bg-icon position-absolute top-0 end-0 opacity-10" style="font-size: 10rem; color: #8B4513; transform: translate(30%, -30%);">
                             <i class="fas fa-hands-helping"></i>
@@ -258,7 +258,7 @@
     </section>
 
     <!-- Success Stories Section -->
-    <section class="py-5" style="background: linear-gradient(135deg, #fdfaf5 0%, #f5e6d3 100%);">
+    <section id="stories" class="py-5" style="background: linear-gradient(135deg, #fdfaf5 0%, #f5e6d3 100%);">
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Real Stories</span>
@@ -339,7 +339,7 @@
     </section>
 
     <!-- Partners Section -->
-    <section class="py-5" style="background-color: #fdfaf5;">
+    <section id="partners" class="py-5" style="background-color: #fdfaf5;">
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Collaboration</span>
@@ -370,7 +370,7 @@
     </section>
 
     <!-- Get Involved / Volunteer Section -->
-    <section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(62,39,35,0.95) 0%, rgba(139,69,19,0.9) 100%), url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <section id="volunteer" class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(62,39,35,0.95) 0%, rgba(139,69,19,0.9) 100%), url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
         <div class="container py-5 position-relative z-2">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 text-white" data-aos="fade-right">

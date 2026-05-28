@@ -21,6 +21,21 @@
             background-position: center;
             background-attachment: fixed;
         }
+        .btn-active-region {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(139,69,19,0.25);
+        }
+        .btn-outline-region {
+            background: white;
+            color: #8B4513;
+            border: 2px solid #8B4513;
+        }
+        .btn-outline-region:hover {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+        }
         .destination-card {
             transition: all 0.4s ease;
             overflow: hidden;
@@ -117,7 +132,7 @@
     <!-- All Destinations Grid -->
     <section class="py-5">
         <div class="container py-4">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-4" data-aos="fade-up">
                 <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
                     All Safari Destinations
                 </h2>
@@ -125,6 +140,36 @@
                     From iconic national parks to hidden gems, explore Tanzania's diverse wilderness
                 </p>
             </div>
+
+            <!-- Region Filter Tabs -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" data-aos="fade-up">
+                <a href="{{ route('destinations') }}"
+                   class="btn rounded-pill px-4 py-2 fw-bold {{ !isset($activeRegion) || !$activeRegion ? 'btn-active-region' : 'btn-outline-region' }}">
+                    <i class="fas fa-globe-africa me-2"></i>All Tanzania
+                </a>
+                <a href="{{ route('destinations', ['region' => 'north']) }}"
+                   class="btn rounded-pill px-4 py-2 fw-bold {{ isset($activeRegion) && $activeRegion === 'north' ? 'btn-active-region' : 'btn-outline-region' }}">
+                    <i class="fas fa-arrow-up me-2"></i>Northern Circuit
+                </a>
+                <a href="{{ route('destinations', ['region' => 'south']) }}"
+                   class="btn rounded-pill px-4 py-2 fw-bold {{ isset($activeRegion) && $activeRegion === 'south' ? 'btn-active-region' : 'btn-outline-region' }}">
+                    <i class="fas fa-arrow-down me-2"></i>Southern Circuit
+                </a>
+                <a href="{{ route('destinations', ['region' => 'west']) }}"
+                   class="btn rounded-pill px-4 py-2 fw-bold {{ isset($activeRegion) && $activeRegion === 'west' ? 'btn-active-region' : 'btn-outline-region' }}">
+                    <i class="fas fa-arrow-left me-2"></i>Western Circuit
+                </a>
+            </div>
+
+            @if(isset($activeRegion) && $activeRegion)
+            <div class="alert border-0 rounded-4 mb-4 d-flex align-items-center gap-3" style="background: rgba(139,69,19,0.08);">
+                <i class="fas fa-filter" style="color: #8B4513;"></i>
+                <span style="color: #3E2723;">Showing <strong>{{ ucfirst($activeRegion) }}ern Circuit</strong> destinations — {{ $destinations->count() }} found.</span>
+                <a href="{{ route('destinations') }}" class="ms-auto btn btn-sm rounded-pill" style="background: #8B4513; color: white;">
+                    <i class="fas fa-times me-1"></i>Clear
+                </a>
+            </div>
+            @endif
 
             <div class="row g-4">
                 @foreach($destinations as $destination)

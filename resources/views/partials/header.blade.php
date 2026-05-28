@@ -26,10 +26,10 @@
             </div>
             
             <div class="header-socials d-flex gap-3">
-                <a href="https://www.facebook.com/share/1DkJwJSKre/" target="_blank" style="color: #DEB887;"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.tiktok.com/@godeepafricasafar?_r=1&_d=ea2f55g68hamde&sec_uid=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&share_author_id=7360181590935782405&sharer_language=en&source=h5_m&u_code=edjg8mim3bfcak&timestamp=1774716159&user_id=7360181590935782405&sec_user_id=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&item_author_type=1&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7620799729350444820&share_link_id=9863272e-6781-4c72-96fc-8cd3d626e0c3&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=b8727%2Cb7360&social_share_type=5&enable_checksum=1" target="_blank" style="color: #DEB887;"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.tiktok.com/@godeepafricasafar?_r=1&_d=ea2f55g68hamde&sec_uid=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&share_author_id=7360181590935782405&sharer_language=en&source=h5_m&u_code=edjg8mim3bfcak&timestamp=1774716159&user_id=7360181590935782405&sec_user_id=MS4wLjABAAAA9QgYff6T9D5ggw4R-sHMM3ZvjRY2rWL-pGeGJJK-7KDhR10NfGWPaBFuB-3cCedE&item_author_type=1&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7620799729350444820&share_link_id=9863272e-6781-4c72-96fc-8cd3d626e0c3&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=b8727%2Cb7360&social_share_type=5&enable_checksum=1" target="_blank" style="color: #DEB887;"><i class="fab fa-tiktok"></i></a>
-                <a href="https://www.threads.com/@godeepafricasafariexpendition" target="_blank" style="color: #DEB887;"><i class="fa-brands fa-threads"></i></a>
+                <a href="https://www.facebook.com/share/1DkJwJSKre/" target="_blank" style="color: #DEB887;" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/godeepafricasafariexpendition?igsh=MWpxc25icmkzZDA3Mg==" target="_blank" style="color: #DEB887;" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@godeepafrica.safari?_r=1&_t=ZS-96aUetd9NMF" target="_blank" style="color: #DEB887;" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.threads.com/@godeepafricasafariexpendition" target="_blank" style="color: #DEB887;" title="Threads"><i class="fa-brands fa-threads"></i></a>
             </div>
         </div>
     </div>
@@ -764,6 +764,12 @@
                     </a>
                 </div>
 
+                <div class="d-flex gap-2 justify-content-center mb-4">
+                    <a href="https://www.facebook.com/share/1DkJwJSKre/" target="_blank" class="sidebar-social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/godeepafricasafariexpendition?igsh=MWpxc25icmkzZDA3Mg==" target="_blank" class="sidebar-social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@godeepafrica.safari?_r=1&_t=ZS-96aUetd9NMF" target="_blank" class="sidebar-social-btn" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.threads.com/@godeepafricasafariexpendition" target="_blank" class="sidebar-social-btn" title="Threads"><i class="fa-brands fa-threads"></i></a>
+                </div>
                 <a href="#" class="btn btn-earth w-100 py-3 rounded-pill fw-bold text-white text-center" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
                     <i class="fas fa-paper-plane me-2"></i>INQUIRY NOW
                 </a>
@@ -984,6 +990,26 @@
         .sidebar-footer .btn-earth:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        .sidebar-social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-social-btn:hover {
+            background: #8B4513;
+            color: #fff;
+            transform: translateY(-2px);
         }
 
         /* Hide Bootstrap collapse on mobile - using sidebar instead */

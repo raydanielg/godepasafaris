@@ -81,16 +81,26 @@ class SafariController extends Controller
     public function storeBooking(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'tour_name' => 'nullable|string|max:255',
-            'travel_date' => 'nullable|date',
-            'travelers' => 'nullable|string',
-            'message' => 'nullable|string',
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|email|max:255',
+            'phone'         => 'nullable|string|max:20',
+            'tour_id'       => 'nullable|integer',
+            'tour_name'     => 'nullable|string|max:255',
+            'travel_date'   => 'nullable|date',
+            'travelers'     => 'nullable|string',
+            'accommodation' => 'nullable|string|max:100',
+            'message'       => 'nullable|string',
         ]);
 
         \App\Models\Booking::create($validated);
+
+        // Notify admin by email
+        $details = array_merge($validated, ['package' => $validated['tour_name'] ?? 'General Inquiry']);
+        try {
+            Mail::to('info@godeepafricasafari.com')->send(new BookingInquiry($details));
+        } catch (\Exception $e) {
+            // Email failure should not block the booking from being saved
+        }
 
         return back()->with('success', 'Thank you! Your inquiry has been received. We will contact you shortly.');
     }

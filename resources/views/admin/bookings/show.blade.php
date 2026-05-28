@@ -77,6 +77,7 @@
                         @csrf
                         @method('PATCH')
                         <select name="status" class="form-select rounded-3 mb-3" onchange="this.form.submit()">
+                            <option value="new" {{ $booking->status == 'new' ? 'selected' : '' }}>New</option>
                             <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>Pending Review</option>
                             <option value="contacted" {{ $booking->status == 'contacted' ? 'selected' : '' }}>Contacted</option>
                             <option value="quoted" {{ $booking->status == 'quoted' ? 'selected' : '' }}>Invoice Sent</option>

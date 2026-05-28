@@ -64,9 +64,12 @@
                             <td>
                                 @php
                                     $statusColor = match($booking->status) {
-                                        'confirmed' => ['bg' => '#e8f5e9', 'text' => '#2e7d32'],
-                                        'cancelled' => ['bg' => '#ffebee', 'text' => '#c62828'],
-                                        default => ['bg' => '#fff3e0', 'text' => '#ef6c00'],
+                                        'confirmed'  => ['bg' => '#e8f5e9', 'text' => '#2e7d32'],
+                                        'cancelled'  => ['bg' => '#ffebee', 'text' => '#c62828'],
+                                        'contacted'  => ['bg' => '#e3f2fd', 'text' => '#1565c0'],
+                                        'quoted'     => ['bg' => '#ede7f6', 'text' => '#4527a0'],
+                                        'new'        => ['bg' => '#e1f5fe', 'text' => '#0277bd'],
+                                        default      => ['bg' => '#fff3e0', 'text' => '#ef6c00'],
                                     };
                                 @endphp
                                 <span class="badge rounded-pill px-3 py-1 smaller fw-medium text-uppercase" 
