@@ -113,10 +113,14 @@
                 <!-- Itinerary -->
                 @php
                     $itinerary = is_array($package->itinerary) ? $package->itinerary : (is_string($package->itinerary) ? json_decode($package->itinerary, true) : []);
+                    
+                    // If itinerary is HTML (from CKEditor), display it as raw HTML
+                    $isHtmlItinerary = is_string($package->itinerary) && !json_decode($package->itinerary, true) && !empty($package->itinerary);
+                    
                     if (!is_array($itinerary) || count($itinerary) == 0) {
                         // Default itinerary based on package days
                         $itinerary = [];
-                        for($i = 1; $i <= $package->days; $i++) {
+                        for($i = 1; $i <= max($package->days ?? 1, 1); $i++) {
                             $itinerary[] = [
                                 'day' => $i,
                                 'title' => 'Day ' . $i . ' - Safari Adventure',
