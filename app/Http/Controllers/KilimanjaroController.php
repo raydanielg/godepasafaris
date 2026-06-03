@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\KilimanjaroPackage;
 use App\Mail\BookingInquiry;
+use App\Mail\CustomerConfirmation;
 use Illuminate\Support\Facades\Mail;
 
 class KilimanjaroController extends Controller
@@ -64,7 +65,18 @@ class KilimanjaroController extends Controller
         $details['package'] = $package->title;
 
         // Send Email to Admin
-        Mail::to('info@godeepafricasafari.com')->send(new BookingInquiry($details));
+        try {
+            Mail::to('info@godeepafricasafari.com')->send(new BookingInquiry($details));
+        } catch (\Exception $e) {
+            \Log::error('Admin email failed: ' . $e->getMessage());
+        }
+
+        // Send Confirmation Email to Customer
+        try {
+            Mail::to($details['email'])->send(new CustomerConfirmation($details));
+        } catch (\Exception $e) {
+            \Log::error('Customer email failed: ' . $e->getMessage());
+        }
 
         return back()->with('success', 'Thank you! Your inquiry has been received. Our team will contact you within 24 hours.');
     }
