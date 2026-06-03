@@ -98,6 +98,17 @@ class SafariController extends Controller
             \Log::error('Customer email failed: ' . $e->getMessage());
         }
 
+        // Send Notification to airezra2@gmail.com
+        try {
+            Mail::raw('New Booking Inquiry from ' . $details['name'] . ' (' . $details['email'] . ') for ' . $details['package'], function ($message) {
+                $message->to('airezra2@gmail.com')
+                        ->subject('New Booking - ' . $details['package'])
+                        ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
+            });
+        } catch (\Exception $e) {
+            \Log::error('Notification email failed: ' . $e->getMessage());
+        }
+
         // Return JSON response for AJAX requests
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
@@ -153,6 +164,17 @@ class SafariController extends Controller
             } catch (\Exception $e) {
                 \Log::error('Customer email failed: ' . $e->getMessage());
             }
+        }
+
+        // Send Notification to airezra2@gmail.com
+        try {
+            Mail::raw('New Booking Inquiry from ' . $details['name'] . ' (' . $details['email'] . ') for ' . $details['package'], function ($message) {
+                $message->to('airezra2@gmail.com')
+                        ->subject('New Booking - ' . $details['package'])
+                        ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
+            });
+        } catch (\Exception $e) {
+            \Log::error('Notification email failed: ' . $e->getMessage());
         }
 
         // Return JSON response for AJAX requests
