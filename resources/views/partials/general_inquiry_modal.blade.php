@@ -126,4 +126,11 @@
         font-size: 16px !important;
         padding: 14px 24px !important;
     }
+    /* Fix backdrop z-index issue */
+    .modal-backdrop {
+        z-index: 1050 !important;
+    }
+    #generalInquiryModal {
+        z-index: 1055 !important;
+    }
 </style>

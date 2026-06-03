@@ -440,6 +440,16 @@
                         tourSelect.value = '{{ $package->title }}';
                     }
                 });
+                
+                // Clean up backdrop when modal is hidden
+                modalElement.addEventListener('hidden.bs.modal', function() {
+                    document.querySelectorAll('.modal-backdrop').forEach(function(backdrop) {
+                        backdrop.remove();
+                    });
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                });
             }
             
             // Handle form submission with AJAX
