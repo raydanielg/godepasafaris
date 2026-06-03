@@ -39,15 +39,17 @@
                 </div>
 
                 <div class="card shadow-sm border-0 rounded-4 p-4">
-                    <h5 class="fw-bold mb-4" style="color: #3E2723;">Inclusions & Exclusions</h5>
+                    <h5 class="fw-bold mb-4" style="color: #3E2723;">Inclusions & Exclusions (JSON Format)</h5>
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label class="form-label fw-bold text-dark">What's Included</label>
-                            <textarea name="inclusions" id="editor-inclusions" class="form-control">{{ old('inclusions', $package->inclusions) }}</textarea>
+                            <textarea name="inclusions" id="editor-inclusions" class="form-control" rows="6" placeholder='["Item 1", "Item 2", "Item 3"]'>{{ old('inclusions', is_array($package->inclusions) ? json_encode($package->inclusions, JSON_PRETTY_PRINT) : $package->inclusions) }}</textarea>
+                            <small class="text-muted">Enter as JSON array of strings</small>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label class="form-label fw-bold text-dark">What's Excluded</label>
-                            <textarea name="exclusions" id="editor-exclusions" class="form-control">{{ old('exclusions', $package->exclusions) }}</textarea>
+                            <textarea name="exclusions" id="editor-exclusions" class="form-control" rows="6" placeholder='["Item 1", "Item 2", "Item 3"]'>{{ old('exclusions', is_array($package->exclusions) ? json_encode($package->exclusions, JSON_PRETTY_PRINT) : $package->exclusions) }}</textarea>
+                            <small class="text-muted">Enter as JSON array of strings</small>
                         </div>
                     </div>
                 </div>
