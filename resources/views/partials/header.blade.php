@@ -54,17 +54,18 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('/') ? 'active' : '' }} px-3" href="{{ url('/') }}" style="color: #3E2723 !important;">HOME</a>
                     </li>
-                    
+
                     <!-- SAFARI Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('tours.all') || Route::is('safari*') ? 'active' : '' }} px-3" href="{{ route('tours.all') }}" style="color: #3E2723 !important;" id="safariMegaMenu">
                             SAFARIS <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
-                            $safariSection = \App\Models\MenuSection::forNavItem('safari')->first();
-                            $safariLinks = $safariSection ? $safariSection->links()->active()->get() : collect();
+                            $allSafariPackages = \App\Models\SafariPackage::latest()->get();
+                            // Get 5 random safari packages for dynamic display
+                            $safariPackages = $allSafariPackages->shuffle()->take(5);
                         @endphp
-                        @if($safariSection && $safariLinks->count() > 0)
+                        @if($safariPackages->count() > 0)
                         <div class="mega-menu-wrapper">
                             <div class="mega-menu-container">
                                 <div class="mega-menu-content">
@@ -75,35 +76,22 @@
                                                     <i class="fas fa-paw me-2"></i>Popular Safaris
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @php
-                                                        $safariImages = [
-                                                            'images/images/3-Days-Serengeti-Balloon-Safaris.webp',
-                                                            'images/images/4GyurGeCrKkxo9FvCd8bnc-1000-80.jpg',
-                                                            'images/images/6df7cb_418028c2ff3a46fe9005b37b1ba28faa~mv2.avif',
-                                                            'images/images/360_F_246119592_1Kg8S2tqgZCuXCx1fkyKwaGYpWWc6jUy.jpg',
-                                                            'images/images/360_F_294846823_EDmzSopDAYZ9x5cX3y0ZcNmo0LXDYXDc.jpg',
-                                                        ];
-                                                    @endphp
-                                                    @foreach($safariLinks as $index => $link)
-                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
-                                                       data-title="{{ $link->title }}"
-                                                       data-description="{{ $link->description ?? $safariSection->description }}"
-                                                       data-image="{{ asset($safariImages[$index % count($safariImages)]) }}"
-                                                       data-url="{{ $link->url }}"
-                                                       data-link-text="{{ $link->title }}">
+                                                    @foreach($safariPackages as $package)
+                                                    <a href="{{ route('safari.show', $package->slug) }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $package->title }}"
+                                                       data-description="{{ $package->summary }}"
+                                                       data-image="{{ asset($package->image) }}"
+                                                       data-url="{{ route('safari.show', $package->slug) }}"
+                                                       data-link-text="View {{ $package->title }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
-                                                            <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
+                                                            <i class="fas fa-binoculars" style="color: #8B4513;"></i>
                                                         </div>
                                                         <div class="flex-grow-1">
                                                             <div class="d-flex align-items-center">
-                                                                <span class="fw-medium" style="color: #3E2723;">{{ $link->title }}</span>
-                                                                @if($link->badge)
-                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : '#6c757d')) }};">{{ $link->badge }}</span>
-                                                                @endif
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ $package->title }}</span>
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: #8B4513;">{{ $package->days }} Days</span>
                                                             </div>
-                                                            @if($link->description)
-                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $link->description }}</small>
-                                                            @endif
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ Str::limit($package->summary, 60) }}</small>
                                                         </div>
                                                         <i class="fas fa-chevron-right ms-2 text-muted small"></i>
                                                     </a>
@@ -115,18 +103,18 @@
                                             <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
-                                                        <span class="badge mb-2 safari-badge" style="background: {{ $safariSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
-                                                            <i class="fas fa-star me-1"></i>{{ $safariSection->badge }}
+                                                        <span class="badge mb-2 safari-badge" style="background: #8B4513; font-size: 0.7rem;">
+                                                            <i class="fas fa-star me-1"></i>Featured Safari
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $safariSection->title }}</h4>
-                                                        <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $safariSection->description }}</p>
-                                                        <a href="{{ $safariSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white safari-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
-                                                            {{ $safariSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
+                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $safariPackages->first()->title }}</h4>
+                                                        <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ Str::limit($safariPackages->first()->summary, 100) }}</p>
+                                                        <a href="{{ route('safari.show', $safariPackages->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white safari-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            View Details <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ asset('images/images/3-Days-Serengeti-Balloon-Safaris.webp') }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariSection->title }}">
+                                                            <img src="{{ asset($safariPackages->first()->image) }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariPackages->first()->title }}">
                                                         </div>
                                                     </div>
                                                 </div>
