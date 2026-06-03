@@ -158,9 +158,9 @@
         toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
     };
 
-    ['#editor-description', '#editor-itinerary', '#editor-inclusions', '#editor-exclusions'].forEach(selector => {
-        ClassicEditor.create(document.querySelector(selector), editorConfig).catch(error => console.error(error));
-    });
+    // Only initialize CKEditor for description
+    // Itinerary, inclusions, and exclusions use plain textarea for JSON
+    ClassicEditor.create(document.querySelector('#editor-description'), editorConfig).catch(error => console.error(error));
 
     document.getElementById('packageImage').addEventListener('change', function(e) {
         const preview = document.getElementById('previewImg');
