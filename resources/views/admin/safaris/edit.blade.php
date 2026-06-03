@@ -31,9 +31,18 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label fw-bold text-dark">Detailed Itinerary (JSON Format)</label>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label fw-bold text-dark mb-0">Detailed Itinerary</label>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <input type="radio" class="btn-check" name="itinerary_mode" id="itinerary_json" value="json" checked>
+                                <label class="btn btn-outline-secondary" for="itinerary_json">JSON</label>
+                                <input type="radio" class="btn-check" name="itinerary_mode" id="itinerary_text" value="text">
+                                <label class="btn btn-outline-secondary" for="itinerary_text">Text Editor</label>
+                            </div>
+                        </div>
                         <textarea name="itinerary" id="editor-itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="15" placeholder='[{"day": 1, "title": "Day 1", "description": "Description", "image": "path/to/image.jpg"}]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('itinerary', is_array($package->itinerary) ? json_encode($package->itinerary, JSON_PRETTY_PRINT) : $package->itinerary) }}</textarea>
-                        <small class="text-muted">Enter itinerary as JSON array with day, title, description, and optional image fields</small>
+                        <div id="itinerary-ckeditor" class="d-none"></div>
+                        <small class="text-muted">JSON mode: Enter as JSON array. Text mode: Use rich text editor.</small>
                         @error('itinerary') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
