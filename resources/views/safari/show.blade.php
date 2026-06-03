@@ -113,9 +113,19 @@
                 <!-- Itinerary -->
                 @php
                     $itinerary = is_array($package->itinerary) ? $package->itinerary : (is_string($package->itinerary) ? json_decode($package->itinerary, true) : []);
-                    if (!is_array($itinerary)) $itinerary = [];
+                    if (!is_array($itinerary) || count($itinerary) == 0) {
+                        // Default itinerary based on package days
+                        $itinerary = [];
+                        for($i = 1; $i <= $package->days; $i++) {
+                            $itinerary[] = [
+                                'day' => $i,
+                                'title' => 'Day ' . $i . ' - Safari Adventure',
+                                'description' => 'Experience the best of Tanzania\'s wildlife with morning and afternoon game drives. Enjoy delicious meals and comfortable accommodation. Our expert guides will ensure you have an unforgettable safari experience.',
+                                'image' => null
+                            ];
+                        }
+                    }
                 @endphp
-                @if(count($itinerary) > 0)
                 <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <div class="icon-circle-lg d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">
@@ -159,20 +169,6 @@
                         @endforeach
                     </div>
                 </div>
-                @else
-                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-center py-5 px-4 rounded-4" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-                        <div class="icon-circle-lg d-flex align-items-center justify-content-center rounded-circle mx-auto mb-3" style="width: 80px; height: 80px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">
-                            <i class="fas fa-map-marked-alt text-white fa-2x"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2" style="color: #3E2723;">Detailed Itinerary Available</h5>
-                        <p class="text-muted mb-3">Contact our team for the complete day-by-day itinerary breakdown.</p>
-                        <button type="button" class="btn rounded-pill px-4 fw-bold" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white;" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
-                            <i class="fas fa-envelope me-2"></i>Request Full Itinerary
-                        </button>
-                    </div>
-                </div>
-                @endif
 
                 <!-- Amenities -->
                 @php
