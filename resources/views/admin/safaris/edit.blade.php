@@ -176,15 +176,54 @@
         toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
     };
 
-    let descriptionEditor, inclusionsEditor, exclusionsEditor;
+    let descriptionEditor, inclusionsEditor, exclusionsEditor, itineraryEditor;
 
-    // Only initialize CKEditor for description, inclusions, and exclusions
-    // Itinerary uses plain textarea for JSON
+    // Initialize CKEditor for description, inclusions, and exclusions
     Promise.all([
         ClassicEditor.create(document.querySelector('#editor-description'), editorConfig).then(editor => descriptionEditor = editor),
         ClassicEditor.create(document.querySelector('#editor-inclusions'), editorConfig).then(editor => inclusionsEditor = editor),
         ClassicEditor.create(document.querySelector('#editor-exclusions'), editorConfig).then(editor => exclusionsEditor = editor)
     ]).catch(error => console.error(error));
+
+    // Itinerary mode toggle
+    const itineraryTextarea = document.querySelector('#editor-itinerary');
+    const itineraryCkeditorContainer = document.querySelector('#itinerary-ckeditor');
+    const itineraryJsonRadio = document.querySelector('#itinerary_json');
+    const itineraryTextRadio = document.querySelector('#itinerary_text');
+    let itineraryMode = 'json';
+
+    itineraryJsonRadio.addEventListener('change', function() {
+        if (this.checked) {
+            itineraryMode = 'json';
+            if (itineraryEditor) {
+                itineraryEditor.getData().then(data => {
+                    itineraryTextarea.value = data;
+                    itineraryEditor.destroy();
+                    itineraryEditor = null;
+                });
+            }
+            itineraryTextarea.classList.remove('d-none');
+            itineraryCkeditorContainer.classList.add('d-none');
+        }
+    });
+
+    itineraryTextRadio.addEventListener('change', function() {
+        if (this.checked) {
+            itineraryMode = 'text';
+            itineraryTextarea.classList.add('d-none');
+            itineraryCkeditorContainer.classList.remove('d-none');
+            
+            const textareaValue = itineraryTextarea.value;
+            itineraryCkeditorContainer.innerHTML = '<textarea id="itinerary-ckeditor-instance"></textarea>';
+            
+            ClassicEditor.create(document.querySelector('#itinerary-ckeditor-instance'), editorConfig)
+                .then(editor => {
+                    itineraryEditor = editor;
+                    editor.setData(textareaValue);
+                })
+                .catch(error => console.error(error));
+        }
+    });
 
     document.getElementById('packageImage').addEventListener('change', function(e) {
         const preview = document.getElementById('previewImg');
@@ -211,10 +250,20 @@
         formData.set('inclusions', inclusionsEditor.getData());
         formData.set('exclusions', exclusionsEditor.getData());
         
-        // Itinerary is from textarea (not CKEditor)
-        const itineraryValue = document.querySelector('#editor-itinerary').value;
-        formData.set('itinerary', itineraryValue);
-        
+        // Get itinerary data based on mode
+        if (itineraryMode === 'text' && itineraryEditor) {
+            itineraryEditor.getData().then(data => {
+                formData.set('itinerary', data);
+                submitForm(formData);
+            });
+        } else {
+            const itineraryValue = document.querySelector('#editor-itinerary').value;
+            formData.set('itinerary', itineraryValue);
+            submitForm(formData);
+        }
+    });
+
+    function submitForm(formData) {
         // Show loading
         Swal.fire({
             title: 'Updating...',
@@ -228,7 +277,7 @@
         });
         
         // Send AJAX request
-        fetch(this.action, {
+        fetch(document.getElementById('editSafariForm').action, {
             method: 'POST',
             body: formData,
             headers: {
@@ -277,7 +326,7 @@
                 }
             });
         });
-    });
+    }
 </script>
 <style>
     .ck-editor__editable { min-height: 200px; }

@@ -30,9 +30,18 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label fw-bold text-dark">Detailed Itinerary (JSON Format)</label>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label fw-bold text-dark mb-0">Detailed Itinerary</label>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <input type="radio" class="btn-check" name="itinerary_mode" id="itinerary_json" value="json" checked>
+                                <label class="btn btn-outline-secondary" for="itinerary_json">JSON</label>
+                                <input type="radio" class="btn-check" name="itinerary_mode" id="itinerary_text" value="text">
+                                <label class="btn btn-outline-secondary" for="itinerary_text">Text Editor</label>
+                            </div>
+                        </div>
                         <textarea name="itinerary" id="editor-itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="15" placeholder='[{"day": 1, "title": "Day 1", "description": "Description", "image": "path/to/image.jpg"}]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('itinerary') }}</textarea>
-                        <small class="text-muted">Enter itinerary as JSON array with day, title, description, and optional image fields</small>
+                        <div id="itinerary-ckeditor" class="d-none"></div>
+                        <small class="text-muted">JSON mode: Enter as JSON array. Text mode: Use rich text editor.</small>
                         @error('itinerary') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
@@ -158,9 +167,59 @@
         toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
     };
 
-    // Only initialize CKEditor for description
-    // Itinerary, inclusions, and exclusions use plain textarea for JSON
-    ClassicEditor.create(document.querySelector('#editor-description'), editorConfig).catch(error => console.error(error));
+    let descriptionEditor, itineraryEditor;
+
+    // Initialize CKEditor for description
+    ClassicEditor.create(document.querySelector('#editor-description'), editorConfig).then(editor => descriptionEditor = editor).catch(error => console.error(error));
+
+    // Itinerary mode toggle
+    const itineraryTextarea = document.querySelector('#editor-itinerary');
+    const itineraryCkeditorContainer = document.querySelector('#itinerary-ckeditor');
+    const itineraryJsonRadio = document.querySelector('#itinerary_json');
+    const itineraryTextRadio = document.querySelector('#itinerary_text');
+    let itineraryMode = 'json';
+
+    itineraryJsonRadio.addEventListener('change', function() {
+        if (this.checked) {
+            itineraryMode = 'json';
+            if (itineraryEditor) {
+                itineraryEditor.getData().then(data => {
+                    itineraryTextarea.value = data;
+                    itineraryEditor.destroy();
+                    itineraryEditor = null;
+                });
+            }
+            itineraryTextarea.classList.remove('d-none');
+            itineraryCkeditorContainer.classList.add('d-none');
+        }
+    });
+
+    itineraryTextRadio.addEventListener('change', function() {
+        if (this.checked) {
+            itineraryMode = 'text';
+            itineraryTextarea.classList.add('d-none');
+            itineraryCkeditorContainer.classList.remove('d-none');
+            
+            const textareaValue = itineraryTextarea.value;
+            itineraryCkeditorContainer.innerHTML = '<textarea id="itinerary-ckeditor-instance"></textarea>';
+            
+            ClassicEditor.create(document.querySelector('#itinerary-ckeditor-instance'), editorConfig)
+                .then(editor => {
+                    itineraryEditor = editor;
+                    editor.setData(textareaValue);
+                })
+                .catch(error => console.error(error));
+        }
+    });
+
+    // Handle form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (itineraryMode === 'text' && itineraryEditor) {
+            itineraryEditor.getData().then(data => {
+                itineraryTextarea.value = data;
+            });
+        }
+    });
 
     document.getElementById('packageImage').addEventListener('change', function(e) {
         const preview = document.getElementById('previewImg');
