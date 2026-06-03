@@ -167,11 +167,12 @@
         toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
     };
 
-    let descriptionEditor, itineraryEditor, inclusionsEditor, exclusionsEditor;
+    let descriptionEditor, inclusionsEditor, exclusionsEditor;
 
+    // Only initialize CKEditor for description, inclusions, and exclusions
+    // Itinerary uses plain textarea for JSON
     Promise.all([
         ClassicEditor.create(document.querySelector('#editor-description'), editorConfig).then(editor => descriptionEditor = editor),
-        ClassicEditor.create(document.querySelector('#editor-itinerary'), editorConfig).then(editor => itineraryEditor = editor),
         ClassicEditor.create(document.querySelector('#editor-inclusions'), editorConfig).then(editor => inclusionsEditor = editor),
         ClassicEditor.create(document.querySelector('#editor-exclusions'), editorConfig).then(editor => exclusionsEditor = editor)
     ]).catch(error => console.error(error));
@@ -195,12 +196,15 @@
     document.getElementById('editSafariForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Get editor data
+        // Get editor data for CKEditor fields
         const formData = new FormData(this);
         formData.set('description', descriptionEditor.getData());
-        formData.set('itinerary', itineraryEditor.getData());
         formData.set('inclusions', inclusionsEditor.getData());
         formData.set('exclusions', exclusionsEditor.getData());
+        
+        // Itinerary is from textarea (not CKEditor)
+        const itineraryValue = document.querySelector('#editor-itinerary').value;
+        formData.set('itinerary', itineraryValue);
         
         // Show loading
         Swal.fire({
