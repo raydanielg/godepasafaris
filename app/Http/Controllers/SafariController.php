@@ -59,7 +59,7 @@ class SafariController extends Controller
 
     public function enquire(Request $request, $id)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
@@ -68,8 +68,19 @@ class SafariController extends Controller
             'message' => 'required|string',
         ]);
 
+        if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please check your input and try again.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+            return back()->withErrors($validator)->withInput();
+        }
+
         $package = SafariPackage::findOrFail($id);
-        
+
         $details = $request->only(['name', 'email', 'phone', 'adults', 'children', 'message']);
         $details['package'] = $package->title;
 
@@ -87,12 +98,20 @@ class SafariController extends Controller
             \Log::error('Customer email failed: ' . $e->getMessage());
         }
 
+        // Return JSON response for AJAX requests
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you! Your safari inquiry has been received. Our team will contact you within 24 hours.'
+            ]);
+        }
+
         return back()->with('success', 'Thank you! Your safari inquiry has been received. Our team will contact you within 24 hours.');
     }
 
     public function storeBooking(Request $request)
     {
-        $validated = $request->validate([
+        $validator = \Validator::make($request->all(), [
             'name'          => 'required|string|max:255',
             'email'         => 'required|email|max:255',
             'phone'         => 'nullable|string|max:20',
@@ -103,6 +122,19 @@ class SafariController extends Controller
             'accommodation' => 'nullable|string|max:100',
             'message'       => 'nullable|string',
         ]);
+
+        if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please check your input and try again.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $validated = $validator->validated();
 
         \App\Models\Booking::create($validated);
 
