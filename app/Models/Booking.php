@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
+        'user_id',
+        'safari_package_id',
         'tour_id',
         'tour_name',
         'name',
@@ -22,4 +24,14 @@ class Booking extends Model
     protected $casts = [
         'travel_date' => 'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function safariPackage()
+    {
+        return $this->belongsTo(SafariPackage::class, 'safari_package_id');
+    }
 }
