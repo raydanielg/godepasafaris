@@ -32,7 +32,7 @@
 
                     <div class="mb-4">
                         <label class="form-label fw-bold text-dark">Detailed Itinerary (JSON Format)</label>
-                        <textarea name="itinerary" id="editor-itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="10" placeholder='[{"day": 1, "title": "Day 1", "description": "Description", "image": "path/to/image.jpg"}]'>{{ old('itinerary', is_array($package->itinerary) ? json_encode($package->itinerary, JSON_PRETTY_PRINT) : $package->itinerary) }}</textarea>
+                        <textarea name="itinerary" id="editor-itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="15" placeholder='[{"day": 1, "title": "Day 1", "description": "Description", "image": "path/to/image.jpg"}]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('itinerary', is_array($package->itinerary) ? json_encode($package->itinerary, JSON_PRETTY_PRINT) : $package->itinerary) }}</textarea>
                         <small class="text-muted">Enter itinerary as JSON array with day, title, description, and optional image fields</small>
                         @error('itinerary') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
@@ -43,12 +43,12 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label class="form-label fw-bold text-dark">What's Included</label>
-                            <textarea name="inclusions" id="editor-inclusions" class="form-control" rows="6" placeholder='["Item 1", "Item 2", "Item 3"]'>{{ old('inclusions', is_array($package->inclusions) ? json_encode($package->inclusions, JSON_PRETTY_PRINT) : $package->inclusions) }}</textarea>
+                            <textarea name="inclusions" id="editor-inclusions" class="form-control" rows="8" placeholder='["Item 1", "Item 2", "Item 3"]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('inclusions', is_array($package->inclusions) ? json_encode($package->inclusions, JSON_PRETTY_PRINT) : $package->inclusions) }}</textarea>
                             <small class="text-muted">Enter as JSON array of strings</small>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label class="form-label fw-bold text-dark">What's Excluded</label>
-                            <textarea name="exclusions" id="editor-exclusions" class="form-control" rows="6" placeholder='["Item 1", "Item 2", "Item 3"]'>{{ old('exclusions', is_array($package->exclusions) ? json_encode($package->exclusions, JSON_PRETTY_PRINT) : $package->exclusions) }}</textarea>
+                            <textarea name="exclusions" id="editor-exclusions" class="form-control" rows="8" placeholder='["Item 1", "Item 2", "Item 3"]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('exclusions', is_array($package->exclusions) ? json_encode($package->exclusions, JSON_PRETTY_PRINT) : $package->exclusions) }}</textarea>
                             <small class="text-muted">Enter as JSON array of strings</small>
                         </div>
                     </div>
