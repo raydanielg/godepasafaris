@@ -129,48 +129,43 @@
                 </div>
             </div>
 
-            <!-- Sidebar: Booking Form -->
+            <!-- Sidebar: Trip Info -->
             <div class="col-lg-4">
                 <div class="sticky-top" style="top: 100px;">
                     <div class="booking-card p-4 rounded-4 shadow-lg bg-white border-0 animate__animated animate__fadeInRight">
-                        <h4 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Enquire This Trek</h4>
-                        
-                        @if(session('success'))
-                            <div class="alert alert-success border-0 shadow-sm rounded-4 mb-4 small">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+                        <h4 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Trek Details</h4>
 
-                        <form id="trekBookingForm" action="{{ route('kilimanjaro.enquire', $package->id) }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label class="form-label fw-bold small">Full Name*</label>
-                                <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Duration</span>
+                                <span class="fw-bold">{{ $package->days }} Days</span>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold small">Email Address*</label>
-                                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Price</span>
+                                <span class="fw-bold fs-4 text-dark">${{ number_format($package->price, 0) }}</span>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold small">Contact Number*</label>
-                                <input type="text" name="phone" class="form-control" placeholder="Enter contact number" required>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Per Person</span>
+                                <span class="badge bg-earth-light text-primary">All Inclusive</span>
                             </div>
-                            <div class="row g-2 mb-3">
-                                <div class="col-6">
-                                    <label class="form-label fw-bold small">Adults*</label>
-                                    <input type="number" name="adults" class="form-control" min="1" value="1">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label fw-bold small">Children</label>
-                                    <input type="number" name="children" class="form-control" min="0" value="0">
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label fw-bold small">Message*</label>
-                                <textarea name="message" class="form-control" rows="3" placeholder="Additional requirements..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-earth w-100 py-3 fw-bold">SEND MAIL</button>
-                        </form>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">What's Included</h6>
+                            <ul class="list-unstyled small">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Professional guides</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i> All meals</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Accommodation</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Transportation</li>
+                                <li class="mb-0"><i class="fas fa-check text-success me-2"></i> Park fees</li>
+                            </ul>
+                        </div>
+
+                        <button type="button" class="btn btn-earth w-100 py-3 fw-bold" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
+                            BOOK THIS TREK <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
                     </div>
 
                     <div class="mt-4 p-4 rounded-4 bg-earth-dark text-white shadow-sm animate__animated animate__fadeInRight animate__delay-1s">
