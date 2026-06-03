@@ -450,6 +450,42 @@ class DashboardController extends Controller
         return redirect()->route('admin.bookings')->with('success', 'Inquiry deleted successfully.');
     }
 
+    public function sendBookingEmail(Booking $booking, Request $request)
+    {
+        $request->validate([
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        try {
+            \Illuminate\Support\Facades\Mail::raw($request->message, function ($message) use ($booking, $request) {
+                $message->to($booking->email, $booking->name)
+                        ->subject($request->subject)
+                        ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
+            });
+
+            // Return JSON response for AJAX requests
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Email sent successfully to ' . $booking->email
+                ]);
+            }
+
+            return back()->with('success', 'Email sent successfully.');
+        } catch (\Exception $e) {
+            // Return JSON response for AJAX requests
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to send email: ' . $e->getMessage()
+                ], 500);
+            }
+
+            return back()->with('error', 'Failed to send email: ' . $e->getMessage());
+        }
+    }
+
     public function generateInvoice(Booking $booking)
     {
         return view('admin.bookings.invoice', compact('booking'));

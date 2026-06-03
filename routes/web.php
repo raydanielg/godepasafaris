@@ -175,6 +175,7 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/admin/bookings/{booking}/status', [App\Http\Controllers\Admin\DashboardController::class, 'updateBookingStatus'])->name('admin.bookings.status');
         Route::get('/admin/bookings/{booking}/invoice', [App\Http\Controllers\Admin\DashboardController::class, 'generateInvoice'])->name('admin.bookings.invoice');
         Route::delete('/admin/bookings/{booking}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteBooking'])->name('admin.bookings.delete');
+        Route::post('/admin/bookings/{booking}/send-email', [App\Http\Controllers\Admin\DashboardController::class, 'sendBookingEmail'])->name('admin.bookings.send-email');
     
     // Safari Packages
     Route::get('/admin/safari-packages', [App\Http\Controllers\Admin\DashboardController::class, 'safariPackages'])->name('admin.safaris');
