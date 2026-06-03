@@ -100,9 +100,9 @@ class SafariController extends Controller
 
         // Send Notification to airezra2@gmail.com
         try {
-            Mail::raw('New Booking Inquiry from ' . $details['name'] . ' (' . $details['email'] . ') for ' . $details['package'], function ($message) {
+            Mail::send('emails.booking_notification', $details, function ($message) use ($details) {
                 $message->to('airezra2@gmail.com')
-                        ->subject('New Booking - ' . $details['package'])
+                        ->subject('New Booking Inquiry - ' . $details['package'])
                         ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
             });
         } catch (\Exception $e) {
@@ -168,9 +168,9 @@ class SafariController extends Controller
 
         // Send Notification to airezra2@gmail.com
         try {
-            Mail::raw('New Booking Inquiry from ' . $details['name'] . ' (' . $details['email'] . ') for ' . $details['package'], function ($message) {
+            Mail::send('emails.booking_notification', $details, function ($message) use ($details) {
                 $message->to('airezra2@gmail.com')
-                        ->subject('New Booking - ' . $details['package'])
+                        ->subject('New Booking Inquiry - ' . $details['package'])
                         ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
             });
         } catch (\Exception $e) {
