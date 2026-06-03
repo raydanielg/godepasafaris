@@ -90,7 +90,6 @@
                                             data-customer-name="{{ $booking->name }}" 
                                             data-customer-email="{{ $booking->email }}"
                                             data-tour-name="{{ $booking->tour_name }}"
-                                            onclick="openEmailModal({{ $booking->id }}, '{{ $booking->name }}', '{{ $booking->email }}', '{{ $booking->tour_name }}')"
                                             style="font-size: 0.7rem;">
                                         <i class="fas fa-envelope me-1"></i>Email
                                     </button>
@@ -164,6 +163,18 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    // Global function to open email modal
+    function openEmailModal(bookingId, customerName, customerEmail, tourName) {
+        document.getElementById('bookingId').value = bookingId;
+        document.getElementById('customerEmail').value = customerEmail;
+        document.getElementById('emailSubject').value = `Regarding Your Safari Booking Inquiry - ${tourName}`;
+        document.getElementById('emailMessage').value = `Dear ${customerName},\n\nThank you for your interest in ${tourName}. We have received your inquiry and will get back to you shortly.\n\nBest regards,\nGo Deep Africa Safari Team`;
+        
+        // Show modal using Bootstrap
+        const modal = new bootstrap.Modal(document.getElementById('emailModal'));
+        modal.show();
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         // Delete button click handler
         document.querySelectorAll('.delete-btn').forEach(function(button) {
@@ -262,25 +273,6 @@
                         });
                     }
                 });
-            });
-        });
-        
-        // Email button click handler
-        document.querySelectorAll('.email-btn').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const bookingId = this.getAttribute('data-booking-id');
-                const customerName = this.getAttribute('data-customer-name');
-                const customerEmail = this.getAttribute('data-customer-email');
-                const tourName = this.getAttribute('data-tour-name');
-                
-                document.getElementById('bookingId').value = bookingId;
-                document.getElementById('customerEmail').value = customerEmail;
-                document.getElementById('emailSubject').value = `Regarding Your Safari Booking Inquiry - ${tourName}`;
-                document.getElementById('emailMessage').value = `Dear ${customerName},\n\nThank you for your interest in ${tourName}. We have received your inquiry and will get back to you shortly.\n\nBest regards,\nGo Deep Africa Safari Team`;
-                
-                // Show modal using Bootstrap
-                const modal = new bootstrap.Modal(document.getElementById('emailModal'));
-                modal.show();
             });
         });
         
