@@ -316,22 +316,62 @@
                 }
             });
             
-            // Simulate email sending (replace with actual API call)
-            setTimeout(() => {
+            // Send AJAX request to send email
+            fetch(`{{ route('admin.bookings.send-email', ':id') }}`.replace(':id', bookingId), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    subject: subject,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
+                modal.hide();
+                
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonColor: '#8b4513',
+                        confirmButtonText: '<i class="fas fa-check me-2"></i>OK',
+                        customClass: {
+                            confirmButton: 'rounded-pill px-4'
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.message || 'Failed to send email. Please try again.',
+                        icon: 'error',
+                        confirmButtonColor: '#dc3545',
+                        confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                        customClass: {
+                            confirmButton: 'rounded-pill px-4'
+                        }
+                    });
+                }
+            })
+            .catch(error => {
                 const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
                 modal.hide();
                 
                 Swal.fire({
-                    title: 'Success!',
-                    text: 'Email has been sent successfully to ' + customerEmail,
-                    icon: 'success',
-                    confirmButtonColor: '#8b4513',
-                    confirmButtonText: '<i class="fas fa-check me-2"></i>OK',
+                    title: 'Error!',
+                    text: 'An error occurred while sending the email.',
+                    icon: 'error',
+                    confirmButtonColor: '#dc3545',
+                    confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
                     customClass: {
                         confirmButton: 'rounded-pill px-4'
                     }
                 });
-            }, 1500);
+            });
         });
     });
 </script>
