@@ -165,10 +165,21 @@ class DashboardController extends Controller
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'currency' => 'nullable|string',
+            'days' => 'nullable|integer',
+            'group_discount' => 'nullable|numeric',
+            'min_group_size' => 'nullable|integer',
+            'category' => 'nullable|string',
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+        
+        // Handle boolean fields
+        $data['is_featured'] = $request->has('is_featured');
+        $data['is_active'] = $request->has('is_active') ? $request->is_active : true;
 
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
@@ -196,10 +207,32 @@ class DashboardController extends Controller
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'currency' => 'nullable|string',
+            'days' => 'nullable|integer',
+            'group_discount' => 'nullable|numeric',
+            'min_group_size' => 'nullable|integer',
+            'category' => 'nullable|string',
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+        
+        // Preserve existing data if not in request
+        if (!$request->has('itinerary')) {
+            $data['itinerary'] = $package->itinerary;
+        }
+        if (!$request->has('inclusions')) {
+            $data['inclusions'] = $package->inclusions;
+        }
+        if (!$request->has('exclusions')) {
+            $data['exclusions'] = $package->exclusions;
+        }
+        
+        // Handle boolean fields
+        $data['is_featured'] = $request->has('is_featured');
+        $data['is_active'] = $request->has('is_active') ? $request->is_active : true;
 
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
