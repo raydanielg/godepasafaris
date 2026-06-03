@@ -435,9 +435,18 @@ class DashboardController extends Controller
         return view('admin.bookings.show', compact('booking'));
     }
 
-    public function deleteBooking(Booking $booking)
+    public function deleteBooking(Booking $booking, Request $request)
     {
         $booking->delete();
+        
+        // Return JSON response for AJAX requests
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Inquiry deleted successfully.'
+            ]);
+        }
+        
         return redirect()->route('admin.bookings')->with('success', 'Inquiry deleted successfully.');
     }
 
