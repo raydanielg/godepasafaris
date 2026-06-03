@@ -50,7 +50,7 @@ class KilimanjaroController extends Controller
 
     public function enquire(Request $request, $id)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
@@ -59,8 +59,19 @@ class KilimanjaroController extends Controller
             'message' => 'required|string',
         ]);
 
+        if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please check your input and try again.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+            return back()->withErrors($validator)->withInput();
+        }
+
         $package = KilimanjaroPackage::findOrFail($id);
-        
+
         $details = $request->only(['name', 'email', 'phone', 'adults', 'children', 'message']);
         $details['package'] = $package->title;
 
