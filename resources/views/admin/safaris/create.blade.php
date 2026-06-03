@@ -30,8 +30,9 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label fw-bold text-dark">Detailed Itinerary</label>
-                        <textarea name="itinerary" id="editor-itinerary" class="form-control @error('itinerary') is-invalid @enderror">{{ old('itinerary') }}</textarea>
+                        <label class="form-label fw-bold text-dark">Detailed Itinerary (JSON Format)</label>
+                        <textarea name="itinerary" id="editor-itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="10" placeholder='[{"day": 1, "title": "Day 1", "description": "Description", "image": "path/to/image.jpg"}]'>{{ old('itinerary') }}</textarea>
+                        <small class="text-muted">Enter itinerary as JSON array with day, title, description, and optional image fields</small>
                         @error('itinerary') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
