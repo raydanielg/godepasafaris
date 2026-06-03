@@ -106,4 +106,24 @@
     #generalInquiryModal .input-group-text {
         color: #666;
     }
+    #generalInquiryModal .form-control,
+    #generalInquiryModal .form-select,
+    #generalInquiryModal textarea {
+        font-size: 16px !important;
+        padding: 12px 16px !important;
+    }
+    #generalInquiryModal .form-label {
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+    #generalInquiryModal .modal-title {
+        font-size: 22px !important;
+    }
+    #generalInquiryModal .modal-body p {
+        font-size: 14px !important;
+    }
+    #generalInquiryModal button[type="submit"] {
+        font-size: 16px !important;
+        padding: 14px 24px !important;
+    }
 </style>
