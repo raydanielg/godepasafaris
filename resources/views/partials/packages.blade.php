@@ -33,8 +33,7 @@
                         </div>
 
                         <div class="d-flex flex-column flex-sm-row gap-2 mt-auto">
-                            <a href="{{ route('safari.show', $package->slug) }}" class="btn btn-outline-earth flex-grow-1 py-2 rounded-pill fw-bold text-nowrap">View Trip</a>
-                            <button type="button" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white fw-bold shadow-sm text-nowrap" data-bs-toggle="modal" data-bs-target="#bookingModal" data-tour-title="{{ $package->title }}" data-tour-id="{{ $package->id }}">Book Now</button>
+                            <a href="{{ route('safari.show', $package->slug) }}" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white fw-bold shadow-sm text-nowrap">View Trip</a>
                         </div>
                     </div>
                 </div>
