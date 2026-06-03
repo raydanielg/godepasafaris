@@ -75,8 +75,22 @@
                                                     <i class="fas fa-paw me-2"></i>Popular Safaris
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @foreach($safariLinks as $link)
-                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                    @php
+                                                        $safariImages = [
+                                                            'images/images/3-Days-Serengeti-Balloon-Safaris.webp',
+                                                            'images/images/4GyurGeCrKkxo9FvCd8bnc-1000-80.jpg',
+                                                            'images/images/6df7cb_418028c2ff3a46fe9005b37b1ba28faa~mv2.avif',
+                                                            'images/images/360_F_246119592_1Kg8S2tqgZCuXCx1fkyKwaGYpWWc6jUy.jpg',
+                                                            'images/images/360_F_294846823_EDmzSopDAYZ9x5cX3y0ZcNmo0LXDYXDc.jpg',
+                                                        ];
+                                                    @endphp
+                                                    @foreach($safariLinks as $index => $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $link->title }}"
+                                                       data-description="{{ $link->description ?? $safariSection->description }}"
+                                                       data-image="{{ asset($safariImages[$index % count($safariImages)]) }}"
+                                                       data-url="{{ $link->url }}"
+                                                       data-link-text="{{ $link->title }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
                                                             <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
                                                         </div>
@@ -101,18 +115,18 @@
                                             <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
-                                                        <span class="badge mb-2" style="background: {{ $safariSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
+                                                        <span class="badge mb-2 safari-badge" style="background: {{ $safariSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
                                                             <i class="fas fa-star me-1"></i>{{ $safariSection->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $safariSection->title }}</h4>
-                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $safariSection->description }}</p>
-                                                        <a href="{{ $safariSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $safariSection->title }}</h4>
+                                                        <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $safariSection->description }}</p>
+                                                        <a href="{{ $safariSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white safari-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             {{ $safariSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ $safariSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $safariSection->title }}">
+                                                            <img src="{{ asset('images/images/3-Days-Serengeti-Balloon-Safaris.webp') }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariSection->title }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,8 +159,22 @@
                                                     <i class="fas fa-mountain me-2"></i>Climbing Guide
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @foreach($kiliLinks as $link)
-                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                    @php
+                                                        $kiliImages = [
+                                                            'images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg',
+                                                            'images/images/360_F_303354896_Qg6fhfYQhz3kdoKeRvK333UEaD9d6FWN.jpg',
+                                                            'images/images/360_F_414252019_kMOC4Xfg0VsgqDmd5sN7BvyV3UBAy1VY.jpg',
+                                                            'images/images/360_F_427166955_K3hITkNBHei8hQaUp14JCC9eoj7Qr9W2.jpg',
+                                                            'images/images/360_F_471646259_DSsT1dheQRFyU67odrTnwmQBhMwwDncm.jpg',
+                                                        ];
+                                                    @endphp
+                                                    @foreach($kiliLinks as $index => $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $link->title }}"
+                                                       data-description="{{ $link->description ?? $kiliSection->description }}"
+                                                       data-image="{{ asset($kiliImages[$index % count($kiliImages)]) }}"
+                                                       data-url="{{ $link->url }}"
+                                                       data-link-text="{{ $link->title }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
                                                             <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
                                                         </div>
@@ -171,18 +199,18 @@
                                             <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
-                                                        <span class="badge mb-2" style="background: {{ $kiliSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
+                                                        <span class="badge mb-2 kili-badge" style="background: {{ $kiliSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
                                                             <i class="fas fa-star me-1"></i>{{ $kiliSection->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $kiliSection->title }}</h4>
-                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $kiliSection->description }}</p>
-                                                        <a href="{{ $kiliSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                        <h4 class="fw-bold mb-2 kili-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $kiliSection->title }}</h4>
+                                                        <p class="text-muted mb-3 kili-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $kiliSection->description }}</p>
+                                                        <a href="{{ $kiliSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white kili-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             {{ $kiliSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ $kiliSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $kiliSection->title }}">
+                                                            <img src="{{ asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}" class="w-100 kili-image" style="height: 220px; object-fit: cover;" alt="{{ $kiliSection->title }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -215,8 +243,22 @@
                                                     <i class="fas fa-map-marker-alt me-2"></i>Explore Tanzania
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @foreach($destLinks as $link)
-                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                    @php
+                                                        $destImages = [
+                                                            'images/images/635ZANZIBAR_ISLAND.webp',
+                                                            'images/images/38148e03-2cf5-433c-ba80-2fae8b0ba63a_Screenshot+2022-05-25+at+10.17.58.avif',
+                                                            'images/images/304963_67b4c74a941bc.jpg',
+                                                            'images/images/A-guide-to-the-Lobo-Area-in-the-Northern-Serengeti.jpg',
+                                                            'images/images/ACC_030262_ZAN_47WebOriginalCompressed.avif',
+                                                        ];
+                                                    @endphp
+                                                    @foreach($destLinks as $index => $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $link->title }}"
+                                                       data-description="{{ $link->description ?? $destSection->description }}"
+                                                       data-image="{{ asset($destImages[$index % count($destImages)]) }}"
+                                                       data-url="{{ $link->url }}"
+                                                       data-link-text="{{ $link->title }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
                                                             <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
                                                         </div>
@@ -241,18 +283,18 @@
                                             <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
-                                                        <span class="badge mb-2" style="background: {{ $destSection->badge_color == 'info' ? '#17a2b8' : '#8B4513' }}; font-size: 0.7rem;">
+                                                        <span class="badge mb-2 dest-badge" style="background: {{ $destSection->badge_color == 'info' ? '#17a2b8' : '#8B4513' }}; font-size: 0.7rem;">
                                                             <i class="fas fa-compass me-1"></i>{{ $destSection->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $destSection->title }}</h4>
-                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $destSection->description }}</p>
-                                                        <a href="{{ $destSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $destSection->title }}</h4>
+                                                        <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $destSection->description }}</p>
+                                                        <a href="{{ $destSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white dest-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             {{ $destSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ $destSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $destSection->title }}">
+                                                            <img src="{{ asset('images/images/635ZANZIBAR_ISLAND.webp') }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destSection->title }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -285,8 +327,22 @@
                                                     <i class="fas fa-heart me-2"></i>Our Impact Areas
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @foreach($impactLinks as $link)
-                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none">
+                                                    @php
+                                                        $impactImages = [
+                                                            'images/images/africa_tanzania_serengeti_gallery_leopard_and_cub.jpg',
+                                                            'images/images/Aerial-View-of-stone-town-and-Zanzibar-Island-Easy-Travel-Tanzania-scaled-1.jpg',
+                                                            'images/images/Aerial-view-of-the-crowded-beach-of-Zanzibar-Tanzania.jpg',
+                                                            'images/images/360_F_523956441_jpxzXdIaX30EHkDZ2V2b94gJTEfNy8ud.jpg',
+                                                            'images/images/360_F_619841928_1JmYmR5kZQBuok5mDPkhQFVvntiLwPnr.jpg',
+                                                        ];
+                                                    @endphp
+                                                    @foreach($impactLinks as $index => $link)
+                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $link->title }}"
+                                                       data-description="{{ $link->description ?? $impactSection->description }}"
+                                                       data-image="{{ asset($impactImages[$index % count($impactImages)]) }}"
+                                                       data-url="{{ $link->url }}"
+                                                       data-link-text="{{ $link->title }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
                                                             <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
                                                         </div>
@@ -311,18 +367,18 @@
                                             <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.08) 0%, rgba(139,69,19,0.08) 100%);">
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
-                                                        <span class="badge mb-2" style="background: {{ $impactSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
+                                                        <span class="badge mb-2 impact-badge" style="background: {{ $impactSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
                                                             <i class="fas fa-hands-helping me-1"></i>{{ $impactSection->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $impactSection->title }}</h4>
-                                                        <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">{{ $impactSection->description }}</p>
-                                                        <a href="{{ $impactSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                        <h4 class="fw-bold mb-2 impact-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $impactSection->title }}</h4>
+                                                        <p class="text-muted mb-3 impact-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $impactSection->description }}</p>
+                                                        <a href="{{ $impactSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white impact-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             {{ $impactSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg position-relative">
-                                                            <img src="{{ $impactSection->image }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ $impactSection->title }}">
+                                                            <img src="{{ asset('images/images/africa_tanzania_serengeti_gallery_leopard_and_cub.jpg') }}" class="w-100 impact-image" style="height: 220px; object-fit: cover;" alt="{{ $impactSection->title }}">
                                                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(62,39,35,0.3);">
                                                                 <div class="text-center text-white p-3">
                                                                     <i class="fas fa-heart fa-2x mb-2"></i>
@@ -644,6 +700,106 @@
                         }
                     }
                 </style>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Safari Mega Menu Hover Effect
+                        const safariLinks = document.querySelectorAll('#safariMegaMenu').forEach(function(menu) {
+                            const wrapper = menu.closest('.has-mega-menu');
+                            if (wrapper) {
+                                const linkItems = wrapper.querySelectorAll('.mega-link-item');
+                                const titleEl = wrapper.querySelector('.safari-title');
+                                const descEl = wrapper.querySelector('.safari-description');
+                                const imgEl = wrapper.querySelector('.safari-image');
+                                const btnEl = wrapper.querySelector('.safari-btn');
+
+                                linkItems.forEach(function(item) {
+                                    item.addEventListener('mouseenter', function() {
+                                        if (titleEl) titleEl.textContent = this.dataset.title;
+                                        if (descEl) descEl.textContent = this.dataset.description;
+                                        if (imgEl) imgEl.src = this.dataset.image;
+                                        if (btnEl) {
+                                            btnEl.href = this.dataset.url;
+                                            btnEl.innerHTML = this.dataset.linkText + ' <i class="fas fa-arrow-right ms-2"></i>';
+                                        }
+                                    });
+                                });
+                            }
+                        });
+
+                        // Kilimanjaro Mega Menu Hover Effect
+                        document.querySelectorAll('#kiliMegaMenu').forEach(function(menu) {
+                            const wrapper = menu.closest('.has-mega-menu');
+                            if (wrapper) {
+                                const linkItems = wrapper.querySelectorAll('.mega-link-item');
+                                const titleEl = wrapper.querySelector('.kili-title');
+                                const descEl = wrapper.querySelector('.kili-description');
+                                const imgEl = wrapper.querySelector('.kili-image');
+                                const btnEl = wrapper.querySelector('.kili-btn');
+
+                                linkItems.forEach(function(item) {
+                                    item.addEventListener('mouseenter', function() {
+                                        if (titleEl) titleEl.textContent = this.dataset.title;
+                                        if (descEl) descEl.textContent = this.dataset.description;
+                                        if (imgEl) imgEl.src = this.dataset.image;
+                                        if (btnEl) {
+                                            btnEl.href = this.dataset.url;
+                                            btnEl.innerHTML = this.dataset.linkText + ' <i class="fas fa-arrow-right ms-2"></i>';
+                                        }
+                                    });
+                                });
+                            }
+                        });
+
+                        // Destinations Mega Menu Hover Effect
+                        document.querySelectorAll('#destMegaMenu').forEach(function(menu) {
+                            const wrapper = menu.closest('.has-mega-menu');
+                            if (wrapper) {
+                                const linkItems = wrapper.querySelectorAll('.mega-link-item');
+                                const titleEl = wrapper.querySelector('.dest-title');
+                                const descEl = wrapper.querySelector('.dest-description');
+                                const imgEl = wrapper.querySelector('.dest-image');
+                                const btnEl = wrapper.querySelector('.dest-btn');
+
+                                linkItems.forEach(function(item) {
+                                    item.addEventListener('mouseenter', function() {
+                                        if (titleEl) titleEl.textContent = this.dataset.title;
+                                        if (descEl) descEl.textContent = this.dataset.description;
+                                        if (imgEl) imgEl.src = this.dataset.image;
+                                        if (btnEl) {
+                                            btnEl.href = this.dataset.url;
+                                            btnEl.innerHTML = this.dataset.linkText + ' <i class="fas fa-arrow-right ms-2"></i>';
+                                        }
+                                    });
+                                });
+                            }
+                        });
+
+                        // Impact/Giving Back Mega Menu Hover Effect
+                        document.querySelectorAll('#impactMegaMenu').forEach(function(menu) {
+                            const wrapper = menu.closest('.has-mega-menu');
+                            if (wrapper) {
+                                const linkItems = wrapper.querySelectorAll('.mega-link-item');
+                                const titleEl = wrapper.querySelector('.impact-title');
+                                const descEl = wrapper.querySelector('.impact-description');
+                                const imgEl = wrapper.querySelector('.impact-image');
+                                const btnEl = wrapper.querySelector('.impact-btn');
+
+                                linkItems.forEach(function(item) {
+                                    item.addEventListener('mouseenter', function() {
+                                        if (titleEl) titleEl.textContent = this.dataset.title;
+                                        if (descEl) descEl.textContent = this.dataset.description;
+                                        if (imgEl) imgEl.src = this.dataset.image;
+                                        if (btnEl) {
+                                            btnEl.href = this.dataset.url;
+                                            btnEl.innerHTML = this.dataset.linkText + ' <i class="fas fa-arrow-right ms-2"></i>';
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
     </nav>
