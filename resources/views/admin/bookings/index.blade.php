@@ -160,17 +160,22 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Global function to open email modal
-    function openEmailModal(bookingId, customerName, customerEmail, tourName) {
-        document.getElementById('bookingId').value = bookingId;
-        document.getElementById('customerEmail').value = customerEmail;
-        document.getElementById('emailSubject').value = `Regarding Your Safari Booking Inquiry - ${tourName}`;
-        document.getElementById('emailMessage').value = `Dear ${customerName},\n\nThank you for your interest in ${tourName}. We have received your inquiry and will get back to you shortly.\n\nBest regards,\nGo Deep Africa Safari Team`;
-        
-        // Show modal using Bootstrap
-        const modal = new bootstrap.Modal(document.getElementById('emailModal'));
-        modal.show();
-    }
+    // Global function to open email modal - defined immediately
+    window.openEmailModal = function(bookingId, customerName, customerEmail, tourName) {
+        try {
+            document.getElementById('bookingId').value = bookingId;
+            document.getElementById('customerEmail').value = customerEmail;
+            document.getElementById('emailSubject').value = `Regarding Your Safari Booking Inquiry - ${tourName}`;
+            document.getElementById('emailMessage').value = `Dear ${customerName},\n\nThank you for your interest in ${tourName}. We have received your inquiry and will get back to you shortly.\n\nBest regards,\nGo Deep Africa Safari Team`;
+            
+            // Show modal using Bootstrap
+            const modal = new bootstrap.Modal(document.getElementById('emailModal'));
+            modal.show();
+        } catch (error) {
+            console.error('Error opening email modal:', error);
+            alert('Error: ' + error.message);
+        }
+    };
 
     document.addEventListener('DOMContentLoaded', function() {
         // Delete button click handler
