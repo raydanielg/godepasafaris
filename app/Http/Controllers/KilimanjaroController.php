@@ -78,6 +78,14 @@ class KilimanjaroController extends Controller
             \Log::error('Customer email failed: ' . $e->getMessage());
         }
 
+        // Return JSON response for AJAX requests
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you! Your inquiry has been received. Our team will contact you within 24 hours.'
+            ]);
+        }
+
         return back()->with('success', 'Thank you! Your inquiry has been received. Our team will contact you within 24 hours.');
     }
 }

@@ -123,6 +123,14 @@ class SafariController extends Controller
             }
         }
 
+        // Return JSON response for AJAX requests
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you! Your inquiry has been received. We will contact you shortly.'
+            ]);
+        }
+
         return back()->with('success', 'Thank you! Your inquiry has been received. We will contact you shortly.');
     }
 }
