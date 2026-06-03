@@ -161,14 +161,20 @@
 
 @push('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const editorConfig = {
         toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
     };
 
-    ['#editor-description', '#editor-itinerary', '#editor-inclusions', '#editor-exclusions'].forEach(selector => {
-        ClassicEditor.create(document.querySelector(selector), editorConfig).catch(error => console.error(error));
-    });
+    let descriptionEditor, itineraryEditor, inclusionsEditor, exclusionsEditor;
+
+    Promise.all([
+        ClassicEditor.create(document.querySelector('#editor-description'), editorConfig).then(editor => descriptionEditor = editor),
+        ClassicEditor.create(document.querySelector('#editor-itinerary'), editorConfig).then(editor => itineraryEditor = editor),
+        ClassicEditor.create(document.querySelector('#editor-inclusions'), editorConfig).then(editor => inclusionsEditor = editor),
+        ClassicEditor.create(document.querySelector('#editor-exclusions'), editorConfig).then(editor => exclusionsEditor = editor)
+    ]).catch(error => console.error(error));
 
     document.getElementById('packageImage').addEventListener('change', function(e) {
         const preview = document.getElementById('previewImg');
@@ -184,10 +190,96 @@
             reader.readAsDataURL(file);
         }
     });
+
+    // AJAX form submission
+    document.getElementById('editSafariForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get editor data
+        const formData = new FormData(this);
+        formData.set('description', descriptionEditor.getData());
+        formData.set('itinerary', itineraryEditor.getData());
+        formData.set('inclusions', inclusionsEditor.getData());
+        formData.set('exclusions', exclusionsEditor.getData());
+        
+        // Show loading
+        Swal.fire({
+            title: 'Updating...',
+            text: 'Please wait while we update the package',
+            icon: 'info',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        
+        // Send AJAX request
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            // Check if redirected (success)
+            if (html.includes('Safari package updated successfully')) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Safari package has been updated successfully.',
+                    icon: 'success',
+                    confirmButtonColor: '#8b4513',
+                    confirmButtonText: '<i class="fas fa-check me-2"></i>OK',
+                    customClass: {
+                        confirmButton: 'rounded-pill px-4'
+                    }
+                }).then(() => {
+                    window.location.href = '{{ route("admin.safaris") }}';
+                });
+            } else {
+                // Show error page or validation errors
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error updating the package. Please check the form for errors.',
+                    icon: 'error',
+                    confirmButtonColor: '#dc3545',
+                    confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                    customClass: {
+                        confirmButton: 'rounded-pill px-4'
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while updating the package.',
+                icon: 'error',
+                confirmButtonColor: '#dc3545',
+                confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                customClass: {
+                    confirmButton: 'rounded-pill px-4'
+                }
+            });
+        });
+    });
 </script>
 <style>
     .ck-editor__editable { min-height: 200px; }
     .cursor-pointer { cursor: pointer; }
+    
+    /* SweetAlert custom styles */
+    .swal2-popup {
+        border-radius: 1rem !important;
+    }
+    .swal2-title {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+    .swal2-content {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
 </style>
 @endpush
 @endsection
