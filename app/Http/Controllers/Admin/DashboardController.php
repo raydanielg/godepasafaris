@@ -202,7 +202,7 @@ class DashboardController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'itinerary' => 'nullable|string',
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
@@ -219,20 +219,32 @@ class DashboardController extends Controller
         $data = $request->all();
         $data['slug'] = \Illuminate\Support\Str::slug($request->title);
         
+        // Get existing columns from database
+        $columns = \Illuminate\Support\Facades\Schema::getColumnListing('safari_packages');
+        
+        // Only include fields that exist in the database
+        $data = array_filter($data, function($key) use ($columns) {
+            return in_array($key, $columns) || in_array($key, ['_token', '_method']);
+        }, ARRAY_FILTER_USE_KEY);
+        
         // Preserve existing data if not in request
-        if (!$request->has('itinerary')) {
+        if (!$request->has('itinerary') && in_array('itinerary', $columns)) {
             $data['itinerary'] = $package->itinerary;
         }
-        if (!$request->has('inclusions')) {
+        if (!$request->has('inclusions') && in_array('inclusions', $columns)) {
             $data['inclusions'] = $package->inclusions;
         }
-        if (!$request->has('exclusions')) {
+        if (!$request->has('exclusions') && in_array('exclusions', $columns)) {
             $data['exclusions'] = $package->exclusions;
         }
         
-        // Handle boolean fields
-        $data['is_featured'] = $request->has('is_featured');
-        $data['is_active'] = $request->has('is_active') ? $request->is_active : true;
+        // Handle boolean fields only if they exist in database
+        if (in_array('is_featured', $columns)) {
+            $data['is_featured'] = $request->has('is_featured');
+        }
+        if (in_array('is_active', $columns)) {
+            $data['is_active'] = $request->has('is_active') ? $request->is_active : true;
+        }
 
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
