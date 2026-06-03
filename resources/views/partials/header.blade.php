@@ -1341,6 +1341,19 @@
                     });
                 });
             }
+            
+            // Clean up modal backdrop when modal is hidden
+            const modalElement = document.getElementById('generalInquiryModal');
+            if (modalElement) {
+                modalElement.addEventListener('hidden.bs.modal', function() {
+                    document.querySelectorAll('.modal-backdrop').forEach(function(backdrop) {
+                        backdrop.remove();
+                    });
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                });
+            }
         });
     </script>
 
