@@ -229,7 +229,9 @@
                             DESTINATIONS <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
-                            $destinations = \App\Models\SafariDestination::active()->ordered()->get();
+                            $allDestinations = \App\Models\SafariDestination::active()->ordered()->get();
+                            // Get 5 random destinations for dynamic display
+                            $destinations = $allDestinations->shuffle()->take(5);
                         @endphp
                         @if($destinations->count() > 0)
                         <div class="mega-menu-wrapper">
