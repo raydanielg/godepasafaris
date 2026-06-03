@@ -296,9 +296,12 @@ Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'st
 
 Route::get('/kilimanjaro', [App\Http\Controllers\KilimanjaroController::class, 'index'])->name('kilimanjaro');
 Route::get('/kilimanjaro/why-us', function () { return view('pages.kilimanjaro.why-us'); })->name('kilimanjaro.why-us');
-Route::get('/kilimanjaro/pricing', function () { return view('pages.kilimanjaro.pricing'); })->name('kilimanjaro.pricing');
-Route::get('/kilimanjaro/group', function () { return view('pages.kilimanjaro.group'); })->name('kilimanjaro.group');
-Route::get('/kilimanjaro/calculator', function () { return view('pages.kilimanjaro.calculator'); })->name('kilimanjaro.calculator');
+Route::get('/kilimanjaro/private-tours', function () { return view('pages.kilimanjaro.pricing'); })->name('kilimanjaro.private-tours');
+Route::get('/kilimanjaro/group-departures', function () { return view('pages.kilimanjaro.group'); })->name('kilimanjaro.group-departures');
+Route::get('/kilimanjaro/routes', function () { return view('pages.kilimanjaro.routes'); })->name('kilimanjaro.routes');
+Route::get('/kilimanjaro/packing-list', function () { return view('pages.kilimanjaro.packing-list'); })->name('kilimanjaro.packing-list');
+Route::get('/kilimanjaro/success-calculator', function () { return view('pages.kilimanjaro.calculator'); })->name('kilimanjaro.success-calculator');
+Route::get('/kilimanjaro/articles', function () { return view('pages.kilimanjaro.articles'); })->name('kilimanjaro.articles');
 Route::get('/kilimanjaro/other-mountains', function () { return view('pages.kilimanjaro.other-mountains'); })->name('kilimanjaro.other-mountains');
 Route::get('/kilimanjaro/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'show'])->name('kilimanjaro.show');
 Route::get('/kilimanjaro/route/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'routeShow'])->name('kilimanjaro.route.show');
