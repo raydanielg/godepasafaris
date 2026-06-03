@@ -137,41 +137,49 @@
                         </div>
                         <div>
                             <h2 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">Detailed Itinerary</h2>
-                            <p class="text-muted small mb-0">{{ count($itinerary) }} Days of Adventure</p>
+                            <p class="text-muted small mb-0">{{ $isHtmlItinerary ? 'Itinerary Details' : count($itinerary) . ' Days of Adventure' }}</p>
                         </div>
                     </div>
                     
-                    <div class="timeline position-relative">
-                        <div class="timeline-line"></div>
-                        
-                        @foreach($itinerary as $step)
-                        <div class="timeline-item position-relative ps-5 pb-4">
-                            <div class="timeline-dot d-flex align-items-center justify-content-center rounded-circle">
-                                <span class="text-white fw-bold" style="font-size: 10px;">{{ $step['day'] ?? $loop->iteration }}</span>
-                            </div>
-                            
-                            <div class="card border-0 rounded-4 shadow-sm overflow-hidden" style="background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);">
-                                @if(isset($step['image']) && $step['image'])
-                                <div class="card-img-top" style="height: 200px; overflow: hidden;">
-                                    <img src="{{ asset($step['image']) }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $step['title'] ?? '' }}">
-                                </div>
-                                @endif
-                                <div class="card-body p-4">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="badge rounded-pill px-3 py-1" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white; font-size: 11px;">DAY {{ $step['day'] ?? $loop->iteration }}</span>
-                                        @if($loop->first)
-                                        <span class="badge bg-success rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-play me-1"></i>START</span>
-                                        @elseif($loop->last)
-                                        <span class="badge bg-primary rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-flag-checkered me-1"></i>FINISH</span>
-                                        @endif
-                                    </div>
-                                    <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $step['title'] ?? 'Day ' . $loop->iteration }}</h5>
-                                    <p class="text-muted mb-0" style="line-height: 1.7;">{{ $step['description'] ?? 'Exciting safari activities planned for this day.' }}</p>
-                                </div>
-                            </div>
+                    @if($isHtmlItinerary)
+                        <!-- Display HTML itinerary -->
+                        <div class="itinerary-content" style="line-height: 1.8;">
+                            {!! $package->itinerary !!}
                         </div>
-                        @endforeach
-                    </div>
+                    @else
+                        <!-- Display JSON/Array itinerary as timeline -->
+                        <div class="timeline position-relative">
+                            <div class="timeline-line"></div>
+                            
+                            @foreach($itinerary as $step)
+                            <div class="timeline-item position-relative ps-5 pb-4">
+                                <div class="timeline-dot d-flex align-items-center justify-content-center rounded-circle">
+                                    <span class="text-white fw-bold" style="font-size: 10px;">{{ $step['day'] ?? $loop->iteration }}</span>
+                                </div>
+                                
+                                <div class="card border-0 rounded-4 shadow-sm overflow-hidden" style="background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);">
+                                    @if(isset($step['image']) && $step['image'])
+                                    <div class="card-img-top" style="height: 200px; overflow: hidden;">
+                                        <img src="{{ asset($step['image']) }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $step['title'] ?? '' }}">
+                                    </div>
+                                    @endif
+                                    <div class="card-body p-4">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="badge rounded-pill px-3 py-1" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white; font-size: 11px;">DAY {{ $step['day'] ?? $loop->iteration }}</span>
+                                            @if($loop->first)
+                                            <span class="badge bg-success rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-play me-1"></i>START</span>
+                                            @elseif($loop->last)
+                                            <span class="badge bg-primary rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-flag-checkered me-1"></i>FINISH</span>
+                                            @endif
+                                        </div>
+                                        <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $step['title'] ?? 'Day ' . $loop->iteration }}</h5>
+                                        <p class="text-muted mb-0" style="line-height: 1.7;">{{ $step['description'] ?? 'Exciting safari activities planned for this day.' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Amenities -->
