@@ -33,7 +33,7 @@
                     </thead>
                     <tbody>
                         @forelse($packages as $package)
-                        <tr>
+                        <tr data-package-id="{{ $package->id }}">
                             <td class="ps-4 py-3">
                                 <div class="d-flex align-items-center">
                                     <img src="{{ asset($package->image) }}" class="rounded-3 me-3 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;" onerror="this.src='https://placehold.co/50x50?text=Safari'">
@@ -53,16 +53,12 @@
                             </td>
                             <td class="text-end pe-4">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="{{ route('admin.safaris.edit', $package) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
-                                        Edit
+                                    <a href="{{ route('admin.safaris.edit', $package) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold edit-btn" style="font-size: 0.7rem;">
+                                        <i class="fas fa-edit me-1"></i>Edit
                                     </a>
-                                    <form action="{{ route('admin.safaris.delete', $package) }}" method="POST" onsubmit="return confirm('Delete this package?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" style="font-size: 0.7rem;">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold delete-btn" data-package-id="{{ $package->id }}" data-package-title="{{ $package->title }}" style="font-size: 0.7rem;">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -86,11 +82,152 @@
     </div>
 </div>
 
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Delete button click handler
+        document.querySelectorAll('.delete-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const packageId = this.getAttribute('data-package-id');
+                const packageTitle = this.getAttribute('data-package-title');
+                const row = this.closest('tr');
+                
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: `You are about to delete "${packageTitle}". This action cannot be undone!`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: '<i class="fas fa-trash me-2"></i>Yes, delete it!',
+                    cancelButtonText: '<i class="fas fa-times me-2"></i>Cancel',
+                    customClass: {
+                        confirmButton: 'rounded-pill px-4',
+                        cancelButton: 'rounded-pill px-4'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Show loading
+                        Swal.fire({
+                            title: 'Deleting...',
+                            text: 'Please wait while we delete the package',
+                            icon: 'info',
+                            allowOutsideClick: false,
+                            showConfirmButton: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                        
+                        // Send AJAX request
+                        fetch(`{{ route('admin.safaris.delete', ':id') }}`.replace(':id', packageId), {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                _method: 'DELETE'
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: 'Safari package has been deleted successfully.',
+                                    icon: 'success',
+                                    confirmButtonColor: '#8b4513',
+                                    confirmButtonText: '<i class="fas fa-check me-2"></i>OK',
+                                    customClass: {
+                                        confirmButton: 'rounded-pill px-4'
+                                    }
+                                }).then(() => {
+                                    // Remove row with animation
+                                    row.style.transition = 'all 0.3s ease';
+                                    row.style.opacity = '0';
+                                    row.style.transform = 'translateX(100px)';
+                                    setTimeout(() => {
+                                        row.remove();
+                                        // Check if table is empty
+                                        if (document.querySelectorAll('tbody tr').length === 0) {
+                                            location.reload();
+                                        }
+                                    }, 300);
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: data.message || 'Failed to delete package. Please try again.',
+                                    icon: 'error',
+                                    confirmButtonColor: '#dc3545',
+                                    confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                                    customClass: {
+                                        confirmButton: 'rounded-pill px-4'
+                                    }
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'An error occurred while deleting the package.',
+                                icon: 'error',
+                                confirmButtonColor: '#dc3545',
+                                confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                                customClass: {
+                                    confirmButton: 'rounded-pill px-4'
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        });
+        
+        // Edit button click handler
+        document.querySelectorAll('.edit-btn').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                const row = this.closest('tr');
+                
+                // Show loading state
+                Swal.fire({
+                    title: 'Loading...',
+                    text: 'Please wait while we load the package details',
+                    icon: 'info',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                
+                // Navigate to edit page
+                window.location.href = href;
+            });
+        });
+    });
+</script>
+@endpush
+
 <style>
     .btn-earth:hover {
         background-color: #3E2723 !important;
         opacity: 0.9;
     }
     .smaller { font-size: 0.8rem; }
+    
+    /* SweetAlert custom styles */
+    .swal2-popup {
+        border-radius: 1rem !important;
+    }
+    .swal2-title {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+    .swal2-content {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
 </style>
 @endsection
