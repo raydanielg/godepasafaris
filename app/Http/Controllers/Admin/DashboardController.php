@@ -227,15 +227,26 @@ class DashboardController extends Controller
             return in_array($key, $columns) || in_array($key, ['_token', '_method']);
         }, ARRAY_FILTER_USE_KEY);
         
-        // Preserve existing data if not in request
-        if (!$request->has('itinerary') && in_array('itinerary', $columns)) {
-            $data['itinerary'] = $package->itinerary;
+        // Preserve existing data if empty or not in request
+        if (in_array('itinerary', $columns)) {
+            if (!$request->has('itinerary') || trim($request->itinerary) === '') {
+                $data['itinerary'] = $package->itinerary;
+            }
         }
-        if (!$request->has('inclusions') && in_array('inclusions', $columns)) {
-            $data['inclusions'] = $package->inclusions;
+        if (in_array('inclusions', $columns)) {
+            if (!$request->has('inclusions') || trim($request->inclusions) === '') {
+                $data['inclusions'] = $package->inclusions;
+            }
         }
-        if (!$request->has('exclusions') && in_array('exclusions', $columns)) {
-            $data['exclusions'] = $package->exclusions;
+        if (in_array('exclusions', $columns)) {
+            if (!$request->has('exclusions') || trim($request->exclusions) === '') {
+                $data['exclusions'] = $package->exclusions;
+            }
+        }
+        if (in_array('description', $columns)) {
+            if (!$request->has('description') || trim($request->description) === '') {
+                $data['description'] = $package->description;
+            }
         }
         
         // Handle boolean fields only if they exist in database
