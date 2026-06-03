@@ -419,67 +419,104 @@
         </div>
     </div>
 
-    <!-- General Inquiry Modal -->
-    <div class="modal fade" id="generalInquiryModal" tabindex="-1" aria-labelledby="generalInquiryModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content rounded-4">
-                <div class="modal-header border-0" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
-                    <h5 class="modal-title text-white fw-bold" id="generalInquiryModalLabel">Book This Safari</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="generalInquiryForm" action="{{ route('safari.enquire', $package->slug) }}" method="POST">
-                        @csrf
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Full Name *</label>
-                                <input type="text" name="name" class="form-control rounded-3" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Email Address *</label>
-                                <input type="email" name="email" class="form-control rounded-3" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Phone Number *</label>
-                                <input type="tel" name="phone" class="form-control rounded-3" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Number of Travelers *</label>
-                                <input type="number" name="travelers" class="form-control rounded-3" min="1" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Preferred Travel Date *</label>
-                                <input type="date" name="travel_date" class="form-control rounded-3" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Budget Range</label>
-                                <select name="budget" class="form-select rounded-3">
-                                    <option value="">Select budget</option>
-                                    <option value="budget">Budget</option>
-                                    <option value="mid-range">Mid-Range</option>
-                                    <option value="luxury">Luxury</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label fw-bold">Additional Requirements</label>
-                                <textarea name="message" class="form-control rounded-3" rows="4" placeholder="Tell us about your preferences, special requests, or any questions..."></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn w-100 rounded-pill py-3 fw-bold" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white;">
-                                    <i class="fas fa-paper-plane me-2"></i>Submit Inquiry
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Use the header modal instead -->
+    @include('partials.general_inquiry_modal')
 
     @include('partials.scripts')
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         AOS.init({ duration: 800, once: true });
+        
+        // Pre-fill tour name in modal when opened from safari page
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalElement = document.getElementById('generalInquiryModal');
+            if (modalElement) {
+                modalElement.addEventListener('show.bs.modal', function() {
+                    const tourSelect = document.getElementById('inquiry_tour_select');
+                    if (tourSelect) {
+                        // Set the current safari as selected
+                        tourSelect.value = '{{ $package->title }}';
+                    }
+                });
+            }
+            
+            // Handle form submission with AJAX
+            const inquiryForm = document.getElementById('generalInquiryForm');
+            if (inquiryForm) {
+                inquiryForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    // Show loading
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>SENDING...';
+                    
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: data.message,
+                                icon: 'success',
+                                confirmButtonColor: '#8b4513',
+                                confirmButtonText: '<i class="fas fa-check me-2"></i>OK',
+                                customClass: {
+                                    confirmButton: 'rounded-pill px-4'
+                                }
+                            }).then(() => {
+                                // Close modal
+                                const modal = bootstrap.Modal.getInstance(document.getElementById('generalInquiryModal'));
+                                if (modal) {
+                                    modal.hide();
+                                }
+                                // Reset form
+                                inquiryForm.reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: data.message || 'Something went wrong. Please try again.',
+                                icon: 'error',
+                                confirmButtonColor: '#dc3545',
+                                confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                                customClass: {
+                                    confirmButton: 'rounded-pill px-4'
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Something went wrong. Please try again.',
+                            icon: 'error',
+                            confirmButtonColor: '#dc3545',
+                            confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                            customClass: {
+                                confirmButton: 'rounded-pill px-4'
+                            }
+                        });
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html>
