@@ -884,9 +884,9 @@
                     <ul class="sidebar-submenu">
                         <li><a href="{{ route('kilimanjaro') }}"><i class="fas fa-hiking me-2"></i>Climbing Overview</a></li>
                         <li><a href="{{ route('kilimanjaro.why-us') }}"><i class="fas fa-info-circle me-2"></i>Why With Us</a></li>
-                        <li><a href="{{ route('kilimanjaro.pricing') }}"><i class="fas fa-tags me-2"></i>Pricing</a></li>
-                        <li><a href="{{ route('kilimanjaro.group') }}"><i class="fas fa-users me-2"></i>Group Climbs</a></li>
-                        <li><a href="{{ route('kilimanjaro.calculator') }}"><i class="fas fa-calculator me-2"></i>Cost Calculator</a></li>
+                        <li><a href="{{ route('kilimanjaro.private-tours') }}"><i class="fas fa-tags me-2"></i>Pricing</a></li>
+                        <li><a href="{{ route('kilimanjaro.group-departures') }}"><i class="fas fa-users me-2"></i>Group Climbs</a></li>
+                        <li><a href="{{ route('kilimanjaro.success-calculator') }}"><i class="fas fa-calculator me-2"></i>Cost Calculator</a></li>
                         @php
                             $kiliSection = \App\Models\MenuSection::forNavItem('kilimanjaro')->first();
                             $kiliLinks = $kiliSection ? $kiliSection->links()->active()->get() : collect();
