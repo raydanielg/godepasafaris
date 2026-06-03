@@ -204,7 +204,6 @@
                         }
                         return 'fa-check';
                     }
-                @php
                 @endphp
                 
                 @if(count($inclusions) > 0 || count($exclusions) > 0)
