@@ -222,17 +222,16 @@
                         </div>
                         @endif
                     </li>
-                    
+
                     <!-- DESTINATIONS Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('destinations*') ? 'active' : '' }} px-3" href="{{ route('destinations') }}" style="color: #3E2723 !important;" id="destMegaMenu">
                             DESTINATIONS <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
-                            $destSection = \App\Models\MenuSection::forNavItem('destinations')->first();
-                            $destLinks = $destSection ? $destSection->links()->active()->get() : collect();
+                            $destinations = \App\Models\SafariDestination::active()->ordered()->get();
                         @endphp
-                        @if($destSection && $destLinks->count() > 0)
+                        @if($destinations->count() > 0)
                         <div class="mega-menu-wrapper">
                             <div class="mega-menu-container">
                                 <div class="mega-menu-content">
@@ -243,35 +242,24 @@
                                                     <i class="fas fa-map-marker-alt me-2"></i>Explore Tanzania
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @php
-                                                        $destImages = [
-                                                            'images/images/635ZANZIBAR_ISLAND.webp',
-                                                            'images/images/38148e03-2cf5-433c-ba80-2fae8b0ba63a_Screenshot+2022-05-25+at+10.17.58.avif',
-                                                            'images/images/304963_67b4c74a941bc.jpg',
-                                                            'images/images/A-guide-to-the-Lobo-Area-in-the-Northern-Serengeti.jpg',
-                                                            'images/images/ACC_030262_ZAN_47WebOriginalCompressed.avif',
-                                                        ];
-                                                    @endphp
-                                                    @foreach($destLinks as $index => $link)
-                                                    <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
-                                                       data-title="{{ $link->title }}"
-                                                       data-description="{{ $link->description ?? $destSection->description }}"
-                                                       data-image="{{ asset($destImages[$index % count($destImages)]) }}"
-                                                       data-url="{{ $link->url }}"
-                                                       data-link-text="{{ $link->title }}">
+                                                    @foreach($destinations as $destination)
+                                                    <a href="{{ route('destinations.show', $destination->slug) }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $destination->name }}"
+                                                       data-description="{{ $destination->tagline }}"
+                                                       data-image="{{ $destination->hero_display_image }}"
+                                                       data-url="{{ route('destinations.show', $destination->slug) }}"
+                                                       data-link-text="Explore {{ $destination->name }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
-                                                            <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
+                                                            <i class="fas {{ $destination->icon }}" style="color: #8B4513;"></i>
                                                         </div>
                                                         <div class="flex-grow-1">
                                                             <div class="d-flex align-items-center">
-                                                                <span class="fw-medium" style="color: #3E2723;">{{ $link->title }}</span>
-                                                                @if($link->badge)
-                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : '#6c757d')) }};">{{ $link->badge }}</span>
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ $destination->name }}</span>
+                                                                @if($destination->badge)
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $destination->badge_color == 'success' ? '#28a745' : ($destination->badge_color == 'danger' ? '#dc3545' : ($destination->badge_color == 'warning' ? '#ffc107' : ($destination->badge_color == 'info' ? '#17a2b8' : '#6c757d'))) }};">{{ $destination->badge }}</span>
                                                                 @endif
                                                             </div>
-                                                            @if($link->description)
-                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $link->description }}</small>
-                                                            @endif
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $destination->tagline }}</small>
                                                         </div>
                                                         <i class="fas fa-chevron-right ms-2 text-muted small"></i>
                                                     </a>
@@ -283,18 +271,18 @@
                                             <div class="h-100 p-4" style="background: linear-gradient(135deg, rgba(62,39,35,0.05) 0%, rgba(139,69,19,0.05) 100%);">
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
-                                                        <span class="badge mb-2 dest-badge" style="background: {{ $destSection->badge_color == 'info' ? '#17a2b8' : '#8B4513' }}; font-size: 0.7rem;">
-                                                            <i class="fas fa-compass me-1"></i>{{ $destSection->badge }}
+                                                        <span class="badge mb-2 dest-badge" style="background: #8B4513; font-size: 0.7rem;">
+                                                            <i class="fas fa-compass me-1"></i>Featured Destination
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $destSection->title }}</h4>
-                                                        <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $destSection->description }}</p>
-                                                        <a href="{{ $destSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white dest-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
-                                                            {{ $destSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
+                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $destinations->first()->name }}</h4>
+                                                        <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $destinations->first()->tagline }}</p>
+                                                        <a href="{{ route('destinations.show', $destinations->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white dest-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            Explore Now <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ asset('images/images/635ZANZIBAR_ISLAND.webp') }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destSection->title }}">
+                                                            <img src="{{ $destinations->first()->hero_display_image }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destinations->first()->name }}">
                                                         </div>
                                                     </div>
                                                 </div>
