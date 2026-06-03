@@ -54,7 +54,9 @@
 
             <div class="col-lg-4">
                 <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
-                    <h5 class="fw-bold mb-4" style="color: #3E2723;">Pricing & Media</h5>
+                    <h5 class="fw-bold mb-4" style="color: #3E2723;">
+                        <i class="fas fa-dollar-sign me-2"></i>Pricing
+                    </h5>
                     
                     <div class="mb-4">
                         <label class="form-label fw-bold text-dark">Base Price (USD)</label>
@@ -66,24 +68,83 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label fw-bold text-dark">Featured Image</label>
-                        <div class="image-upload-wrapper border rounded-4 p-3 text-center position-relative" style="background-color: #fdfaf5; border-style: dashed !important;">
-                            <input type="file" name="image" id="packageImage" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 cursor-pointer" accept="image/*">
-                            @if($package->image)
-                            <div id="imagePreview" class="py-4 d-none">
-                                <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: #deb887;"></i>
-                                <p class="mb-0 small text-muted">Click to change or drag and drop</p>
-                            </div>
-                            <img id="previewImg" src="{{ asset($package->image) }}" class="img-fluid rounded-3 shadow-sm" alt="Preview">
-                            @else
-                            <div id="imagePreview" class="py-4">
-                                <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: #deb887;"></i>
-                                <p class="mb-0 small text-muted">Click to upload or drag and drop</p>
-                            </div>
-                            <img id="previewImg" src="#" class="img-fluid rounded-3 d-none shadow-sm" alt="Preview">
-                            @endif
+                        <label class="form-label fw-bold text-dark">Currency</label>
+                        <select name="currency" class="form-select rounded-3">
+                            <option value="USD" {{ old('currency', $package->currency ?? 'USD') == 'USD' ? 'selected' : '' }}>USD ($)</option>
+                            <option value="EUR" {{ old('currency', $package->currency ?? 'USD') == 'EUR' ? 'selected' : '' }}>EUR (€)</option>
+                            <option value="GBP" {{ old('currency', $package->currency ?? 'USD') == 'GBP' ? 'selected' : '' }}>GBP (£)</option>
+                            <option value="TZS" {{ old('currency', $package->currency ?? 'USD') == 'TZS' ? 'selected' : '' }}>TZS (TSh)</option>
+                            <option value="KES" {{ old('currency', $package->currency ?? 'USD') == 'KES' ? 'selected' : '' }}>KES (KSh)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark">Duration (Days)</label>
+                        <input type="number" name="days" class="form-control form-control-lg rounded-3 @error('days') is-invalid @enderror" placeholder="e.g. 5" value="{{ old('days', $package->days) }}" required>
+                        @error('days') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark">Group Discount (%)</label>
+                        <input type="number" name="group_discount" class="form-control rounded-3 @error('group_discount') is-invalid @enderror" placeholder="e.g. 10" value="{{ old('group_discount', $package->group_discount ?? '') }}">
+                        <small class="text-muted">Discount for groups of 4+ people</small>
+                        @error('group_discount') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark">Minimum Group Size</label>
+                        <input type="number" name="min_group_size" class="form-control rounded-3 @error('min_group_size') is-invalid @enderror" placeholder="e.g. 2" value="{{ old('min_group_size', $package->min_group_size ?? '') }}">
+                        @error('min_group_size') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+                    <h5 class="fw-bold mb-4" style="color: #3E2723;">
+                        <i class="fas fa-image me-2"></i>Featured Image
+                    </h5>
+                    <div class="image-upload-wrapper border rounded-4 p-3 text-center position-relative" style="background-color: #fdfaf5; border-style: dashed !important;">
+                        <input type="file" name="image" id="packageImage" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 cursor-pointer" accept="image/*">
+                        @if($package->image)
+                        <div id="imagePreview" class="py-4 d-none">
+                            <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: #deb887;"></i>
+                            <p class="mb-0 small text-muted">Click to change or drag and drop</p>
                         </div>
-                        @error('image') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                        <img id="previewImg" src="{{ asset($package->image) }}" class="img-fluid rounded-3 shadow-sm" alt="Preview">
+                        @else
+                        <div id="imagePreview" class="py-4">
+                            <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: #deb887;"></i>
+                            <p class="mb-0 small text-muted">Click to upload or drag and drop</p>
+                        </div>
+                        <img id="previewImg" src="#" class="img-fluid rounded-3 d-none shadow-sm" alt="Preview">
+                        @endif
+                    </div>
+                    @error('image') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                </div>
+
+                <div class="card shadow-sm border-0 rounded-4 p-4">
+                    <h5 class="fw-bold mb-4" style="color: #3E2723;">
+                        <i class="fas fa-cog me-2"></i>Settings
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-dark">Category</label>
+                        <select name="category" class="form-select rounded-3">
+                            <option value="">Select category</option>
+                            <option value="Safari" {{ old('category', $package->category ?? '') == 'Safari' ? 'selected' : '' }}>Safari</option>
+                            <option value="Mountain" {{ old('category', $package->category ?? '') == 'Mountain' ? 'selected' : '' }}>Mountain</option>
+                            <option value="Beach" {{ old('category', $package->category ?? '') == 'Beach' ? 'selected' : '' }}>Beach</option>
+                            <option value="Cultural" {{ old('category', $package->category ?? '') == 'Cultural' ? 'selected' : '' }}>Cultural</option>
+                        </select>
+                    </div>
+
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" name="is_featured" id="isFeatured" {{ $package->is_featured ?? false ? 'checked' : '' }}>
+                        <label class="form-check-label fw-bold" for="isFeatured">Featured Package</label>
+                    </div>
+
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" name="is_active" id="isActive" {{ $package->is_active ?? true ? 'checked' : '' }}>
+                        <label class="form-check-label fw-bold" for="isActive">Active</label>
                     </div>
 
                     <button type="submit" class="btn btn-earth w-100 py-3 rounded-pill fw-bold text-white shadow-sm" style="background-color: #8b4513;">
