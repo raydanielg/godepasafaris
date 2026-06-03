@@ -12,7 +12,7 @@
         </a>
     </div>
 
-    <form action="{{ route('admin.safaris.update', $package) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.safaris.update', $package) }}" method="POST" enctype="multipart/form-data" id="editSafariForm">
         @csrf
         @method('PUT')
         <div class="row g-4">

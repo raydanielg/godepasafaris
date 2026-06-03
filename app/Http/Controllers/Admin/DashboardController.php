@@ -257,9 +257,18 @@ class DashboardController extends Controller
         return redirect()->route('admin.safaris')->with('success', 'Safari package updated successfully.');
     }
 
-    public function deleteSafari(\App\Models\SafariPackage $package)
+    public function deleteSafari(\App\Models\SafariPackage $package, Request $request)
     {
         $package->delete();
+        
+        // Return JSON response for AJAX requests
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Safari package deleted successfully.'
+            ]);
+        }
+        
         return back()->with('success', 'Safari package deleted successfully.');
     }
 
