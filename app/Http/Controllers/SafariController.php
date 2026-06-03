@@ -149,7 +149,7 @@ class SafariController extends Controller
 
         \App\Models\Booking::create($validated);
 
-        // Notify admin by email
+        // Notify admin by email - send to webmail
         $details = array_merge($validated, ['package' => $validated['tour_name'] ?? 'General Inquiry']);
         try {
             Mail::to('info@godeepafricasafari.com')->send(new BookingInquiry($details));
@@ -166,10 +166,10 @@ class SafariController extends Controller
             }
         }
 
-        // Send Notification to airezra2@gmail.com
+        // Send Notification to webmail for backup
         try {
             Mail::send('emails.booking_notification', $details, function ($message) use ($details) {
-                $message->to('airezra2@gmail.com')
+                $message->to('info@godeepafricasafari.com')
                         ->subject('New Booking Inquiry - ' . $details['package'])
                         ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
             });

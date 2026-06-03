@@ -1218,6 +1218,10 @@
         }
     </style>
 
+    <!-- General Inquiry Modal -->
+    @include('partials.general_inquiry_modal')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.getElementById('mobileSidebarToggle');
@@ -1262,6 +1266,81 @@
                     }
                 });
             });
+
+            // General Inquiry Form AJAX Submission
+            const inquiryForm = document.getElementById('generalInquiryForm');
+            if (inquiryForm) {
+                inquiryForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    // Show loading
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>SENDING...';
+                    
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: data.message,
+                                icon: 'success',
+                                confirmButtonColor: '#8b4513',
+                                confirmButtonText: '<i class="fas fa-check me-2"></i>OK',
+                                customClass: {
+                                    confirmButton: 'rounded-pill px-4'
+                                }
+                            }).then(() => {
+                                // Close modal
+                                const modal = bootstrap.Modal.getInstance(document.getElementById('generalInquiryModal'));
+                                if (modal) {
+                                    modal.hide();
+                                }
+                                // Reset form
+                                inquiryForm.reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: data.message || 'Something went wrong. Please try again.',
+                                icon: 'error',
+                                confirmButtonColor: '#dc3545',
+                                confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                                customClass: {
+                                    confirmButton: 'rounded-pill px-4'
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Something went wrong. Please try again.',
+                            icon: 'error',
+                            confirmButtonColor: '#dc3545',
+                            confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                            customClass: {
+                                confirmButton: 'rounded-pill px-4'
+                            }
+                        });
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    });
+                });
+            }
         });
     </script>
 
