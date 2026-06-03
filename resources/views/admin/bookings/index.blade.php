@@ -90,6 +90,7 @@
                                             data-customer-name="{{ $booking->name }}" 
                                             data-customer-email="{{ $booking->email }}"
                                             data-tour-name="{{ $booking->tour_name }}"
+                                            onclick="openEmailModal({{ $booking->id }}, '{{ $booking->name }}', '{{ $booking->email }}', '{{ $booking->tour_name }}')"
                                             style="font-size: 0.7rem;">
                                         <i class="fas fa-envelope me-1"></i>Email
                                     </button>
