@@ -10,6 +10,21 @@ Route::post('/clear-cache', function () {
     return response()->json(['status' => 'success', 'message' => 'Cache cleared']);
 })->name('cache.clear.ajax');
 
+// Test Email Route
+Route::get('/test-email', function () {
+    try {
+        \Illuminate\Support\Facades\Mail::raw('This is a test email from Go Deep Africa Safari booking system.', function ($message) {
+            $message->to('airezra@gmail.com')
+                    ->subject('Test Email - Go Deep Africa Safari')
+                    ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
+        });
+
+        return response()->json(['status' => 'success', 'message' => 'Test email sent successfully to airezra@gmail.com']);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => 'Email failed: ' . $e->getMessage()], 500);
+    }
+})->name('test.email');
+
 // One-time: Seed Zanzibar destination on production — DELETE THIS ROUTE AFTER USE
 Route::get('/setup-zanzibar-destination', function () {
     try {
