@@ -148,6 +148,72 @@
                                                 </h6>
                                                 <div class="mega-links-list">
                                                     @php
+                                                        $kiliLinks = [
+                                                            (object)[
+                                                                'title' => 'Why We Set the Gold Standard',
+                                                                'description' => '52 reasons to choose us',
+                                                                'badge' => '52 Reasons',
+                                                                'badge_color' => 'success',
+                                                                'icon' => 'fa-trophy',
+                                                                'url' => route('kilimanjaro.why-us')
+                                                            ],
+                                                            (object)[
+                                                                'title' => 'Private Tours and Pricing',
+                                                                'description' => 'Transparent pricing',
+                                                                'badge' => null,
+                                                                'badge_color' => 'secondary',
+                                                                'icon' => 'fa-user',
+                                                                'url' => route('kilimanjaro.private-tours')
+                                                            ],
+                                                            (object)[
+                                                                'title' => 'Group Departures',
+                                                                'description' => 'Join scheduled climbs',
+                                                                'badge' => '$100 Deposit',
+                                                                'badge_color' => 'warning',
+                                                                'icon' => 'fa-users',
+                                                                'url' => route('kilimanjaro.group-departures')
+                                                            ],
+                                                            (object)[
+                                                                'title' => 'Kilimanjaro Routes',
+                                                                'description' => 'Compare all routes',
+                                                                'badge' => null,
+                                                                'badge_color' => 'secondary',
+                                                                'icon' => 'fa-route',
+                                                                'url' => route('kilimanjaro.routes')
+                                                            ],
+                                                            (object)[
+                                                                'title' => 'Packing List',
+                                                                'description' => 'Essential gear guide',
+                                                                'badge' => 'Free PDF',
+                                                                'badge_color' => 'info',
+                                                                'icon' => 'fa-suitcase',
+                                                                'url' => route('kilimanjaro.packing-list')
+                                                            ],
+                                                            (object)[
+                                                                'title' => 'Success Calculator',
+                                                                'description' => 'Estimate your success',
+                                                                'badge' => 'New',
+                                                                'badge_color' => 'danger',
+                                                                'icon' => 'fa-calculator',
+                                                                'url' => route('kilimanjaro.success-calculator')
+                                                            ],
+                                                            (object)[
+                                                                'title' => 'Helpful Articles',
+                                                                'description' => 'Tips & insights',
+                                                                'badge' => null,
+                                                                'badge_color' => 'secondary',
+                                                                'icon' => 'fa-book',
+                                                                'url' => route('kilimanjaro.articles')
+                                                            ],
+                                                            (object)[
+                                                                'title' => 'Other Mountains',
+                                                                'description' => 'Meru, Ol Doinyo Lengai',
+                                                                'badge' => null,
+                                                                'badge_color' => 'secondary',
+                                                                'icon' => 'fa-mountain',
+                                                                'url' => route('kilimanjaro.other-mountains')
+                                                            ],
+                                                        ];
                                                         $kiliImages = [
                                                             'images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg',
                                                             'images/images/360_F_303354896_Qg6fhfYQhz3kdoKeRvK333UEaD9d6FWN.jpg',
@@ -159,10 +225,10 @@
                                                     @foreach($kiliLinks as $index => $link)
                                                     <a href="{{ $link->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
                                                        data-title="{{ $link->title }}"
-                                                       data-description="{{ $link->description ?? $kiliSection->description }}"
+                                                       data-description="{{ $link->description }}"
                                                        data-image="{{ asset($kiliImages[$index % count($kiliImages)]) }}"
                                                        data-url="{{ $link->url }}"
-                                                       data-link-text="{{ $link->title }}">
+                                                       data-link-text="Learn More">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
                                                             <i class="fas {{ $link->icon }}" style="color: #8B4513;"></i>
                                                         </div>
@@ -170,12 +236,10 @@
                                                             <div class="d-flex align-items-center">
                                                                 <span class="fw-medium" style="color: #3E2723;">{{ $link->title }}</span>
                                                                 @if($link->badge)
-                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : '#6c757d')) }};">{{ $link->badge }}</span>
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $link->badge_color == 'success' ? '#28a745' : ($link->badge_color == 'danger' ? '#dc3545' : ($link->badge_color == 'warning' ? '#ffc107' : ($link->badge_color == 'info' ? '#17a2b8' : '#6c757d'))) }};">{{ $link->badge }}</span>
                                                                 @endif
                                                             </div>
-                                                            @if($link->description)
                                                             <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $link->description }}</small>
-                                                            @endif
                                                         </div>
                                                         <i class="fas fa-chevron-right ms-2 text-muted small"></i>
                                                     </a>
