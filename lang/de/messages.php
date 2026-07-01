@@ -1,0 +1,152 @@
+<?php
+
+// German (Deutsch) — mirrors lang/en/messages.php
+
+return [
+
+    'lang_switcher' => [
+        'label'  => 'Sprache',
+        'choose' => 'Wählen Sie Ihre Sprache',
+    ],
+
+    'nav' => [
+        'home'         => 'Startseite',
+        'safaris'      => 'Safaris',
+        'kilimanjaro'  => 'Kilimandscharo',
+        'destinations' => 'Reiseziele',
+        'giving_back'  => 'Soziales Engagement',
+        'blog'         => 'Blog',
+        'about'        => 'Über Uns',
+        'contact'      => 'Kontakt',
+        'all_tours'    => 'Alle Safari-Touren',
+        'inquiry_now'  => 'Jetzt Anfragen',
+        'book_now'     => 'Jetzt Buchen',
+        'dashboard'    => 'Dashboard',
+        'logout'       => 'Abmelden',
+        'login'        => 'Anmelden',
+    ],
+
+    'common' => [
+        'read_more'     => 'Mehr Lesen',
+        'learn_more'    => 'Mehr Erfahren',
+        'view_details'  => 'Details Ansehen',
+        'view_all'      => 'Alle Ansehen',
+        'explore_now'   => 'Jetzt Entdecken',
+        'get_started'   => 'Loslegen',
+        'send'          => 'Senden',
+        'submit'        => 'Absenden',
+        'cancel'        => 'Abbrechen',
+        'close'         => 'Schließen',
+        'loading'       => 'Wird geladen…',
+        'search'        => 'Suchen',
+        'days'          => 'Tage',
+        'from'          => 'Ab',
+        'featured'      => 'Empfohlen',
+        'popular'       => 'Beliebt',
+        'new'           => 'Neu',
+    ],
+
+    'booking' => [
+        'title'            => 'Buchen Sie Ihre Safari',
+        'subtitle'        => 'Erzählen Sie uns von Ihrer Traumreise und unser Team erstellt eine maßgeschneiderte Reiseroute.',
+        'full_name'        => 'Vollständiger Name',
+        'email'            => 'E-Mail-Adresse',
+        'phone'            => 'Telefonnummer',
+        'country'          => 'Land',
+        'travelers'        => 'Anzahl der Reisenden',
+        'travel_dates'     => 'Reisedaten',
+        'package'          => 'Safari-Paket',
+        'special_requests' => 'Besondere Wünsche',
+        'select_package'   => 'Paket auswählen',
+        'submit'           => 'Anfrage Senden',
+        'sending'          => 'Wird gesendet…',
+        'success_title'    => 'Vielen Dank!',
+        'success_message'  => 'Ihre Anfrage ist eingegangen. Unser Team meldet sich innerhalb von 24 Stunden bei Ihnen.',
+        'error_message'    => 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.',
+        'required'         => 'Dieses Feld ist erforderlich.',
+        'invalid_email'    => 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+    ],
+
+    'footer' => [
+        'about_title'     => 'Über Go Deep Africa',
+        'about_text'      => 'In Arusha ansässige, lokal geführte Experten für Tansania-Safaris und Kilimandscharo-Besteigungen — wir schaffen authentische Reisen, die den lokalen Gemeinschaften zugutekommen.',
+        'quick_links'     => 'Schnellzugriff',
+        'destinations'    => 'Reiseziele',
+        'support'         => 'Hilfe',
+        'help_center'     => 'Hilfe-Center',
+        'faq'             => 'Häufige Fragen',
+        'privacy'         => 'Datenschutzerklärung',
+        'terms'           => 'Nutzungsbedingungen',
+        'how_it_works'    => 'So Funktioniert Es',
+        'contact'         => 'Kontakt',
+        'newsletter'      => 'Newsletter',
+        'newsletter_text' => 'Abonnieren Sie Safari-Tipps, Angebote und Reiseinspiration.',
+        'your_email'      => 'Ihre E-Mail-Adresse',
+        'subscribe'       => 'Abonnieren',
+        'rights'          => 'Alle Rechte vorbehalten.',
+        'follow_us'       => 'Folgen Sie Uns',
+    ],
+
+    'home' => [
+        'hero_title'    => 'Entdecken Sie das Echte Afrika',
+        'hero_subtitle' => 'Authentische Tansania-Safaris, Serengeti-Ballonfahrten und Kilimandscharo-Besteigungen — jede Reise gibt etwas zurück.',
+        'explore_safaris' => 'Safaris Entdecken',
+        'plan_trip'       => 'Reise Planen',
+    ],
+
+    'hero' => [
+        'slide1_line1' => 'Serengeti-Ballonfahrt',
+        'slide1_line2' => '& Wildtier-Safaris',
+        'slide1_desc'  => 'Erleben Sie das spektakulärste Wildtierschauspiel der Welt aus der Luft. Erfahrene Guides, die jeden Winkel der Savanne kennen.',
+        'slide2_line1' => 'Kilimandscharo-Gipfel',
+        'slide2_line2' => '& Trekking-Expeditionen',
+        'slide2_desc'  => 'Erobern Sie das Dach Afrikas. Professionelle Trekking-Services mit Fokus auf Sicherheit, Komfort und Erfolg.',
+        'slide3_line1' => 'Tansanias Tierwelt',
+        'slide3_line2' => '& Authentische Begegnungen',
+        'slide3_desc'  => 'Entdecken Sie die verborgenen Schätze Tansanias. Erleben Sie riesige Herden und uralte Landschaften mit unserem Expertenteam.',
+        'btn_packages' => 'Safari-Pakete',
+        'btn_quote'    => 'Kostenloses Angebot',
+        'feature1_title' => 'Lokale Experten',
+        'feature1_desc'  => 'In Arusha ansässige Safari-Spezialisten mit erfahrenen Guides.',
+        'feature2_title' => 'Maßgeschneidert',
+        'feature2_desc'  => 'Private und Gruppensafaris, individuell auf Ihren Stil abgestimmt.',
+        'feature3_title' => 'Verantwortungsvoll',
+        'feature3_desc'  => 'Engagiert für nachhaltiges Reisen und lokale Gemeinschaften.',
+    ],
+
+    'inquiry' => [
+        'plan_title'    => 'Planen Sie Ihr Traumabenteuer',
+        'plan_subtitle' => 'Sagen Sie uns, wonach Sie suchen, und wir gestalten es für Sie.',
+        'interested_in' => 'Interessiert An',
+        'general'       => 'Allgemeine Anfrage / Noch Unentschlossen',
+        'approx_date'   => 'Ungefähres Reisedatum',
+        'requirements'  => 'Erzählen Sie uns von Ihren Wünschen',
+        'requirements_placeholder' => 'Nennen Sie bevorzugte Aktivitäten, Budget, Unterkunftsstil oder besondere Bedürfnisse…',
+        'send_now'      => 'Anfrage Jetzt Senden',
+        'privacy_note'  => 'Ihre Daten sind bei uns sicher. Wir antworten in der Regel innerhalb von 2–4 Stunden.',
+        'person'        => 'Person',
+        'people'        => 'Personen',
+        'plus_people'   => '11+ Personen',
+    ],
+
+    'cta' => [
+        'ready_title'    => 'Bereit, Ihr nächstes Abenteuer zu planen?',
+        'ready_subtitle' => 'Teilen Sie uns Ihre Ideen mit und wir erstellen innerhalb von 3 Stunden eine persönliche Reiseroute.',
+        'whatsapp'       => 'Auf WhatsApp Chatten',
+        'enquire'        => 'Jetzt Anfragen',
+        'call'           => 'Anrufen',
+    ],
+
+    'packages' => [
+        'popular_title'    => 'Beliebte Tansania-Safaris',
+        'popular_subtitle' => 'Handverlesene Top-Abenteuer für ein unvergessliches Erlebnis.',
+        'private'          => 'Privat',
+        'view_trip'        => 'Reise Ansehen',
+        'view_all'         => 'Alle Safari-Pakete Ansehen',
+    ],
+
+    'tour' => [
+        'nights' => 'Nächte',
+    ],
+
+];

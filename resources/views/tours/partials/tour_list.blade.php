@@ -16,7 +16,7 @@
                     <span class="badge-tour">Lodge</span>
                 </div>
                 <h5 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; min-height: 3.5rem;">
-                    <a href="{{ $tour->type == 'Kilimanjaro' ? route('kilimanjaro.show', $tour->slug) : route('safari.show', $tour->slug) }}" class="text-dark text-decoration-none hover-primary">{{ $tour->title }}</a>
+                    <a href="{{ $tour->type == 'Kilimanjaro' ? route('kilimanjaro.show', $tour->slug) : route('safari.show', $tour->slug) }}" class="text-dark text-decoration-none hover-primary">{{ tr($tour->title) }}</a>
                 </h5>
                 
                 <div class="tour-rating mb-3">
@@ -32,13 +32,13 @@
                 </div>
 
                 <div class="tour-visit-info mb-4">
-                    <div class="fw-bold mb-1"><i class="far fa-clock me-2"></i> {{ $tour->days }} Days - {{ $tour->days - 1 }} Nights</div>
+                    <div class="fw-bold mb-1"><i class="far fa-clock me-2"></i> {{ $tour->days }} {{ __('messages.common.days') }} - {{ $tour->days - 1 }} {{ __('messages.tour.nights') }}</div>
                     <div class="small">You Visit : {{ $tour->type == 'Kilimanjaro' ? 'Kilimanjaro NP' : 'Serengeti, Ngorongoro' }}</div>
                 </div>
 
                 <div class="mt-auto d-flex gap-2">
-                    <a href="{{ $tour->type == 'Kilimanjaro' ? route('kilimanjaro.show', $tour->slug) : route('safari.show', $tour->slug) }}" class="btn btn-outline-earth flex-grow-1 py-2 rounded-pill">View Trip</a>
-                    <button type="button" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white" data-bs-toggle="modal" data-bs-target="#bookingModal" data-tour-title="{{ $tour->title }}" data-tour-id="{{ $tour->id }}">Book Now</button>
+                    <a href="{{ $tour->type == 'Kilimanjaro' ? route('kilimanjaro.show', $tour->slug) : route('safari.show', $tour->slug) }}" class="btn btn-outline-earth flex-grow-1 py-2 rounded-pill">{{ __('messages.packages.view_trip') }}</a>
+                    <button type="button" class="btn btn-earth flex-grow-1 py-2 rounded-pill text-white" data-bs-toggle="modal" data-bs-target="#bookingModal" data-tour-title="{{ $tour->title }}" data-tour-id="{{ $tour->id }}">{{ __('messages.nav.book_now') }}</button>
                 </div>
             </div>
         </div>

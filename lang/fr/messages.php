@@ -145,4 +145,8 @@ return [
         'view_all'         => 'Voir Tous les Forfaits Safari',
     ],
 
+    'tour' => [
+        'nights' => 'Nuits',
+    ],
+
 ];

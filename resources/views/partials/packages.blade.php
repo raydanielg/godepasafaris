@@ -23,7 +23,7 @@
                     <div class="package-content p-4 text-start d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <h5 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">
-                                <a href="{{ route('safari.show', $package->slug) }}" class="text-dark text-decoration-none hover-earth">{{ $package->title }}</a>
+                                <a href="{{ route('safari.show', $package->slug) }}" class="text-dark text-decoration-none hover-earth">{{ tr($package->title) }}</a>
                             </h5>
                         </div>
                         

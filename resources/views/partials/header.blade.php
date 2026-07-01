@@ -88,10 +88,10 @@
                                                         </div>
                                                         <div class="flex-grow-1">
                                                             <div class="d-flex align-items-center">
-                                                                <span class="fw-medium" style="color: #3E2723;">{{ $package->title }}</span>
-                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: #8B4513;">{{ $package->days }} Days</span>
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ tr($package->title) }}</span>
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: #8B4513;">{{ $package->days }} {{ __('messages.common.days') }}</span>
                                                             </div>
-                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ Str::limit($package->summary, 60) }}</small>
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ Str::limit(tr($package->summary), 60) }}</small>
                                                         </div>
                                                         <i class="fas fa-chevron-right ms-2 text-muted small"></i>
                                                     </a>
@@ -106,8 +106,8 @@
                                                         <span class="badge mb-2 safari-badge" style="background: #8B4513; font-size: 0.7rem;">
                                                             <i class="fas fa-star me-1"></i>Featured Safari
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $safariPackages->first()->title }}</h4>
-                                                        <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ Str::limit($safariPackages->first()->summary, 100) }}</p>
+                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ tr($safariPackages->first()->title) }}</h4>
+                                                        <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ Str::limit(tr($safariPackages->first()->summary), 100) }}</p>
                                                         <a href="{{ route('safari.show', $safariPackages->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white safari-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             View Details <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
@@ -308,12 +308,12 @@
                                                         </div>
                                                         <div class="flex-grow-1">
                                                             <div class="d-flex align-items-center">
-                                                                <span class="fw-medium" style="color: #3E2723;">{{ $destination->name }}</span>
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ tr($destination->name) }}</span>
                                                                 @if($destination->badge)
                                                                 <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $destination->badge_color == 'success' ? '#28a745' : ($destination->badge_color == 'danger' ? '#dc3545' : ($destination->badge_color == 'warning' ? '#ffc107' : ($destination->badge_color == 'info' ? '#17a2b8' : '#6c757d'))) }};">{{ $destination->badge }}</span>
                                                                 @endif
                                                             </div>
-                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $destination->tagline }}</small>
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ tr($destination->tagline) }}</small>
                                                         </div>
                                                         <i class="fas fa-chevron-right ms-2 text-muted small"></i>
                                                     </a>
@@ -328,8 +328,8 @@
                                                         <span class="badge mb-2 dest-badge" style="background: #8B4513; font-size: 0.7rem;">
                                                             <i class="fas fa-compass me-1"></i>Featured Destination
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $destinations->first()->name }}</h4>
-                                                        <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $destinations->first()->tagline }}</p>
+                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ tr($destinations->first()->name) }}</h4>
+                                                        <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ tr($destinations->first()->tagline) }}</p>
                                                         <a href="{{ route('destinations.show', $destinations->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white dest-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             Explore Now <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>

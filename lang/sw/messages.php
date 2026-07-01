@@ -145,4 +145,8 @@ return [
         'view_all'         => 'Ona Vifurushi Vyote vya Safari',
     ],
 
+    'tour' => [
+        'nights' => 'Usiku',
+    ],
+
 ];

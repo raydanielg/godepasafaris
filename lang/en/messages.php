@@ -154,4 +154,8 @@ return [
         'view_all'         => 'View All Safari Packages',
     ],
 
+    'tour' => [
+        'nights' => 'Nights',
+    ],
+
 ];

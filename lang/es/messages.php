@@ -145,4 +145,8 @@ return [
         'view_all'         => 'Ver Todos los Paquetes de Safari',
     ],
 
+    'tour' => [
+        'nights' => 'Noches',
+    ],
+
 ];
