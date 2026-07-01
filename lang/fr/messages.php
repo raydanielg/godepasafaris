@@ -149,4 +149,19 @@ return [
         'nights' => 'Nuits',
     ],
 
+    'dest' => [
+        'about'            => 'À propos de',
+        'best_time'        => 'Meilleure période pour visiter',
+        'best_time_short'  => 'Meilleure période',
+        'location'         => 'Emplacement',
+        'established'      => 'Créé en',
+        'area'             => 'Superficie',
+        'explore'          => 'Explorer',
+        'featured_badge'   => 'Destination en vedette',
+        'all_tanzania'     => 'Toute la Tanzanie',
+        'northern_circuit' => 'Circuit Nord',
+        'southern_circuit' => 'Circuit Sud',
+        'western_circuit'  => 'Circuit Ouest',
+    ],
+
 ];

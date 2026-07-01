@@ -149,4 +149,19 @@ return [
         'nights' => '晚',
     ],
 
+    'dest' => [
+        'about'            => '关于',
+        'best_time'        => '最佳游览时间',
+        'best_time_short'  => '最佳时间',
+        'location'         => '位置',
+        'established'      => '建立时间',
+        'area'             => '面积',
+        'explore'          => '探索',
+        'featured_badge'   => '精选目的地',
+        'all_tanzania'     => '整个坦桑尼亚',
+        'northern_circuit' => '北部环线',
+        'southern_circuit' => '南部环线',
+        'western_circuit'  => '西部环线',
+    ],
+
 ];

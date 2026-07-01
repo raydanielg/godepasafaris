@@ -158,4 +158,19 @@ return [
         'nights' => 'Nights',
     ],
 
+    'dest' => [
+        'about'            => 'About',
+        'best_time'        => 'Best Time to Visit',
+        'best_time_short'  => 'Best time',
+        'location'         => 'Location',
+        'established'      => 'Established',
+        'area'             => 'Area',
+        'explore'          => 'Explore',
+        'featured_badge'   => 'Featured Destination',
+        'all_tanzania'     => 'All Tanzania',
+        'northern_circuit' => 'Northern Circuit',
+        'southern_circuit' => 'Southern Circuit',
+        'western_circuit'  => 'Western Circuit',
+    ],
+
 ];

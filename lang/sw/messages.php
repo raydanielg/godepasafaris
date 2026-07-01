@@ -149,4 +149,19 @@ return [
         'nights' => 'Usiku',
     ],
 
+    'dest' => [
+        'about'            => 'Kuhusu',
+        'best_time'        => 'Muda Bora wa Kutembelea',
+        'best_time_short'  => 'Muda bora',
+        'location'         => 'Mahali',
+        'established'      => 'Ilianzishwa',
+        'area'             => 'Eneo',
+        'explore'          => 'Gundua',
+        'featured_badge'   => 'Eneo Lililoangaziwa',
+        'all_tanzania'     => 'Tanzania Nzima',
+        'northern_circuit' => 'Njia ya Kaskazini',
+        'southern_circuit' => 'Njia ya Kusini',
+        'western_circuit'  => 'Njia ya Magharibi',
+    ],
+
 ];

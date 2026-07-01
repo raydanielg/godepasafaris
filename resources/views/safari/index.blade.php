@@ -155,9 +155,9 @@
                                 </div>
                             </div>
                             <a href="{{ route('safari.show', $pkg->slug) }}" class="text-decoration-none">
-                                <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif; min-height: 3rem;">{{ $pkg->title }}</h5>
+                                <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif; min-height: 3rem;">{{ tr($pkg->title) }}</h5>
                             </a>
-                            <p class="text-muted small mb-4">{{ Str::limit($pkg->summary, 120) }}</p>
+                            <p class="text-muted small mb-4">{{ Str::limit(tr($pkg->summary), 120) }}</p>
                             
                             <div class="mt-auto">
                                 <div class="d-flex gap-2 mb-3 flex-wrap">

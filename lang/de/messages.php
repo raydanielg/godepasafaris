@@ -149,4 +149,19 @@ return [
         'nights' => 'Nächte',
     ],
 
+    'dest' => [
+        'about'            => 'Über',
+        'best_time'        => 'Beste Reisezeit',
+        'best_time_short'  => 'Beste Zeit',
+        'location'         => 'Lage',
+        'established'      => 'Gegründet',
+        'area'             => 'Fläche',
+        'explore'          => 'Entdecken',
+        'featured_badge'   => 'Empfohlenes Reiseziel',
+        'all_tanzania'     => 'Ganz Tansania',
+        'northern_circuit' => 'Nördlicher Circuit',
+        'southern_circuit' => 'Südlicher Circuit',
+        'western_circuit'  => 'Westlicher Circuit',
+    ],
+
 ];

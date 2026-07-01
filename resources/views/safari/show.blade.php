@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $package->title }} - Go Deep Africa Safari</title>
+    <title>{{ tr($package->title) }} - Go Deep Africa Safari</title>
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
@@ -61,10 +61,10 @@
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('safari') }}" class="text-white">Safari</a></li>
-                    <li class="breadcrumb-item active text-white opacity-75" aria-current="page">{{ Str::limit($package->title, 30) }}</li>
+                    <li class="breadcrumb-item active text-white opacity-75" aria-current="page">{{ Str::limit(tr($package->title), 30) }}</li>
                 </ol>
             </nav>
-            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">{{ $package->title }}</h1>
+            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">{{ tr($package->title) }}</h1>
             <div class="d-flex gap-3 flex-wrap mb-4">
                 <span class="badge bg-light text-dark px-3 py-2">
                     <i class="fas fa-clock me-2"></i>{{ $package->days }} Days
@@ -86,7 +86,7 @@
                 <!-- Overview -->
                 <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-4" data-aos="fade-up">
                     <h2 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif; color: #3E2723;">Safari Overview</h2>
-                    <p class="lead text-muted mb-4">{{ $package->summary }}</p>
+                    <p class="lead text-muted mb-4">{{ tr($package->summary) }}</p>
                     
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
@@ -172,8 +172,8 @@
                                             <span class="badge bg-primary rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-flag-checkered me-1"></i>FINISH</span>
                                             @endif
                                         </div>
-                                        <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $step['title'] ?? 'Day ' . $loop->iteration }}</h5>
-                                        <p class="text-muted mb-0" style="line-height: 1.7;">{{ $step['description'] ?? 'Exciting safari activities planned for this day.' }}</p>
+                                        <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ tr($step['title'] ?? 'Day ' . $loop->iteration) }}</h5>
+                                        <p class="text-muted mb-0" style="line-height: 1.7;">{{ tr($step['description'] ?? 'Exciting safari activities planned for this day.') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@
                                                     <i class="fas {{ getIconForItem($inc, $iconMap) }} text-white" style="font-size: 14px;"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold" style="color: #155724; font-size: 14px;">{{ $inc }}</span>
+                                                    <span class="fw-semibold" style="color: #155724; font-size: 14px;">{{ tr($inc) }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -268,7 +268,7 @@
                                                     <i class="fas {{ getIconForItem($exc, $iconMap) }} text-white" style="font-size: 14px;"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold" style="color: #721c24; font-size: 14px;">{{ $exc }}</span>
+                                                    <span class="fw-semibold" style="color: #721c24; font-size: 14px;">{{ tr($exc) }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -308,7 +308,7 @@
                                         </div>
                                     </div>
                                     <div class="p-4">
-                                        <h6 class="fw-bold mb-2 text-dark" style="font-size: 0.95rem; line-height: 1.4; min-height: 2.7rem;">{{ $rp->title }}</h6>
+                                        <h6 class="fw-bold mb-2 text-dark" style="font-size: 0.95rem; line-height: 1.4; min-height: 2.7rem;">{{ tr($rp->title) }}</h6>
                                         <div class="d-flex justify-content-between align-items-center pt-3 border-top">
                                             <div class="price-info">
                                                 <small class="text-muted d-block" style="font-size: 0.75rem;">Starting from</small>

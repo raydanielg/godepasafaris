@@ -96,22 +96,22 @@
                 <div class="col-lg-5 d-flex align-items-center">
                     <div class="p-5 w-100" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
                         <span class="badge bg-warning text-dark mb-3">
-                            <i class="fas fa-star me-1"></i>Featured Destination
+                            <i class="fas fa-star me-1"></i>{{ __('messages.dest.featured_badge') }}
                         </span>
                         <h2 class="display-5 fw-bold text-white mb-3" style="font-family: 'Playfair Display', serif;">
-                            {{ $featured->name }}
+                            {{ tr($featured->name) }}
                         </h2>
-                        <p class="text-white-75 lead mb-4">{{ $featured->tagline }}</p>
-                        <p class="text-white-50 mb-4">{{ Str::limit($featured->description, 200) }}</p>
+                        <p class="text-white-75 lead mb-4">{{ tr($featured->tagline) }}</p>
+                        <p class="text-white-50 mb-4">{{ Str::limit(tr($featured->description), 200) }}</p>
                         
                         <div class="d-flex gap-3 mb-4">
                             <div class="text-center">
-                                <h5 class="fw-bold text-white mb-0">{{ $featured->area }}</h5>
-                                <small class="text-white-50">Area</small>
+                                <h5 class="fw-bold text-white mb-0">{{ tr($featured->area) }}</h5>
+                                <small class="text-white-50">{{ __('messages.dest.area') }}</small>
                             </div>
                             <div class="text-center border-start border-white-25 ps-3">
-                                <h5 class="fw-bold text-white mb-0">{{ $featured->established }}</h5>
-                                <small class="text-white-50">Established</small>
+                                <h5 class="fw-bold text-white mb-0">{{ tr($featured->established) }}</h5>
+                                <small class="text-white-50">{{ __('messages.dest.established') }}</small>
                             </div>
                             <div class="text-center border-start border-white-25 ps-3">
                                 <h5 class="fw-bold text-white mb-0">{{ $featured->activities->count() }}+</h5>
@@ -120,7 +120,7 @@
                         </div>
 
                         <a href="{{ route('destinations.show', $featured->slug) }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
-                            Explore {{ $featured->name }} <i class="fas fa-arrow-right ms-2"></i>
+                            {{ __('messages.dest.explore') }} {{ tr($featured->name) }} <i class="fas fa-arrow-right ms-2"></i>
                         </a>
                     </div>
                 </div>
@@ -145,19 +145,19 @@
             <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" data-aos="fade-up">
                 <a href="{{ route('destinations') }}"
                    class="btn rounded-pill px-4 py-2 fw-bold {{ !isset($activeRegion) || !$activeRegion ? 'btn-active-region' : 'btn-outline-region' }}">
-                    <i class="fas fa-globe-africa me-2"></i>All Tanzania
+                    <i class="fas fa-globe-africa me-2"></i>{{ __('messages.dest.all_tanzania') }}
                 </a>
                 <a href="{{ route('destinations', ['region' => 'north']) }}"
                    class="btn rounded-pill px-4 py-2 fw-bold {{ isset($activeRegion) && $activeRegion === 'north' ? 'btn-active-region' : 'btn-outline-region' }}">
-                    <i class="fas fa-arrow-up me-2"></i>Northern Circuit
+                    <i class="fas fa-arrow-up me-2"></i>{{ __('messages.dest.northern_circuit') }}
                 </a>
                 <a href="{{ route('destinations', ['region' => 'south']) }}"
                    class="btn rounded-pill px-4 py-2 fw-bold {{ isset($activeRegion) && $activeRegion === 'south' ? 'btn-active-region' : 'btn-outline-region' }}">
-                    <i class="fas fa-arrow-down me-2"></i>Southern Circuit
+                    <i class="fas fa-arrow-down me-2"></i>{{ __('messages.dest.southern_circuit') }}
                 </a>
                 <a href="{{ route('destinations', ['region' => 'west']) }}"
                    class="btn rounded-pill px-4 py-2 fw-bold {{ isset($activeRegion) && $activeRegion === 'west' ? 'btn-active-region' : 'btn-outline-region' }}">
-                    <i class="fas fa-arrow-left me-2"></i>Western Circuit
+                    <i class="fas fa-arrow-left me-2"></i>{{ __('messages.dest.western_circuit') }}
                 </a>
             </div>
 
@@ -181,7 +181,7 @@
                             @if($destination->badge)
                             <div class="position-absolute top-0 end-0 m-3">
                                 <span class="badge" style="background: {{ $destination->badge_color == 'danger' ? '#dc3545' : ($destination->badge_color == 'warning' ? '#ffc107' : '#6c757d') }}; color: {{ $destination->badge_color == 'warning' ? '#000' : '#fff' }};">
-                                    {{ $destination->badge }}
+                                    {{ tr($destination->badge) }}
                                 </span>
                             </div>
                             @endif
@@ -192,28 +192,28 @@
                                     <i class="fas {{ $destination->icon }} text-white"></i>
                                 </div>
                                 <div>
-                                    <h5 class="fw-bold mb-1" style="color: #3E2723;">{{ $destination->name }}</h5>
-                                    <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>{{ $destination->location }}</small>
+                                    <h5 class="fw-bold mb-1" style="color: #3E2723;">{{ tr($destination->name) }}</h5>
+                                    <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>{{ tr($destination->location) }}</small>
                                 </div>
                             </div>
                             
-                            <p class="text-muted small mb-3">{{ $destination->tagline }}</p>
+                            <p class="text-muted small mb-3">{{ tr($destination->tagline) }}</p>
                             
                             <div class="d-flex flex-wrap gap-2 mb-3">
                                 @foreach($destination->activities->take(3) as $activity)
                                 <span class="badge bg-light text-dark">
-                                    <i class="fas {{ $activity->icon }} me-1 text-muted"></i>{{ $activity->name }}
+                                    <i class="fas {{ $activity->icon }} me-1 text-muted"></i>{{ tr($activity->name) }}
                                 </span>
                                 @endforeach
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center pt-3 border-top">
                                 <div>
-                                    <small class="text-muted d-block">Best time:</small>
-                                    <small class="fw-bold" style="color: #8B4513;">{{ $destination->best_time }}</small>
+                                    <small class="text-muted d-block">{{ __('messages.dest.best_time_short') }}</small>
+                                    <small class="fw-bold" style="color: #8B4513;">{{ tr($destination->best_time) }}</small>
                                 </div>
                                 <a href="{{ route('destinations.show', $destination->slug) }}" class="btn rounded-pill px-4" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white;">
-                                    Explore <i class="fas fa-arrow-right ms-1 small"></i>
+                                    {{ __('messages.dest.explore') }} <i class="fas fa-arrow-right ms-1 small"></i>
                                 </a>
                             </div>
                         </div>

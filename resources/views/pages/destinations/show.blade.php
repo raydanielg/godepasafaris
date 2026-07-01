@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $destination->name }} - Go Deep Africa Safari</title>
+    <title>{{ tr($destination->name) }} - Go Deep Africa Safari</title>
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
@@ -25,18 +25,18 @@
             <nav aria-label="breadcrumb" class="mb-3">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('destinations') }}" class="text-white-75">Destinations</a></li>
-                    <li class="breadcrumb-item active text-white" aria-current="page">{{ $destination->name }}</li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">{{ tr($destination->name) }}</li>
                 </ol>
             </nav>
             
             <span class="badge bg-warning text-dark px-3 py-2 mb-3 align-self-start">
-                <i class="fas fa-map-marker-alt me-2"></i>{{ $destination->location }}
+                <i class="fas fa-map-marker-alt me-2"></i>{{ tr($destination->location) }}
             </span>
-            
+
             <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
-                {{ $destination->name }}
+                {{ tr($destination->name) }}
             </h1>
-            <p class="lead mb-4" style="max-width: 700px;">{{ $destination->tagline }}</p>
+            <p class="lead mb-4" style="max-width: 700px;">{{ tr($destination->tagline) }}</p>
             
             <div class="d-flex flex-wrap gap-3">
                 <a href="{{ route('contact') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
@@ -55,17 +55,17 @@
             <div class="row g-4 text-center text-white">
                 <div class="col-6 col-md-3">
                     <i class="fas fa-ruler-combined fa-2x mb-2" style="color: #DEB887;"></i>
-                    <h5 class="fw-bold mb-1">{{ $destination->area }}</h5>
+                    <h5 class="fw-bold mb-1">{{ tr($destination->area) }}</h5>
                     <small class="opacity-75">Area</small>
                 </div>
                 <div class="col-6 col-md-3">
                     <i class="fas fa-calendar fa-2x mb-2" style="color: #DEB887;"></i>
-                    <h5 class="fw-bold mb-1">{{ $destination->established }}</h5>
+                    <h5 class="fw-bold mb-1">{{ tr($destination->established) }}</h5>
                     <small class="opacity-75">Established</small>
                 </div>
                 <div class="col-6 col-md-3">
                     <i class="fas fa-paw fa-2x mb-2" style="color: #DEB887;"></i>
-                    <h5 class="fw-bold mb-1">{{ $destination->wildlife_count }}</h5>
+                    <h5 class="fw-bold mb-1">{{ tr($destination->wildlife_count) }}</h5>
                     <small class="opacity-75">Wildlife</small>
                 </div>
                 <div class="col-6 col-md-3">
@@ -83,9 +83,9 @@
             <div class="row g-5">
                 <div class="col-lg-8">
                     <h2 class="display-5 fw-bold mb-4" style="color: #3E2723; font-family: 'Playfair Display', serif;">
-                        About {{ $destination->name }}
+                        {{ __('messages.dest.about') }} {{ tr($destination->name) }}
                     </h2>
-                    <p class="lead text-muted mb-4">{{ $destination->description }}</p>
+                    <p class="lead text-muted mb-4">{{ tr($destination->description) }}</p>
                     
                     @if($destination->highlight_1 || $destination->highlight_2 || $destination->highlight_3)
                     <h4 class="fw-bold mb-3" style="color: #3E2723;">Highlights</h4>
@@ -94,7 +94,7 @@
                         <div class="col-md-4">
                             <div class="d-flex align-items-center gap-3 p-3 rounded-3" style="background: #f8f9fa;">
                                 <i class="fas fa-star" style="color: #8B4513;"></i>
-                                <span class="fw-bold">{{ $destination->highlight_1 }}</span>
+                                <span class="fw-bold">{{ tr($destination->highlight_1) }}</span>
                             </div>
                         </div>
                         @endif
@@ -102,7 +102,7 @@
                         <div class="col-md-4">
                             <div class="d-flex align-items-center gap-3 p-3 rounded-3" style="background: #f8f9fa;">
                                 <i class="fas fa-star" style="color: #8B4513;"></i>
-                                <span class="fw-bold">{{ $destination->highlight_2 }}</span>
+                                <span class="fw-bold">{{ tr($destination->highlight_2) }}</span>
                             </div>
                         </div>
                         @endif
@@ -110,7 +110,7 @@
                         <div class="col-md-4">
                             <div class="d-flex align-items-center gap-3 p-3 rounded-3" style="background: #f8f9fa;">
                                 <i class="fas fa-star" style="color: #8B4513;"></i>
-                                <span class="fw-bold">{{ $destination->highlight_3 }}</span>
+                                <span class="fw-bold">{{ tr($destination->highlight_3) }}</span>
                             </div>
                         </div>
                         @endif
@@ -129,9 +129,9 @@
                                         <i class="fas {{ $activity->icon }} text-white"></i>
                                     </div>
                                     <div>
-                                        <h6 class="fw-bold mb-1" style="color: #3E2723;">{{ $activity->name }}</h6>
+                                        <h6 class="fw-bold mb-1" style="color: #3E2723;">{{ tr($activity->name) }}</h6>
                                         @if($activity->description)
-                                        <small class="text-muted">{{ $activity->description }}</small>
+                                        <small class="text-muted">{{ tr($activity->description) }}</small>
                                         @endif
                                     </div>
                                 </div>
@@ -149,18 +149,18 @@
                         </h5>
                         
                         <div class="mb-3">
-                            <small class="text-white-50 d-block">Best Time to Visit</small>
-                            <span class="text-white fw-bold">{{ $destination->best_time }}</span>
+                            <small class="text-white-50 d-block">{{ __('messages.dest.best_time') }}</small>
+                            <span class="text-white fw-bold">{{ tr($destination->best_time) }}</span>
                         </div>
                         
                         <div class="mb-3">
-                            <small class="text-white-50 d-block">Location</small>
-                            <span class="text-white fw-bold">{{ $destination->location }}</span>
+                            <small class="text-white-50 d-block">{{ __('messages.dest.location') }}</small>
+                            <span class="text-white fw-bold">{{ tr($destination->location) }}</span>
                         </div>
                         
                         <div class="mb-4">
-                            <small class="text-white-50 d-block">Established</small>
-                            <span class="text-white fw-bold">{{ $destination->established }}</span>
+                            <small class="text-white-50 d-block">{{ __('messages.dest.established') }}</small>
+                            <span class="text-white fw-bold">{{ tr($destination->established) }}</span>
                         </div>
 
                         <a href="javascript:void(0)" class="btn w-100 rounded-pill py-3 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
