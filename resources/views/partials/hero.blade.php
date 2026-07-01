@@ -16,17 +16,17 @@
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
-                            <h1 class="hero-title mb-2">Serengeti Balloon</h1>
-                            <h1 class="hero-title mb-4">& Wildlife Safaris</h1>
+                            <h1 class="hero-title mb-2">{{ __('messages.hero.slide1_line1') }}</h1>
+                            <h1 class="hero-title mb-4">{{ __('messages.hero.slide1_line2') }}</h1>
                             <p class="hero-description mb-4">
-                                Witness the world's most spectacular wildlife event from above. Expert guides who know every corner of the savanna.
+                                {{ __('messages.hero.slide1_desc') }}
                             </p>
                             <div class="hero-buttons d-flex flex-column flex-sm-row gap-3">
                                 <a href="{{ route('tours.all') }}" class="btn btn-hero-primary rounded-pill px-4 py-3">
-                                    <span>Safari Packages</span>
+                                    <span>{{ __('messages.hero.btn_packages') }}</span>
                                 </a>
                                 <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-3" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
-                                    <span>Free Quote</span>
+                                    <span>{{ __('messages.hero.btn_quote') }}</span>
                                 </a>
                             </div>
                         </div>
@@ -40,17 +40,17 @@
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
-                            <h1 class="hero-title mb-2">Kilimanjaro Summit</h1>
-                            <h1 class="hero-title mb-4">& Trekking Expeditions</h1>
+                            <h1 class="hero-title mb-2">{{ __('messages.hero.slide2_line1') }}</h1>
+                            <h1 class="hero-title mb-4">{{ __('messages.hero.slide2_line2') }}</h1>
                             <p class="hero-description mb-4">
-                                Conquer the Roof of Africa. Professional trekking services with a focus on safety, comfort, and success.
+                                {{ __('messages.hero.slide2_desc') }}
                             </p>
                             <div class="hero-buttons d-flex flex-column flex-sm-row gap-3">
                                 <a href="{{ route('tours.all') }}" class="btn btn-hero-primary rounded-pill px-4 py-3">
-                                    <span>Safari Packages</span>
+                                    <span>{{ __('messages.hero.btn_packages') }}</span>
                                 </a>
                                 <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-3" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
-                                    <span>Free Quote</span>
+                                    <span>{{ __('messages.hero.btn_quote') }}</span>
                                 </a>
                             </div>
                         </div>
@@ -64,17 +64,17 @@
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
-                            <h1 class="hero-title mb-2">Tanzania Wildlife</h1>
-                            <h1 class="hero-title mb-4">& Authentic Encounters</h1>
+                            <h1 class="hero-title mb-2">{{ __('messages.hero.slide3_line1') }}</h1>
+                            <h1 class="hero-title mb-4">{{ __('messages.hero.slide3_line2') }}</h1>
                             <p class="hero-description mb-4">
-                                Explore the hidden gems of Tanzania. Discover the massive herds and ancient landscapes with our expert team.
+                                {{ __('messages.hero.slide3_desc') }}
                             </p>
                             <div class="hero-buttons d-flex flex-column flex-sm-row gap-3">
                                 <a href="{{ route('tours.all') }}" class="btn btn-hero-primary rounded-pill px-4 py-3">
-                                    <span>Safari Packages</span>
+                                    <span>{{ __('messages.hero.btn_packages') }}</span>
                                 </a>
                                 <a href="#" class="btn btn-hero-secondary rounded-pill px-4 py-3" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
-                                    <span>Free Quote</span>
+                                    <span>{{ __('messages.hero.btn_quote') }}</span>
                                 </a>
                             </div>
                         </div>
@@ -104,8 +104,8 @@
                             <i class="fas fa-user-shield"></i>
                         </div>
                         <div class="feature-text text-start">
-                            <h4 class="fw-bold mb-1">Local Experts</h4>
-                            <p class="mb-0">Arusha-based safari specialists with experienced guides.</p>
+                            <h4 class="fw-bold mb-1">{{ __('messages.hero.feature1_title') }}</h4>
+                            <p class="mb-0">{{ __('messages.hero.feature1_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                             <i class="fas fa-globe-africa"></i>
                         </div>
                         <div class="feature-text text-start">
-                            <h4 class="fw-bold mb-1">Tailor-Made</h4>
-                            <p class="mb-0">Private and group safaris customized to your style.</p>
+                            <h4 class="fw-bold mb-1">{{ __('messages.hero.feature2_title') }}</h4>
+                            <p class="mb-0">{{ __('messages.hero.feature2_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -126,8 +126,8 @@
                             <i class="fas fa-leaf"></i>
                         </div>
                         <div class="feature-text text-start">
-                            <h4 class="fw-bold mb-1">Responsible</h4>
-                            <p class="mb-0">Committed to sustainable travel and local communities.</p>
+                            <h4 class="fw-bold mb-1">{{ __('messages.hero.feature3_title') }}</h4>
+                            <p class="mb-0">{{ __('messages.hero.feature3_desc') }}</p>
                         </div>
                     </div>
                 </div>

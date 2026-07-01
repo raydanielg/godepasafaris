@@ -52,13 +52,13 @@
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }} px-3" href="{{ url('/') }}" style="color: #3E2723 !important;">HOME</a>
+                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }} px-3" href="{{ url('/') }}" style="color: #3E2723 !important;">{{ __('messages.nav.home') }}</a>
                     </li>
 
                     <!-- SAFARI Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('tours.all') || Route::is('safari*') ? 'active' : '' }} px-3" href="{{ route('tours.all') }}" style="color: #3E2723 !important;" id="safariMegaMenu">
-                            SAFARIS <i class="fas fa-chevron-down ms-1 small"></i>
+                            {{ __('messages.nav.safaris') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
                             $allSafariPackages = \App\Models\SafariPackage::latest()->get();
@@ -130,7 +130,7 @@
                     <!-- KILIMANJARO Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('kilimanjaro*') ? 'active' : '' }} px-3" href="{{ route('kilimanjaro') }}" style="color: #3E2723 !important;" id="kiliMegaMenu">
-                            KILIMANJARO <i class="fas fa-chevron-down ms-1 small"></i>
+                            {{ __('messages.nav.kilimanjaro') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
                             $kiliSection = \App\Models\MenuSection::forNavItem('kilimanjaro')->first();
@@ -278,7 +278,7 @@
                     <!-- DESTINATIONS Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('destinations*') ? 'active' : '' }} px-3" href="{{ route('destinations') }}" style="color: #3E2723 !important;" id="destMegaMenu">
-                            DESTINATIONS <i class="fas fa-chevron-down ms-1 small"></i>
+                            {{ __('messages.nav.destinations') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
                             $allDestinations = \App\Models\SafariDestination::active()->ordered()->get();
@@ -352,7 +352,7 @@
                     <!-- IMPACT / GIVING BACK Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('impact*') ? 'active' : '' }} px-3" href="{{ route('impact') }}" style="color: #3E2723 !important;" id="impactMegaMenu">
-                            GIVING BACK <i class="fas fa-chevron-down ms-1 small"></i>
+                            {{ __('messages.nav.giving_back') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
                             $impactSection = \App\Models\MenuSection::forNavItem('impact')->first();
@@ -440,17 +440,20 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('blog*') ? 'active' : '' }} px-4" href="{{ route('blog') }}" style="color: #3E2723 !important;">BLOG</a>
+                        <a class="nav-link {{ Route::is('blog*') ? 'active' : '' }} px-4" href="{{ route('blog') }}" style="color: #3E2723 !important;">{{ __('messages.nav.blog') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('about') ? 'active' : '' }} px-4" href="{{ route('about') }}" style="color: #3E2723 !important;">ABOUT US</a>
+                        <a class="nav-link {{ Route::is('about') ? 'active' : '' }} px-4" href="{{ route('about') }}" style="color: #3E2723 !important;">{{ __('messages.nav.about') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('contact') ? 'active' : '' }} px-3" href="{{ route('contact') }}" style="color: #3E2723 !important;">CONTACT US</a>
+                        <a class="nav-link {{ Route::is('contact') ? 'active' : '' }} px-3" href="{{ route('contact') }}" style="color: #3E2723 !important;">{{ __('messages.nav.contact') }}</a>
                     </li>
                 </ul>
                 
                 <div class="auth-buttons d-flex gap-3 align-items-center">
+                    <div class="d-none d-lg-block">
+                        @include('partials.language_switcher', ['variant' => 'compact'])
+                    </div>
                     @auth
                         <div class="dropdown">
                             <button class="btn btn-earth btn-sm px-4 rounded-pill fw-bold text-white shadow-sm dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #3E2723 !important; border: none;">
@@ -471,7 +474,7 @@
                         </div>
                     @endauth
                     <a href="#" class="btn btn-inquiry btn-sm px-4 rounded-pill fw-bold text-white shadow-lg animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
-                        INQUIRY NOW <i class="fas fa-paper-plane ms-2 small"></i>
+                        {{ __('messages.nav.inquiry_now') }} <i class="fas fa-paper-plane ms-2 small"></i>
                     </a>
                 </div>
 
@@ -857,14 +860,14 @@
         </div>
         <div class="sidebar-content">
             <ul class="sidebar-nav">
-                <li><a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}"><i class="fas fa-home me-3"></i>HOME</a></li>
+                <li><a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}"><i class="fas fa-home me-3"></i>{{ __('messages.nav.home') }}</a></li>
                 
                 <li class="sidebar-dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">
-                        <i class="fas fa-paw me-3"></i>SAFARIS <i class="fas fa-chevron-down ms-auto"></i>
+                        <i class="fas fa-paw me-3"></i>{{ __('messages.nav.safaris') }} <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li><a href="{{ route('tours.all') }}"><i class="fas fa-compass me-2"></i>All Safari Tours</a></li>
+                        <li><a href="{{ route('tours.all') }}"><i class="fas fa-compass me-2"></i>{{ __('messages.nav.all_tours') }}</a></li>
                         @php
                             $safariSection = \App\Models\MenuSection::forNavItem('safari')->first();
                             $safariLinks = $safariSection ? $safariSection->links()->active()->get() : collect();
@@ -879,7 +882,7 @@
 
                 <li class="sidebar-dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">
-                        <i class="fas fa-mountain me-3"></i>KILIMANJARO <i class="fas fa-chevron-down ms-auto"></i>
+                        <i class="fas fa-mountain me-3"></i>{{ __('messages.nav.kilimanjaro') }} <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a href="{{ route('kilimanjaro') }}"><i class="fas fa-hiking me-2"></i>Climbing Overview</a></li>
@@ -901,7 +904,7 @@
 
                 <li class="sidebar-dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">
-                        <i class="fas fa-map-marker-alt me-3"></i>DESTINATIONS <i class="fas fa-chevron-down ms-auto"></i>
+                        <i class="fas fa-map-marker-alt me-3"></i>{{ __('messages.nav.destinations') }} <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a href="{{ route('destinations') }}"><i class="fas fa-compass me-2"></i>All Destinations</a></li>
@@ -919,7 +922,7 @@
 
                 <li class="sidebar-dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">
-                        <i class="fas fa-heart me-3"></i>GIVING BACK <i class="fas fa-chevron-down ms-auto"></i>
+                        <i class="fas fa-heart me-3"></i>{{ __('messages.nav.giving_back') }} <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a href="{{ route('impact') }}"><i class="fas fa-hands-helping me-2"></i>Our Impact</a></li>
@@ -935,12 +938,18 @@
                     </ul>
                 </li>
 
-                <li><a href="{{ route('blog') }}" class="{{ Route::is('blog*') ? 'active' : '' }}"><i class="fas fa-newspaper me-3"></i>BLOG</a></li>
-                <li><a href="{{ route('about') }}" class="{{ Route::is('about') ? 'active' : '' }}"><i class="fas fa-info-circle me-3"></i>ABOUT US</a></li>
-                <li><a href="{{ route('contact') }}" class="{{ Route::is('contact') ? 'active' : '' }}"><i class="fas fa-envelope me-3"></i>CONTACT US</a></li>
+                <li><a href="{{ route('blog') }}" class="{{ Route::is('blog*') ? 'active' : '' }}"><i class="fas fa-newspaper me-3"></i>{{ __('messages.nav.blog') }}</a></li>
+                <li><a href="{{ route('about') }}" class="{{ Route::is('about') ? 'active' : '' }}"><i class="fas fa-info-circle me-3"></i>{{ __('messages.nav.about') }}</a></li>
+                <li><a href="{{ route('contact') }}" class="{{ Route::is('contact') ? 'active' : '' }}"><i class="fas fa-envelope me-3"></i>{{ __('messages.nav.contact') }}</a></li>
             </ul>
 
             <div class="sidebar-footer">
+                <div class="mb-4">
+                    <label class="d-block small fw-bold text-uppercase mb-2" style="color: #8B4513; letter-spacing: 1px;">
+                        <i class="fas fa-globe me-2"></i>{{ __('messages.lang_switcher.label') }}
+                    </label>
+                    @include('partials.language_switcher', ['variant' => 'block'])
+                </div>
                 <div class="contact-info mb-4">
                     <a href="https://wa.me/966542586758" class="d-flex align-items-center gap-3 mb-3 text-decoration-none">
                         <div class="icon-circle d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(37, 211, 102, 0.1);">
@@ -969,7 +978,7 @@
                     <a href="https://www.threads.com/@godeepafricasafariexpendition" target="_blank" class="sidebar-social-btn" title="Threads"><i class="fa-brands fa-threads"></i></a>
                 </div>
                 <a href="#" class="btn btn-earth w-100 py-3 rounded-pill fw-bold text-white text-center" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
-                    <i class="fas fa-paper-plane me-2"></i>INQUIRY NOW
+                    <i class="fas fa-paper-plane me-2"></i>{{ __('messages.nav.inquiry_now') }}
                 </a>
             </div>
         </div>

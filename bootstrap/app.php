@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->api(prepend: \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class);
         $middleware->statefulApi();
+
+        // Apply the resolved public-site locale on every web request.
+        $middleware->web(append: \App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

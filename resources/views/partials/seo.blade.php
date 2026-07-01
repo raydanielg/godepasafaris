@@ -55,5 +55,11 @@
 <!-- Canonical Link -->
 <link rel="canonical" href="{{ url()->current() }}">
 
+<!-- Hreflang alternates (multilingual) -->
+@foreach(config('locales.supported', []) as $localeCode => $localeMeta)
+<link rel="alternate" hreflang="{{ $localeMeta['hreflang'] }}" href="{{ request()->fullUrlWithQuery(['lang' => $localeCode]) }}">
+@endforeach
+<link rel="alternate" hreflang="x-default" href="{{ request()->fullUrlWithQuery(['lang' => config('locales.default', 'en')]) }}">
+
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">

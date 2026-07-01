@@ -4,8 +4,8 @@
             <!-- Left Side: Text -->
             <div class="col-lg-6">
                 <div class="cta-text-content animate__animated animate__fadeInLeft">
-                    <h2 class="display-5 fw-bold mb-3" style="font-family: 'Playfair Display', serif; color: #3E2723;">Ready to plan your next adventure?</h2>
-                    <p class="lead text-muted mb-0">Tell us your ideas, and we'll craft a personalized travel itinerary within 3 hours.</p>
+                    <h2 class="display-5 fw-bold mb-3" style="font-family: 'Playfair Display', serif; color: #3E2723;">{{ __('messages.cta.ready_title') }}</h2>
+                    <p class="lead text-muted mb-0">{{ __('messages.cta.ready_subtitle') }}</p>
                 </div>
             </div>
             
@@ -19,7 +19,7 @@
                                 <div class="cta-icon mb-3">
                                     <i class="fab fa-whatsapp"></i>
                                 </div>
-                                <h6 class="fw-bold mb-0">Chat on WhatsApp</h6>
+                                <h6 class="fw-bold mb-0">{{ __('messages.cta.whatsapp') }}</h6>
                             </div>
                         </a>
                     </div>
@@ -31,7 +31,7 @@
                                 <div class="cta-icon mb-3">
                                     <i class="far fa-envelope"></i>
                                 </div>
-                                <h6 class="fw-bold mb-0">Enquire Now</h6>
+                                <h6 class="fw-bold mb-0">{{ __('messages.cta.enquire') }}</h6>
                             </div>
                         </a>
                     </div>
@@ -43,7 +43,7 @@
                                 <div class="cta-icon mb-3">
                                     <i class="fas fa-phone-alt"></i>
                                 </div>
-                                <h6 class="fw-bold mb-0">Voice Call</h6>
+                                <h6 class="fw-bold mb-0">{{ __('messages.cta.call') }}</h6>
                             </div>
                         </a>
                     </div>
