@@ -48,17 +48,18 @@
                 </div>
 
                 <div class="card shadow-sm border-0 rounded-4 p-4">
-                    <h5 class="fw-bold mb-4" style="color: #3E2723;">Inclusions & Exclusions (JSON Format)</h5>
+                    <h5 class="fw-bold mb-1" style="color: #3E2723;">Inclusions &amp; Exclusions</h5>
+                    <p class="text-muted small mb-4"><i class="fas fa-info-circle me-1"></i>Just type <strong>one item per line</strong> — no code needed.</p>
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label class="form-label fw-bold text-dark">What's Included</label>
-                            <textarea name="inclusions" id="editor-inclusions" class="form-control" rows="8" placeholder='["Item 1", "Item 2", "Item 3"]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('inclusions', is_array($package->inclusions) ? json_encode($package->inclusions, JSON_PRETTY_PRINT) : $package->inclusions) }}</textarea>
-                            <small class="text-muted">Enter as JSON array of strings</small>
+                            <label class="form-label fw-bold text-dark"><i class="fas fa-check-circle text-success me-1"></i>What's Included</label>
+                            <textarea name="inclusions" id="editor-inclusions" class="form-control friendly-list" rows="8" placeholder="Park fees&#10;Professional safari guide&#10;All meals">{{ old('inclusions', is_array($package->inclusions) ? implode("\n", $package->inclusions) : $package->inclusions) }}</textarea>
+                            <small class="text-muted">One item per line.</small>
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label class="form-label fw-bold text-dark">What's Excluded</label>
-                            <textarea name="exclusions" id="editor-exclusions" class="form-control" rows="8" placeholder='["Item 1", "Item 2", "Item 3"]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('exclusions', is_array($package->exclusions) ? json_encode($package->exclusions, JSON_PRETTY_PRINT) : $package->exclusions) }}</textarea>
-                            <small class="text-muted">Enter as JSON array of strings</small>
+                            <label class="form-label fw-bold text-dark"><i class="fas fa-times-circle text-danger me-1"></i>What's Excluded</label>
+                            <textarea name="exclusions" id="editor-exclusions" class="form-control friendly-list" rows="8" placeholder="International flights&#10;Visa fees&#10;Tips">{{ old('exclusions', is_array($package->exclusions) ? implode("\n", $package->exclusions) : $package->exclusions) }}</textarea>
+                            <small class="text-muted">One item per line.</small>
                         </div>
                     </div>
                 </div>
@@ -114,22 +115,25 @@
                     <h5 class="fw-bold mb-4" style="color: #3E2723;">
                         <i class="fas fa-image me-2"></i>Featured Image
                     </h5>
-                    <div class="image-upload-wrapper border rounded-4 p-3 text-center position-relative" style="background-color: #fdfaf5; border-style: dashed !important;">
-                        <input type="file" name="image" id="packageImage" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 cursor-pointer" accept="image/*">
+                    <div class="image-upload-wrapper border rounded-4 p-3 text-center position-relative" id="dropZone" style="background-color: #fdfaf5; border-style: dashed !important; transition: all .2s ease;">
+                        <input type="file" name="image" id="packageImage" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 cursor-pointer" accept="image/jpeg,image/png,image/webp,image/gif">
                         @if($package->image)
                         <div id="imagePreview" class="py-4 d-none">
                             <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: #deb887;"></i>
-                            <p class="mb-0 small text-muted">Click to change or drag and drop</p>
+                            <p class="mb-0 small text-muted fw-bold">Click to change or drag &amp; drop</p>
                         </div>
-                        <img id="previewImg" src="{{ asset($package->image) }}" class="img-fluid rounded-3 shadow-sm" alt="Preview">
+                        <img id="previewImg" src="{{ asset($package->image) }}" class="img-fluid rounded-3 shadow-sm" alt="Preview" style="max-height: 220px;">
                         @else
                         <div id="imagePreview" class="py-4">
                             <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: #deb887;"></i>
-                            <p class="mb-0 small text-muted">Click to upload or drag and drop</p>
+                            <p class="mb-0 small text-muted fw-bold">Click to upload or drag &amp; drop</p>
                         </div>
-                        <img id="previewImg" src="#" class="img-fluid rounded-3 d-none shadow-sm" alt="Preview">
+                        <img id="previewImg" src="#" class="img-fluid rounded-3 d-none shadow-sm" alt="Preview" style="max-height: 220px;">
                         @endif
+                        <p id="fileName" class="small text-success fw-bold mt-2 mb-0 d-none"></p>
                     </div>
+                    <p class="smaller text-muted mt-1 text-center">JPG, PNG, WEBP or GIF · Max 2MB · 1200×800px recommended</p>
+                    <div id="imageError" class="text-danger small mt-1 d-none"></div>
                     @error('image') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                 </div>
 
@@ -176,14 +180,13 @@
         toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
     };
 
-    let descriptionEditor, inclusionsEditor, exclusionsEditor, itineraryEditor;
+    let descriptionEditor, itineraryEditor;
 
-    // Initialize CKEditor for description, inclusions, and exclusions
-    Promise.all([
-        ClassicEditor.create(document.querySelector('#editor-description'), editorConfig).then(editor => descriptionEditor = editor),
-        ClassicEditor.create(document.querySelector('#editor-inclusions'), editorConfig).then(editor => inclusionsEditor = editor),
-        ClassicEditor.create(document.querySelector('#editor-exclusions'), editorConfig).then(editor => exclusionsEditor = editor)
-    ]).catch(error => console.error(error));
+    // Rich-text editor for the description only. Inclusions/exclusions are now
+    // simple "one item per line" lists (converted to JSON on submit below).
+    ClassicEditor.create(document.querySelector('#editor-description'), editorConfig)
+        .then(editor => descriptionEditor = editor)
+        .catch(error => console.error(error));
 
     // Itinerary mode toggle
     const itineraryTextarea = document.querySelector('#editor-itinerary');
@@ -225,20 +228,65 @@
         }
     });
 
-    document.getElementById('packageImage').addEventListener('change', function(e) {
+    // --- Friendly image upload: drag & drop + client-side validation ---
+    (function() {
+        const input = document.getElementById('packageImage');
+        const dropZone = document.getElementById('dropZone');
         const preview = document.getElementById('previewImg');
-        const icon = document.getElementById('imagePreview');
-        const file = e.target.files[0];
-        if (file) {
+        const prompt = document.getElementById('imagePreview');
+        const fileName = document.getElementById('fileName');
+        const errorBox = document.getElementById('imageError');
+        const MAX = 2 * 1024 * 1024;
+        const OK_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+        function showError(msg) {
+            errorBox.textContent = msg;
+            errorBox.classList.remove('d-none');
+            fileName.classList.add('d-none');
+            input.value = '';
+        }
+
+        function handleFile(file) {
+            errorBox.classList.add('d-none');
+            if (!file) return;
+            if (OK_TYPES.indexOf(file.type) === -1) {
+                return showError('Unsupported format. Please use JPG, PNG, WEBP or GIF.');
+            }
+            if (file.size > MAX) {
+                return showError('Image is ' + (file.size / 1048576).toFixed(1) + 'MB — please use one under 2MB.');
+            }
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.src = e.target.result;
                 preview.classList.remove('d-none');
-                icon.classList.add('d-none');
-            }
+                if (prompt) prompt.classList.add('d-none');
+                fileName.textContent = '✓ ' + file.name;
+                fileName.classList.remove('d-none');
+            };
             reader.readAsDataURL(file);
         }
-    });
+
+        input.addEventListener('change', function(e) { handleFile(e.target.files[0]); });
+
+        ['dragenter', 'dragover'].forEach(function(evt) {
+            dropZone.addEventListener(evt, function(e) {
+                e.preventDefault(); e.stopPropagation();
+                dropZone.style.borderColor = '#8b4513';
+                dropZone.style.backgroundColor = '#f3e9dc';
+            });
+        });
+        ['dragleave', 'drop'].forEach(function(evt) {
+            dropZone.addEventListener(evt, function(e) {
+                e.preventDefault(); e.stopPropagation();
+                dropZone.style.borderColor = '';
+                dropZone.style.backgroundColor = '#fdfaf5';
+            });
+        });
+        dropZone.addEventListener('drop', function(e) {
+            const file = e.dataTransfer.files[0];
+            if (file) { input.files = e.dataTransfer.files; handleFile(file); }
+        });
+    })();
 
     // AJAX form submission
     document.getElementById('editSafariForm').addEventListener('submit', function(e) {
@@ -247,8 +295,23 @@
         // Get editor data for CKEditor fields
         const formData = new FormData(this);
         formData.set('description', descriptionEditor.getData());
-        formData.set('inclusions', inclusionsEditor.getData());
-        formData.set('exclusions', exclusionsEditor.getData());
+
+        // Convert "one item per line" lists into a JSON array (backend format).
+        ['inclusions', 'exclusions'].forEach(function(field) {
+            const ta = document.getElementById('editor-' + field);
+            if (!ta) return;
+            const raw = ta.value.trim();
+            let val = '[]';
+            if (raw) {
+                if (raw.charAt(0) === '[') {
+                    try { JSON.parse(raw); val = raw; }
+                    catch (e) { val = JSON.stringify(raw.split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean)); }
+                } else {
+                    val = JSON.stringify(raw.split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean));
+                }
+            }
+            formData.set(field, val);
+        });
         
         // Get itinerary data based on mode
         if (itineraryMode === 'text' && itineraryEditor) {

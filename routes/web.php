@@ -184,6 +184,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/safari-packages/{package}/edit', [App\Http\Controllers\Admin\DashboardController::class, 'editSafari'])->name('admin.safaris.edit');
     Route::put('/admin/safari-packages/{package}', [App\Http\Controllers\Admin\DashboardController::class, 'updateSafari'])->name('admin.safaris.update');
     Route::delete('/admin/safari-packages/{package}', [App\Http\Controllers\Admin\DashboardController::class, 'deleteSafari'])->name('admin.safaris.delete');
+    Route::post('/admin/safari-packages/{package}/duplicate', [App\Http\Controllers\Admin\DashboardController::class, 'duplicateSafari'])->name('admin.safaris.duplicate');
     
     // Kilimanjaro Packages
     Route::get('/admin/kili-packages', [App\Http\Controllers\Admin\DashboardController::class, 'kiliPackages'])->name('admin.kilimanjaro');
@@ -310,6 +311,10 @@ Route::post('/kilimanjaro/{id}/enquire', [App\Http\Controllers\KilimanjaroContro
 
 Route::get('/destinations', [App\Http\Controllers\SafariDestinationController::class, 'index'])->name('destinations');
 Route::get('/destinations/{slug}', [App\Http\Controllers\SafariDestinationController::class, 'show'])->name('destinations.show');
+
+// Safari circuits (Northern / Southern / Eastern) with maps
+Route::get('/safari-circuits', [App\Http\Controllers\CircuitController::class, 'index'])->name('circuits.index');
+Route::get('/safari-circuits/{slug}', [App\Http\Controllers\CircuitController::class, 'show'])->name('circuits.show');
 
 Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->name('safari');
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');

@@ -14,6 +14,34 @@
         </a>
     </div>
 
+    @if(session('success'))
+    <div class="alert alert-success border-0 rounded-4 d-flex align-items-center shadow-sm" role="alert">
+        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+    </div>
+    @endif
+
+    {{-- Search + filter toolbar (client-side, no reload) --}}
+    <div class="row g-2 align-items-center mb-3">
+        <div class="col-md-6">
+            <div class="input-group shadow-sm rounded-pill overflow-hidden">
+                <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
+                <input type="search" id="pkgSearch" class="form-control border-0" placeholder="Search packages by name…" aria-label="Search packages">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group btn-group-sm flex-wrap w-100 w-md-auto" role="group" aria-label="Filter packages by status">
+                <input type="radio" class="btn-check" name="pkgFilter" id="fltAll" value="all" checked>
+                <label class="btn btn-outline-secondary rounded-start-pill px-3" for="fltAll">All</label>
+                <input type="radio" class="btn-check" name="pkgFilter" id="fltActive" value="active">
+                <label class="btn btn-outline-success px-3" for="fltActive">Active</label>
+                <input type="radio" class="btn-check" name="pkgFilter" id="fltFeatured" value="featured">
+                <label class="btn btn-outline-warning px-3" for="fltFeatured">Featured</label>
+                <input type="radio" class="btn-check" name="pkgFilter" id="fltDraft" value="draft">
+                <label class="btn btn-outline-secondary rounded-end-pill px-3" for="fltDraft">Drafts</label>
+            </div>
+        </div>
+    </div>
+
     <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
         <div class="card-header border-0 py-3 d-flex align-items-center" style="background-color: #3E2723;">
             <i class="fas fa-paw text-white me-2"></i>
@@ -26,19 +54,24 @@
                         <tr class="text-uppercase small fw-bold text-muted">
                             <th class="ps-4">Package Details</th>
                             <th>Price</th>
-                            <th>Slug</th>
+                            <th>Duration</th>
+                            <th>Status</th>
                             <th>Date Created</th>
                             <th class="text-end pe-4">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($packages as $package)
-                        <tr data-package-id="{{ $package->id }}">
+                        <tr data-package-id="{{ $package->id }}"
+                            data-title="{{ Str::lower($package->title) }}"
+                            data-status="{{ $package->is_active ? 'active' : 'draft' }}"
+                            data-featured="{{ $package->is_featured ? 'featured' : '' }}">
                             <td class="ps-4 py-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset($package->image) }}" class="rounded-3 me-3 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;" onerror="this.src='https://placehold.co/50x50?text=Safari'">
+                                    <img src="{{ asset($package->image) }}" class="rounded-3 me-3 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;" loading="lazy" onerror="this.src='https://placehold.co/50x50?text=Safari'">
                                     <div>
                                         <div class="fw-bold text-dark small">{{ $package->title }}</div>
+                                        <code class="text-muted" style="font-size: 0.7rem;">{{ $package->slug }}</code>
                                     </div>
                                 </div>
                             </td>
@@ -46,7 +79,17 @@
                                 <span class="fw-bold text-earth" style="color: #8b4513;">${{ number_format($package->price, 0) }}</span>
                             </td>
                             <td>
-                                <code class="smaller text-muted" style="font-size: 0.75rem;">{{ $package->slug }}</code>
+                                <span class="badge bg-light text-dark border"><i class="far fa-clock me-1"></i>{{ $package->days ?? '—' }} {{ $package->days ? 'Days' : '' }}</span>
+                            </td>
+                            <td>
+                                @if($package->is_active)
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle">Active</span>
+                                @else
+                                    <span class="badge rounded-pill bg-secondary-subtle text-secondary border">Draft</span>
+                                @endif
+                                @if($package->is_featured)
+                                    <span class="badge rounded-pill bg-warning-subtle text-warning border border-warning-subtle"><i class="fas fa-star me-1"></i>Featured</span>
+                                @endif
                             </td>
                             <td>
                                 <div class="smaller text-dark" style="font-size: 0.75rem;">{{ $package->created_at->format('M d, Y') }}</div>
@@ -56,6 +99,12 @@
                                     <a href="{{ route('admin.safaris.edit', $package) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold edit-btn" style="font-size: 0.7rem;">
                                         <i class="fas fa-edit me-1"></i>Edit
                                     </a>
+                                    <form action="{{ route('admin.safaris.duplicate', $package) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold" style="font-size: 0.7rem;" title="Duplicate as draft">
+                                            <i class="fas fa-copy me-1"></i>Duplicate
+                                        </button>
+                                    </form>
                                     <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold delete-btn" data-package-id="{{ $package->id }}" data-package-title="{{ $package->title }}" style="font-size: 0.7rem;">
                                         <i class="fas fa-trash me-1"></i>Delete
                                     </button>
@@ -64,12 +113,15 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center py-5">
+                            <td colspan="6" class="text-center py-5">
                                 <i class="fas fa-paw fa-3x text-light mb-3"></i>
                                 <p class="text-muted small">No safari packages found. Create your first package!</p>
                             </td>
                         </tr>
                         @endforelse
+                        <tr id="noResultsRow" style="display:none;">
+                            <td colspan="6" class="text-center py-4 text-muted small"><i class="fas fa-search me-2"></i>No packages match your search.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -208,6 +260,38 @@
                 window.location.href = href;
             });
         });
+
+        // --- Client-side search + status filter (instant, no reload) ---
+        const searchInput = document.getElementById('pkgSearch');
+        const filterRadios = document.querySelectorAll('input[name="pkgFilter"]');
+        const rows = Array.from(document.querySelectorAll('tbody tr[data-package-id]'));
+        const noResults = document.getElementById('noResultsRow');
+
+        function applyPkgFilters() {
+            const q = (searchInput ? searchInput.value : '').trim().toLowerCase();
+            const checked = document.querySelector('input[name="pkgFilter"]:checked');
+            const mode = checked ? checked.value : 'all';
+            let visible = 0;
+
+            rows.forEach(function(row) {
+                const title = row.getAttribute('data-title') || '';
+                const status = row.getAttribute('data-status') || '';
+                const featured = row.getAttribute('data-featured') || '';
+                const matchesSearch = !q || title.indexOf(q) !== -1;
+                let matchesFilter = true;
+                if (mode === 'active') matchesFilter = status === 'active';
+                else if (mode === 'draft') matchesFilter = status === 'draft';
+                else if (mode === 'featured') matchesFilter = featured === 'featured';
+                const show = matchesSearch && matchesFilter;
+                row.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+
+            if (noResults) noResults.style.display = (rows.length && visible === 0) ? '' : 'none';
+        }
+
+        if (searchInput) searchInput.addEventListener('input', applyPkgFilters);
+        filterRadios.forEach(function(r) { r.addEventListener('change', applyPkgFilters); });
     });
 </script>
 @endpush

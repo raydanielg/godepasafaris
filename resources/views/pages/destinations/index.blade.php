@@ -132,6 +132,34 @@
     </section>
     @endif
 
+    <!-- Explore by Safari Circuit -->
+    <section class="py-5" style="background:#fdfaf5;">
+        <div class="container py-2">
+            <div class="text-center mb-4" data-aos="fade-up">
+                <h2 class="display-6 fw-bold mb-2" style="color:#3E2723; font-family:'Playfair Display',serif;">Explore by Safari Circuit</h2>
+                <p class="text-muted mx-auto" style="max-width:640px;">Tanzania's parks group into three circuits. Open a circuit for detailed facts, the parks it covers and an interactive map.</p>
+            </div>
+            <div class="row g-4">
+                @foreach(config('circuits', []) as $slug => $circuit)
+                <div class="col-md-4" data-aos="fade-up">
+                    <a href="{{ route('circuits.show', $slug) }}" class="text-decoration-none">
+                        <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden" style="transition:transform .3s ease;">
+                            <div style="height:170px; overflow:hidden;">
+                                <img src="{{ $circuit['hero'] }}" class="w-100 h-100" style="object-fit:cover;" alt="{{ $circuit['name'] }}" loading="lazy" decoding="async">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge rounded-pill px-3 py-2 mb-2" style="background:{{ $circuit['accent'] }};">{{ $circuit['name'] }}</span>
+                                <p class="text-muted small mb-2">{{ $circuit['tagline'] }}</p>
+                                <span class="fw-bold small" style="color:{{ $circuit['accent'] }};">View circuit &amp; map <i class="fas fa-arrow-right ms-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     <!-- All Destinations Grid -->
     <section class="py-5">
         <div class="container py-4">

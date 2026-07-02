@@ -283,6 +283,23 @@ class DashboardController extends Controller
         return back()->with('success', 'Safari package deleted successfully.');
     }
 
+    /**
+     * Duplicate a package as an inactive draft so admins can build variants fast
+     * without re-entering everything. Copies every field; the slug is made unique.
+     */
+    public function duplicateSafari(\App\Models\SafariPackage $package)
+    {
+        $copy = $package->replicate();
+        $copy->title = $package->title . ' (Copy)';
+        $copy->slug = \Illuminate\Support\Str::slug($copy->title) . '-' . \Illuminate\Support\Str::lower(\Illuminate\Support\Str::random(5));
+        $copy->is_featured = false;
+        $copy->is_active = false; // start as a draft
+        $copy->save();
+
+        return redirect()->route('admin.safaris.edit', $copy)
+            ->with('success', 'Package duplicated as a draft. Review the details and switch it to Active when ready.');
+    }
+
     public function createKili()
     {
         return view('admin.kilimanjaro.create');

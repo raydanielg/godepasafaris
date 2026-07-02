@@ -62,8 +62,8 @@
                         </a>
                         @php
                             $allSafariPackages = \App\Models\SafariPackage::latest()->get();
-                            // Get 5 random safari packages for dynamic display
-                            $safariPackages = $allSafariPackages->shuffle()->take(5);
+                            // Show a stable set — featured first, then the newest — so images don't change randomly on every load.
+                            $safariPackages = $allSafariPackages->sortByDesc('is_featured')->take(5)->values();
                         @endphp
                         @if($safariPackages->count() > 0)
                         <div class="mega-menu-wrapper">
@@ -114,7 +114,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ asset($safariPackages->first()->image) }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariPackages->first()->title }}" loading="lazy" decoding="async">
+                                                            <img src="{{ asset($safariPackages->first()->image) }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariPackages->first()->title }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/logo/logo.png') }}';this.style.objectFit='contain';this.style.background='#fdfaf5';">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -282,8 +282,8 @@
                         </a>
                         @php
                             $allDestinations = \App\Models\SafariDestination::active()->ordered()->get();
-                            // Get 5 random destinations for dynamic display
-                            $destinations = $allDestinations->shuffle()->take(5);
+                            // Show a stable, ordered set so destination images don't change randomly on every load.
+                            $destinations = $allDestinations->take(5);
                         @endphp
                         @if($destinations->count() > 0)
                         <div class="mega-menu-wrapper">
@@ -336,7 +336,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ $destinations->first()->hero_display_image }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destinations->first()->name }}" loading="lazy" decoding="async">
+                                                            <img src="{{ $destinations->first()->hero_display_image }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destinations->first()->name }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/logo/logo.png') }}';this.style.objectFit='contain';this.style.background='#fdfaf5';">
                                                         </div>
                                                     </div>
                                                 </div>

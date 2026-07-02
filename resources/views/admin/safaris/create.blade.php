@@ -47,17 +47,18 @@
                 </div>
 
                 <div class="card shadow-sm border-0 rounded-4 p-4">
-                    <h5 class="fw-bold mb-4" style="color: #3E2723;">Inclusions & Exclusions (JSON Format)</h5>
+                    <h5 class="fw-bold mb-1" style="color: #3E2723;">Inclusions &amp; Exclusions</h5>
+                    <p class="text-muted small mb-4"><i class="fas fa-info-circle me-1"></i>Just type <strong>one item per line</strong> — no code needed.</p>
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label class="form-label fw-bold text-dark">What's Included</label>
-                            <textarea name="inclusions" id="editor-inclusions" class="form-control" rows="8" placeholder='["Item 1", "Item 2", "Item 3"]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('inclusions') }}</textarea>
-                            <small class="text-muted">Enter as JSON array of strings</small>
+                            <label class="form-label fw-bold text-dark"><i class="fas fa-check-circle text-success me-1"></i>What's Included</label>
+                            <textarea name="inclusions" id="editor-inclusions" class="form-control friendly-list" rows="8" placeholder="Park fees&#10;Professional safari guide&#10;All meals&#10;4x4 safari vehicle&#10;Bottled water">{{ old('inclusions') }}</textarea>
+                            <small class="text-muted">One item per line.</small>
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label class="form-label fw-bold text-dark">What's Excluded</label>
-                            <textarea name="exclusions" id="editor-exclusions" class="form-control" rows="8" placeholder='["Item 1", "Item 2", "Item 3"]' style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background-color: #f8f9fa;">{{ old('exclusions') }}</textarea>
-                            <small class="text-muted">Enter as JSON array of strings</small>
+                            <label class="form-label fw-bold text-dark"><i class="fas fa-times-circle text-danger me-1"></i>What's Excluded</label>
+                            <textarea name="exclusions" id="editor-exclusions" class="form-control friendly-list" rows="8" placeholder="International flights&#10;Visa fees&#10;Travel insurance&#10;Tips&#10;Personal expenses">{{ old('exclusions') }}</textarea>
+                            <small class="text-muted">One item per line.</small>
                         </div>
                     </div>
                 </div>
@@ -113,15 +114,17 @@
                     <h5 class="fw-bold mb-4" style="color: #3E2723;">
                         <i class="fas fa-image me-2"></i>Featured Image
                     </h5>
-                    <div class="image-upload-wrapper border rounded-4 p-3 text-center position-relative" style="background-color: #fdfaf5; border-style: dashed !important;">
-                        <input type="file" name="image" id="packageImage" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 cursor-pointer" accept="image/*">
+                    <div class="image-upload-wrapper border rounded-4 p-3 text-center position-relative" id="dropZone" style="background-color: #fdfaf5; border-style: dashed !important; transition: all .2s ease;">
+                        <input type="file" name="image" id="packageImage" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 cursor-pointer" accept="image/jpeg,image/png,image/webp,image/gif">
                         <div id="imagePreview" class="py-4">
                             <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: #deb887;"></i>
-                            <p class="mb-0 small text-muted">Click to upload or drag and drop</p>
-                            <p class="smaller text-muted mt-1">(Max 2MB: JPG, PNG, WEBP)</p>
+                            <p class="mb-0 small text-muted fw-bold">Click to upload or drag &amp; drop</p>
+                            <p class="smaller text-muted mt-1">JPG, PNG, WEBP or GIF · Max 2MB · 1200×800px recommended</p>
                         </div>
-                        <img id="previewImg" src="#" class="img-fluid rounded-3 d-none shadow-sm" alt="Preview">
+                        <img id="previewImg" src="#" class="img-fluid rounded-3 d-none shadow-sm" alt="Preview" style="max-height: 220px;">
+                        <p id="fileName" class="small text-success fw-bold mt-2 mb-0 d-none"></p>
                     </div>
+                    <div id="imageError" class="text-danger small mt-2 d-none"></div>
                     @error('image') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                 </div>
 
@@ -221,19 +224,77 @@
         }
     });
 
-    document.getElementById('packageImage').addEventListener('change', function(e) {
+    // --- Friendly image upload: drag & drop + client-side validation ---
+    (function() {
+        const input = document.getElementById('packageImage');
+        const dropZone = document.getElementById('dropZone');
         const preview = document.getElementById('previewImg');
-        const icon = document.getElementById('imagePreview');
-        const file = e.target.files[0];
-        if (file) {
+        const prompt = document.getElementById('imagePreview');
+        const fileName = document.getElementById('fileName');
+        const errorBox = document.getElementById('imageError');
+        const MAX = 2 * 1024 * 1024; // 2MB
+        const OK_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+        function showError(msg) {
+            errorBox.textContent = msg;
+            errorBox.classList.remove('d-none');
+            preview.classList.add('d-none');
+            fileName.classList.add('d-none');
+            prompt.classList.remove('d-none');
+            input.value = '';
+        }
+
+        function handleFile(file) {
+            errorBox.classList.add('d-none');
+            if (!file) return;
+            if (OK_TYPES.indexOf(file.type) === -1) {
+                return showError('Unsupported format. Please use JPG, PNG, WEBP or GIF.');
+            }
+            if (file.size > MAX) {
+                return showError('Image is ' + (file.size / 1048576).toFixed(1) + 'MB — please use one under 2MB.');
+            }
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.src = e.target.result;
                 preview.classList.remove('d-none');
-                icon.classList.add('d-none');
-            }
+                prompt.classList.add('d-none');
+                fileName.textContent = '✓ ' + file.name;
+                fileName.classList.remove('d-none');
+            };
             reader.readAsDataURL(file);
         }
+
+        input.addEventListener('change', function(e) { handleFile(e.target.files[0]); });
+
+        ['dragenter', 'dragover'].forEach(function(evt) {
+            dropZone.addEventListener(evt, function(e) {
+                e.preventDefault(); e.stopPropagation();
+                dropZone.style.borderColor = '#8b4513';
+                dropZone.style.backgroundColor = '#f3e9dc';
+            });
+        });
+        ['dragleave', 'drop'].forEach(function(evt) {
+            dropZone.addEventListener(evt, function(e) {
+                e.preventDefault(); e.stopPropagation();
+                dropZone.style.borderColor = '';
+                dropZone.style.backgroundColor = '#fdfaf5';
+            });
+        });
+        dropZone.addEventListener('drop', function(e) {
+            const file = e.dataTransfer.files[0];
+            if (file) { input.files = e.dataTransfer.files; handleFile(file); }
+        });
+    })();
+
+    // --- Convert "one item per line" lists to JSON on submit (backend unchanged) ---
+    document.querySelector('form').addEventListener('submit', function() {
+        document.querySelectorAll('.friendly-list').forEach(function(ta) {
+            const raw = ta.value.trim();
+            if (!raw) { ta.value = '[]'; return; }
+            if (raw.charAt(0) === '[') { try { JSON.parse(raw); return; } catch (e) {} }
+            const items = raw.split(/\r?\n/).map(function(s) { return s.trim(); }).filter(Boolean);
+            ta.value = JSON.stringify(items);
+        });
     });
 </script>
 <style>
