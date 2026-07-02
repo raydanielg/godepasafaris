@@ -5,9 +5,12 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\SafariDestination;
 use App\Models\SafariActivity;
+use Database\Seeders\Concerns\WarmsSeededTranslations;
 
 class SafariDestinationSeeder extends Seeder
 {
+    use WarmsSeededTranslations;
+
     public function run(): void
     {
         $destinations = [
@@ -442,9 +445,10 @@ class SafariDestinationSeeder extends Seeder
                 ['slug' => \Illuminate\Support\Str::slug($destData['name'])],
                 $destData
             );
-            
+
+            $activityModels = [];
             foreach ($activities as $activity) {
-                SafariActivity::firstOrCreate(
+                $activityModels[] = SafariActivity::firstOrCreate(
                     [
                         'safari_destination_id' => $destination->id,
                         'name' => $activity['name']
@@ -452,6 +456,10 @@ class SafariDestinationSeeder extends Seeder
                     $activity
                 );
             }
+
+            // Queue translation warming for the destination and its activities.
+            $this->warmSeededTranslations($destination);
+            $this->warmSeededTranslations($activityModels);
         }
     }
 }

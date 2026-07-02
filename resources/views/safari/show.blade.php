@@ -3,7 +3,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ tr($package->title) }} - Go Deep Africa Safari</title>
+    @php
+        $seoTitle = tr($package->title) . ' | ' . $package->days . '-Day Tanzania Safari — Go Deep Africa';
+        $seoDescription = \Illuminate\Support\Str::limit(strip_tags(tr($package->summary)), 155);
+        $seoImage = asset($package->image);
+        $seoType = 'product';
+        $seoSchema = json_encode([
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'Product',
+                'name' => tr($package->title),
+                'description' => strip_tags(tr($package->summary)),
+                'image' => asset($package->image),
+                'brand' => ['@type' => 'Brand', 'name' => 'Go Deep Africa Safari'],
+                'offers' => [
+                    '@type' => 'Offer',
+                    'price' => (string) ($package->price ?? 0),
+                    'priceCurrency' => $package->currency ?? 'USD',
+                    'availability' => 'https://schema.org/InStock',
+                    'url' => url()->current(),
+                ],
+            ],
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Safaris', 'item' => route('safari')],
+                    ['@type' => 'ListItem', 'position' => 3, 'name' => tr($package->title), 'item' => url()->current()],
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
@@ -160,7 +191,7 @@
                                 <div class="card border-0 rounded-4 shadow-sm overflow-hidden" style="background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);">
                                     @if(isset($step['image']) && $step['image'])
                                     <div class="card-img-top" style="height: 200px; overflow: hidden;">
-                                        <img src="{{ asset($step['image']) }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $step['title'] ?? '' }}">
+                                        <img src="{{ asset($step['image']) }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $step['title'] ?? '' }}" loading="lazy" decoding="async">
                                     </div>
                                     @endif
                                     <div class="card-body p-4">
@@ -300,7 +331,7 @@
                             <a href="{{ route('safari.show', $rp->slug) }}" class="text-decoration-none">
                                 <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white position-relative" style="cursor: pointer;">
                                     <div class="package-img-wrapper" style="height: 200px; position: relative; overflow: hidden;">
-                                        <img src="{{ asset($rp->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;" alt="{{ $rp->title }}">
+                                        <img src="{{ asset($rp->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;" alt="{{ $rp->title }}" loading="lazy" decoding="async">
                                         <div class="position-absolute bottom-0 start-0 end-0 p-2" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
                                             <span class="badge text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 11px;">
                                                 <i class="fas fa-clock me-1"></i>{{ $rp->days }} Days

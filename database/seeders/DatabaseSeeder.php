@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             SafariDestinationSeeder::class,
             ImpactSeeder::class,
             MenuSeeder::class,
+            // Load committed, offline translations last (no-API, idempotent).
+            TranslationsSeeder::class,
         ]);
     }
 }

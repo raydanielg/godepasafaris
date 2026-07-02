@@ -1,2 +1,11 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Keep private/admin & auth areas out of the index
+Disallow: /admin
+Disallow: /login
+Disallow: /home
+Disallow: /clear-cache
+Disallow: /clear-all-cache
+
+Sitemap: https://godeepafricasafari.com/sitemap.xml

@@ -11,7 +11,7 @@
                 <a href="{{ route('blog.show', $post->slug) }}" class="text-decoration-none">
                     <div class="blog-card h-100 rounded-4 overflow-hidden shadow-sm bg-white">
                         <div class="blog-img-wrapper" style="height: 220px; overflow: hidden;">
-                            <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover transition-all">
+                            <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover transition-all" loading="lazy" decoding="async">
                         </div>
                         <div class="blog-content p-4">
                             <span class="blog-category text-earth text-uppercase small fw-bold">{{ $post->category ?? 'Safari' }}</span>

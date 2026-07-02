@@ -3,11 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\SafariPackage;
+use Database\Seeders\Concerns\WarmsSeededTranslations;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class SafariSeeder extends Seeder
 {
+    use WarmsSeededTranslations;
+
     public function run(): void
     {
         $packages = [
@@ -207,7 +210,7 @@ class SafariSeeder extends Seeder
         ];
 
         foreach ($packages as $pkg) {
-            SafariPackage::updateOrCreate(
+            $package = SafariPackage::updateOrCreate(
                 ['slug' => Str::slug($pkg['title'])],
                 [
                     'title' => $pkg['title'],
@@ -220,6 +223,9 @@ class SafariSeeder extends Seeder
                     'days' => $pkg['days'],
                 ]
             );
+
+            // Queue translation warming for this package (idempotent, non-blocking).
+            $this->warmSeededTranslations($package);
         }
     }
 }

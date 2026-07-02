@@ -11,7 +11,7 @@
             <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
                 <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-lg bg-white position-relative">
                     <div class="package-img-wrapper" style="height: 280px; position: relative; overflow: hidden;">
-                        <img src="{{ asset($package->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $package->title }}">
+                        <img src="{{ asset($package->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $package->title }}" loading="lazy" decoding="async">
                         <div class="position-absolute top-0 start-0 m-3">
                             <span class="badge bg-earth rounded-pill px-3 py-2 shadow-sm">Tanzania</span>
                         </div>

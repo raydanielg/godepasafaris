@@ -17,7 +17,7 @@
                     @foreach(array_merge($testimonials, $testimonials) as $t)
                     <div class="testimonial-card-v2 p-4 mx-3">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <img src="{{ $t['image'] }}" class="rounded-circle shadow-sm" width="50" height="50" alt="{{ $t['name'] }}">
+                            <img src="{{ $t['image'] }}" class="rounded-circle shadow-sm" width="50" height="50" alt="{{ $t['name'] }}" loading="lazy" decoding="async">
                             <div>
                                 <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">{{ $t['name'] }}</h6>
                                 <small class="text-muted" style="font-size: 0.75rem;">{{ $t['location'] }}</small>

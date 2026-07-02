@@ -20,6 +20,11 @@ return [
 
     'enabled' => env('TRANSLATION_ENABLED', true),
 
+    // When true, seeders dispatch background jobs to warm translations for the
+    // records they create. Set TRANSLATION_SEED_WARM=false to seed without
+    // triggering any translation work (e.g. offline/CI environments).
+    'seed_warm' => env('TRANSLATION_SEED_WARM', true),
+
     // Language DB content is authored in; never translated to itself.
     'source_locale' => 'en',
 

@@ -3,8 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $post->title }} - Go Deep Africa Safari</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
+    @php
+        $seoTitle = $post->title . ' | Go Deep Africa Safari Blog';
+        $seoDescription = \Illuminate\Support\Str::limit(strip_tags($post->summary ?: $post->content), 155);
+        $seoImage = asset($post->image);
+        $seoType = 'article';
+        $seoSchema = json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'BlogPosting',
+            'headline' => $post->title,
+            'image' => asset($post->image),
+            'datePublished' => optional($post->created_at)->toIso8601String(),
+            'dateModified' => optional($post->updated_at)->toIso8601String(),
+            'author' => ['@type' => 'Organization', 'name' => 'Go Deep Africa Safari'],
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'Go Deep Africa Safari',
+                'logo' => ['@type' => 'ImageObject', 'url' => asset('images/logo/logo.png')],
+            ],
+            'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => url()->current()],
+            'description' => \Illuminate\Support\Str::limit(strip_tags($post->summary ?: $post->content), 200),
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
+    @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

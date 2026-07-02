@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SafariDestination extends Model
 {
+    use Translatable;
+
+    /** User-facing fields translated by the auto-translation pipeline. */
+    public static array $translatable = [
+        'name', 'tagline', 'description', 'short_description', 'location', 'best_time',
+        'badge', 'highlight_1', 'highlight_2', 'highlight_3', 'area', 'established', 'wildlife_count',
+    ];
+
     protected $fillable = [
         'name', 'slug', 'tagline', 'description', 'short_description',
         'location', 'best_time', 'featured_image', 'gallery', 'icon',

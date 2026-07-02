@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Safari Destinations - Go Deep Africa Safari</title>
+    @php
+        $seoTitle = 'Tanzania Safari Destinations — National Parks & Circuits | Go Deep Africa';
+        $seoDescription = "Explore Tanzania's top safari destinations — Serengeti, Ngorongoro Crater, Tarangire, Lake Manyara, Zanzibar and more across the Northern, Southern and Western circuits.";
+    @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
@@ -90,8 +93,8 @@
         <div class="container py-4">
             <div class="row g-0 featured-card shadow-lg" data-aos="fade-up">
                 <div class="col-lg-7">
-                    <img src="{{ $featured->display_image }}" 
-                         class="w-100 h-100 object-fit-cover" style="min-height: 450px;" alt="{{ $featured->name }}">
+                    <img src="{{ $featured->display_image }}"
+                         class="w-100 h-100 object-fit-cover" style="min-height: 450px;" alt="{{ $featured->name }}" loading="lazy" decoding="async">
                 </div>
                 <div class="col-lg-5 d-flex align-items-center">
                     <div class="p-5 w-100" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
@@ -176,8 +179,8 @@
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="destination-card card h-100 border-0 rounded-4 shadow-sm overflow-hidden">
                         <div class="position-relative overflow-hidden" style="height: 250px;">
-                            <img src="{{ $destination->display_image }}" 
-                                 class="card-img w-100 h-100 object-fit-cover" alt="{{ $destination->name }}">
+                            <img src="{{ $destination->display_image }}"
+                                 class="card-img w-100 h-100 object-fit-cover" alt="{{ $destination->name }}" loading="lazy" decoding="async">
                             @if($destination->badge)
                             <div class="position-absolute top-0 end-0 m-3">
                                 <span class="badge" style="background: {{ $destination->badge_color == 'danger' ? '#dc3545' : ($destination->badge_color == 'warning' ? '#ffc107' : '#6c757d') }}; color: {{ $destination->badge_color == 'warning' ? '#000' : '#fff' }};">

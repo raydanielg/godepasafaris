@@ -28,6 +28,34 @@ class Translator
      * locale). Returns the original text unchanged for the source locale,
      * empty/untranslatable input, or on any error.
      */
+    /**
+     * Every supported locale except the source language — i.e. the locales a
+     * piece of source text actually needs translating into.
+     *
+     * @return string[]
+     */
+    public static function targetLocales(): array
+    {
+        $source = config('translation.source_locale', 'en');
+
+        return array_values(array_filter(
+            array_keys(config('locales.supported', [])),
+            fn ($locale) => $locale !== $source,
+        ));
+    }
+
+    /** True if $text already has a cached translation for $locale. */
+    public static function isCached(string $text, string $locale): bool
+    {
+        if (! static::shouldTranslate($text, $locale)) {
+            return true; // nothing to translate == nothing missing
+        }
+
+        return TranslationCache::where('locale', $locale)
+            ->where('source_hash', sha1($text))
+            ->exists();
+    }
+
     public static function text(?string $text, ?string $locale = null): string
     {
         $text   = (string) $text;

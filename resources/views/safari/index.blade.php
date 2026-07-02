@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>All Safari Packages - Go Deep Africa Safari</title>
+    @php
+        $seoTitle = 'Tanzania Safari Packages & Tours — All-Inclusive Trips | Go Deep Africa';
+        $seoDescription = 'Browse handcrafted Tanzania safari packages across the Serengeti, Ngorongoro, Tarangire and more. Private, all-inclusive tours with expert local guides — get a free quote.';
+    @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
@@ -132,7 +135,7 @@
                     <div class="package-card card h-100 border-0 rounded-4 shadow-sm bg-white position-relative">
                         <a href="{{ route('safari.show', $pkg->slug) }}" class="text-decoration-none">
                             <div class="package-img-wrapper" style="height: 280px; position: relative;">
-                                <img src="{{ asset($pkg->image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $pkg->title }}">
+                                <img src="{{ asset($pkg->image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $pkg->title }}" loading="lazy" decoding="async">
                                 <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
                                     <i class="far fa-heart text-dark"></i>
                                 </button>

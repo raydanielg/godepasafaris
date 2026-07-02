@@ -1,25 +1,45 @@
+@php
+    /*
+     | Per-page SEO. Pass any of these to @include('partials.seo', [...]);
+     | anything omitted falls back to the site-wide default, so pages that
+     | include this partial without arguments behave exactly as before.
+     */
+    $defaultTitle = 'Go Deep Africa Safari | Authentic Tanzania Safari & Kilimanjaro Trekking';
+    $defaultDesc  = 'Experience authentic Tanzania safaris, Serengeti balloon tours, and Kilimanjaro trekking with Go Deep Africa Safari. Locally owned experts in Arusha supporting local communities.';
+
+    $seoTitle       = $seoTitle       ?? $defaultTitle;
+    $seoDescription = trim((string) ($seoDescription ?? $defaultDesc));
+    $seoImage       = $seoImage       ?? asset('images/logo/logo.png');
+    $seoKeywords    = $seoKeywords    ?? 'Tanzania Safari, Kilimanjaro Trekking, Serengeti Balloon Safari, Arusha Safari, Giving Back Tanzania, Luxury Safari Tanzania, Budget Safari Tanzania';
+    $seoType        = $seoType        ?? 'website';
+    $seoRobots      = $seoRobots      ?? 'index, follow';
+    // Optional extra JSON-LD (raw json string) for the current page.
+    $seoSchema      = $seoSchema      ?? null;
+@endphp
+
 <!-- Primary Meta Tags -->
-<title>@yield('title', 'Go Deep Africa Safari | Authentic Tanzania Safari & Kilimanjaro Trekking')</title>
-<meta name="title" content="@yield('meta_title', 'Go Deep Africa Safari | Authentic Tanzania Safari & Kilimanjaro Trekking')">
-<meta name="description" content="@yield('meta_description', 'Experience authentic Tanzania safaris, Serengeti balloon tours, and Kilimanjaro trekking with Go Deep Africa Safari. Locally owned experts in Arusha supporting local communities.')">
-<meta name="keywords" content="Tanzania Safari, Kilimanjaro Trekking, Serengeti Balloon Safari, Arusha Safari, Giving Back Tanzania, Luxury Safari Tanzania, Budget Safari Tanzania">
+<title>{{ $seoTitle }}</title>
+<meta name="title" content="{{ $seoTitle }}">
+<meta name="description" content="{{ $seoDescription }}">
+<meta name="keywords" content="{{ $seoKeywords }}">
 <meta name="author" content="Go Deep Africa Safari">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="{{ $seoRobots }}">
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ $seoType }}">
 <meta property="og:url" content="{{ url()->current() }}">
-<meta property="og:title" content="@yield('meta_title', 'Go Deep Africa Safari - Authentic Tanzania Safari & Kilimanjaro Trekking')">
-<meta property="og:description" content="@yield('meta_description', 'Experience authentic Tanzania safaris, Serengeti balloon tours, and Kilimanjaro trekking with Go Deep Africa Safari. Every safari supports local orphans and women.')">
-<meta property="og:image" content="@yield('meta_image', asset('images/logo/logo.png'))">
+<meta property="og:title" content="{{ $seoTitle }}">
+<meta property="og:description" content="{{ $seoDescription }}">
+<meta property="og:image" content="{{ $seoImage }}">
 <meta property="og:site_name" content="Go Deep Africa Safari">
+<meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="{{ url()->current() }}">
-<meta property="twitter:title" content="@yield('meta_title', 'Go Deep Africa Safari - Authentic Tanzania Safari & Kilimanjaro Trekking')">
-<meta property="twitter:description" content="@yield('meta_description', 'Experience authentic Tanzania safaris with a purpose. Supporting local communities through every booking.')">
-<meta property="twitter:image" content="@yield('meta_image', asset('images/logo/logo.png'))">
+<meta property="twitter:title" content="{{ $seoTitle }}">
+<meta property="twitter:description" content="{{ $seoDescription }}">
+<meta property="twitter:image" content="{{ $seoImage }}">
 
 <!-- Structured Data (JSON-LD) -->
 <script type="application/ld+json">
@@ -51,6 +71,13 @@
   "priceRange": "$$"
 }
 </script>
+
+@if($seoSchema)
+<!-- Page-specific Structured Data -->
+<script type="application/ld+json">
+{!! $seoSchema !!}
+</script>
+@endif
 
 <!-- Canonical Link -->
 <link rel="canonical" href="{{ url()->current() }}">

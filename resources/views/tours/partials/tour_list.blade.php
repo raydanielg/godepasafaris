@@ -3,7 +3,7 @@
     <div class="col-md-6 animate__animated animate__fadeInUp">
         <div class="package-card h-100 rounded-4 overflow-hidden border-0 shadow-sm bg-white">
             <div class="package-img-wrapper" style="height: 250px; position: relative; overflow: hidden;">
-                <img src="{{ asset($tour->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $tour->title }}">
+                <img src="{{ asset($tour->image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $tour->title }}" loading="lazy" decoding="async">
                 <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
                     <i class="far fa-heart text-dark"></i>
                 </button>

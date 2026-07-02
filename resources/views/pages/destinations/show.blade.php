@@ -3,7 +3,36 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ tr($destination->name) }} - Go Deep Africa Safari</title>
+    @php
+        $destDesc = $destination->short_description ?: ($destination->tagline ?: $destination->description);
+        $seoTitle = tr($destination->name) . ' — Safari Guide, Wildlife & Best Time to Visit | Go Deep Africa';
+        $seoDescription = \Illuminate\Support\Str::limit(strip_tags(tr($destDesc)), 155);
+        $seoImage = $destination->hero_display_image;
+        $seoSchema = json_encode([
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'TouristAttraction',
+                'name' => tr($destination->name),
+                'description' => strip_tags(tr($destination->description ?: $destDesc)),
+                'image' => $destination->hero_display_image,
+                'url' => url()->current(),
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressRegion' => strip_tags(tr($destination->location ?? 'Tanzania')),
+                    'addressCountry' => 'TZ',
+                ],
+            ],
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Destinations', 'item' => route('destinations')],
+                    ['@type' => 'ListItem', 'position' => 3, 'name' => tr($destination->name), 'item' => url()->current()],
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />

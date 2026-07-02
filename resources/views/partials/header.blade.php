@@ -114,7 +114,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ asset($safariPackages->first()->image) }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariPackages->first()->title }}">
+                                                            <img src="{{ asset($safariPackages->first()->image) }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariPackages->first()->title }}" loading="lazy" decoding="async">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,7 +262,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}" class="w-100 kili-image" style="height: 220px; object-fit: cover;" alt="{{ $kiliSection->title }}">
+                                                            <img src="{{ asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}" class="w-100 kili-image" style="height: 220px; object-fit: cover;" alt="{{ $kiliSection->title }}" loading="lazy" decoding="async">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -336,7 +336,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ $destinations->first()->hero_display_image }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destinations->first()->name }}">
+                                                            <img src="{{ $destinations->first()->hero_display_image }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destinations->first()->name }}" loading="lazy" decoding="async">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -420,7 +420,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg position-relative">
-                                                            <img src="{{ asset('images/images/africa_tanzania_serengeti_gallery_leopard_and_cub.jpg') }}" class="w-100 impact-image" style="height: 220px; object-fit: cover;" alt="{{ $impactSection->title }}">
+                                                            <img src="{{ asset('images/images/africa_tanzania_serengeti_gallery_leopard_and_cub.jpg') }}" class="w-100 impact-image" style="height: 220px; object-fit: cover;" alt="{{ $impactSection->title }}" loading="lazy" decoding="async">
                                                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(62,39,35,0.3);">
                                                                 <div class="text-center text-white p-3">
                                                                     <i class="fas fa-heart fa-2x mb-2"></i>
