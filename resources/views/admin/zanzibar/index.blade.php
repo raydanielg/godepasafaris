@@ -19,6 +19,20 @@
         <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
     </div>
     @endif
+    @if(session('error'))
+    <div class="alert alert-danger rounded-4 d-flex align-items-center">
+        <i class="fas fa-triangle-exclamation me-2"></i>{{ session('error') }}
+    </div>
+    @endif
+
+    @if($needsSetup ?? false)
+    <div class="alert alert-warning rounded-4">
+        <h6 class="fw-bold mb-1"><i class="fas fa-database me-2"></i>One-time setup needed</h6>
+        <p class="mb-0 small">The Zanzibar content table hasn't been created on this server yet. Run
+            <code>php artisan migrate --force</code> (then <code>db:seed --class=ZanzibarSeeder --force</code>),
+            or import <code>database/exports/zanzibar_production.sql</code> via phpMyAdmin. This page will populate automatically afterwards.</p>
+    </div>
+    @endif
 
     @forelse($categories as $key => $label)
         @php $group = $items[$key] ?? collect(); @endphp

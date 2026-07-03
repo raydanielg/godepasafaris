@@ -5,20 +5,32 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ZanzibarActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class ZanzibarController extends Controller
 {
     public function index()
     {
-        $items = ZanzibarActivity::ordered()->get()->groupBy('category');
         $categories = ZanzibarActivity::CATEGORIES;
+
+        // Before the table has been created (fresh deploy), show a friendly
+        // setup notice instead of a 500 error.
+        if (! Schema::hasTable('zanzibar_activities')) {
+            return view('admin.zanzibar.index', ['items' => collect(), 'categories' => $categories, 'needsSetup' => true]);
+        }
+
+        $items = ZanzibarActivity::ordered()->get()->groupBy('category');
 
         return view('admin.zanzibar.index', compact('items', 'categories'));
     }
 
     public function create()
     {
+        if (! Schema::hasTable('zanzibar_activities')) {
+            return redirect()->route('admin.zanzibar.index');
+        }
+
         $categories = ZanzibarActivity::CATEGORIES;
 
         return view('admin.zanzibar.create', compact('categories'));
@@ -26,6 +38,11 @@ class ZanzibarController extends Controller
 
     public function store(Request $request)
     {
+        if (! Schema::hasTable('zanzibar_activities')) {
+            return redirect()->route('admin.zanzibar.index')
+                ->with('error', 'The Zanzibar table is not set up yet. Please run the migration or import the SQL first.');
+        }
+
         $data = $this->validated($request);
         $data['image'] = $this->handleImage($request);
         $data['display_order'] = $data['display_order'] ?? (ZanzibarActivity::max('display_order') + 1);
