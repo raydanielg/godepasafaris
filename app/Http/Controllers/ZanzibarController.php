@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ZanzibarActivity;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class ZanzibarController extends Controller
 {
@@ -15,7 +17,19 @@ class ZanzibarController extends Controller
     {
         $z = config('zanzibar', []);
 
-        $rows = ZanzibarActivity::active()->ordered()->get()->groupBy('category');
+        // If the content table hasn't been migrated yet (fresh deploy), or any
+        // DB issue occurs, render from config so the page never 500s.
+        try {
+            if (! Schema::hasTable('zanzibar_activities')) {
+                return view('zanzibar', ['z' => $z]);
+            }
+
+            $rows = ZanzibarActivity::active()->ordered()->get()->groupBy('category');
+        } catch (\Throwable $e) {
+            Log::warning('Zanzibar DB content unavailable, using config fallback: ' . $e->getMessage());
+
+            return view('zanzibar', ['z' => $z]);
+        }
 
         // Category => closure mapping a DB row to the shape each view section expects.
         $shapes = [
