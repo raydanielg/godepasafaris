@@ -1,4 +1,8 @@
-import 'bootstrap';
+// Import Bootstrap's JS (enables data-bs-* components) and expose it globally
+// so inline scripts can control components programmatically, e.g.
+// bootstrap.Modal.getInstance(...).
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

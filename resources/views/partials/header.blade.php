@@ -349,6 +349,10 @@
                         @endif
                     </li>
                     
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('zanzibar') ? 'active' : '' }} px-3" href="{{ route('zanzibar') }}" style="color: #3E2723 !important;">Zanzibar</a>
+                    </li>
+
                     <!-- IMPACT / GIVING BACK Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('impact*') ? 'active' : '' }} px-3" href="{{ route('impact') }}" style="color: #3E2723 !important;" id="impactMegaMenu">
@@ -920,6 +924,8 @@
                     </ul>
                 </li>
 
+                <li><a href="{{ route('zanzibar') }}" class="{{ Route::is('zanzibar') ? 'active' : '' }}"><i class="fas fa-umbrella-beach me-3"></i>Zanzibar</a></li>
+
                 <li class="sidebar-dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">
                         <i class="fas fa-heart me-3"></i>{{ __('messages.nav.giving_back') }} <i class="fas fa-chevron-down ms-auto"></i>
@@ -1294,7 +1300,7 @@
                         method: 'POST',
                         body: formData,
                         headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'X-CSRF-TOKEN': (document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')) || (this.querySelector('input[name="_token"]')?.value) || '',
                             'Accept': 'application/json'
                         }
                     })

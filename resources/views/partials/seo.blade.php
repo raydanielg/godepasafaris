@@ -17,6 +17,9 @@
     $seoSchema      = $seoSchema      ?? null;
 @endphp
 
+<!-- CSRF token (used by AJAX forms) -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <!-- Primary Meta Tags -->
 <title>{{ $seoTitle }}</title>
 <meta name="title" content="{{ $seoTitle }}">
