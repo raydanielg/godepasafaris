@@ -84,29 +84,35 @@ class SafariController extends Controller
         $details = $request->only(['name', 'email', 'phone', 'adults', 'children', 'message']);
         $details['package'] = $package->title;
 
-        // Send Email to Admin
+        // 1) Save to the admin Bookings list so it never depends on email.
         try {
-            Mail::to('info@godeepafricasafari.com')->send(new BookingInquiry($details));
-        } catch (\Exception $e) {
-            \Log::error('Admin email failed: ' . $e->getMessage());
+            \App\Models\Booking::create([
+                'safari_package_id' => $package->id,
+                'tour_name'         => $package->title,
+                'name'              => $details['name'],
+                'email'             => $details['email'],
+                'phone'             => $details['phone'] ?? null,
+                'travelers'         => trim(($details['adults'] ?? 0) . ' Adults' . (!empty($details['children']) ? ', ' . $details['children'] . ' Children' : '')),
+                'message'           => $details['message'] ?? null,
+            ]);
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Booking save failed (safari enquire): ' . $e->getMessage(), $details);
         }
 
-        // Send Confirmation Email to Customer
+        $adminEmail = config('mail.admin_address');
+
+        // 2) Notify the company.
+        try {
+            Mail::to($adminEmail)->send(new BookingInquiry($details));
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Admin email failed (safari enquire): ' . $e->getMessage(), ['to' => $adminEmail] + $details);
+        }
+
+        // 3) Confirm to the customer.
         try {
             Mail::to($details['email'])->send(new CustomerConfirmation($details));
-        } catch (\Exception $e) {
-            \Log::error('Customer email failed: ' . $e->getMessage());
-        }
-
-        // Send Notification to airezra2@gmail.com
-        try {
-            Mail::send('emails.booking_notification', $details, function ($message) use ($details) {
-                $message->to('airezra2@gmail.com')
-                        ->subject('New Booking Inquiry - ' . $details['package'])
-                        ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
-            });
-        } catch (\Exception $e) {
-            \Log::error('Notification email failed: ' . $e->getMessage());
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Customer email failed (safari enquire): ' . $e->getMessage(), ['to' => $details['email']]);
         }
 
         // Return JSON response for AJAX requests
@@ -147,34 +153,31 @@ class SafariController extends Controller
 
         $validated = $validator->validated();
 
-        \App\Models\Booking::create($validated);
-
-        // Notify admin by email - send to webmail
-        $details = array_merge($validated, ['package' => $validated['tour_name'] ?? 'General Inquiry']);
+        // 1) Save to the admin Bookings list (the source of truth — never lost
+        //    even if email delivery fails).
         try {
-            Mail::to('info@godeepafricasafari.com')->send(new BookingInquiry($details));
-        } catch (\Exception $e) {
-            \Log::error('Admin email failed: ' . $e->getMessage());
+            \App\Models\Booking::create($validated);
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Booking save failed (store): ' . $e->getMessage(), $validated);
         }
 
-        // Send Confirmation Email to Customer
+        $details = array_merge($validated, ['package' => $validated['tour_name'] ?? 'General Inquiry']);
+        $adminEmail = config('mail.admin_address');
+
+        // 2) Notify the company webmail.
+        try {
+            Mail::to($adminEmail)->send(new BookingInquiry($details));
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Admin email failed (store): ' . $e->getMessage(), ['to' => $adminEmail] + $details);
+        }
+
+        // 3) Confirm to the customer.
         if (!empty($validated['email'])) {
             try {
                 Mail::to($validated['email'])->send(new CustomerConfirmation($details));
-            } catch (\Exception $e) {
-                \Log::error('Customer email failed: ' . $e->getMessage());
+            } catch (\Throwable $e) {
+                \Log::channel('bookings')->error('Customer email failed (store): ' . $e->getMessage(), ['to' => $validated['email']]);
             }
-        }
-
-        // Send Notification to webmail for backup
-        try {
-            Mail::send('emails.booking_notification', $details, function ($message) use ($details) {
-                $message->to('info@godeepafricasafari.com')
-                        ->subject('New Booking Inquiry - ' . $details['package'])
-                        ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
-            });
-        } catch (\Exception $e) {
-            \Log::error('Notification email failed: ' . $e->getMessage());
         }
 
         // Return JSON response for AJAX requests

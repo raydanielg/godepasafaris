@@ -75,29 +75,34 @@ class KilimanjaroController extends Controller
         $details = $request->only(['name', 'email', 'phone', 'adults', 'children', 'message']);
         $details['package'] = $package->title;
 
-        // Send Email to Admin
+        // 1) Save to the admin Bookings list.
         try {
-            Mail::to('info@godeepafricasafari.com')->send(new BookingInquiry($details));
-        } catch (\Exception $e) {
-            \Log::error('Admin email failed: ' . $e->getMessage());
+            \App\Models\Booking::create([
+                'tour_name'  => $package->title,
+                'name'       => $details['name'],
+                'email'      => $details['email'],
+                'phone'      => $details['phone'] ?? null,
+                'travelers'  => trim(($details['adults'] ?? 0) . ' Adults' . (!empty($details['children']) ? ', ' . $details['children'] . ' Children' : '')),
+                'message'    => $details['message'] ?? null,
+            ]);
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Booking save failed (kilimanjaro enquire): ' . $e->getMessage(), $details);
         }
 
-        // Send Confirmation Email to Customer
+        $adminEmail = config('mail.admin_address');
+
+        // 2) Notify the company.
+        try {
+            Mail::to($adminEmail)->send(new BookingInquiry($details));
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Admin email failed (kilimanjaro enquire): ' . $e->getMessage(), ['to' => $adminEmail] + $details);
+        }
+
+        // 3) Confirm to the customer.
         try {
             Mail::to($details['email'])->send(new CustomerConfirmation($details));
-        } catch (\Exception $e) {
-            \Log::error('Customer email failed: ' . $e->getMessage());
-        }
-
-        // Send Notification to airezra2@gmail.com
-        try {
-            Mail::send('emails.booking_notification', $details, function ($message) use ($details) {
-                $message->to('airezra2@gmail.com')
-                        ->subject('New Booking Inquiry - ' . $details['package'])
-                        ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
-            });
-        } catch (\Exception $e) {
-            \Log::error('Notification email failed: ' . $e->getMessage());
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Customer email failed (kilimanjaro enquire): ' . $e->getMessage(), ['to' => $details['email']]);
         }
 
         // Return JSON response for AJAX requests

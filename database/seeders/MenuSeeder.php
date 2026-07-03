@@ -25,12 +25,12 @@ class MenuSeeder extends Seeder
         );
 
         $safariLinks = [
-            ['title' => 'Serengeti National Park', 'url' => '/destinations/serengeti', 'icon' => 'fa-paw', 'description' => 'Witness the Great Migration', 'badge' => 'Popular', 'badge_color' => 'danger'],
-            ['title' => 'Ngorongoro Crater', 'url' => '/destinations/ngorongoro', 'icon' => 'fa-mountain', 'description' => 'World\'s largest inactive volcano', 'badge' => null, 'badge_color' => 'secondary'],
-            ['title' => 'Tarangire National Park', 'url' => '/destinations/tarangire', 'icon' => 'fa-tree', 'description' => 'Home to giant elephants', 'badge' => null, 'badge_color' => 'secondary'],
-            ['title' => 'Lake Manyara', 'url' => '/destinations/manyara', 'icon' => 'fa-water', 'description' => 'Tree-climbing lions', 'badge' => null, 'badge_color' => 'secondary'],
-            ['title' => 'Selous Game Reserve', 'url' => '/destinations/selous', 'icon' => 'fa-binoculars', 'description' => 'Africa\'s largest game reserve', 'badge' => 'Wild', 'badge_color' => 'warning'],
-            ['title' => 'Ruaha National Park', 'url' => '/destinations/ruaha', 'icon' => 'fa-safari', 'description' => 'Untouched wilderness', 'badge' => null, 'badge_color' => 'secondary'],
+            ['title' => 'Serengeti National Park', 'url' => '/destinations/serengeti-national-park', 'icon' => 'fa-paw', 'description' => 'Witness the Great Migration', 'badge' => 'Popular', 'badge_color' => 'danger'],
+            ['title' => 'Ngorongoro Crater', 'url' => '/destinations/ngorongoro-crater', 'icon' => 'fa-mountain', 'description' => 'World\'s largest inactive volcano', 'badge' => null, 'badge_color' => 'secondary'],
+            ['title' => 'Tarangire National Park', 'url' => '/destinations/tarangire-national-park', 'icon' => 'fa-tree', 'description' => 'Home to giant elephants', 'badge' => null, 'badge_color' => 'secondary'],
+            ['title' => 'Lake Manyara', 'url' => '/destinations/lake-manyara', 'icon' => 'fa-water', 'description' => 'Tree-climbing lions', 'badge' => null, 'badge_color' => 'secondary'],
+            ['title' => 'Selous Game Reserve', 'url' => '/destinations/selous-game-reserve', 'icon' => 'fa-binoculars', 'description' => 'Africa\'s largest game reserve', 'badge' => 'Wild', 'badge_color' => 'warning'],
+            ['title' => 'Ruaha National Park', 'url' => '/destinations/ruaha-national-park', 'icon' => 'fa-safari', 'description' => 'Untouched wilderness', 'badge' => null, 'badge_color' => 'secondary'],
             ['title' => 'Private Safari Tours', 'url' => '/safari-styles/private', 'icon' => 'fa-user-shield', 'description' => 'Exclusive experiences', 'badge' => 'VIP', 'badge_color' => 'warning'],
             ['title' => 'Group Safari Tours', 'url' => '/safari-styles/budget', 'icon' => 'fa-users', 'description' => 'Join fellow travelers', 'badge' => 'Save 20%', 'badge_color' => 'success'],
         ];

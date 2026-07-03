@@ -184,6 +184,14 @@ Route::middleware(['auth'])->group(function () {
     // Safari Activities
     Route::post('/admin/safari-destinations/{safariDestination}/activities', [App\Http\Controllers\Admin\SafariDestinationController::class, 'storeActivity'])->name('admin.safari-destinations.activities.store');
     Route::delete('/admin/safari-activities/{activity}', [App\Http\Controllers\Admin\SafariDestinationController::class, 'destroyActivity'])->name('admin.safari-activities.destroy');
+
+    // Zanzibar Content Management
+    Route::get('/admin/zanzibar', [App\Http\Controllers\Admin\ZanzibarController::class, 'index'])->name('admin.zanzibar.index');
+    Route::get('/admin/zanzibar/create', [App\Http\Controllers\Admin\ZanzibarController::class, 'create'])->name('admin.zanzibar.create');
+    Route::post('/admin/zanzibar', [App\Http\Controllers\Admin\ZanzibarController::class, 'store'])->name('admin.zanzibar.store');
+    Route::get('/admin/zanzibar/{zanzibar}/edit', [App\Http\Controllers\Admin\ZanzibarController::class, 'edit'])->name('admin.zanzibar.edit');
+    Route::put('/admin/zanzibar/{zanzibar}', [App\Http\Controllers\Admin\ZanzibarController::class, 'update'])->name('admin.zanzibar.update');
+    Route::delete('/admin/zanzibar/{zanzibar}', [App\Http\Controllers\Admin\ZanzibarController::class, 'destroy'])->name('admin.zanzibar.destroy');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
@@ -209,9 +217,7 @@ Route::get('/safari-circuits', [App\Http\Controllers\CircuitController::class, '
 Route::get('/safari-circuits/{slug}', [App\Http\Controllers\CircuitController::class, 'show'])->name('circuits.show');
 
 // Zanzibar destination landing page
-Route::get('/zanzibar', function () {
-    return view('zanzibar', ['z' => config('zanzibar')]);
-})->name('zanzibar');
+Route::get('/zanzibar', [App\Http\Controllers\ZanzibarController::class, 'index'])->name('zanzibar');
 
 Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->name('safari');
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');

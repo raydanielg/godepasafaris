@@ -169,6 +169,48 @@
                         @endforeach
                     </div>
                     @endif
+
+                    <!-- Tour Packages -->
+                    @if(isset($relatedPackages) && $relatedPackages->count() > 0)
+                    <h4 class="fw-bold mb-3 mt-5" style="color: #3E2723;">Safari Packages Featuring {{ tr($destination->name) }}</h4>
+                    <div class="row g-4">
+                        @foreach($relatedPackages as $pkg)
+                        <div class="col-md-6">
+                            <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden">
+                                <div style="height:180px; overflow:hidden;">
+                                    <img src="{{ asset($pkg->image) }}" class="w-100 h-100" style="object-fit:cover;" alt="{{ tr($pkg->title) }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/logo/logo.png') }}';this.style.objectFit='contain';this.style.background='#fdfaf5';">
+                                </div>
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <h6 class="fw-bold mb-2" style="color:#3E2723;">{{ tr($pkg->title) }}</h6>
+                                    <p class="text-muted small mb-3">{{ \Illuminate\Support\Str::limit(tr($pkg->summary), 90) }}</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <span class="fw-bold" style="color:#8B4513;">${{ number_format($pkg->price, 0) }} <small class="text-muted fw-normal">/ {{ $pkg->days }} {{ __('messages.common.days') }}</small></span>
+                                        <a href="{{ route('safari.show', $pkg->slug) }}" class="btn btn-sm rounded-pill px-3 text-white fw-bold" style="background:#8B4513;">{{ __('messages.common.view_details') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    <!-- Gallery -->
+                    @php
+                        $gallery = is_array($destination->gallery ?? null) ? array_filter($destination->gallery) : [];
+                    @endphp
+                    @if(count($gallery) > 0)
+                    <h4 class="fw-bold mb-3 mt-5" style="color: #3E2723;">Gallery</h4>
+                    <div class="row g-3">
+                        @foreach($gallery as $img)
+                        @php $src = \Illuminate\Support\Str::startsWith($img, ['http://', 'https://']) ? $img : (\Illuminate\Support\Str::startsWith($img, 'storage/') ? asset($img) : asset('storage/'.ltrim($img, '/'))); @endphp
+                        <div class="col-6 col-md-4">
+                            <a href="{{ $src }}" target="_blank" rel="noopener">
+                                <img src="{{ $src }}" class="w-100 rounded-3 shadow-sm" style="height:150px; object-fit:cover;" alt="{{ tr($destination->name) }} photo" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
                 </div>
 
                 <div class="col-lg-4">

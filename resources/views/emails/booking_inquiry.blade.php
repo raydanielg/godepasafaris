@@ -26,20 +26,36 @@
             <h2 style="color: #1a202c; text-align: center;">Habari! You have a new inquiry.</h2>
             <p>A potential traveler is interested in an expedition. Here are the details:</p>
             
+            @php
+                // Normalise traveler count across the two form shapes (general
+                // booking uses "travelers"; package enquiry uses adults/children).
+                $travelers = $details['travelers'] ?? null;
+                if (! $travelers && (isset($details['adults']) || isset($details['children']))) {
+                    $travelers = ($details['adults'] ?? 0) . ' Adults'
+                        . (isset($details['children']) && $details['children'] !== '' ? ', ' . $details['children'] . ' Children' : '');
+                }
+            @endphp
             <table class="details-table">
-                <tr><td>Full Name</td><td>{{ $details['name'] }}</td></tr>
-                <tr><td>Email Address</td><td>{{ $details['email'] }}</td></tr>
-                <tr><td>Phone Number</td><td>{{ $details['phone'] }}</td></tr>
-                <tr><td>Travelers</td><td>{{ $details['adults'] }} Adults, {{ $details['children'] }} Children</td></tr>
-                @if(isset($details['package']))
-                <tr><td>Package</td><td>{{ $details['package'] }}</td></tr>
+                <tr><td>Full Name</td><td>{{ $details['name'] ?? '—' }}</td></tr>
+                <tr><td>Email Address</td><td>{{ $details['email'] ?? '—' }}</td></tr>
+                <tr><td>Phone Number</td><td>{{ $details['phone'] ?? '—' }}</td></tr>
+                @if(!empty($details['package']))
+                <tr><td>Package / Destination</td><td>{{ $details['package'] }}</td></tr>
+                @endif
+                @if(!empty($details['travel_date']))
+                <tr><td>Travel Date</td><td>{{ $details['travel_date'] }}</td></tr>
+                @endif
+                @if($travelers)
+                <tr><td>Travelers</td><td>{{ $travelers }}</td></tr>
                 @endif
             </table>
 
+            @if(!empty($details['message']))
             <div class="message-box">
-                <strong>Message:</strong><br>
+                <strong>Special Requests / Message:</strong><br>
                 {{ $details['message'] }}
             </div>
+            @endif
 
             <p style="margin-top: 30px; text-align: center;">
                 <a href="mailto:{{ $details['email'] }}" style="background-color: #8B4513; color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold;">REPLY TO TRAVELER</a>

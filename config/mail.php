@@ -115,4 +115,9 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    | Address that receives booking / enquiry notifications.
+    */
+    'admin_address' => env('MAIL_ADMIN_ADDRESS', 'info@godeepafricasafari.com'),
+
 ];

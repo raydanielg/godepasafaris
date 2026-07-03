@@ -22,6 +22,9 @@
         <a href="{{ route('admin.safari-destinations.index') }}" class="nav-link {{ Route::is('admin.safari-destinations*') ? 'active' : '' }}">
             <i class="fas fa-paw"></i> Safari Destinations
         </a>
+        <a href="{{ route('admin.zanzibar.index') }}" class="nav-link {{ Route::is('admin.zanzibar*') ? 'active' : '' }}">
+            <i class="fas fa-umbrella-beach"></i> Zanzibar
+        </a>
         <a href="{{ route('admin.posts') }}" class="nav-link {{ Route::is('admin.posts*') ? 'active' : '' }}">
             <i class="fas fa-newspaper"></i> Blog Posts
         </a>

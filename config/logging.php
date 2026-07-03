@@ -58,6 +58,16 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        // Dedicated channel for booking/enquiry email delivery so failures can
+        // be monitored separately from the general application log.
+        'bookings' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/bookings.log'),
+            'level' => 'debug',
+            'days' => 30,
+            'replace_placeholders' => true,
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
