@@ -20,7 +20,7 @@ class ZanzibarController extends Controller
             return view('admin.zanzibar.index', ['items' => collect(), 'categories' => $categories, 'needsSetup' => true]);
         }
 
-        $items = ZanzibarActivity::ordered()->get()->groupBy('category');
+        $items = ZanzibarActivity::orderBy('category')->orderBy('display_order')->get();
 
         return view('admin.zanzibar.index', compact('items', 'categories'));
     }

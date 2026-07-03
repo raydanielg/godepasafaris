@@ -31,20 +31,22 @@ class ZanzibarController extends Controller
             return view('zanzibar', ['z' => $z]);
         }
 
-        // Category => closure mapping a DB row to the shape each view section expects.
+        // Category => closure mapping a DB row to the shape each view section
+        // expects. Text fields run through tr() so the page follows the active
+        // language like the rest of the site.
         $shapes = [
-            'beaches'    => fn ($r) => ['name' => $r->title, 'icon' => $r->icon, 'best_time' => $r->best_time, 'desc' => $r->description, 'activities' => $r->detail_list, 'image' => $r->image_url],
-            'stone_town' => fn ($r) => ['name' => $r->title, 'icon' => $r->icon, 'desc' => $r->description],
-            'culture'    => fn ($r) => ['name' => $r->title, 'icon' => $r->icon],
-            'spices'     => fn ($r) => ['name' => $r->title, 'icon' => $r->icon, 'desc' => $r->description],
-            'turtle'     => fn ($r) => ['name' => $r->title, 'icon' => $r->icon, 'desc' => $r->description],
-            'marine'     => fn ($r) => ['name' => $r->title, 'icon' => $r->icon],
+            'beaches'    => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'best_time' => tr($r->best_time), 'desc' => tr($r->description), 'activities' => array_map('tr', $r->detail_list), 'image' => $r->image_url],
+            'stone_town' => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)],
+            'culture'    => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon],
+            'spices'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)],
+            'turtle'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)],
+            'marine'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon],
             'packages'   => fn ($r) => [
-                'name'     => $r->title,
-                'tag'      => $r->description,
+                'name'     => tr($r->title),
+                'tag'      => tr($r->description),
                 'icon'     => $r->icon,
                 'from'     => (int) ($r->price ?? 0),
-                'includes' => $r->detail_list,
+                'includes' => array_map('tr', $r->detail_list),
                 'nights'   => preg_match('/(\d+)\s*night/i', (string) $r->duration, $m) ? (int) $m[1] : '',
                 'image'    => $r->image_url,
             ],
@@ -60,7 +62,7 @@ class ZanzibarController extends Controller
         foreach (['prison_island', 'jozani'] as $category) {
             if (($rows[$category] ?? collect())->isNotEmpty()) {
                 $z[$category]['features'] = $rows[$category]
-                    ->map(fn ($r) => ['name' => $r->title, 'icon' => $r->icon, 'desc' => $r->description])
+                    ->map(fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)])
                     ->values()->all();
             }
         }

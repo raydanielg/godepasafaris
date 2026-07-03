@@ -2,87 +2,102 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="fw-bold mb-0" style="color: #3E2723;">
+            <h2 class="fw-bold mb-1" style="color: #3E2723;">
                 <i class="fas fa-umbrella-beach me-2" style="color: #8B4513;"></i>Zanzibar Content
-            </h4>
-            <small class="text-muted">Manage every section of the Zanzibar page — beaches, culture, spices, marine, packages and more.</small>
+            </h2>
+            <p class="text-muted mb-0">Manage every section of the Zanzibar page — beaches, culture, spices, marine, packages and more</p>
         </div>
-        <a href="{{ route('admin.zanzibar.create') }}" class="btn rounded-pill px-4 fw-bold text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">
+        <a href="{{ route('admin.zanzibar.create') }}" class="btn rounded-pill px-4 fw-bold" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white;">
             <i class="fas fa-plus me-2"></i>Add Item
         </a>
     </div>
 
     @if(session('success'))
-    <div class="alert alert-success rounded-4 d-flex align-items-center">
-        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
-    </div>
+    <div class="alert alert-success rounded-4">{{ session('success') }}</div>
     @endif
+
     @if(session('error'))
-    <div class="alert alert-danger rounded-4 d-flex align-items-center">
-        <i class="fas fa-triangle-exclamation me-2"></i>{{ session('error') }}
-    </div>
+    <div class="alert alert-danger rounded-4">{{ session('error') }}</div>
     @endif
 
     @if($needsSetup ?? false)
     <div class="alert alert-warning rounded-4">
         <h6 class="fw-bold mb-1"><i class="fas fa-database me-2"></i>One-time setup needed</h6>
         <p class="mb-0 small">The Zanzibar content table hasn't been created on this server yet. Run
-            <code>php artisan migrate --force</code> (then <code>db:seed --class=ZanzibarSeeder --force</code>),
-            or import <code>database/exports/zanzibar_production.sql</code> via phpMyAdmin. This page will populate automatically afterwards.</p>
+            <code>php artisan migrate --force</code> then <code>php artisan db:seed --class=ZanzibarSeeder --force</code>,
+            or import <code>database/exports/production_update.sql</code> via phpMyAdmin. This page will populate automatically afterwards.</p>
     </div>
     @endif
 
-    @forelse($categories as $key => $label)
-        @php $group = $items[$key] ?? collect(); @endphp
-        <div class="card border-0 rounded-4 shadow-sm mb-4">
-            <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center py-3">
-                <h6 class="fw-bold mb-0" style="color:#3E2723;">{{ $label }}
-                    <span class="badge rounded-pill ms-2" style="background:#8B4513;">{{ $group->count() }}</span>
-                </h6>
-            </div>
-            <div class="card-body pt-0">
-                @if($group->count())
-                <div class="table-responsive">
-                    <table class="table align-middle mb-0">
-                        <tbody>
-                            @foreach($group as $item)
-                            <tr>
-                                <td style="width:70px;">
+    <div class="card border-0 rounded-4 shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="px-4 py-3">Item</th>
+                            <th class="py-3">Section</th>
+                            <th class="py-3">Price</th>
+                            <th class="py-3">Status</th>
+                            <th class="py-3 text-end px-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($items as $item)
+                        <tr>
+                            <td class="px-4 py-3">
+                                <div class="d-flex align-items-center gap-3">
                                     @if($item->image_url)
-                                        <img src="{{ $item->image_url }}" class="rounded-3" style="width:56px;height:56px;object-fit:cover;" alt="">
+                                    <img src="{{ $item->image_url }}" class="rounded-3" style="width: 60px; height: 60px; object-fit: cover;" alt="">
                                     @else
-                                        <span class="d-inline-flex align-items-center justify-content-center rounded-3" style="width:56px;height:56px;background:rgba(139,69,19,.1);">
-                                            <i class="fas {{ $item->icon ?: 'fa-image' }}" style="color:#8B4513;"></i>
-                                        </span>
+                                    <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);">
+                                        <i class="fas {{ $item->icon ?: 'fa-image' }} text-white fa-lg"></i>
+                                    </div>
                                     @endif
-                                </td>
-                                <td>
-                                    <div class="fw-bold" style="color:#3E2723;">{{ $item->title }}</div>
-                                    <small class="text-muted">{{ \Illuminate\Support\Str::limit($item->description, 70) }}</small>
-                                    @if($item->price)<span class="badge bg-light text-dark border ms-1">${{ number_format($item->price, 0) }}</span>@endif
-                                    @unless($item->is_active)<span class="badge bg-secondary ms-1">Hidden</span>@endunless
-                                </td>
-                                <td class="text-end" style="width:150px;">
-                                    <a href="{{ route('admin.zanzibar.edit', $item) }}" class="btn btn-sm btn-outline-primary rounded-pill"><i class="fas fa-pen"></i></a>
-                                    <form action="{{ route('admin.zanzibar.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete “{{ $item->title }}”?');">
-                                        @csrf @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                @else
-                    <p class="text-muted small mb-0">No items yet. <a href="{{ route('admin.zanzibar.create') }}">Add one</a>.</p>
-                @endif
+                                    <div>
+                                        <h6 class="fw-bold mb-1" style="color: #3E2723;">{{ $item->title }}</h6>
+                                        <small class="text-muted">{{ \Illuminate\Support\Str::limit($item->description, 60) }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3">
+                                <span class="badge bg-light text-dark">{{ $categories[$item->category] ?? $item->category }}</span>
+                            </td>
+                            <td class="py-3">{{ $item->price ? '$' . number_format($item->price, 0) : '-' }}</td>
+                            <td class="py-3">
+                                @if($item->is_active)
+                                <span class="badge bg-success">Active</span>
+                                @else
+                                <span class="badge bg-secondary">Inactive</span>
+                                @endif
+                            </td>
+                            <td class="py-3 text-end px-4">
+                                <a href="{{ route('admin.zanzibar.edit', $item) }}" class="btn btn-sm btn-outline-primary rounded-pill me-2">
+                                    <i class="fas fa-edit me-1"></i>Edit
+                                </a>
+                                <form action="{{ route('admin.zanzibar.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this item?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <i class="fas fa-umbrella-beach fa-3x mb-3"></i>
+                                <p>No Zanzibar items found. <a href="{{ route('admin.zanzibar.create') }}">Add one</a></p>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
-    @empty
-        <p class="text-muted">No categories configured.</p>
-    @endforelse
+    </div>
 </div>
 @endsection
