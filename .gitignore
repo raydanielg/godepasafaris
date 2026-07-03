@@ -19,6 +19,10 @@
 /storage/*.key
 /storage/pail
 
+# Local development database (never ship the local test data)
+/database/*.sqlite
+/database/*.sqlite-journal
+
 Homestead.json
 Homestead.yaml
 Thumbs.db

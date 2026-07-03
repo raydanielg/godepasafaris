@@ -440,9 +440,13 @@ class SafariDestinationSeeder extends Seeder
         foreach ($destinations as $destData) {
             $activities = $destData['activities'] ?? [];
             unset($destData['activities']);
-            
+
+            // Prefer an explicit slug (Zanzibar is pre-seeded by migration with a
+            // fixed slug) so we match the existing row instead of inserting a duplicate.
+            $slug = $destData['slug'] ?? \Illuminate\Support\Str::slug($destData['name']);
+
             $destination = SafariDestination::firstOrCreate(
-                ['slug' => \Illuminate\Support\Str::slug($destData['name'])],
+                ['slug' => $slug],
                 $destData
             );
 

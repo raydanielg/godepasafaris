@@ -20,6 +20,14 @@ return [
 
     'enabled' => env('TRANSLATION_ENABLED', true),
 
+    // When false, the app NEVER calls an external translation API at runtime.
+    // It serves the baked/cached translations shipped in the `translations`
+    // table (see database/data/translations.php) and falls back to the source
+    // text for anything not already translated. This keeps the site fully
+    // self-contained with no third-party dependency. Leave this off in
+    // production; switch it on only when (re)generating translations offline.
+    'api_enabled' => env('TRANSLATION_API_ENABLED', false),
+
     // When true, seeders dispatch background jobs to warm translations for the
     // records they create. Set TRANSLATION_SEED_WARM=false to seed without
     // triggering any translation work (e.g. offline/CI environments).

@@ -369,22 +369,5 @@
             });
         });
     </script>
-    <!-- Auto Cache Clear Script -->
-    <script>
-        setInterval(function() {
-            const cacheClearUrl = @json(Route::has('cache.clear.ajax') ? route('cache.clear.ajax') : url('/clear-cache'));
-            fetch(cacheClearUrl, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            })
-            .catch(error => {
-                // Background error handling without console noise
-            });
-        }, 60000); // 60 seconds
-    </script>
 </body>
 </html>

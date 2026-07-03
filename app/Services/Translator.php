@@ -24,6 +24,22 @@ class Translator
     protected static array $memo = [];
 
     /**
+     * Per-request circuit breaker. As soon as the translation API fails once
+     * (connection refused, timeout, quota…), we stop calling it for the rest
+     * of the request so a single slow/unreachable API can never stack up
+     * dozens of timeouts on one page — every later string returns instantly.
+     */
+    protected static bool $apiDown = false;
+
+    /**
+     * Per-request cache availability. Null = unknown, true = reachable,
+     * false = the `translations` table could not be read (e.g. before the
+     * migration has run). When false we serve source text and never touch
+     * the DB or API again this request.
+     */
+    protected static ?bool $cacheUp = null;
+
+    /**
      * Return $text translated into $locale (defaults to the current app
      * locale). Returns the original text unchanged for the source locale,
      * empty/untranslatable input, or on any error.
@@ -44,6 +60,18 @@ class Translator
         ));
     }
 
+    /**
+     * Clear the per-request memo and circuit breaker. Call this between units
+     * of work in a long-running process (e.g. a queue worker) so a transient
+     * API blip on one job doesn't disable translation for the whole worker.
+     */
+    public static function reset(): void
+    {
+        static::$memo    = [];
+        static::$apiDown = false;
+        static::$cacheUp = null;
+    }
+
     /** True if $text already has a cached translation for $locale. */
     public static function isCached(string $text, string $locale): bool
     {
@@ -51,9 +79,13 @@ class Translator
             return true; // nothing to translate == nothing missing
         }
 
-        return TranslationCache::where('locale', $locale)
-            ->where('source_hash', sha1($text))
-            ->exists();
+        try {
+            return TranslationCache::where('locale', $locale)
+                ->where('source_hash', sha1($text))
+                ->exists();
+        } catch (Throwable $e) {
+            return true; // cache unreachable — treat as "nothing to do"
+        }
     }
 
     public static function text(?string $text, ?string $locale = null): string
@@ -72,18 +104,41 @@ class Translator
             return static::$memo[$memoKey];
         }
 
+        // If the cache table was already found unreachable this request, or the
+        // API already failed, skip straight to the original text — no DB, no HTTP.
+        if (static::$cacheUp === false || static::$apiDown) {
+            return static::$memo[$memoKey] = $text;
+        }
+
+        // 1) Try the persistent cache. A missing/unreadable table must degrade
+        //    gracefully rather than 500 the page (e.g. before `migrate` runs).
         try {
             $cached = TranslationCache::where('locale', $locale)
                 ->where('source_hash', $hash)
                 ->value('translated_text');
 
+            static::$cacheUp = true;
+
             if ($cached !== null) {
                 return static::$memo[$memoKey] = $cached;
             }
+        } catch (Throwable $e) {
+            static::$cacheUp = false;
+            Log::warning('Translation cache unavailable, serving source text: ' . $e->getMessage());
 
+            return static::$memo[$memoKey] = $text;
+        }
+
+        // 2) Cache miss. Unless the live API is explicitly enabled, serve the
+        //    source text — the site stays fully self-contained (no API threat).
+        if (! config('translation.api_enabled', false)) {
+            return static::$memo[$memoKey] = $text;
+        }
+
+        // Otherwise ask the engine, then persist a genuine translation.
+        try {
             $translated = static::viaDriver($text, $locale);
 
-            // Only persist a genuine, non-empty translation.
             if ($translated !== null && trim($translated) !== '' && $translated !== $text) {
                 TranslationCache::updateOrCreate(
                     ['locale' => $locale, 'source_hash' => $hash],
@@ -92,11 +147,14 @@ class Translator
 
                 return static::$memo[$memoKey] = $translated;
             }
+
+            // Nothing usable came back — trip the breaker for this request.
+            static::$apiDown = true;
         } catch (Throwable $e) {
-            Log::warning('Translation failed, using original text: ' . $e->getMessage());
+            static::$apiDown = true;
+            Log::warning('Translation API failed, using original text: ' . $e->getMessage());
         }
 
-        // Graceful fallback — cache the miss in-request so we don't retry the API repeatedly on one page.
         return static::$memo[$memoKey] = $text;
     }
 
@@ -145,7 +203,7 @@ class Translator
                 $params['de'] = $email;
             }
 
-            $res = Http::timeout($timeout)->get($endpoint, $params);
+            $res = Http::connectTimeout(min($timeout, 3))->timeout($timeout)->get($endpoint, $params);
             if (! $res->ok()) {
                 return null;
             }
@@ -173,7 +231,7 @@ class Translator
             $payload['api_key'] = $key;
         }
 
-        $res = Http::timeout($timeout)->asForm()->post($endpoint, $payload);
+        $res = Http::connectTimeout(min($timeout, 3))->timeout($timeout)->asForm()->post($endpoint, $payload);
 
         return $res->ok() ? ($res->json('translatedText') ?: null) : null;
     }
@@ -186,7 +244,7 @@ class Translator
             return null;
         }
 
-        $res = Http::timeout($timeout)
+        $res = Http::connectTimeout(min($timeout, 3))->timeout($timeout)
             ->withHeaders(['Authorization' => 'DeepL-Auth-Key ' . $key])
             ->asForm()
             ->post($endpoint, ['text' => $text, 'target_lang' => strtoupper(explode('-', $target)[0])]);

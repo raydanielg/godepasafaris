@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Services\TranslationWarmer;
+use App\Services\Translator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -43,6 +44,10 @@ class WarmTranslations implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
+        // Start each job with a clean breaker so a blip on a previous job
+        // doesn't disable translation for the rest of the worker's life.
+        Translator::reset();
+
         /** @var Model|null $model */
         $model = $this->modelClass::find($this->modelId);
 

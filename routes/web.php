@@ -2,115 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
-
-Route::post('/clear-cache', function () {
-    Artisan::call('route:clear');
-    Artisan::call('view:clear');
-    return response()->json(['status' => 'success', 'message' => 'Cache cleared']);
-})->name('cache.clear.ajax');
-
-// Test Email Route
-Route::get('/test-email', function () {
-    try {
-        \Illuminate\Support\Facades\Mail::raw('This is a test email from Go Deep Africa Safari booking system.', function ($message) {
-            $message->to('airezra@gmail.com')
-                    ->subject('Test Email - Go Deep Africa Safari')
-                    ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
-        });
-
-        return response()->json(['status' => 'success', 'message' => 'Test email sent successfully to airezra@gmail.com']);
-    } catch (\Exception $e) {
-        return response()->json(['status' => 'error', 'message' => 'Email failed: ' . $e->getMessage()], 500);
-    }
-})->name('test.email');
-
-// One-time: Seed Zanzibar destination on production — DELETE THIS ROUTE AFTER USE
-Route::get('/setup-zanzibar-destination', function () {
-    try {
-        $exists = \Illuminate\Support\Facades\DB::table('safari_destinations')->where('slug', 'zanzibar')->exists();
-
-        if (!$exists) {
-            $id = \Illuminate\Support\Facades\DB::table('safari_destinations')->insertGetId([
-                'name'              => 'Zanzibar Island',
-                'slug'              => 'zanzibar',
-                'tagline'           => 'Spice Island paradise — turquoise waters, coral reefs, and ancient Stone Town',
-                'description'       => 'Zanzibar is a semi-autonomous archipelago off the coast of Tanzania, renowned for its stunning white-sand beaches, crystal-clear turquoise waters, vibrant coral reefs, and the UNESCO World Heritage Site of Stone Town. The island blends African, Arab, Indian, and European influences into a unique cultural tapestry. Beyond the beaches, Zanzibar offers spice tours, dolphin watching, snorkelling, kite-surfing, and exploring the historic alleys of Stone Town. It is the perfect complement to a Tanzania safari.',
-                'short_description' => "White beaches, spice tours, and the historic Stone Town — Zanzibar is Tanzania's island paradise.",
-                'location'          => 'Indian Ocean, Tanzania Coast',
-                'best_time'         => 'June – October & December – February',
-                'icon'              => 'fa-umbrella-beach',
-                'badge'             => 'Beach & Culture',
-                'badge_color'       => 'info',
-                'is_featured'       => 0,
-                'is_active'         => 1,
-                'display_order'     => 16,
-                'highlight_1'       => 'UNESCO World Heritage Stone Town',
-                'highlight_2'       => 'Pristine Coral Reefs & Marine Parks',
-                'highlight_3'       => 'Spice Plantation Tours',
-                'area'              => '2,462 km²',
-                'established'       => 'Ancient — 10th Century',
-                'wildlife_count'    => '200+ Marine Species',
-                'gallery'           => '[]',
-                'created_at'        => now(),
-                'updated_at'        => now(),
-            ]);
-
-            $activities = [
-                ['name' => 'Beach Relaxation',     'icon' => 'fa-umbrella-beach', 'description' => 'Relax on world-class white sand beaches like Nungwi and Kendwa',  'display_order' => 1],
-                ['name' => 'Snorkelling & Diving', 'icon' => 'fa-water',          'description' => 'Explore vibrant coral reefs and marine parks',                    'display_order' => 2],
-                ['name' => 'Stone Town Tour',       'icon' => 'fa-mosque',         'description' => 'Walk the historic UNESCO World Heritage Site alleys',             'display_order' => 3],
-                ['name' => 'Spice Plantation Tour', 'icon' => 'fa-seedling',       'description' => 'Discover cloves, vanilla, cinnamon, and cardamom',               'display_order' => 4],
-                ['name' => 'Dolphin Watching',      'icon' => 'fa-fish',           'description' => 'Swim with wild dolphins in Kizimkazi Bay',                       'display_order' => 5],
-                ['name' => 'Kite Surfing',          'icon' => 'fa-wind',           'description' => 'World-class kite surfing at Paje Beach',                         'display_order' => 6],
-                ['name' => 'Deep Sea Fishing',      'icon' => 'fa-anchor',         'description' => 'Game fishing in the Indian Ocean',                               'display_order' => 7],
-                ['name' => 'Sunset Dhow Cruise',    'icon' => 'fa-ship',           'description' => 'Traditional wooden dhow sunset cruise with dinner',              'display_order' => 8],
-            ];
-
-            foreach ($activities as $activity) {
-                \Illuminate\Support\Facades\DB::table('safari_activities')->insert(array_merge($activity, [
-                    'safari_destination_id' => $id,
-                    'created_at'            => now(),
-                    'updated_at'            => now(),
-                ]));
-            }
-
-            $message = '✅ SUCCESS: Zanzibar destination created with ' . count($activities) . ' activities.';
-        } else {
-            $message = 'ℹ️ Zanzibar already exists in the database (id=' .
-                \Illuminate\Support\Facades\DB::table('safari_destinations')->where('slug','zanzibar')->value('id') . ').';
-        }
-
-        // Fix menu link regardless
-        \Illuminate\Support\Facades\DB::table('menu_links')
-            ->where('title', 'Zanzibar Island')
-            ->orWhere('title', 'Zanzibar Beach & Safari')
-            ->update(['url' => '/destinations/zanzibar', 'title' => 'Zanzibar Island', 'updated_at' => now()]);
-
-        Artisan::call('cache:clear');
-        Artisan::call('route:clear');
-        Artisan::call('view:clear');
-
-        return $message . '<br><br>Menu link fixed. Caches cleared.<br><br>'
-            . '👉 <a href="/destinations/zanzibar">Open Zanzibar Page</a><br>'
-            . '⚠️ <strong>DELETE the /setup-zanzibar-destination route from routes/web.php after confirming it works!</strong>';
-    } catch (\Exception $e) {
-        return '❌ ERROR: ' . $e->getMessage();
-    }
-});
-
-// Emergency cache clear via browser
-Route::get('/clear-all-cache', function () {
-    try {
-        Artisan::call('route:clear');
-        Artisan::call('view:clear');
-        Artisan::call('cache:clear');
-        Artisan::call('config:clear');
-        return 'All caches cleared! <a href="/">Go Home</a>';
-    } catch (Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/impact', [App\Http\Controllers\WelcomeController::class, 'impact'])->name('impact');
 
@@ -315,6 +207,11 @@ Route::get('/destinations/{slug}', [App\Http\Controllers\SafariDestinationContro
 // Safari circuits (Northern / Southern / Eastern) with maps
 Route::get('/safari-circuits', [App\Http\Controllers\CircuitController::class, 'index'])->name('circuits.index');
 Route::get('/safari-circuits/{slug}', [App\Http\Controllers\CircuitController::class, 'show'])->name('circuits.show');
+
+// Zanzibar destination landing page
+Route::get('/zanzibar', function () {
+    return view('zanzibar', ['z' => config('zanzibar')]);
+})->name('zanzibar');
 
 Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->name('safari');
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');
