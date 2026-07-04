@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class CulturalExperience extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'region', 'tribe', 'tagline', 'description',
+        'name', 'slug', 'region', 'tribe', 'tagline', 'meta_title', 'meta_description', 'description',
         'highlights', 'activities', 'price', 'duration', 'best_time',
         'image', 'gallery', 'icon', 'is_featured', 'is_active', 'display_order',
     ];
@@ -24,6 +24,12 @@ class CulturalExperience extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(CulturalReview::class)->where('is_approved', true)->latest();
+    }
+
+    /** Editable child activities (named to avoid clashing with the `activities` text column). */
+    public function activityItems(): HasMany
+    {
+        return $this->hasMany(CulturalActivity::class)->orderBy('display_order')->orderBy('id');
     }
 
     public function scopeActive($query)

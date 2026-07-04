@@ -202,6 +202,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/cultural/{cultural}', [App\Http\Controllers\Admin\CulturalController::class, 'destroy'])->name('admin.cultural.destroy');
     Route::post('/admin/cultural/{cultural}/reviews', [App\Http\Controllers\Admin\CulturalController::class, 'storeReview'])->name('admin.cultural.reviews.store');
     Route::delete('/admin/cultural-reviews/{review}', [App\Http\Controllers\Admin\CulturalController::class, 'destroyReview'])->name('admin.cultural.reviews.destroy');
+    Route::post('/admin/cultural/{cultural}/activities', [App\Http\Controllers\Admin\CulturalController::class, 'storeActivity'])->name('admin.cultural.activities.store');
+    Route::post('/admin/cultural-activities/{activity}', [App\Http\Controllers\Admin\CulturalController::class, 'updateActivity'])->name('admin.cultural.activities.update');
+    Route::delete('/admin/cultural-activities/{activity}', [App\Http\Controllers\Admin\CulturalController::class, 'destroyActivity'])->name('admin.cultural.activities.destroy');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');

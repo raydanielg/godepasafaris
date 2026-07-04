@@ -25,7 +25,7 @@
 
         <div class="col-12">
             <label class="form-label fw-bold">Description</label>
-            <textarea name="description" class="form-control rounded-3" rows="4">{{ old('description', $item->description ?? '') }}</textarea>
+            <textarea name="description" id="editor-description" class="form-control rounded-3" rows="5">{{ old('description', $item->description ?? '') }}</textarea>
         </div>
 
         <div class="col-md-6">
@@ -98,6 +98,16 @@
             @endif
             <input type="file" name="gallery[]" class="form-control rounded-3" accept="image/*" multiple>
             <small class="text-muted">Select multiple images to add to the gallery.</small>
+        </div>
+
+        <div class="col-12"><hr class="my-1"><h6 class="fw-bold text-muted mb-0"><i class="fas fa-magnifying-glass me-2"></i>SEO (optional — leave blank to auto-generate)</h6></div>
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Meta Title</label>
+            <input type="text" name="meta_title" value="{{ old('meta_title', $item->meta_title ?? '') }}" class="form-control rounded-3" maxlength="255" placeholder="Custom title for search engines / browser tab">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Meta Description</label>
+            <input type="text" name="meta_description" value="{{ old('meta_description', $item->meta_description ?? '') }}" class="form-control rounded-3" maxlength="500" placeholder="Short description shown in search results">
         </div>
     </div>
 

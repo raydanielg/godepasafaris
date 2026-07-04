@@ -29,6 +29,15 @@ class CulturalSeeder extends Seeder
             foreach ($reviews as $r) {
                 $exp->reviews()->firstOrCreate(['name' => $r['name'], 'comment' => $r['comment']], $r + ['is_approved' => true]);
             }
+
+            // Break the activity list into individually editable activity records.
+            $lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $data['activities'] ?? ''))));
+            foreach ($lines as $i => $line) {
+                $exp->activityItems()->firstOrCreate(
+                    ['name' => $line],
+                    ['icon' => 'fa-circle-check', 'display_order' => $i + 1],
+                );
+            }
         }
     }
 

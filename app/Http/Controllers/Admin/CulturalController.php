@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CulturalActivity;
 use App\Models\CulturalExperience;
 use App\Models\CulturalReview;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class CulturalController extends Controller
 
     public function edit(CulturalExperience $cultural)
     {
-        $cultural->load('reviews');
+        $cultural->load('reviews', 'activityItems');
 
         return view('admin.cultural.edit', ['item' => $cultural]);
     }
@@ -112,16 +113,66 @@ class CulturalController extends Controller
         return back()->with('success', 'Review deleted.');
     }
 
+    /* ------------------------------------------------- Activities manager */
+
+    public function storeActivity(Request $request, CulturalExperience $cultural)
+    {
+        $validated = $this->validatedActivity($request);
+        $validated['image'] = $this->upload($request, 'image');
+        $validated['display_order'] = $validated['display_order'] ?? (($cultural->activityItems()->max('display_order') ?? 0) + 1);
+
+        $cultural->activityItems()->create($validated);
+
+        return back()->with('success', 'Activity added.');
+    }
+
+    public function updateActivity(Request $request, CulturalActivity $activity)
+    {
+        $validated = $this->validatedActivity($request);
+
+        if ($newImage = $this->upload($request, 'image')) {
+            $this->deleteFile($activity->image);
+            $validated['image'] = $newImage;
+        } else {
+            unset($validated['image']);
+        }
+
+        $activity->update($validated);
+
+        return back()->with('success', 'Activity updated.');
+    }
+
+    public function destroyActivity(CulturalActivity $activity)
+    {
+        $this->deleteFile($activity->image);
+        $activity->delete();
+
+        return back()->with('success', 'Activity deleted.');
+    }
+
+    private function validatedActivity(Request $request): array
+    {
+        return $request->validate([
+            'name'          => 'required|string|max:255',
+            'description'   => 'nullable|string|max:1000',
+            'icon'          => 'nullable|string|max:60',
+            'display_order' => 'nullable|integer|min:0',
+            'image'         => 'nullable|image|mimes:jpeg,jpg,png,webp|max:4096',
+        ]);
+    }
+
     /* ---------------------------------------------------------- helpers */
 
     private function validated(Request $request): array
     {
         $validated = $request->validate([
-            'name'          => 'required|string|max:255',
-            'region'        => 'nullable|string|max:255',
-            'tribe'         => 'nullable|string|max:255',
-            'tagline'       => 'nullable|string|max:255',
-            'description'   => 'nullable|string',
+            'name'             => 'required|string|max:255',
+            'region'           => 'nullable|string|max:255',
+            'tribe'            => 'nullable|string|max:255',
+            'tagline'          => 'nullable|string|max:255',
+            'meta_title'       => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'description'      => 'nullable|string',
             'highlights'    => 'nullable|string',
             'activities'    => 'nullable|string',
             'price'         => 'nullable|numeric|min:0',
