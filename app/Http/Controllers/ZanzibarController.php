@@ -36,11 +36,11 @@ class ZanzibarController extends Controller
         // language like the rest of the site.
         $shapes = [
             'beaches'    => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'best_time' => tr($r->best_time), 'desc' => tr($r->description), 'activities' => array_map('tr', $r->detail_list), 'image' => $r->image_url],
-            'stone_town' => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)],
-            'culture'    => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon],
-            'spices'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)],
-            'turtle'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)],
-            'marine'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon],
+            'stone_town' => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description), 'image' => $r->image_url],
+            'culture'    => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'image' => $r->image_url],
+            'spices'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description), 'image' => $r->image_url],
+            'turtle'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description), 'image' => $r->image_url],
+            'marine'     => fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'image' => $r->image_url],
             'packages'   => fn ($r) => [
                 'name'     => tr($r->title),
                 'tag'      => tr($r->description),
@@ -62,7 +62,7 @@ class ZanzibarController extends Controller
         foreach (['prison_island', 'jozani'] as $category) {
             if (($rows[$category] ?? collect())->isNotEmpty()) {
                 $z[$category]['features'] = $rows[$category]
-                    ->map(fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description)])
+                    ->map(fn ($r) => ['name' => tr($r->title), 'icon' => $r->icon, 'desc' => tr($r->description), 'image' => $r->image_url])
                     ->values()->all();
             }
         }

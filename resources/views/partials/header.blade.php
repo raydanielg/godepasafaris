@@ -353,6 +353,10 @@
                         <a class="nav-link {{ Route::is('zanzibar') ? 'active' : '' }} px-3" href="{{ route('zanzibar') }}" style="color: #3E2723 !important;">Zanzibar</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('cultural*') ? 'active' : '' }} px-3" href="{{ route('cultural.index') }}" style="color: #3E2723 !important;">Cultural Safari</a>
+                    </li>
+
                     <!-- IMPACT / GIVING BACK Mega Menu -->
                     <li class="nav-item has-mega-menu position-static">
                         <a class="nav-link {{ Route::is('impact*') ? 'active' : '' }} px-3" href="{{ route('impact') }}" style="color: #3E2723 !important;" id="impactMegaMenu">
@@ -925,6 +929,7 @@
                 </li>
 
                 <li><a href="{{ route('zanzibar') }}" class="{{ Route::is('zanzibar') ? 'active' : '' }}"><i class="fas fa-umbrella-beach me-3"></i>Zanzibar</a></li>
+                <li><a href="{{ route('cultural.index') }}" class="{{ Route::is('cultural*') ? 'active' : '' }}"><i class="fas fa-people-group me-3"></i>Cultural Safari</a></li>
 
                 <li class="sidebar-dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">

@@ -25,6 +25,9 @@
         <a href="{{ route('admin.zanzibar.index') }}" class="nav-link {{ Route::is('admin.zanzibar*') ? 'active' : '' }}">
             <i class="fas fa-umbrella-beach"></i> Zanzibar
         </a>
+        <a href="{{ route('admin.cultural.index') }}" class="nav-link {{ Route::is('admin.cultural*') ? 'active' : '' }}">
+            <i class="fas fa-people-group"></i> Cultural Safari
+        </a>
         <a href="{{ route('admin.posts') }}" class="nav-link {{ Route::is('admin.posts*') ? 'active' : '' }}">
             <i class="fas fa-newspaper"></i> Blog Posts
         </a>

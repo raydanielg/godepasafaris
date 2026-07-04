@@ -192,6 +192,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/zanzibar/{zanzibar}/edit', [App\Http\Controllers\Admin\ZanzibarController::class, 'edit'])->name('admin.zanzibar.edit');
     Route::put('/admin/zanzibar/{zanzibar}', [App\Http\Controllers\Admin\ZanzibarController::class, 'update'])->name('admin.zanzibar.update');
     Route::delete('/admin/zanzibar/{zanzibar}', [App\Http\Controllers\Admin\ZanzibarController::class, 'destroy'])->name('admin.zanzibar.destroy');
+
+    // Cultural Safari Management
+    Route::get('/admin/cultural', [App\Http\Controllers\Admin\CulturalController::class, 'index'])->name('admin.cultural.index');
+    Route::get('/admin/cultural/create', [App\Http\Controllers\Admin\CulturalController::class, 'create'])->name('admin.cultural.create');
+    Route::post('/admin/cultural', [App\Http\Controllers\Admin\CulturalController::class, 'store'])->name('admin.cultural.store');
+    Route::get('/admin/cultural/{cultural}/edit', [App\Http\Controllers\Admin\CulturalController::class, 'edit'])->name('admin.cultural.edit');
+    Route::put('/admin/cultural/{cultural}', [App\Http\Controllers\Admin\CulturalController::class, 'update'])->name('admin.cultural.update');
+    Route::delete('/admin/cultural/{cultural}', [App\Http\Controllers\Admin\CulturalController::class, 'destroy'])->name('admin.cultural.destroy');
+    Route::post('/admin/cultural/{cultural}/reviews', [App\Http\Controllers\Admin\CulturalController::class, 'storeReview'])->name('admin.cultural.reviews.store');
+    Route::delete('/admin/cultural-reviews/{review}', [App\Http\Controllers\Admin\CulturalController::class, 'destroyReview'])->name('admin.cultural.reviews.destroy');
 });
 
 Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
@@ -218,6 +228,10 @@ Route::get('/safari-circuits/{slug}', [App\Http\Controllers\CircuitController::c
 
 // Zanzibar destination landing page
 Route::get('/zanzibar', [App\Http\Controllers\ZanzibarController::class, 'index'])->name('zanzibar');
+
+// Cultural Safari (public)
+Route::get('/cultural-safari', [App\Http\Controllers\CulturalController::class, 'index'])->name('cultural.index');
+Route::get('/cultural-safari/{cultural}', [App\Http\Controllers\CulturalController::class, 'show'])->name('cultural.show');
 
 Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->name('safari');
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');

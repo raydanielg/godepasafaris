@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             SafariSeeder::class,
             SafariDestinationSeeder::class,
             ZanzibarSeeder::class,
+            CulturalSeeder::class,
             ImpactSeeder::class,
             MenuSeeder::class,
             // Load committed, offline translations last (no-API, idempotent).

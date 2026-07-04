@@ -105,19 +105,42 @@ class ZanzibarController extends Controller
         return $validated;
     }
 
-    /** Store an uploaded image on the public disk; returns the stored path or null. */
+    /**
+     * Store an uploaded image directly under public/uploads/zanzibar so it is
+     * web-accessible without needing the storage symlink (important on shared
+     * hosting). Returns the stored relative path, or null.
+     */
     private function handleImage(Request $request): ?string
     {
         if (! $request->hasFile('image')) {
             return null;
         }
 
-        return $request->file('image')->store('zanzibar', 'public');
+        $file = $request->file('image');
+        $name = 'znz_' . uniqid() . '.' . strtolower($file->getClientOriginalExtension() ?: 'jpg');
+        $dir  = public_path('uploads/zanzibar');
+
+        if (! is_dir($dir)) {
+            @mkdir($dir, 0755, true);
+        }
+
+        $file->move($dir, $name);
+
+        return 'uploads/zanzibar/' . $name;
     }
 
     private function deleteImage(?string $path): void
     {
-        if ($path && ! str_starts_with($path, 'http') && Storage::disk('public')->exists($path)) {
+        if (! $path || str_starts_with($path, 'http')) {
+            return;
+        }
+        // New public/ path.
+        if (is_file(public_path($path))) {
+            @unlink(public_path($path));
+            return;
+        }
+        // Legacy public-disk path.
+        if (Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);
         }
     }

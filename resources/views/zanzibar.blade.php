@@ -38,7 +38,8 @@
             background-size:cover; background-position:center;
         }
         .znz-hero .content{ color:#fff; max-width:820px; }
-        .znz-eyebrow{ letter-spacing:3px; text-transform:uppercase; font-weight:700; font-size:.8rem; color:var(--aqua); }
+        .znz-eyebrow{ letter-spacing:1.5px; text-transform:uppercase; font-weight:800; font-size:1.25rem; color:#FFE1A8; text-shadow:0 2px 12px rgba(0,0,0,.55); }
+        @media (max-width:576px){ .znz-eyebrow{ font-size:1rem; letter-spacing:1px; } }
         .btn-coral{ background:var(--coral); border:none; color:#fff; font-weight:700; }
         .btn-coral:hover{ background:#ff6a35; color:#fff; }
         .btn-wa{ background:#25D366; border:none; color:#fff; font-weight:700; }
@@ -56,7 +57,11 @@
         .znz-rule{ width:70px; height:4px; border-radius:4px; background:linear-gradient(90deg,var(--teal),var(--aqua)); }
         .znz-card{ background:#fff; border:1px solid rgba(11,79,108,.08); border-radius:1.1rem; transition:transform .3s ease, box-shadow .3s ease; height:100%; }
         .znz-card:hover{ transform:translateY(-7px); box-shadow:0 18px 40px rgba(11,79,108,.14); }
-        .znz-ico{ width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.25rem; background:linear-gradient(135deg,var(--teal),var(--aqua)); }
+        .znz-ico{ width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.25rem; background:linear-gradient(135deg,var(--teal),var(--aqua)); overflow:hidden; flex-shrink:0; }
+        .znz-ico img{ width:100%; height:100%; object-fit:cover; border-radius:inherit; }
+        .znz-card-banner{ height:190px; overflow:hidden; border-radius:1.1rem 1.1rem 0 0; }
+        .znz-card-banner img{ width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+        .znz-card:hover .znz-card-banner img{ transform:scale(1.05); }
         .znz-badge{ background:var(--sand); color:var(--deep); border:1px solid rgba(11,79,108,.12); border-radius:999px; font-weight:600; font-size:.72rem; padding:.3rem .7rem; }
         .pkg-card{ overflow:hidden; }
         .pkg-head{ background:linear-gradient(135deg,var(--deep),var(--teal)); color:#fff; }
@@ -124,19 +129,24 @@
             <div class="row g-4">
                 @foreach($z['beaches'] as $b)
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                    <div class="znz-card p-4">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="znz-ico"><i class="fas {{ $b['icon'] }}"></i></div>
-                            <div>
-                                <h3 class="h5 fw-bold mb-0" style="color:var(--deep);">{{ $b['name'] }}</h3>
-                                <small class="text-muted"><i class="far fa-calendar me-1"></i>Best: {{ $b['best_time'] }}</small>
+                    <div class="znz-card overflow-hidden">
+                        @if(!empty($b['image']))
+                        <div class="znz-card-banner"><img src="{{ $b['image'] }}" alt="{{ $b['name'] }}" loading="lazy"></div>
+                        @endif
+                        <div class="p-4">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="znz-ico"><i class="fas {{ $b['icon'] }}"></i></div>
+                                <div>
+                                    <h3 class="h5 fw-bold mb-0" style="color:var(--deep);">{{ $b['name'] }}</h3>
+                                    <small class="text-muted"><i class="far fa-calendar me-1"></i>Best: {{ $b['best_time'] }}</small>
+                                </div>
                             </div>
-                        </div>
-                        <p class="text-muted small mb-3">{{ $b['desc'] }}</p>
-                        <div class="d-flex flex-wrap gap-2">
-                            @foreach($b['activities'] as $act)
-                                <span class="znz-badge">{{ $act }}</span>
-                            @endforeach
+                            <p class="text-muted small mb-3">{{ $b['desc'] }}</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach($b['activities'] as $act)
+                                    <span class="znz-badge">{{ $act }}</span>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +168,7 @@
                 @foreach($z['stone_town'] as $s)
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
                     <div class="znz-card p-4 h-100">
-                        <div class="znz-ico mb-3"><i class="fas {{ $s['icon'] }}"></i></div>
+                        <div class="znz-ico mb-3">@if(!empty($s['image']))<img src="{{ $s['image'] }}" alt="{{ $s['name'] }}" loading="lazy">@else<i class="fas {{ $s['icon'] }}"></i>@endif</div>
                         <h3 class="h6 fw-bold" style="color:var(--deep);">{{ $s['name'] }}</h3>
                         <p class="text-muted small mb-0">{{ $s['desc'] }}</p>
                     </div>
@@ -193,7 +203,7 @@
                 @foreach($z['spices'] as $sp)
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
                     <div class="znz-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="znz-ico flex-shrink-0"><i class="fas {{ $sp['icon'] }}"></i></div>
+                        <div class="znz-ico flex-shrink-0">@if(!empty($sp['image']))<img src="{{ $sp['image'] }}" alt="{{ $sp['name'] }}" loading="lazy">@else<i class="fas {{ $sp['icon'] }}"></i>@endif</div>
                         <div>
                             <h3 class="h6 fw-bold mb-1" style="color:var(--deep);">{{ $sp['name'] }}</h3>
                             <p class="text-muted small mb-0">{{ $sp['desc'] }}</p>
@@ -217,7 +227,7 @@
                 @foreach($z['turtle'] as $t)
                 <div class="col-md-6" data-aos="fade-up">
                     <div class="znz-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="znz-ico flex-shrink-0"><i class="fas {{ $t['icon'] }}"></i></div>
+                        <div class="znz-ico flex-shrink-0">@if(!empty($t['image']))<img src="{{ $t['image'] }}" alt="{{ $t['name'] }}" loading="lazy">@else<i class="fas {{ $t['icon'] }}"></i>@endif</div>
                         <div>
                             <h3 class="h6 fw-bold mb-1" style="color:var(--deep);">{{ $t['name'] }}</h3>
                             <p class="text-muted small mb-0">{{ $t['desc'] }}</p>
@@ -252,7 +262,7 @@
                 @foreach($z['prison_island']['features'] as $f)
                 <div class="col-lg-3 col-md-6" data-aos="fade-up">
                     <div class="znz-card p-4 text-center h-100">
-                        <div class="znz-ico mx-auto mb-3"><i class="fas {{ $f['icon'] }}"></i></div>
+                        <div class="znz-ico mx-auto mb-3">@if(!empty($f['image']))<img src="{{ $f['image'] }}" alt="{{ $f['name'] }}" loading="lazy">@else<i class="fas {{ $f['icon'] }}"></i>@endif</div>
                         <h3 class="h6 fw-bold" style="color:var(--deep);">{{ $f['name'] }}</h3>
                         <p class="text-muted small mb-0">{{ $f['desc'] }}</p>
                     </div>
@@ -275,7 +285,7 @@
                 @foreach($z['jozani']['features'] as $f)
                 <div class="col-lg-3 col-md-6" data-aos="fade-up">
                     <div class="znz-card p-4 text-center h-100">
-                        <div class="znz-ico mx-auto mb-3"><i class="fas {{ $f['icon'] }}"></i></div>
+                        <div class="znz-ico mx-auto mb-3">@if(!empty($f['image']))<img src="{{ $f['image'] }}" alt="{{ $f['name'] }}" loading="lazy">@else<i class="fas {{ $f['icon'] }}"></i>@endif</div>
                         <h3 class="h6 fw-bold" style="color:var(--deep);">{{ $f['name'] }}</h3>
                         <p class="text-muted small mb-0">{{ $f['desc'] }}</p>
                     </div>

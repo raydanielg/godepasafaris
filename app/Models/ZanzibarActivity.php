@@ -49,9 +49,11 @@ class ZanzibarActivity extends Model
         if (Str::startsWith($this->image, ['http://', 'https://'])) {
             return $this->image;
         }
-        if (Str::startsWith($this->image, 'storage/')) {
+        // Files saved directly under public/ (no storage symlink required).
+        if (Str::startsWith($this->image, ['uploads/', 'images/', 'storage/'])) {
             return asset($this->image);
         }
+        // Legacy public-disk path (requires the storage symlink).
         return asset('storage/' . ltrim($this->image, '/'));
     }
 
