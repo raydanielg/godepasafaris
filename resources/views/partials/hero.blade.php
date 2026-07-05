@@ -36,7 +36,7 @@
 
             <!-- Slide 2: Kilimanjaro Summit -->
             <div class="carousel-item">
-                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/images/3-Days-Serengeti-Balloon-Safaris.webp') }}');"></div>
+                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ bg('bg_home_1', 'images/images/3-Days-Serengeti-Balloon-Safaris.webp') }}');"></div>
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
@@ -60,7 +60,7 @@
 
             <!-- Slide 3: Wildlife Encounters -->
             <div class="carousel-item">
-                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ asset('images/images/4GyurGeCrKkxo9FvCd8bnc-1000-80.jpg') }}');"></div>
+                <div class="hero-slide-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ bg('bg_home_2', 'images/images/4GyurGeCrKkxo9FvCd8bnc-1000-80.jpg') }}');"></div>
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">

@@ -111,6 +111,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/settings', [App\Http\Controllers\Admin\DashboardController::class, 'updateSettings'])->name('admin.settings.update');
     Route::post('/admin/settings/clear-cache', [App\Http\Controllers\Admin\DashboardController::class, 'clearCache'])->name('admin.settings.clear-cache');
 
+    // Page Backgrounds
+    Route::get('/admin/backgrounds', [App\Http\Controllers\Admin\BackgroundController::class, 'index'])->name('admin.backgrounds');
+    Route::post('/admin/backgrounds', [App\Http\Controllers\Admin\BackgroundController::class, 'update'])->name('admin.backgrounds.update');
+
     // Impact / Giving Back Management
     Route::get('/admin/impact', [App\Http\Controllers\Admin\ImpactController::class, 'index'])->name('admin.impact.index');
 

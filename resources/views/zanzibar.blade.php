@@ -34,7 +34,7 @@
         .znz h1,.znz h2,.znz h3,.znz .display-title{ font-family:'Playfair Display',serif; }
         .znz-hero{
             min-height:100vh; position:relative; display:flex; align-items:center;
-            background:linear-gradient(180deg, rgba(10,46,54,.35) 0%, rgba(11,79,108,.75) 100%), url('{{ $z['hero_image'] }}');
+            background:linear-gradient(180deg, rgba(10,46,54,.35) 0%, rgba(11,79,108,.75) 100%), url('{{ bg('bg_zanzibar', $z['hero_image']) }}');
             background-size:cover; background-position:center;
         }
         .znz-hero .content{ color:#fff; max-width:820px; }

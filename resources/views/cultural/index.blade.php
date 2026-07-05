@@ -16,7 +16,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         .cul-hero{ min-height:60vh; display:flex; align-items:center; color:#fff;
-            background:linear-gradient(rgba(40,25,15,.55), rgba(62,39,35,.85)), url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1920&q=80');
+            background:linear-gradient(rgba(40,25,15,.55), rgba(62,39,35,.85)), url('{{ bg('bg_cultural', 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1920&q=80') }}');
             background-size:cover; background-position:center; }
         .cul-card{ transition:transform .35s ease, box-shadow .35s ease; overflow:hidden; }
         .cul-card:hover{ transform:translateY(-8px); box-shadow:0 20px 45px rgba(0,0,0,.14); }

@@ -19,7 +19,7 @@
         .destinations-hero {
             min-height: 70vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.85) 0%, rgba(139,69,19,0.8) 50%, rgba(62,39,35,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('{{ bg('bg_destinations', 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;

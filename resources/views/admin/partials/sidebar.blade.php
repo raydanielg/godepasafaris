@@ -44,6 +44,9 @@
         <a href="{{ route('admin.users') }}" class="nav-link {{ Route::is('admin.users') ? 'active' : '' }}">
             <i class="fas fa-users"></i> Users
         </a>
+        <a href="{{ route('admin.backgrounds') }}" class="nav-link {{ Route::is('admin.backgrounds') ? 'active' : '' }}">
+            <i class="fas fa-image"></i> Page Backgrounds
+        </a>
         <a href="{{ route('admin.settings') }}" class="nav-link {{ Route::is('admin.settings') ? 'active' : '' }}">
             <i class="fas fa-cog"></i> Settings
         </a>
