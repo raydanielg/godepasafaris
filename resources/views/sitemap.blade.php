@@ -28,6 +28,60 @@
         <loc>{{ route('about') }}</loc>
         <priority>0.7</priority>
     </url>
+    <url>
+        <loc>{{ route('destinations') }}</loc>
+        <priority>0.9</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('zanzibar') }}</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('cultural.index') }}</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('circuits.index') }}</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('impact') }}</loc>
+        <priority>0.7</priority>
+    </url>
+
+    @foreach($styles as $style)
+    <url>
+        <loc>{{ route('styles.' . $style) }}</loc>
+        <priority>0.6</priority>
+    </url>
+    @endforeach
+
+    @foreach($destinations as $destination)
+    <url>
+        <loc>{{ route('destinations.show', $destination->slug) }}</loc>
+        @if($destination->updated_at)<lastmod>{{ $destination->updated_at->tz('UTC')->toAtomString() }}</lastmod>@endif
+        <priority>0.8</priority>
+    </url>
+    @endforeach
+
+    @foreach($cultural as $experience)
+    <url>
+        <loc>{{ route('cultural.show', $experience->slug) }}</loc>
+        @if($experience->updated_at)<lastmod>{{ $experience->updated_at->tz('UTC')->toAtomString() }}</lastmod>@endif
+        <priority>0.7</priority>
+    </url>
+    @endforeach
+
+    @foreach($circuits as $circuit)
+    <url>
+        <loc>{{ route('circuits.show', $circuit) }}</loc>
+        <priority>0.7</priority>
+    </url>
+    @endforeach
 
     @foreach($safaris as $safari)
     <url>

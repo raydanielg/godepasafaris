@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @include('partials.seo', ['title' => 'Private Safaris - Go Deep Africa Safari'])
+    @include('partials.seo', [
+        'seoTitle' => 'Private Tanzania Safaris | Tailor-Made Trips with Go Deep Africa',
+        'seoDescription' => 'Private, tailor-made Tanzania safaris built around you: your own vehicle, guide and pace across the Serengeti, Ngorongoro and beyond. Plan your custom trip with Go Deep Africa.',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>

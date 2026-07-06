@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @include('partials.seo', ['title' => 'Cultural Safaris - Go Deep Africa Safari'])
+    @include('partials.seo', [
+        'seoTitle' => 'Cultural Safaris in Tanzania | Meet Maasai, Hadzabe & More | Go Deep Africa',
+        'seoDescription' => 'Combine wildlife with authentic culture: meet the Maasai, Hadzabe and other Tanzanian communities on a respectful cultural safari with Go Deep Africa Safari.',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

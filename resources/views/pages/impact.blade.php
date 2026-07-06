@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Giving Back - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Giving Back: How Go Deep Africa Safari Supports Tanzanian Communities',
+        'seoDescription' => 'Discover how Go Deep Africa Safari gives back through community projects, conservation and fair local employment across Tanzania. Travel that makes a real difference.',
+    ])
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />

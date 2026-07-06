@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @include('partials.seo', ['title' => 'Photographic Safaris - Go Deep Africa Safari'])
+    @include('partials.seo', [
+        'seoTitle' => 'Photographic Safaris in Tanzania | Capture the Wild | Go Deep Africa',
+        'seoDescription' => 'Photographic safaris designed for great light, low angles and unhurried sightings across Tanzania. Capture the Great Migration and Big Five with Go Deep Africa Safari.',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">

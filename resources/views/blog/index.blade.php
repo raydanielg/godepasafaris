@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Our Blog - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Tanzania Safari & Kilimanjaro Blog: Guides, Tips & Stories | Go Deep Africa',
+        'seoDescription' => 'Expert guides on Tanzania safaris, the Great Migration, Kilimanjaro routes and Zanzibar. Practical tips and inspiration from the Go Deep Africa Safari local team.',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">

@@ -17,7 +17,7 @@
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
                             <h1 class="hero-title mb-2">{{ __('messages.hero.slide1_line1') }}</h1>
-                            <h1 class="hero-title mb-4">{{ __('messages.hero.slide1_line2') }}</h1>
+                            <div class="hero-title mb-4">{{ __('messages.hero.slide1_line2') }}</div>
                             <p class="hero-description mb-4">
                                 {{ __('messages.hero.slide1_desc') }}
                             </p>
@@ -40,8 +40,8 @@
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
-                            <h1 class="hero-title mb-2">{{ __('messages.hero.slide2_line1') }}</h1>
-                            <h1 class="hero-title mb-4">{{ __('messages.hero.slide2_line2') }}</h1>
+                            <div class="hero-title mb-2">{{ __('messages.hero.slide2_line1') }}</div>
+                            <div class="hero-title mb-4">{{ __('messages.hero.slide2_line2') }}</div>
                             <p class="hero-description mb-4">
                                 {{ __('messages.hero.slide2_desc') }}
                             </p>
@@ -64,8 +64,8 @@
                 <div class="carousel-caption d-flex align-items-center h-100">
                     <div class="container">
                         <div class="hero-text-block animate__animated animate__fadeInLeft text-start">
-                            <h1 class="hero-title mb-2">{{ __('messages.hero.slide3_line1') }}</h1>
-                            <h1 class="hero-title mb-4">{{ __('messages.hero.slide3_line2') }}</h1>
+                            <div class="hero-title mb-2">{{ __('messages.hero.slide3_line1') }}</div>
+                            <div class="hero-title mb-4">{{ __('messages.hero.slide3_line2') }}</div>
                             <p class="hero-description mb-4">
                                 {{ __('messages.hero.slide3_desc') }}
                             </p>
