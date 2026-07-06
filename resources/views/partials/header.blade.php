@@ -35,13 +35,13 @@
     </div>
 
     <!-- Bottom Header: Navigation Menu & Logo with Mega Menu -->
-    <nav class="bottom-header sticky-top navbar navbar-expand-lg navbar-light shadow-sm py-2 animate__animated animate__fadeIn mx-lg-3 mt-lg-3 rounded-pill" style="background-color: #fdfaf5;">
+    <nav class="bottom-header sticky-top navbar navbar-expand-xl navbar-light shadow-sm py-2 animate__animated animate__fadeIn mx-lg-3 mt-lg-3 rounded-pill" style="background-color: #fdfaf5;">
         <div class="container-fluid px-lg-3">
             <a href="{{ url('/') }}" class="navbar-brand me-3">
                 <img src="{{ asset('images/logo/logo.png') }}" alt="Go Deep Africa Safari" style="max-height: 55px; width: auto;">
             </a>
 
-            <button class="mobile-sidebar-toggle d-lg-none" type="button" id="mobileSidebarToggle" aria-label="Toggle navigation">
+            <button class="mobile-sidebar-toggle d-xl-none" type="button" id="mobileSidebarToggle" aria-label="Toggle navigation">
                 <span class="hamburger-icon">
                     <span></span>
                     <span></span>
@@ -459,7 +459,7 @@
                 </ul>
                 
                 <div class="auth-buttons d-flex gap-3 align-items-center">
-                    <div class="d-none d-lg-block">
+                    <div class="d-none d-xl-block">
                         @include('partials.language_switcher', ['variant' => 'compact'])
                     </div>
                     @auth
@@ -675,6 +675,26 @@
                         box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
                     }
 
+                    /* Full horizontal menu shows at >=1200px. Distribute the links
+                       evenly and compact them on smaller desktops so all 10 fit. */
+                    .navbar-nav.mx-auto {
+                        flex-wrap: nowrap;
+                    }
+
+                    @media (min-width: 1200px) and (max-width: 1499px) {
+                        .navbar-nav .nav-link {
+                            padding: 8px 8px !important;
+                            font-size: 0.8rem;
+                            margin: 0;
+                        }
+                        .navbar-brand img {
+                            max-height: 46px !important;
+                        }
+                        .auth-buttons {
+                            gap: 0.5rem !important;
+                        }
+                    }
+
                     /* Tablet Responsive */
                     @media (max-width: 1199px) {
                         .mega-menu-wrapper {
@@ -688,7 +708,7 @@
                     }
 
                     /* Mobile Responsive */
-                    @media (max-width: 991px) {
+                    @media (max-width: 1199px) {
                         .mega-menu-wrapper {
                             position: static;
                             width: 100%;

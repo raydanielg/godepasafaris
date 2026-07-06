@@ -13,7 +13,12 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
             aria-label="{{ __('messages.lang_switcher.choose') }}">
-        <span class="lang-switcher__flag" aria-hidden="true">{{ $currentMeta['flag'] }}</span>
+        <img class="lang-switcher__flag-img"
+             src="https://flagcdn.com/24x18/{{ $currentMeta['country'] ?? 'gb' }}.png"
+             srcset="https://flagcdn.com/48x36/{{ $currentMeta['country'] ?? 'gb' }}.png 2x"
+             width="24" height="18" alt="" aria-hidden="true" decoding="async"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
+        <span class="lang-switcher__flag" aria-hidden="true" style="display:none;">{{ $currentMeta['flag'] }}</span>
         <span class="lang-switcher__label">{{ $currentMeta['native'] }}</span>
     </button>
     <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 lang-switcher__menu" aria-labelledby="langSwitcher-{{ $variant }}">
@@ -24,7 +29,12 @@
                    href="{{ request()->fullUrlWithQuery(['lang' => $code]) }}"
                    lang="{{ $meta['hreflang'] }}"
                    hreflang="{{ $meta['hreflang'] }}">
-                    <span aria-hidden="true">{{ $meta['flag'] }}</span>
+                    <img class="lang-switcher__flag-img"
+                         src="https://flagcdn.com/24x18/{{ $meta['country'] ?? 'gb' }}.png"
+                         srcset="https://flagcdn.com/48x36/{{ $meta['country'] ?? 'gb' }}.png 2x"
+                         width="24" height="18" alt="" aria-hidden="true" loading="lazy" decoding="async"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
+                    <span aria-hidden="true" style="display:none;">{{ $meta['flag'] }}</span>
                     <span>{{ $meta['native'] }}</span>
                     @if($code === $current)
                         <i class="fas fa-check ms-auto small" style="color: #8B4513;"></i>
@@ -52,6 +62,14 @@
         background-color: #fdfaf5;
     }
     .lang-switcher__flag { font-size: 1rem; line-height: 1; }
+    .lang-switcher__flag-img {
+        width: 22px;
+        height: 16px;
+        object-fit: cover;
+        border-radius: 3px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        flex-shrink: 0;
+    }
     .lang-switcher__menu { border-radius: 12px; padding: 8px; min-width: 200px; }
     .lang-switcher__menu .dropdown-item { border-radius: 8px; padding: 8px 12px; font-weight: 500; }
     .lang-switcher__menu .dropdown-item:hover { background: rgba(139, 69, 19, 0.08); }
