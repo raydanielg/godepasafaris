@@ -35,9 +35,9 @@
     </div>
 
     <!-- Bottom Header: Navigation Menu & Logo with Mega Menu -->
-    <nav class="bottom-header sticky-top navbar navbar-expand-lg navbar-light shadow-sm py-2 animate__animated animate__fadeIn mx-lg-5 mt-lg-3 rounded-pill" style="background-color: #fdfaf5;">
-        <div class="container-fluid px-lg-5">
-            <a href="{{ url('/') }}" class="navbar-brand me-4">
+    <nav class="bottom-header sticky-top navbar navbar-expand-lg navbar-light shadow-sm py-2 animate__animated animate__fadeIn mx-lg-3 mt-lg-3 rounded-pill" style="background-color: #fdfaf5;">
+        <div class="container-fluid px-lg-3">
+            <a href="{{ url('/') }}" class="navbar-brand me-3">
                 <img src="{{ asset('images/logo/logo.png') }}" alt="Go Deep Africa Safari" style="max-height: 55px; width: auto;">
             </a>
 
@@ -493,8 +493,8 @@
                         font-weight: 600;
                         transition: all 0.3s ease;
                         position: relative;
-                        padding: 8px 14px !important;
-                        margin: 0 3px;
+                        padding: 8px 11px !important;
+                        margin: 0 1px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
