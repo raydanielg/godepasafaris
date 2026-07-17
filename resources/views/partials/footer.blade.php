@@ -29,6 +29,7 @@
                     <li><a href="{{ route('tours.all') }}"><i class="fas fa-chevron-right me-2"></i>{{ __('messages.nav.safaris') }}</a></li>
                     <li><a href="{{ route('how.works') }}"><i class="fas fa-chevron-right me-2"></i>{{ __('messages.footer.how_it_works') }}</a></li>
                     <li><a href="{{ route('testimonials') }}"><i class="fas fa-chevron-right me-2"></i>Testimonials</a></li>
+                    <li><a href="{{ route('styles.lgbtq') }}"><i class="fas fa-chevron-right me-2"></i>LGBTQ+ Safaris</a></li>
                 </ul>
             </div>
 

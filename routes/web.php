@@ -2,6 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| SEO 301 redirects
+|--------------------------------------------------------------------------
+| Old/removed safari URLs that still show up in Google Search Console as
+| "Not found (404)". These send leftover links (and Google) to the closest
+| live page instead of a dead end. Declared first so they win over the
+| dynamic /blog/{slug} and /destinations/{slug} routes below.
+|
+| NOTE: the many old travel-template URLs (/hotel/*, /car/*, /boat/*,
+| /flight, /event/*, /news/*, /location/*, /tour/*, /space) are deliberately
+| NOT redirected — a 404 is the correct answer for content that never
+| belonged to this site, and Google drops them automatically over time.
+*/
+Route::redirect('/ngorongoro-safari', '/all-tours', 301);
+Route::redirect('/lake-manyara-safari', '/all-tours', 301);
+Route::redirect('/destinations/ngorongoro', '/destinations', 301);
+Route::redirect('/blog/the-big-five-tanzanias-iconic-wildlife', '/blog', 301);
+Route::redirect('/blog/the-great-migration-natures-greatest-show', '/blog', 301);
+
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/impact', [App\Http\Controllers\WelcomeController::class, 'impact'])->name('impact');
@@ -40,6 +60,7 @@ Route::get('/packing-list/{slug}', [App\Http\Controllers\PackingListController::
     Route::get('/safari-styles/cultural', function () { return view('pages.styles.cultural'); })->name('styles.cultural');
     Route::get('/safari-styles/walking', function () { return view('pages.styles.walking'); })->name('styles.walking');
     Route::get('/safari-styles/luxury', function () { return view('pages.styles.luxury'); })->name('styles.luxury');
+    Route::get('/safari-styles/lgbtq', function () { return view('pages.styles.lgbtq'); })->name('styles.lgbtq');
 
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 

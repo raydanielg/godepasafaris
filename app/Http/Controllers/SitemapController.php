@@ -24,7 +24,7 @@ class SitemapController extends Controller
         $circuits = array_keys(config('circuits', []));
 
         // Safari styles that have real routes.
-        $styles = ['private', 'budget', 'photographic', 'cultural', 'walking', 'luxury'];
+        $styles = ['private', 'budget', 'photographic', 'cultural', 'walking', 'luxury', 'lgbtq'];
 
         // Dynamic destinations (stable table).
         $destinations = SafariDestination::query()

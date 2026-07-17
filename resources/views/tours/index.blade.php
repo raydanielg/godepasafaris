@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Tanzania Safari Tours & Packages — Serengeti, Ngorongoro & Kilimanjaro | Go Deep Africa',
+        'seoDescription' => 'Browse all Tanzania safari tours and Kilimanjaro packages — private, group, budget and luxury trips across the Serengeti, Ngorongoro Crater, Tarangire and beyond. Get a free custom safari quote.',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -38,8 +41,8 @@
 
     <section class="page-header animate__animated animate__fadeIn" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/images/Serengeti-National-Park-1.jpg') }}');">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold animate__animated animate__fadeInUp">Safaris</h1>
-            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Tanzania safari, trips, tour packages & vacation</p>
+            <h1 class="display-4 fw-bold animate__animated animate__fadeInUp">Tanzania Safari Tours &amp; Packages</h1>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Private, group, budget &amp; luxury trips across the Serengeti, Ngorongoro &amp; beyond</p>
         </div>
     </section>
 

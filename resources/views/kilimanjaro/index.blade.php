@@ -18,8 +18,8 @@
 
     <section class="page-header animate__animated animate__fadeIn" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}');">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold animate__animated animate__fadeInUp">Kilimanjaro Trekking</h1>
-            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Conquer the Roof of Africa with Expert Guides</p>
+            <h1 class="display-4 fw-bold animate__animated animate__fadeInUp">Mount Kilimanjaro Trekking &amp; Climbing</h1>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Climb the Roof of Africa with Expert Local Guides</p>
         </div>
     </section>
 
