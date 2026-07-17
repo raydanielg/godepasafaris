@@ -211,7 +211,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/cultural-activities/{activity}', [App\Http\Controllers\Admin\CulturalController::class, 'destroyActivity'])->name('admin.cultural.activities.destroy');
 });
 
-Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->name('booking.store');
+Route::post('/booking/store', [App\Http\Controllers\SafariController::class, 'storeBooking'])->middleware('throttle:8,1')->name('booking.store');
 
 Route::get('/kilimanjaro', [App\Http\Controllers\KilimanjaroController::class, 'index'])->name('kilimanjaro');
 Route::get('/kilimanjaro/why-us', function () { return view('pages.kilimanjaro.why-us'); })->name('kilimanjaro.why-us');
@@ -224,7 +224,7 @@ Route::get('/kilimanjaro/articles', function () { return view('pages.kilimanjaro
 Route::get('/kilimanjaro/other-mountains', function () { return view('pages.kilimanjaro.other-mountains'); })->name('kilimanjaro.other-mountains');
 Route::get('/kilimanjaro/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'show'])->name('kilimanjaro.show');
 Route::get('/kilimanjaro/route/{slug}', [App\Http\Controllers\KilimanjaroController::class, 'routeShow'])->name('kilimanjaro.route.show');
-Route::post('/kilimanjaro/{id}/enquire', [App\Http\Controllers\KilimanjaroController::class, 'enquire'])->name('kilimanjaro.enquire');
+Route::post('/kilimanjaro/{id}/enquire', [App\Http\Controllers\KilimanjaroController::class, 'enquire'])->middleware('throttle:8,1')->name('kilimanjaro.enquire');
 
 Route::get('/destinations', [App\Http\Controllers\SafariDestinationController::class, 'index'])->name('destinations');
 Route::get('/destinations/{slug}', [App\Http\Controllers\SafariDestinationController::class, 'show'])->name('destinations.show');
@@ -242,7 +242,7 @@ Route::get('/cultural-safari/{cultural}', [App\Http\Controllers\CulturalControll
 
 Route::get('/safari', [App\Http\Controllers\SafariController::class, 'index'])->name('safari');
 Route::get('/safari/{slug}', [App\Http\Controllers\SafariController::class, 'show'])->name('safari.show');
-Route::post('/safari/{id}/enquire', [App\Http\Controllers\SafariController::class, 'enquire'])->name('safari.enquire');
+Route::post('/safari/{id}/enquire', [App\Http\Controllers\SafariController::class, 'enquire'])->middleware('throttle:8,1')->name('safari.enquire');
 
 Auth::routes(['register' => false]);
 

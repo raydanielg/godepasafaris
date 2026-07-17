@@ -16,6 +16,12 @@
             <div class="modal-body p-4 p-md-5">
                 <form id="generalInquiryForm" action="{{ route('booking.store') }}" method="POST">
                     @csrf
+                    {{-- Honeypot: hidden anti-spam trap. Real visitors never see or fill this;
+                         bots do, and the server silently discards those submissions. --}}
+                    <div class="d-none" aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px; height:0; width:0; overflow:hidden;">
+                        <label for="gi_website">Website</label>
+                        <input type="text" name="website" id="gi_website" tabindex="-1" autocomplete="off">
+                    </div>
                     <div class="row g-4">
                         <!-- Personal Info -->
                         <div class="col-md-6">

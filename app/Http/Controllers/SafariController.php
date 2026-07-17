@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\SafariPackage;
 use App\Mail\BookingInquiry;
 use App\Mail\CustomerConfirmation;
+use App\Http\Controllers\Concerns\PreventsSpam;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class SafariController extends Controller
 {
+    use PreventsSpam;
+
     public function index()
     {
         $packages = SafariPackage::latest()->get();
@@ -59,6 +62,18 @@ class SafariController extends Controller
 
     public function enquire(Request $request, $id)
     {
+        // Silently drop bot submissions caught by the honeypot: pretend it
+        // succeeded so the bot moves on, but never save or email anything.
+        if ($this->isSpamSubmission($request)) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Thank you! Your safari inquiry has been received. Our team will contact you within 24 hours.'
+                ]);
+            }
+            return back()->with('success', 'Thank you! Your safari inquiry has been received. Our team will contact you within 24 hours.');
+        }
+
         $validator = \Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -128,6 +143,18 @@ class SafariController extends Controller
 
     public function storeBooking(Request $request)
     {
+        // Silently drop bot submissions caught by the honeypot: pretend it
+        // succeeded so the bot moves on, but never save or email anything.
+        if ($this->isSpamSubmission($request)) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Thank you! Your inquiry has been received. We will contact you shortly.'
+                ]);
+            }
+            return back()->with('success', 'Thank you! Your inquiry has been received. We will contact you shortly.');
+        }
+
         $validator = \Validator::make($request->all(), [
             'name'          => 'required|string|max:255',
             'email'         => 'required|email|max:255',

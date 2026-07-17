@@ -8,6 +8,12 @@
             <div class="modal-body p-4">
                 <form id="bookingForm" action="{{ route('booking.store') }}" method="POST">
                     @csrf
+                    {{-- Honeypot: hidden anti-spam trap. Real visitors never see or fill this;
+                         bots do, and the server silently discards those submissions. --}}
+                    <div class="d-none" aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px; height:0; width:0; overflow:hidden;">
+                        <label for="bk_website">Website</label>
+                        <input type="text" name="website" id="bk_website" tabindex="-1" autocomplete="off">
+                    </div>
                     <input type="hidden" name="tour_id" id="modal_tour_id">
                     <input type="hidden" name="tour_name" id="modal_tour_name">
                     
