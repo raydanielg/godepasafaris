@@ -22,6 +22,7 @@
                         <label for="gi_website">Website</label>
                         <input type="text" name="website" id="gi_website" tabindex="-1" autocomplete="off">
                     </div>
+                    <input type="hidden" name="form_ts" value="{{ \App\Support\FormTiming::token() }}">
                     <div class="row g-4">
                         <!-- Personal Info -->
                         <div class="col-md-6">
@@ -42,7 +43,10 @@
                             <label class="form-label fw-bold small text-muted text-uppercase">{{ __('messages.booking.phone') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0"><i class="fas fa-phone text-earth"></i></span>
-                                <input type="tel" name="phone" class="form-control bg-light border-0" placeholder="+255..." required>
+                                <select name="phone_country_code" class="form-select bg-light border-0" style="max-width: 6.5rem; flex: 0 0 auto;" required>
+                                    @include('partials.country_code_options')
+                                </select>
+                                <input type="tel" name="phone" class="form-control bg-light border-0" placeholder="712345678" pattern="[0-9]{6,14}" title="Digits only, no spaces or country code" required>
                             </div>
                         </div>
                         
@@ -66,7 +70,7 @@
                             <label class="form-label fw-bold small text-muted text-uppercase">{{ __('messages.inquiry.approx_date') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0" onclick="this.nextElementSibling.showPicker()" style="cursor: pointer;"><i class="fas fa-calendar-alt text-earth"></i></span>
-                                <input type="date" name="travel_date" class="form-control bg-light border-0" required>
+                                <input type="date" name="travel_date" class="form-control bg-light border-0" min="{{ now()->toDateString() }}" max="{{ now()->addYears(3)->toDateString() }}" required>
                             </div>
                         </div>
 
@@ -89,6 +93,11 @@
                         </div>
                     </div>
 
+                    @if(config('services.turnstile.site_key'))
+                    <div class="mt-4 d-flex justify-content-center">
+                        <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"></div>
+                    </div>
+                    @endif
                     <div class="mt-5 text-center">
                         <button type="submit" class="btn btn-earth px-5 py-3 rounded-pill fw-bold text-white shadow-sm w-100">
                             {{ __('messages.inquiry.send_now') }} <i class="fas fa-chevron-right ms-2"></i>

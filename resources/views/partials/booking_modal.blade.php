@@ -14,6 +14,7 @@
                         <label for="bk_website">Website</label>
                         <input type="text" name="website" id="bk_website" tabindex="-1" autocomplete="off">
                     </div>
+                    <input type="hidden" name="form_ts" value="{{ \App\Support\FormTiming::token() }}">
                     <input type="hidden" name="tour_id" id="modal_tour_id">
                     <input type="hidden" name="tour_name" id="modal_tour_name">
                     
@@ -36,14 +37,17 @@
                             <label class="form-label fw-bold small text-muted text-uppercase">Phone Number</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0"><i class="fas fa-phone text-earth"></i></span>
-                                <input type="tel" name="phone" class="form-control bg-light border-0" placeholder="+255..." required>
+                                <select name="phone_country_code" class="form-select bg-light border-0" style="max-width: 6.5rem; flex: 0 0 auto;" required>
+                                    @include('partials.country_code_options')
+                                </select>
+                                <input type="tel" name="phone" class="form-control bg-light border-0" placeholder="712345678" pattern="[0-9]{6,14}" title="Digits only, no spaces or country code" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold small text-muted text-uppercase">Travel Date</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0" onclick="this.nextElementSibling.showPicker()" style="cursor: pointer;"><i class="fas fa-calendar-alt text-earth"></i></span>
-                                <input type="date" name="travel_date" class="form-control bg-light border-0" required>
+                                <input type="date" name="travel_date" class="form-control bg-light border-0" min="{{ now()->toDateString() }}" max="{{ now()->addYears(3)->toDateString() }}" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -74,6 +78,11 @@
                             <textarea name="message" class="form-control bg-light border-0" rows="3" placeholder="Tell us more about your dream safari..."></textarea>
                         </div>
                     </div>
+                    @if(config('services.turnstile.site_key'))
+                    <div class="mt-3 d-flex justify-content-center">
+                        <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"></div>
+                    </div>
+                    @endif
                     <div class="mt-4">
                         <button type="submit" class="btn btn-earth w-100 py-3 rounded-pill fw-bold text-white">Confirm Booking Inquiry</button>
                     </div>

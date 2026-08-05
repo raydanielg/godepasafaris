@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Apply the resolved public-site locale on every web request.
         $middleware->web(append: \App\Http\Middleware\SetLocale::class);
+
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\EnsureIsAdmin::class,
+            'block.suspicious' => \App\Http\Middleware\BlockSuspiciousIps::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

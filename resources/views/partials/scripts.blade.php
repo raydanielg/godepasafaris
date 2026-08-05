@@ -5,6 +5,9 @@
 <!-- Common Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(config('services.turnstile.site_key'))
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+@endif
 <script>
     // Booking Form AJAX Submission
     document.getElementById('bookingForm').addEventListener('submit', function(e) {

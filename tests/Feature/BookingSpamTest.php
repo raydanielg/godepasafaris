@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Booking;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -32,15 +33,22 @@ class BookingSpamTest extends TestCase
         Mail::fake();
 
         $response = $this->from('/')->post('/booking/store', [
-            'name'    => 'Real Customer',
-            'email'   => 'real@customer.example',
-            'phone'   => '+255700000000',
-            'message' => 'We would love a 5-day Serengeti safari in August.',
-            'website' => '', // honeypot empty = human
+            'name'               => 'Real Customer',
+            'email'              => 'real@customer.example',
+            'phone_country_code' => '+255',
+            'phone'              => '700000000',
+            'travel_date'        => now()->addMonths(2)->toDateString(),
+            'travelers'          => '2',
+            'message'            => 'We would love a 5-day Serengeti safari in August.',
+            'website'            => '', // honeypot empty = human
+            // A form_ts older than the 3s minimum simulates a human who
+            // actually took time to fill the form in, rather than a bot
+            // that fetched the page and posted immediately.
+            'form_ts'            => Crypt::encryptString((string) now()->subSeconds(10)->timestamp),
         ]);
 
         $response->assertRedirect('/');
         $this->assertSame(1, Booking::count(), 'A clean submission must be saved.');
-        $this->assertDatabaseHas('bookings', ['email' => 'real@customer.example']);
+        $this->assertDatabaseHas('bookings', ['email' => 'real@customer.example', 'phone' => '+255700000000']);
     }
 }

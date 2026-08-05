@@ -454,8 +454,15 @@ class DashboardController extends Controller
 
     public function deleteBooking(Booking $booking, Request $request)
     {
+        \App\Models\BookingActivityLog::create([
+            'booking_id' => $booking->id,
+            'user_id' => auth()->id(),
+            'action' => 'deleted',
+            'description' => "Deleted inquiry from {$booking->name} ({$booking->email})",
+        ]);
+
         $booking->delete();
-        
+
         // Return JSON response for AJAX requests
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
@@ -481,6 +488,14 @@ class DashboardController extends Controller
                         ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
             });
 
+            \App\Models\BookingActivityLog::create([
+                'booking_id' => $booking->id,
+                'user_id' => auth()->id(),
+                'action' => 'email_sent',
+                'description' => "Subject: \"{$request->subject}\"",
+            ]);
+            \Log::channel('bookings')->info('Admin sent manual email', ['booking_id' => $booking->id, 'to' => $booking->email]);
+
             // Return JSON response for AJAX requests
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -491,6 +506,14 @@ class DashboardController extends Controller
 
             return back()->with('success', 'Email sent successfully.');
         } catch (\Exception $e) {
+            \App\Models\BookingActivityLog::create([
+                'booking_id' => $booking->id,
+                'user_id' => auth()->id(),
+                'action' => 'email_failed',
+                'description' => "Subject: \"{$request->subject}\" — {$e->getMessage()}",
+            ]);
+            \Log::channel('bookings')->error('Admin manual email failed: '.$e->getMessage(), ['booking_id' => $booking->id, 'to' => $booking->email]);
+
             // Return JSON response for AJAX requests
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -510,8 +533,18 @@ class DashboardController extends Controller
 
     public function updateBookingStatus(Request $request, Booking $booking)
     {
-        $request->validate(['status' => 'required|string']);
+        $request->validate(['status' => 'required|string|in:new,pending,contacted,quoted,confirmed,cancelled,spam']);
+
+        $previousStatus = $booking->status;
         $booking->update(['status' => $request->status]);
+
+        \App\Models\BookingActivityLog::create([
+            'booking_id' => $booking->id,
+            'user_id' => auth()->id(),
+            'action' => 'status_changed',
+            'description' => "Status changed from \"{$previousStatus}\" to \"{$request->status}\"",
+        ]);
+
         return back()->with('success', 'Status updated successfully.');
     }
 
