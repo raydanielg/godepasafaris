@@ -87,7 +87,7 @@ class DashboardController extends Controller
             'summary' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -116,7 +116,7 @@ class DashboardController extends Controller
             'summary' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -141,13 +141,14 @@ class DashboardController extends Controller
 
     public function uploadEditorImage(Request $request)
     {
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->move(public_path('images/blog/content'), $filename);
-            return response()->json(['location' => asset('images/blog/content/' . $filename)]);
-        }
-        return response()->json(['error' => 'No file uploaded'], 400);
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        $filename = time() . '_' . Str::random(20) . '.' . $file->extension();
+        $file->move(public_path('images/blog/content'), $filename);
+        return response()->json(['location' => asset('images/blog/content/' . $filename)]);
     }
 
     public function createSafari()
@@ -164,7 +165,7 @@ class DashboardController extends Controller
             'itinerary' => 'nullable|string',
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'currency' => 'nullable|string',
             'days' => 'nullable|integer',
             'group_discount' => 'nullable|numeric',
@@ -206,7 +207,7 @@ class DashboardController extends Controller
             'itinerary' => 'nullable|string',
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'currency' => 'nullable|string',
             'days' => 'nullable|integer',
             'group_discount' => 'nullable|numeric',
@@ -314,7 +315,7 @@ class DashboardController extends Controller
             'route_name' => 'required|string',
             'description' => 'required|string',
             'itinerary' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -345,7 +346,7 @@ class DashboardController extends Controller
             'route_name' => 'required|string',
             'description' => 'required|string',
             'itinerary' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -392,7 +393,7 @@ class DashboardController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = time() . '_' . Str::random(20) . '.' . $file->extension();
             $file->move(public_path('images/destinations'), $filename);
             $data['image'] = 'images/destinations/' . $filename;
         }
@@ -431,7 +432,7 @@ class DashboardController extends Controller
             }
 
             $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = time() . '_' . Str::random(20) . '.' . $file->extension();
             $file->move(public_path('images/destinations'), $filename);
             $data['image'] = 'images/destinations/' . $filename;
         }
@@ -588,6 +589,14 @@ class DashboardController extends Controller
 
     public function updateRole(Request $request, User $user)
     {
+        if (!auth()->user()->isSuperAdmin()) {
+            abort(403, 'Only a Super Admin can change user roles.');
+        }
+
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'You cannot change your own role.');
+        }
+
         $request->validate([
             'role' => 'required|in:user,admin,sub_admin'
         ]);

@@ -70,8 +70,13 @@ class BookingSubmissionTest extends TestCase
         $this->assertDatabaseCount('bookings', 0);
     }
 
-    /** Bots that fetch the page and immediately POST (no human read/fill time) are dropped. */
-    public function test_too_fast_submission_is_silently_dropped(): void
+    /**
+     * A too-fast submission gets a real, visible error (not a fake
+     * "success") — unlike the honeypot, this can happen to genuine visitors
+     * (fast testers, autofill), so it must never look like it worked when
+     * it didn't.
+     */
+    public function test_too_fast_submission_is_rejected_with_a_visible_error(): void
     {
         // FormTiming::token() encodes "now", so submitting it immediately
         // yields ~0 elapsed seconds — well under the 3s minimum.
@@ -80,7 +85,7 @@ class BookingSubmissionTest extends TestCase
             ['form_ts' => FormTiming::token()]
         ));
 
-        $response->assertOk()->assertJson(['success' => true]);
+        $response->assertStatus(422)->assertJson(['success' => false]);
         $this->assertDatabaseCount('bookings', 0);
     }
 

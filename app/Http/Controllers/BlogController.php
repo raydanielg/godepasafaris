@@ -47,7 +47,7 @@ class BlogController extends Controller
         ]);
 
         $post = Post::findOrFail($id);
-        $post->comments()->create($request->all());
+        $post->comments()->create($request->only(['name', 'email', 'comment', 'rating']));
 
         return back()->with('success', 'Your comment has been submitted and is awaiting approval.');
     }

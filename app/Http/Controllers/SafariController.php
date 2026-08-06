@@ -65,12 +65,12 @@ class SafariController extends Controller
 
     public function enquire(Request $request, $id)
     {
-        // Silently drop bot submissions caught by the honeypot or timing
-        // check: pretend it succeeded so the bot moves on, but never save or
-        // email anything. Each hit is logged and counts as a strike toward a
-        // temporary IP block (see PreventsSpam and BlockSuspiciousIps).
-        if ($this->isSpamSubmission($request) || $this->isSubmittedTooFast($request)) {
-            $this->logSpamAttempt($request, $this->isSpamSubmission($request) ? 'honeypot' : 'too_fast');
+        // Silently drop bot submissions caught by the honeypot: pretend it
+        // succeeded so the bot moves on, but never save or email anything.
+        // Real visitors never see or fill this field, so there's no risk of
+        // a genuine customer getting silently dropped here.
+        if ($this->isSpamSubmission($request)) {
+            $this->logSpamAttempt($request, 'honeypot');
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -79,6 +79,20 @@ class SafariController extends Controller
                 ]);
             }
             return back()->with('success', 'Thank you! Your safari inquiry has been received. Our team will contact you within 24 hours.');
+        }
+
+        // Unlike the honeypot, a fast submission CAN legitimately happen (a
+        // tester clicking straight through, browser autofill, a resubmit),
+        // so this gets a real, visible error instead of a fake "success" —
+        // otherwise the visitor believes it worked while nothing was saved.
+        if ($this->isSubmittedTooFast($request)) {
+            $this->logSpamAttempt($request, 'too_fast');
+
+            $message = 'Please wait a moment and try submitting again.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $message], 422);
+            }
+            return back()->withErrors(['form' => $message])->withInput();
         }
 
         if (!$this->passesTurnstile($request)) {
@@ -164,12 +178,12 @@ class SafariController extends Controller
 
     public function storeBooking(Request $request)
     {
-        // Silently drop bot submissions caught by the honeypot or timing
-        // check: pretend it succeeded so the bot moves on, but never save or
-        // email anything. Each hit is logged and counts as a strike toward a
-        // temporary IP block (see PreventsSpam and BlockSuspiciousIps).
-        if ($this->isSpamSubmission($request) || $this->isSubmittedTooFast($request)) {
-            $this->logSpamAttempt($request, $this->isSpamSubmission($request) ? 'honeypot' : 'too_fast');
+        // Silently drop bot submissions caught by the honeypot: pretend it
+        // succeeded so the bot moves on, but never save or email anything.
+        // Real visitors never see or fill this field, so there's no risk of
+        // a genuine customer getting silently dropped here.
+        if ($this->isSpamSubmission($request)) {
+            $this->logSpamAttempt($request, 'honeypot');
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -178,6 +192,20 @@ class SafariController extends Controller
                 ]);
             }
             return back()->with('success', 'Thank you! Your inquiry has been received. We will contact you shortly.');
+        }
+
+        // Unlike the honeypot, a fast submission CAN legitimately happen (a
+        // tester clicking straight through, browser autofill, a resubmit),
+        // so this gets a real, visible error instead of a fake "success" —
+        // otherwise the visitor believes it worked while nothing was saved.
+        if ($this->isSubmittedTooFast($request)) {
+            $this->logSpamAttempt($request, 'too_fast');
+
+            $message = 'Please wait a moment and try submitting again.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $message], 422);
+            }
+            return back()->withErrors(['form' => $message])->withInput();
         }
 
         if (!$this->passesTurnstile($request)) {
