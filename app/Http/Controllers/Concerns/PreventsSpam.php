@@ -7,6 +7,7 @@ use App\Support\FormTiming;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 trait PreventsSpam
 {
@@ -49,10 +50,28 @@ trait PreventsSpam
      */
     protected function requestMeta(Request $request): array
     {
-        return [
+        $meta = [
             'ip_address' => (string) $request->ip(),
             'user_agent' => (string) substr((string) $request->userAgent(), 0, 255),
         ];
+
+        // These columns were added by the security update's migration
+        // (add_tracking_fields_to_bookings_table). If that migration has NOT
+        // been run yet on this server, including the columns would make the
+        // INSERT throw ("no column named ip_address") and the booking would be
+        // lost. So we only ever pass columns that actually exist — the booking
+        // saves either way, and gains tracking data once the migration runs.
+        // Cached per-request so we don't hit the schema on every field.
+        static $existing = null;
+        if ($existing === null) {
+            try {
+                $existing = Schema::getColumnListing('bookings');
+            } catch (\Throwable $e) {
+                $existing = [];
+            }
+        }
+
+        return array_intersect_key($meta, array_flip($existing));
     }
 
     /**

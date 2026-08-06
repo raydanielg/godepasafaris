@@ -120,9 +120,10 @@ class KilimanjaroController extends Controller
         $details['message'] = trim(strip_tags($details['message'] ?? ''));
         $details['package'] = $package->title;
 
-        // 1) Save to the admin Bookings list.
+        // 1) Save to the bookings system — the SOURCE OF TRUTH. If this fails,
+        //    do NOT tell the customer the inquiry was received.
         try {
-            \App\Models\Booking::create(array_merge([
+            $booking = \App\Models\Booking::create(array_merge([
                 'tour_name'  => $package->title,
                 'name'       => $details['name'],
                 'email'      => $details['email'],
@@ -130,8 +131,16 @@ class KilimanjaroController extends Controller
                 'travelers'  => trim(($details['adults'] ?? 0) . ' Adults' . (!empty($details['children']) ? ', ' . $details['children'] . ' Children' : '')),
                 'message'    => $details['message'] ?? null,
             ], $this->requestMeta($request)));
+            \Log::channel('bookings')->info('Booking SAVED (kilimanjaro enquire)', ['id' => $booking->id, 'email' => $booking->email]);
         } catch (\Throwable $e) {
-            \Log::channel('bookings')->error('Booking save failed (kilimanjaro enquire): ' . $e->getMessage(), $details);
+            \Log::channel('bookings')->error('Booking save FAILED (kilimanjaro enquire): ' . $e->getMessage(), $details);
+
+            $msg = 'Sorry — we could not save your inquiry due to a technical issue on our side. '
+                 . 'Please try again in a moment, or contact us directly and we will help you right away.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $msg], 500);
+            }
+            return back()->withErrors(['booking' => $msg])->withInput();
         }
 
         $adminEmail = config('mail.booking_recipients');

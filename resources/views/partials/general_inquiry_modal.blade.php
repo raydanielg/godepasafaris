@@ -43,7 +43,7 @@
                             <label class="form-label fw-bold small text-muted text-uppercase">{{ __('messages.booking.phone') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0"><i class="fas fa-phone text-earth"></i></span>
-                                <select name="phone_country_code" class="form-select bg-light border-0" style="max-width: 6.5rem; flex: 0 0 auto;" required>
+                                <select name="phone_country_code" class="form-select bg-light border-0" style="max-width: 6.5rem; flex: 0 0 auto;" required data-country-picker>
                                     @include('partials.country_code_options')
                                 </select>
                                 <input type="tel" name="phone" class="form-control bg-light border-0" placeholder="712345678" pattern="[0-9]{6,14}" title="Digits only, no spaces or country code" required>
@@ -156,3 +156,7 @@
         pointer-events: auto !important;
     }
 </style>
+
+{{-- Searchable country-code picker (flags + type-to-search). Travels with the
+     modal so it works on every page that shows this form. --}}
+@include('partials.country_code_picker_assets')

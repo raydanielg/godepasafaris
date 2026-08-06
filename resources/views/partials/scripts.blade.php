@@ -1,4 +1,4 @@
-@include('partials.footer')
+﻿@include('partials.footer')
 @include('partials.ai_chatbot')
 @include('partials.booking_modal')
 

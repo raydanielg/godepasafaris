@@ -132,9 +132,10 @@ class SafariController extends Controller
         $details['message'] = trim(strip_tags($details['message'] ?? ''));
         $details['package'] = $package->title;
 
-        // 1) Save to the admin Bookings list so it never depends on email.
+        // 1) Save to the bookings system — the SOURCE OF TRUTH. If this fails,
+        //    do NOT tell the customer the inquiry was received.
         try {
-            \App\Models\Booking::create(array_merge([
+            $booking = \App\Models\Booking::create(array_merge([
                 'safari_package_id' => $package->id,
                 'tour_name'         => $package->title,
                 'name'              => $details['name'],
@@ -143,8 +144,16 @@ class SafariController extends Controller
                 'travelers'         => trim(($details['adults'] ?? 0) . ' Adults' . (!empty($details['children']) ? ', ' . $details['children'] . ' Children' : '')),
                 'message'           => $details['message'] ?? null,
             ], $this->requestMeta($request)));
+            \Log::channel('bookings')->info('Booking SAVED (safari enquire)', ['id' => $booking->id, 'email' => $booking->email]);
         } catch (\Throwable $e) {
-            \Log::channel('bookings')->error('Booking save failed (safari enquire): ' . $e->getMessage(), $details);
+            \Log::channel('bookings')->error('Booking save FAILED (safari enquire): ' . $e->getMessage(), $details);
+
+            $msg = 'Sorry — we could not save your inquiry due to a technical issue on our side. '
+                 . 'Please try again in a moment, or contact us directly and we will help you right away.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $msg], 500);
+            }
+            return back()->withErrors(['booking' => $msg])->withInput();
         }
 
         $adminEmail = config('mail.booking_recipients');
@@ -178,6 +187,15 @@ class SafariController extends Controller
 
     public function storeBooking(Request $request)
     {
+        // Step 0: record that a submission reached the controller, so the log
+        // tells the whole story from arrival -> spam checks -> validation ->
+        // save -> email, and we can pinpoint exactly where a booking is lost.
+        \Log::channel('bookings')->info('Booking form received (store)', [
+            'email'   => $request->input('email'),
+            'tour'    => $request->input('tour_name'),
+            'ajax'    => $request->ajax() || $request->wantsJson(),
+        ]);
+
         // Silently drop bot submissions caught by the honeypot: pretend it
         // succeeded so the bot moves on, but never save or email anything.
         // Real visitors never see or fill this field, so there's no risk of
@@ -257,12 +275,21 @@ class SafariController extends Controller
         $validated['phone'] = $validated['phone_country_code'].$validated['phone'];
         unset($validated['phone_country_code']);
 
-        // 1) Save to the admin Bookings list (the source of truth — never lost
-        //    even if email delivery fails).
+        // 1) Save to the bookings system — the SOURCE OF TRUTH. If this fails,
+        //    the customer must NOT be told their booking was received (that was
+        //    the old bug: a failed insert was swallowed and success shown anyway).
         try {
-            \App\Models\Booking::create(array_merge($validated, $this->requestMeta($request)));
+            $booking = \App\Models\Booking::create(array_merge($validated, $this->requestMeta($request)));
+            \Log::channel('bookings')->info('Booking SAVED (store)', ['id' => $booking->id, 'email' => $booking->email]);
         } catch (\Throwable $e) {
-            \Log::channel('bookings')->error('Booking save failed (store): ' . $e->getMessage(), $validated);
+            \Log::channel('bookings')->error('Booking save FAILED (store): ' . $e->getMessage(), $validated);
+
+            $msg = 'Sorry — we could not save your booking due to a technical issue on our side. '
+                 . 'Please try again in a moment, or contact us directly and we will help you right away.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $msg], 500);
+            }
+            return back()->withErrors(['booking' => $msg])->withInput();
         }
 
         $details = array_merge($validated, ['package' => $validated['tour_name'] ?? 'General Inquiry']);
