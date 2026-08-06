@@ -467,6 +467,127 @@ class DashboardController extends Controller
         return redirect()->route('admin.bookings')->with('success', 'Inquiry deleted successfully.');
     }
 
+    /**
+     * Delete every booking/inquiry in one click. Keeps the ID counter where it
+     * is (use restartBookingSystem() for a full reset). Admin-only via the
+     * `auth` middleware + CSRF; the UI adds a type-to-confirm guard.
+     */
+    public function deleteAllBookings(Request $request)
+    {
+        $count = Booking::count();
+
+        Booking::query()->delete();
+
+        \Log::channel('bookings')->warning('All bookings cleared by admin', [
+            'admin_id' => auth()->id(),
+            'deleted'  => $count,
+        ]);
+
+        $message = $count > 0
+            ? "Deleted {$count} booking(s) successfully."
+            : 'There were no bookings to delete.';
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['success' => true, 'message' => $message, 'deleted' => $count]);
+        }
+
+        return redirect()->route('admin.bookings')->with('success', $message);
+    }
+
+    /**
+     * Restart the booking system: wipe every booking, reset the ID counter so
+     * the next booking is #1, and clear the bookings log. A true fresh start.
+     * Works on both MySQL/MariaDB (live) and SQLite (local/tests).
+     */
+    public function restartBookingSystem(Request $request)
+    {
+        $count = Booking::count();
+
+        // 1) Remove all bookings.
+        Booking::query()->delete();
+
+        // 2) Reset the auto-increment so the next booking starts at #1.
+        try {
+            $driver = \DB::connection()->getDriverName();
+
+            if ($driver === 'sqlite') {
+                \DB::statement("DELETE FROM sqlite_sequence WHERE name = 'bookings'");
+            } elseif (in_array($driver, ['mysql', 'mariadb'], true)) {
+                \DB::statement('ALTER TABLE bookings AUTO_INCREMENT = 1');
+            } elseif ($driver === 'pgsql') {
+                \DB::statement('ALTER SEQUENCE bookings_id_seq RESTART WITH 1');
+            }
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Booking ID counter reset failed: ' . $e->getMessage());
+        }
+
+        // 3) Clear the bookings log file so old errors don't confuse things.
+        try {
+            $logPath = storage_path('logs/bookings.log');
+            if (is_file($logPath)) {
+                file_put_contents($logPath, '');
+            }
+        } catch (\Throwable $e) {
+            // Non-fatal: a locked log file shouldn't block the reset.
+        }
+
+        \Log::channel('bookings')->warning('Booking system restarted (full reset to #1) by admin', [
+            'admin_id'         => auth()->id(),
+            'bookings_cleared' => $count,
+        ]);
+
+        $message = "Booking system restarted. {$count} booking(s) cleared and the ID counter is back to #1.";
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['success' => true, 'message' => $message, 'cleared' => $count]);
+        }
+
+        return redirect()->route('admin.bookings')->with('success', $message);
+    }
+
+    /**
+     * Fire a sample booking notification to the configured inboxes so the admin
+     * can confirm, in one click, that email delivery actually works on the
+     * live server (SMTP password set, mailbox reachable, not spam-filtered).
+     */
+    public function sendTestBookingEmail(Request $request)
+    {
+        $recipients = config('mail.booking_recipients');
+
+        $details = [
+            'name'     => 'Test Booking (admin check)',
+            'email'    => is_array($recipients) ? ($recipients[0] ?? config('mail.admin_address')) : $recipients,
+            'phone'    => 'N/A',
+            'adults'   => 2,
+            'children' => 0,
+            'package'  => 'Delivery test — please ignore',
+            'message'  => 'This is a test notification sent from the admin panel to confirm booking emails are being delivered.',
+        ];
+
+        try {
+            \Illuminate\Support\Facades\Mail::to($recipients)->send(new \App\Mail\BookingInquiry($details));
+
+            $list = implode(', ', (array) $recipients);
+            $message = "Test notification sent to: {$list}. Check those inboxes (and spam folders).";
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => true, 'message' => $message]);
+            }
+
+            return back()->with('success', $message);
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Test booking email failed: ' . $e->getMessage());
+
+            $message = 'Could not send the test email: ' . $e->getMessage();
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $message], 500);
+            }
+
+            return back()->with('error', $message);
+        }
+    }
+
     public function sendBookingEmail(Booking $booking, Request $request)
     {
         $request->validate([

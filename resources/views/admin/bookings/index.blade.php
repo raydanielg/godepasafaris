@@ -4,10 +4,21 @@
 
 @section('content')
 <div class="container-fluid px-4 py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <div>
             <h1 class="h3 mb-0 text-gray-800 fw-bold">Customer Inquiries</h1>
             <p class="text-muted small mb-0">Track and respond to tour booking inquiries</p>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+            <button type="button" id="testEmailBtn" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold">
+                <i class="fas fa-paper-plane me-1"></i>Send Test Notification
+            </button>
+            <button type="button" id="deleteAllBtn" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" {{ $bookings->total() ? '' : 'disabled' }}>
+                <i class="fas fa-trash-alt me-1"></i>Delete All Bookings
+            </button>
+            <button type="button" id="restartBtn" class="btn btn-sm rounded-pill px-3 fw-bold text-white" style="background-color: #8b4513;">
+                <i class="fas fa-power-off me-1"></i>Restart Booking System
+            </button>
         </div>
     </div>
 
@@ -278,6 +289,105 @@
             });
         });
         
+        // ---- Bulk booking tools (Delete All / Restart / Test notification) ----
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        function postAction(url, { method = 'POST', override = null, loadingText = 'Working...' } = {}) {
+            Swal.fire({
+                title: loadingText,
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            const headers = { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' };
+            if (override) headers['X-HTTP-METHOD-OVERRIDE'] = override;
+
+            return fetch(url, { method, headers })
+                .then(r => r.json())
+                .then(data => {
+                    Swal.fire({
+                        title: data.success ? 'Done!' : 'Error!',
+                        text: data.message || (data.success ? 'Completed.' : 'Something went wrong.'),
+                        icon: data.success ? 'success' : 'error',
+                        confirmButtonColor: data.success ? '#8b4513' : '#dc3545',
+                        customClass: { confirmButton: 'rounded-pill px-4' }
+                    }).then(() => { if (data.success) location.reload(); });
+                })
+                .catch(() => {
+                    Swal.fire({ title: 'Error!', text: 'A network error occurred. Please try again.', icon: 'error',
+                        confirmButtonColor: '#dc3545', customClass: { confirmButton: 'rounded-pill px-4' } });
+                });
+        }
+
+        // Delete All Bookings (type-to-confirm)
+        const deleteAllBtn = document.getElementById('deleteAllBtn');
+        if (deleteAllBtn) {
+            deleteAllBtn.addEventListener('click', function() {
+                Swal.fire({
+                    title: 'Delete ALL bookings?',
+                    html: 'This permanently removes <b>every</b> inquiry in the list. This cannot be undone.<br><br>Type <b>DELETE</b> to confirm:',
+                    icon: 'warning',
+                    input: 'text',
+                    inputPlaceholder: 'DELETE',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: '<i class="fas fa-trash-alt me-2"></i>Delete all',
+                    customClass: { confirmButton: 'rounded-pill px-4', cancelButton: 'rounded-pill px-4' },
+                    preConfirm: (value) => {
+                        if ((value || '').trim().toUpperCase() !== 'DELETE') {
+                            Swal.showValidationMessage('Please type DELETE to confirm.');
+                            return false;
+                        }
+                        return true;
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        postAction(`{{ route('admin.bookings.delete-all') }}`, { override: 'DELETE', loadingText: 'Deleting all bookings...' });
+                    }
+                });
+            });
+        }
+
+        // Restart Booking System (full reset to #1, type-to-confirm)
+        const restartBtn = document.getElementById('restartBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function() {
+                Swal.fire({
+                    title: 'Restart the booking system?',
+                    html: 'This wipes <b>all</b> bookings, resets the ID counter so the next booking is <b>#1</b>, and clears the booking log.<br><br>Type <b>RESTART</b> to confirm:',
+                    icon: 'warning',
+                    input: 'text',
+                    inputPlaceholder: 'RESTART',
+                    showCancelButton: true,
+                    confirmButtonColor: '#8b4513',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: '<i class="fas fa-power-off me-2"></i>Restart system',
+                    customClass: { confirmButton: 'rounded-pill px-4', cancelButton: 'rounded-pill px-4' },
+                    preConfirm: (value) => {
+                        if ((value || '').trim().toUpperCase() !== 'RESTART') {
+                            Swal.showValidationMessage('Please type RESTART to confirm.');
+                            return false;
+                        }
+                        return true;
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        postAction(`{{ route('admin.bookings.restart') }}`, { loadingText: 'Restarting booking system...' });
+                    }
+                });
+            });
+        }
+
+        // Send Test Notification (no confirmation needed — harmless)
+        const testEmailBtn = document.getElementById('testEmailBtn');
+        if (testEmailBtn) {
+            testEmailBtn.addEventListener('click', function() {
+                postAction(`{{ route('admin.bookings.test-email') }}`, { loadingText: 'Sending test notification...' });
+            });
+        }
+
         // Send email button click handler
         document.getElementById('sendEmailBtn').addEventListener('click', function() {
             const bookingId = document.getElementById('bookingId').value;

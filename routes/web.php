@@ -84,6 +84,11 @@ Route::middleware(['auth'])->group(function () {
         
         // Bookings/Inquiries
         Route::get('/admin/bookings', [App\Http\Controllers\Admin\DashboardController::class, 'bookings'])->name('admin.bookings');
+        // Bulk booking tools — declared before the {booking} wildcard so their
+        // static paths aren't swallowed as a booking ID.
+        Route::delete('/admin/bookings-delete-all', [App\Http\Controllers\Admin\DashboardController::class, 'deleteAllBookings'])->name('admin.bookings.delete-all');
+        Route::post('/admin/bookings-restart', [App\Http\Controllers\Admin\DashboardController::class, 'restartBookingSystem'])->name('admin.bookings.restart');
+        Route::post('/admin/bookings-test-email', [App\Http\Controllers\Admin\DashboardController::class, 'sendTestBookingEmail'])->name('admin.bookings.test-email');
         Route::get('/admin/bookings/{booking}', [App\Http\Controllers\Admin\DashboardController::class, 'viewBooking'])->name('admin.bookings.show');
         Route::patch('/admin/bookings/{booking}/status', [App\Http\Controllers\Admin\DashboardController::class, 'updateBookingStatus'])->name('admin.bookings.status');
         Route::get('/admin/bookings/{booking}/invoice', [App\Http\Controllers\Admin\DashboardController::class, 'generateInvoice'])->name('admin.bookings.invoice');

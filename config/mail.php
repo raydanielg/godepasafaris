@@ -120,4 +120,18 @@ return [
     */
     'admin_address' => env('MAIL_ADMIN_ADDRESS', 'info@godeepafricasafari.com'),
 
+    /*
+    | Every inbox that should receive an instant notification when a booking is
+    | submitted. Defaults to the business webmail plus the owner's personal
+    | Gmail so a booking is never missed. Override with a comma-separated
+    | MAIL_BOOKING_RECIPIENTS env value.
+    */
+    'booking_recipients' => array_values(array_filter(array_map(
+        'trim',
+        explode(',', env(
+            'MAIL_BOOKING_RECIPIENTS',
+            'info@godeepafricasafari.com,exaudlaizer501@gmail.com'
+        ))
+    ))),
+
 ];

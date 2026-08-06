@@ -104,13 +104,13 @@ class KilimanjaroController extends Controller
             \Log::channel('bookings')->error('Booking save failed (kilimanjaro enquire): ' . $e->getMessage(), $details);
         }
 
-        $adminEmail = config('mail.admin_address');
+        $adminEmail = config('mail.booking_recipients');
 
-        // 2) Notify the company.
+        // 2) Notify the company inboxes (business webmail + owner's Gmail).
         try {
             Mail::to($adminEmail)->send(new BookingInquiry($details));
         } catch (\Throwable $e) {
-            \Log::channel('bookings')->error('Admin email failed (kilimanjaro enquire): ' . $e->getMessage(), ['to' => $adminEmail] + $details);
+            \Log::channel('bookings')->error('Admin email failed (kilimanjaro enquire): ' . $e->getMessage(), ['to' => implode(',', (array) $adminEmail)] + $details);
         }
 
         // 3) Confirm to the customer.
