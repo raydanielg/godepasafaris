@@ -52,3 +52,4 @@ class BookingSpamTest extends TestCase
         $this->assertDatabaseHas('bookings', ['email' => 'real@customer.example', 'phone' => '+255700000000']);
     }
 }
+                                                                            

@@ -16,7 +16,9 @@ class AdminBookingToolsTest extends TestCase
 
     private function admin(): User
     {
-        return User::factory()->create();
+        // Admin routes are gated by the EnsureIsAdmin middleware, so the acting
+        // user must actually hold the admin role.
+        return User::factory()->create(['role' => 'admin']);
     }
 
     private function seedBookings(int $n): void
@@ -41,6 +43,24 @@ class AdminBookingToolsTest extends TestCase
 
         $response->assertOk()->assertJson(['success' => true, 'deleted' => 3]);
         $this->assertSame(0, Booking::count());
+    }
+
+    public function test_per_row_delete_works_via_method_override_header(): void
+    {
+        // Faithful reproduction of the fixed frontend: POST + an
+        // X-HTTP-METHOD-OVERRIDE header (not a JSON _method body). This is what
+        // reliably reaches the DELETE route from a browser fetch().
+        $booking = Booking::create(['name' => 'X', 'email' => 'x@example.com']);
+
+        $response = $this->actingAs($this->admin())->call(
+            'POST',
+            route('admin.bookings.delete', $booking),
+            [], [], [],
+            ['HTTP_X_HTTP_METHOD_OVERRIDE' => 'DELETE', 'HTTP_ACCEPT' => 'application/json']
+        );
+
+        $response->assertOk()->assertJson(['success' => true]);
+        $this->assertNull(Booking::find($booking->id), 'The booking row must be deleted.');
     }
 
     public function test_restart_wipes_bookings_and_resets_id_to_one(): void
@@ -82,12 +102,22 @@ class AdminBookingToolsTest extends TestCase
     {
         Mail::fake();
 
+        // Build a form-timing token dated a few seconds ago so it clears the
+        // "submitted too fast" gate (a real visitor takes longer than 3s).
+        \Illuminate\Support\Carbon::setTestNow(now()->subSeconds(10));
+        $formTs = \App\Support\FormTiming::token();
+        \Illuminate\Support\Carbon::setTestNow();
+
         $this->from('/')->post('/booking/store', [
-            'name'    => 'Real Customer',
-            'email'   => 'real@customer.example',
-            'phone'   => '+255700000000',
-            'message' => 'A 5-day Serengeti safari please.',
-            'website' => '',
+            'name'               => 'Real Customer',
+            'email'              => 'real@customer.example',
+            'phone_country_code' => '+255',
+            'phone'              => '700000000',
+            'travel_date'        => now()->addMonths(2)->toDateString(),
+            'travelers'          => '2',
+            'message'            => 'A 5-day Serengeti safari please.',
+            'website'            => '',
+            'form_ts'            => $formTs,
         ])->assertRedirect('/');
 
         // Saved to the bookings system.

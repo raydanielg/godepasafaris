@@ -539,12 +539,30 @@ class DashboardController extends Controller
             // Non-fatal: a locked log file shouldn't block the reset.
         }
 
+        // 4) Clear anti-spam IP blocks / strikes so a fresh start also unblocks
+        //    any visitor (or the admin) who got auto-blocked during testing.
+        //    Best-effort: delete the matching cache rows directly so we don't
+        //    wipe unrelated cache entries.
+        $unblocked = 0;
+        try {
+            if (config('cache.default') === 'database') {
+                $table = config('cache.stores.database.table', 'cache');
+                $unblocked = \DB::table($table)
+                    ->where('key', 'like', '%booking_ip_blocked:%')
+                    ->orWhere('key', 'like', '%booking_spam_strikes:%')
+                    ->delete();
+            }
+        } catch (\Throwable $e) {
+            \Log::channel('bookings')->error('Clearing spam blocks on restart failed: ' . $e->getMessage());
+        }
+
         \Log::channel('bookings')->warning('Booking system restarted (full reset to #1) by admin', [
             'admin_id'         => auth()->id(),
             'bookings_cleared' => $count,
+            'spam_blocks_clr'  => $unblocked,
         ]);
 
-        $message = "Booking system restarted. {$count} booking(s) cleared and the ID counter is back to #1.";
+        $message = "Booking system restarted. {$count} booking(s) cleared, the ID counter is back to #1, and anti-spam blocks were reset.";
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json(['success' => true, 'message' => $message, 'cleared' => $count]);

@@ -190,6 +190,16 @@
     };
 
     document.addEventListener('DOMContentLoaded', function() {
+        // Read the CSRF token defensively. If the layout's <meta name="csrf-token">
+        // is missing (e.g. a stale cached admin view on the server), fall back to
+        // an empty string instead of throwing — a throw here would leave the
+        // "Deleting..." spinner open forever, which looked like a broken button.
+        const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+        const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+        if (!csrfToken) {
+            console.error('CSRF token meta tag is missing — booking actions may fail. Clear the server view cache.');
+        }
+
         // Delete button click handler
         document.querySelectorAll('.delete-btn').forEach(function(button) {
             button.addEventListener('click', function() {
@@ -224,16 +234,16 @@
                             }
                         });
                         
-                        // Send AJAX request
+                        // Send AJAX request. Use a real method override header so
+                        // Laravel routes it to the DELETE route reliably, and Accept:
+                        // application/json so errors come back as JSON we can read.
                         fetch(`{{ route('admin.bookings.delete', ':id') }}`.replace(':id', bookingId), {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                _method: 'DELETE'
-                            })
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                                'X-HTTP-METHOD-OVERRIDE': 'DELETE'
+                            }
                         })
                         .then(response => response.json())
                         .then(data => {
@@ -291,8 +301,7 @@
         });
         
         // ---- Bulk booking tools (Delete All / Restart / Test notification) ----
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+        // Reuses the safe `csrfToken` defined at the top of this handler.
         function postAction(url, { method = 'POST', override = null, loadingText = 'Working...' } = {}) {
             Swal.fire({
                 title: loadingText,
@@ -427,7 +436,8 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify({
                     subject: subject,
