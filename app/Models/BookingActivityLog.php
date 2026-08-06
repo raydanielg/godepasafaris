@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class BookingActivityLog extends Model
+{
+    protected $fillable = [
+        'booking_id',
+        'user_id',
+        'action',
+        'description',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

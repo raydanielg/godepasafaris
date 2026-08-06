@@ -115,7 +115,7 @@ class ImpactController extends Controller
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->image->getClientOriginalName();
+            $imageName = time() . '_' . Str::random(20) . '.' . $request->image->extension();
             $request->image->move(public_path('images/impact/stories'), $imageName);
             $data['image'] = 'images/impact/stories/' . $imageName;
         }
@@ -150,7 +150,7 @@ class ImpactController extends Controller
                 unlink(public_path($story->image));
             }
 
-            $imageName = time() . '_' . $request->image->getClientOriginalName();
+            $imageName = time() . '_' . Str::random(20) . '.' . $request->image->extension();
             $request->image->move(public_path('images/impact/stories'), $imageName);
             $data['image'] = 'images/impact/stories/' . $imageName;
         }
@@ -209,7 +209,7 @@ class ImpactController extends Controller
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->image->getClientOriginalName();
+            $imageName = time() . '_' . Str::random(20) . '.' . $request->image->extension();
             $request->image->move(public_path('images/impact/gallery'), $imageName);
             $data['image'] = 'images/impact/gallery/' . $imageName;
         }
@@ -243,7 +243,7 @@ class ImpactController extends Controller
                 unlink(public_path($gallery->image));
             }
 
-            $imageName = time() . '_' . $request->image->getClientOriginalName();
+            $imageName = time() . '_' . Str::random(20) . '.' . $request->image->extension();
             $request->image->move(public_path('images/impact/gallery'), $imageName);
             $data['image'] = 'images/impact/gallery/' . $imageName;
         }

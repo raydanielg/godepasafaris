@@ -70,6 +70,15 @@
                     <label class="small text-muted text-uppercase fw-bold d-block">Phone Number</label>
                     <a href="tel:{{ $booking->phone }}" class="text-dark text-decoration-none">{{ $booking->phone }}</a>
                 </div>
+                @if($booking->ip_address)
+                <div class="mb-3">
+                    <label class="small text-muted text-uppercase fw-bold d-block">Submitted From</label>
+                    <span class="text-dark small">{{ $booking->ip_address }}</span>
+                    @if($booking->user_agent)
+                        <span class="text-muted small d-block text-truncate" title="{{ $booking->user_agent }}">{{ $booking->user_agent }}</span>
+                    @endif
+                </div>
+                @endif
                 <hr>
                 <div class="mb-0">
                     <label class="small text-muted text-uppercase fw-bold d-block mb-2">Inquiry Status</label>
@@ -83,6 +92,7 @@
                             <option value="quoted" {{ $booking->status == 'quoted' ? 'selected' : '' }}>Invoice Sent</option>
                             <option value="confirmed" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                             <option value="cancelled" {{ $booking->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                            <option value="spam" {{ $booking->status == 'spam' ? 'selected' : '' }}>Spam</option>
                         </select>
                     </form>
                 </div>
@@ -103,6 +113,23 @@
                     </form>
                 </div>
             </div>
+
+            @if($booking->activityLogs->isNotEmpty())
+            <div class="card shadow-sm border-0 rounded-4 p-4">
+                <h5 class="fw-bold mb-3">Activity Log</h5>
+                <ul class="list-unstyled small mb-0">
+                    @foreach($booking->activityLogs as $log)
+                    <li class="mb-2 pb-2 {{ !$loop->last ? 'border-bottom' : '' }}">
+                        <span class="fw-bold text-dark">{{ ucfirst(str_replace('_', ' ', $log->action)) }}</span>
+                        @if($log->description)
+                            <span class="text-muted">— {{ $log->description }}</span>
+                        @endif
+                        <span class="text-muted d-block">{{ $log->created_at->format('M d, Y H:i') }}{{ $log->user ? ' · '.$log->user->name : '' }}</span>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
         </div>
     </div>
 </div>

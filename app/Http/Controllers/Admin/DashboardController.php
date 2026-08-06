@@ -87,7 +87,7 @@ class DashboardController extends Controller
             'summary' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -116,7 +116,7 @@ class DashboardController extends Controller
             'summary' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -141,13 +141,14 @@ class DashboardController extends Controller
 
     public function uploadEditorImage(Request $request)
     {
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->move(public_path('images/blog/content'), $filename);
-            return response()->json(['location' => asset('images/blog/content/' . $filename)]);
-        }
-        return response()->json(['error' => 'No file uploaded'], 400);
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        $filename = time() . '_' . Str::random(20) . '.' . $file->extension();
+        $file->move(public_path('images/blog/content'), $filename);
+        return response()->json(['location' => asset('images/blog/content/' . $filename)]);
     }
 
     public function createSafari()
@@ -164,7 +165,7 @@ class DashboardController extends Controller
             'itinerary' => 'nullable|string',
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'currency' => 'nullable|string',
             'days' => 'nullable|integer',
             'group_discount' => 'nullable|numeric',
@@ -206,7 +207,7 @@ class DashboardController extends Controller
             'itinerary' => 'nullable|string',
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'currency' => 'nullable|string',
             'days' => 'nullable|integer',
             'group_discount' => 'nullable|numeric',
@@ -314,7 +315,7 @@ class DashboardController extends Controller
             'route_name' => 'required|string',
             'description' => 'required|string',
             'itinerary' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -345,7 +346,7 @@ class DashboardController extends Controller
             'route_name' => 'required|string',
             'description' => 'required|string',
             'itinerary' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();
@@ -392,7 +393,7 @@ class DashboardController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = time() . '_' . Str::random(20) . '.' . $file->extension();
             $file->move(public_path('images/destinations'), $filename);
             $data['image'] = 'images/destinations/' . $filename;
         }
@@ -431,7 +432,7 @@ class DashboardController extends Controller
             }
 
             $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = time() . '_' . Str::random(20) . '.' . $file->extension();
             $file->move(public_path('images/destinations'), $filename);
             $data['image'] = 'images/destinations/' . $filename;
         }
@@ -454,8 +455,15 @@ class DashboardController extends Controller
 
     public function deleteBooking(Booking $booking, Request $request)
     {
+        \App\Models\BookingActivityLog::create([
+            'booking_id' => $booking->id,
+            'user_id' => auth()->id(),
+            'action' => 'deleted',
+            'description' => "Deleted inquiry from {$booking->name} ({$booking->email})",
+        ]);
+
         $booking->delete();
-        
+
         // Return JSON response for AJAX requests
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
@@ -602,6 +610,14 @@ class DashboardController extends Controller
                         ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
             });
 
+            \App\Models\BookingActivityLog::create([
+                'booking_id' => $booking->id,
+                'user_id' => auth()->id(),
+                'action' => 'email_sent',
+                'description' => "Subject: \"{$request->subject}\"",
+            ]);
+            \Log::channel('bookings')->info('Admin sent manual email', ['booking_id' => $booking->id, 'to' => $booking->email]);
+
             // Return JSON response for AJAX requests
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -612,6 +628,14 @@ class DashboardController extends Controller
 
             return back()->with('success', 'Email sent successfully.');
         } catch (\Exception $e) {
+            \App\Models\BookingActivityLog::create([
+                'booking_id' => $booking->id,
+                'user_id' => auth()->id(),
+                'action' => 'email_failed',
+                'description' => "Subject: \"{$request->subject}\" — {$e->getMessage()}",
+            ]);
+            \Log::channel('bookings')->error('Admin manual email failed: '.$e->getMessage(), ['booking_id' => $booking->id, 'to' => $booking->email]);
+
             // Return JSON response for AJAX requests
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -631,8 +655,18 @@ class DashboardController extends Controller
 
     public function updateBookingStatus(Request $request, Booking $booking)
     {
-        $request->validate(['status' => 'required|string']);
+        $request->validate(['status' => 'required|string|in:new,pending,contacted,quoted,confirmed,cancelled,spam']);
+
+        $previousStatus = $booking->status;
         $booking->update(['status' => $request->status]);
+
+        \App\Models\BookingActivityLog::create([
+            'booking_id' => $booking->id,
+            'user_id' => auth()->id(),
+            'action' => 'status_changed',
+            'description' => "Status changed from \"{$previousStatus}\" to \"{$request->status}\"",
+        ]);
+
         return back()->with('success', 'Status updated successfully.');
     }
 
@@ -676,6 +710,14 @@ class DashboardController extends Controller
 
     public function updateRole(Request $request, User $user)
     {
+        if (!auth()->user()->isSuperAdmin()) {
+            abort(403, 'Only a Super Admin can change user roles.');
+        }
+
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'You cannot change your own role.');
+        }
+
         $request->validate([
             'role' => 'required|in:user,admin,sub_admin'
         ]);

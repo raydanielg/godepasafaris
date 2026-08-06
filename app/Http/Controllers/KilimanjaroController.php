@@ -55,7 +55,11 @@ class KilimanjaroController extends Controller
     {
         // Silently drop bot submissions caught by the honeypot: pretend it
         // succeeded so the bot moves on, but never save or email anything.
+        // Real visitors never see or fill this field, so there's no risk of
+        // a genuine customer getting silently dropped here.
         if ($this->isSpamSubmission($request)) {
+            $this->logSpamAttempt($request, 'honeypot');
+
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
@@ -65,13 +69,37 @@ class KilimanjaroController extends Controller
             return back()->with('success', 'Thank you! Your inquiry has been received. Our team will contact you within 24 hours.');
         }
 
+        // Unlike the honeypot, a fast submission CAN legitimately happen (a
+        // tester clicking straight through, browser autofill, a resubmit),
+        // so this gets a real, visible error instead of a fake "success" —
+        // otherwise the visitor believes it worked while nothing was saved.
+        if ($this->isSubmittedTooFast($request)) {
+            $this->logSpamAttempt($request, 'too_fast');
+
+            $message = 'Please wait a moment and try submitting again.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $message], 422);
+            }
+            return back()->withErrors(['form' => $message])->withInput();
+        }
+
+        if (!$this->passesTurnstile($request)) {
+            $this->logSpamAttempt($request, 'turnstile_failed');
+
+            $message = 'Please complete the verification and try again.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => $message], 422);
+            }
+            return back()->withErrors(['captcha' => $message])->withInput();
+        }
+
         $validator = \Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:2|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'adults' => 'required|integer|min:1',
-            'children' => 'nullable|integer|min:0',
-            'message' => 'required|string',
+            'adults' => 'required|integer|min:1|max:50',
+            'children' => 'nullable|integer|min:0|max:50',
+            'message' => 'required|string|max:2000',
         ]);
 
         if ($validator->fails()) {
@@ -88,18 +116,20 @@ class KilimanjaroController extends Controller
         $package = KilimanjaroPackage::findOrFail($id);
 
         $details = $request->only(['name', 'email', 'phone', 'adults', 'children', 'message']);
+        $details['name'] = trim(strip_tags($details['name']));
+        $details['message'] = trim(strip_tags($details['message'] ?? ''));
         $details['package'] = $package->title;
 
         // 1) Save to the admin Bookings list.
         try {
-            \App\Models\Booking::create([
+            \App\Models\Booking::create(array_merge([
                 'tour_name'  => $package->title,
                 'name'       => $details['name'],
                 'email'      => $details['email'],
                 'phone'      => $details['phone'] ?? null,
                 'travelers'  => trim(($details['adults'] ?? 0) . ' Adults' . (!empty($details['children']) ? ', ' . $details['children'] . ' Children' : '')),
                 'message'    => $details['message'] ?? null,
-            ]);
+            ], $this->requestMeta($request)));
         } catch (\Throwable $e) {
             \Log::channel('bookings')->error('Booking save failed (kilimanjaro enquire): ' . $e->getMessage(), $details);
         }
@@ -109,6 +139,7 @@ class KilimanjaroController extends Controller
         // 2) Notify the company inboxes (business webmail + owner's Gmail).
         try {
             Mail::to($adminEmail)->send(new BookingInquiry($details));
+            \Log::channel('bookings')->info('Admin email sent (kilimanjaro enquire)', ['to' => $adminEmail]);
         } catch (\Throwable $e) {
             \Log::channel('bookings')->error('Admin email failed (kilimanjaro enquire): ' . $e->getMessage(), ['to' => implode(',', (array) $adminEmail)] + $details);
         }
@@ -116,6 +147,7 @@ class KilimanjaroController extends Controller
         // 3) Confirm to the customer.
         try {
             Mail::to($details['email'])->send(new CustomerConfirmation($details));
+            \Log::channel('bookings')->info('Customer email sent (kilimanjaro enquire)', ['to' => $details['email']]);
         } catch (\Throwable $e) {
             \Log::channel('bookings')->error('Customer email failed (kilimanjaro enquire): ' . $e->getMessage(), ['to' => $details['email']]);
         }

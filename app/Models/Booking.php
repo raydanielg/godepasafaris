@@ -19,6 +19,8 @@ class Booking extends Model
         'accommodation',
         'message',
         'status',
+        'ip_address',
+        'user_agent',
     ];
 
     protected $casts = [
@@ -33,5 +35,19 @@ class Booking extends Model
     public function safariPackage()
     {
         return $this->belongsTo(SafariPackage::class, 'safari_package_id');
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(BookingActivityLog::class)->latest();
+    }
+
+    public function logActivity(string $action, ?string $description = null): void
+    {
+        $this->activityLogs()->create([
+            'user_id' => auth()->id(),
+            'action' => $action,
+            'description' => $description,
+        ]);
     }
 }
