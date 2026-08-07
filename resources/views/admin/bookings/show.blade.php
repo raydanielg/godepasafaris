@@ -114,11 +114,11 @@
                 </div>
             </div>
 
-            @if($booking->activityLogs->isNotEmpty())
+            @if($activityLogs->isNotEmpty())
             <div class="card shadow-sm border-0 rounded-4 p-4">
                 <h5 class="fw-bold mb-3">Activity Log</h5>
                 <ul class="list-unstyled small mb-0">
-                    @foreach($booking->activityLogs as $log)
+                    @foreach($activityLogs as $log)
                     <li class="mb-2 pb-2 {{ !$loop->last ? 'border-bottom' : '' }}">
                         <span class="fw-bold text-dark">{{ ucfirst(str_replace('_', ' ', $log->action)) }}</span>
                         @if($log->description)

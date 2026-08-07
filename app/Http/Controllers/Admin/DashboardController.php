@@ -450,7 +450,15 @@ class DashboardController extends Controller
 
     public function viewBooking(Booking $booking)
     {
-        return view('admin.bookings.show', compact('booking'));
+        // The booking_activity_logs table ships in a migration that may not have
+        // been run on the server yet. Loading the relation directly would throw
+        // ("table ... doesn't exist") and 500 the details page — so read it only
+        // when the table is present, and fall back to an empty list otherwise.
+        $activityLogs = \Illuminate\Support\Facades\Schema::hasTable('booking_activity_logs')
+            ? $booking->activityLogs
+            : collect();
+
+        return view('admin.bookings.show', compact('booking', 'activityLogs'));
     }
 
     public function deleteBooking(Booking $booking, Request $request)

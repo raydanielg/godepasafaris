@@ -483,9 +483,12 @@
                 });
             }
             
-            // Handle form submission with AJAX
+            // Handle form submission with AJAX.
+            // Guarded so only one handler ever binds — header.blade.php and
+            // scripts.blade.php bind this same form too (was causing duplicate saves).
             const inquiryForm = document.getElementById('generalInquiryForm');
-            if (inquiryForm) {
+            if (inquiryForm && !inquiryForm.dataset.submitBound) {
+                inquiryForm.dataset.submitBound = '1';
                 inquiryForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     

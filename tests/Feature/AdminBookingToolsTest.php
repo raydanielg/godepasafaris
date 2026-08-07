@@ -135,6 +135,28 @@ class AdminBookingToolsTest extends TestCase
         });
     }
 
+    public function test_booking_details_page_renders(): void
+    {
+        $booking = Booking::create(['name' => 'Amina', 'email' => 'amina@example.com']);
+
+        $this->actingAs($this->admin())
+            ->get(route('admin.bookings.show', $booking))
+            ->assertOk()
+            ->assertSee('Amina');
+    }
+
+    public function test_booking_details_survives_missing_activity_logs_table(): void
+    {
+        $booking = Booking::create(['name' => 'Amina', 'email' => 'amina@example.com']);
+
+        // Simulate the live server where the activity-logs migration hasn't run.
+        \Illuminate\Support\Facades\Schema::dropIfExists('booking_activity_logs');
+
+        $this->actingAs($this->admin())
+            ->get(route('admin.bookings.show', $booking))
+            ->assertOk();   // must NOT 500 on the missing table
+    }
+
     public function test_bulk_tools_require_authentication(): void
     {
         $this->delete(route('admin.bookings.delete-all'))->assertRedirect(route('login'));

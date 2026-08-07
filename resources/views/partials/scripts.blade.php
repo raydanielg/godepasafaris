@@ -74,8 +74,14 @@
         });
     });
 
-    // General Inquiry Form AJAX Submission
-    document.getElementById('generalInquiryForm').addEventListener('submit', function(e) {
+    // General Inquiry Form AJAX Submission.
+    // Guarded so the handler binds only ONCE: header.blade.php and some page
+    // views (e.g. safari/show) also bind this same form, which caused the same
+    // booking to be submitted (and saved) multiple times per click.
+    const _gInquiryForm = document.getElementById('generalInquiryForm');
+    if (_gInquiryForm && !_gInquiryForm.dataset.submitBound) {
+    _gInquiryForm.dataset.submitBound = '1';
+    _gInquiryForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const form = this;
@@ -138,6 +144,7 @@
             submitBtn.innerHTML = originalText;
         });
     });
+    }
 
     // Safari Booking Form AJAX Submission
     const safariBookingForm = document.getElementById('safariBookingForm');
