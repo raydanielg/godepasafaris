@@ -5,6 +5,14 @@
 
     RewriteEngine On
 
+    # Force the canonical host: redirect www -> non-www (and up to HTTPS).
+    # Google had indexed the www.* version of the site, where pages 404 and
+    # duplicate the real non-www pages. This consolidates everything onto
+    # https://godeepafricasafari.com. Safe: only fires when the host starts
+    # with "www.", and the target is non-www, so it cannot loop.
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

@@ -18,9 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/ngorongoro-safari', '/all-tours', 301);
 Route::redirect('/lake-manyara-safari', '/all-tours', 301);
-Route::redirect('/destinations/ngorongoro', '/destinations', 301);
+// Old destination slug -> the specific live destination page (better than the index).
+Route::redirect('/destinations/ngorongoro', '/destinations/ngorongoro-crater', 301);
 Route::redirect('/blog/the-big-five-tanzanias-iconic-wildlife', '/blog', 301);
 Route::redirect('/blog/the-great-migration-natures-greatest-show', '/blog', 301);
+// Old "/pages/*" footer paths -> their current top-level routes.
+Route::redirect('/pages/help-center', '/help-center', 301);
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
 

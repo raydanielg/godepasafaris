@@ -4,22 +4,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @php
-        $seoTitle = 'Zanzibar Holidays — Beaches, Stone Town, Spice & Marine Tours | Go Deep Africa';
-        $seoDescription = 'Discover magical Zanzibar: white-sand beaches (Nungwi, Paje, Kendwa), UNESCO Stone Town, spice farms, dolphin & turtle tours, Prison Island tortoises and Jozani Forest. Book your Zanzibar adventure.';
+        // Primary target: "Tanzania safari and Zanzibar beach holiday package"
+        $seoTitle = 'Tanzania Safari & Zanzibar Beach Holiday Packages | Go Deep Africa';
+        $seoDescription = 'Combine a Serengeti safari with a Zanzibar beach holiday. Tailor-made Tanzania safari and Zanzibar beach packages from $2,450 — Stone Town, spice tours, dolphins and white-sand beaches. Free quote in 24 hours.';
+        $seoKeywords = 'Tanzania safari and Zanzibar beach holiday package, Serengeti and Zanzibar package, safari and beach Tanzania, Zanzibar holiday packages, Zanzibar beach honeymoon';
         $seoImage = $z['hero_image'];
         $waNumber = preg_replace('/\D/', '', $z['whatsapp']);
+
+        // Combo-focused FAQ — shown on-page AND emitted as FAQPage schema.
+        $znzFaqs = [
+            ['q' => 'How much is a Tanzania safari and Zanzibar beach holiday package?', 'a' => 'Our safari and Zanzibar beach combos start from around $2,450 per person, pairing a Northern Tanzania safari (Serengeti, Ngorongoro, Tarangire) with a beach stay in Zanzibar. The final price depends on the number of days, season and accommodation level — every itinerary is tailor-made and we send a free quote within 24 hours.'],
+            ['q' => 'How many days do you need for a safari and Zanzibar trip?', 'a' => 'Most travellers choose 9–12 days: about 3–5 days on safari in the Serengeti and Ngorongoro, then 4–7 days relaxing on Zanzibar’s beaches with optional Stone Town, spice and dolphin tours.'],
+            ['q' => 'When is the best time for a Tanzania safari and Zanzibar beach holiday?', 'a' => 'June to October gives the best game viewing plus dry, sunny beach weather — ideal for combining safari and Zanzibar. December to February is also excellent, with calm seas and green-season wildlife.'],
+            ['q' => 'Is it easy to travel from the safari to Zanzibar?', 'a' => 'Yes — short domestic flights connect Arusha, Kilimanjaro and the Serengeti directly to Zanzibar, so you can go from game drives to the beach in a couple of hours. We arrange all flights and transfers.'],
+        ];
+
         $seoSchema = json_encode([
-            '@context' => 'https://schema.org',
-            '@type' => 'TouristDestination',
-            'name' => 'Zanzibar',
-            'description' => 'Zanzibar — the Spice Island: beaches, UNESCO Stone Town, spice farms, marine life and Swahili culture off the coast of Tanzania.',
-            'image' => $z['hero_image'],
-            'url' => url()->current(),
-            'geo' => ['@type' => 'GeoCoordinates', 'latitude' => -6.1659, 'longitude' => 39.2026],
-            'touristType' => ['Beach holidays', 'Cultural tourism', 'Honeymoon', 'Marine & diving'],
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'TouristDestination',
+                'name' => 'Zanzibar',
+                'description' => 'Zanzibar — the Spice Island: beaches, UNESCO Stone Town, spice farms, marine life and Swahili culture off the coast of Tanzania.',
+                'image' => $z['hero_image'],
+                'url' => url()->current(),
+                'geo' => ['@type' => 'GeoCoordinates', 'latitude' => -6.1659, 'longitude' => 39.2026],
+                'touristType' => ['Beach holidays', 'Cultural tourism', 'Honeymoon', 'Marine & diving'],
+            ],
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'ItemList',
+                'name' => 'Zanzibar & Safari-Beach Holiday Packages',
+                'itemListElement' => collect($z['packages'] ?? [])->values()->map(fn ($pkg, $i) => [
+                    '@type' => 'ListItem',
+                    'position' => $i + 1,
+                    'item' => [
+                        '@type' => 'Product',
+                        'name' => $pkg['name'],
+                        'url' => url()->current() . '#packages',
+                        'offers' => ['@type' => 'Offer', 'price' => (string) (int) ($pkg['from'] ?? 0), 'priceCurrency' => 'USD', 'availability' => 'https://schema.org/InStock'],
+                    ],
+                ])->all(),
+            ],
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'FAQPage',
+                'mainEntity' => collect($znzFaqs)->map(fn ($f) => [
+                    '@type' => 'Question',
+                    'name' => $f['q'],
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+                ])->all(),
+            ],
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     @endphp
-    @include('partials.seo')
+    @include('partials.seo', ['seoKeywords' => $seoKeywords])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -81,10 +118,10 @@
     <header class="znz-hero">
         <div class="container content" data-aos="fade-up">
             <p class="znz-eyebrow mb-3">Discover Magical Zanzibar — The Jewel of the Indian Ocean</p>
-            <h1 class="display-3 fw-bold mb-3">Where History, Culture, Adventure &amp; Paradise Meet.</h1>
-            <p class="lead mb-4" style="max-width:680px; opacity:.95;">
-                Experience pristine white-sand beaches, ancient Stone Town heritage, spice farms, marine adventures,
-                dolphin tours, giant tortoise encounters and authentic Swahili culture — all in one unforgettable island.
+            <h1 class="display-3 fw-bold mb-3">Tanzania Safari &amp; Zanzibar Beach Holidays</h1>
+            <p class="lead mb-4" style="max-width:700px; opacity:.95;">
+                Pair a Serengeti safari with pristine white-sand beaches, Stone Town heritage, spice farms and dolphin tours.
+                Our tailor-made Tanzania safari and Zanzibar beach holiday packages turn two bucket-list trips into one unforgettable journey.
             </p>
             <div class="d-flex flex-column flex-sm-row gap-3">
                 <a href="#packages" class="btn btn-coral btn-lg rounded-pill px-4 py-3">
@@ -299,10 +336,14 @@
     <section id="packages" class="znz-section">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
-                <div class="znz-kicker">Luxury &amp; Romantic Packages</div>
-                <h2 class="znz-heading mt-2">Choose Your Zanzibar Experience</h2>
+                <div class="znz-kicker">Safari + Beach &amp; Romantic Packages</div>
+                <h2 class="znz-heading mt-2">Choose Your Safari &amp; Zanzibar Experience</h2>
                 <div class="znz-rule mx-auto mt-3"></div>
-                <p class="text-muted mt-3">Indicative from-prices per person — tailor any itinerary with our team.</p>
+                <p class="text-muted mt-3">
+                    Indicative from-prices per person — tailor any itinerary with our team. Want the full combo? Pair your beach days with a
+                    <a href="{{ route('safari') }}" class="fw-semibold text-decoration-none" style="color:var(--coral,#8B4513);">Tanzania safari</a>
+                    or a <a href="{{ route('kilimanjaro') }}" class="fw-semibold text-decoration-none" style="color:var(--coral,#8B4513);">Kilimanjaro climb</a>.
+                </p>
             </div>
             <div class="row g-4">
                 @foreach($z['packages'] as $pkg)
@@ -340,6 +381,25 @@
                 </div>
                 @endforeach
             </div>
+        </div>
+    </section>
+
+    <!-- FAQ (mirrors FAQPage schema in <head>) -->
+    <section class="znz-section">
+        <div class="container" style="max-width: 860px;">
+            <div class="text-center mb-4" data-aos="fade-up">
+                <div class="znz-kicker">Good to Know</div>
+                <h2 class="znz-heading mt-2">Safari &amp; Zanzibar — Frequently Asked Questions</h2>
+                <div class="znz-rule mx-auto mt-3"></div>
+            </div>
+            @foreach($znzFaqs as $faq)
+            <details class="mb-3 p-3 rounded-4 shadow-sm" style="background:#fff;" @if($loop->first) open @endif data-aos="fade-up">
+                <summary class="fw-bold" style="cursor:pointer; list-style:none; color:#0f6f6f;">
+                    <i class="fas fa-chevron-right me-2" style="font-size:.8rem;"></i>{{ $faq['q'] }}
+                </summary>
+                <p class="text-muted mt-3 mb-0">{{ $faq['a'] }}</p>
+            </details>
+            @endforeach
         </div>
     </section>
 

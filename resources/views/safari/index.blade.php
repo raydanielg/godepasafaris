@@ -4,8 +4,67 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @php
-        $seoTitle = 'Tanzania Safari Packages & Tours — All-Inclusive Trips | Go Deep Africa';
-        $seoDescription = 'Browse handcrafted Tanzania safari packages across the Serengeti, Ngorongoro, Tarangire and more. Private, all-inclusive tours with expert local guides — get a free quote.';
+        // Primary target: "affordable Tanzania safari packages from Arusha"
+        // Supporting:     "3 day Serengeti safari from Arusha"
+        $seoTitle = 'Affordable Tanzania Safari Packages from Arusha | Go Deep Africa';
+        $seoDescription = 'Book affordable Tanzania safari packages from Arusha — from 3-day Serengeti & Ngorongoro trips to luxury tours. Private, all-inclusive, expert local guides. Free quote in 24 hours.';
+        $seoKeywords = 'affordable Tanzania safari packages from Arusha, 3 day Serengeti safari from Arusha, Tanzania safari tours, Serengeti Ngorongoro safari, budget safari Arusha, Tanzania safari cost';
+
+        // FAQ shown on-page AND emitted as FAQPage schema (kept in sync).
+        $safariFaqs = [
+            [
+                'q' => 'How much does a Tanzania safari from Arusha cost?',
+                'a' => 'Affordable Tanzania safari packages from Arusha start from around $240 for a 1-day trip, while a popular 3-day Serengeti and Ngorongoro safari typically ranges from a few hundred dollars per person per day depending on season, group size and accommodation. Joining a shared group departure is the cheapest option — we send exact current pricing in your free quote within 24 hours.',
+            ],
+            [
+                'q' => 'What is the best short safari from Arusha?',
+                'a' => 'Our most popular short option is the 3-day Serengeti safari from Arusha, combining the Serengeti plains and the Ngorongoro Crater with up to four game drives. Park fees, a 4x4 game-drive vehicle, a professional guide, meals and accommodation are all included.',
+            ],
+            [
+                'q' => 'What is included in your Tanzania safari packages?',
+                'a' => 'Every package includes national park entry fees, a 4x4 safari vehicle with a pop-up roof, a professional English-speaking guide, and the accommodation and meals stated in the itinerary. International flights and personal items are excluded. We confirm every detail before you pay.',
+            ],
+            [
+                'q' => 'When is the best time to go on a Tanzania safari?',
+                'a' => 'June to October is the peak dry season with the best wildlife viewing and the Great Migration river crossings in the Serengeti. The green season (November to March) is quieter, greener and better value, with excellent resident game and birdlife.',
+            ],
+        ];
+
+        $safariSchema = [
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'ItemList',
+                'name' => 'Tanzania Safari Packages from Arusha',
+                'itemListElement' => collect($packages)->values()->map(function ($pkg, $i) {
+                    return [
+                        '@type' => 'ListItem',
+                        'position' => $i + 1,
+                        'item' => [
+                            '@type' => 'Product',
+                            'name' => $pkg->title,
+                            'url' => route('safari.show', $pkg->slug),
+                            'image' => asset($pkg->image),
+                            'offers' => [
+                                '@type' => 'Offer',
+                                'price' => (string) (int) $pkg->price,
+                                'priceCurrency' => 'USD',
+                                'availability' => 'https://schema.org/InStock',
+                            ],
+                        ],
+                    ];
+                })->all(),
+            ],
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'FAQPage',
+                'mainEntity' => collect($safariFaqs)->map(fn ($f) => [
+                    '@type' => 'Question',
+                    'name' => $f['q'],
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+                ])->all(),
+            ],
+        ];
+        $seoSchema = json_encode($safariSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -90,10 +149,10 @@
                 <i class="fas fa-binoculars me-2"></i>Explore Tanzania
             </span>
             <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
-                All Safari Packages
+                Affordable Tanzania Safari Packages from Arusha
             </h1>
-            <p class="lead mx-auto mb-4" style="max-width: 700px;">
-                Discover our carefully crafted safari experiences. From classic game drives to luxury adventures, find your perfect journey.
+            <p class="lead mx-auto mb-4" style="max-width: 720px;">
+                Locally owned and based in Arusha, we run private and small-group Tanzania safaris to the Serengeti, Ngorongoro Crater and Tarangire — from quick 3-day getaways to luxury adventures. Find your trip below and get a free quote in 24 hours.
             </p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <span class="badge bg-light text-dark px-3 py-2">
@@ -106,6 +165,27 @@
                     <i class="fas fa-check-circle text-success me-2"></i>Best Locations
                 </span>
             </div>
+        </div>
+    </section>
+
+    <!-- SEO intro / internal linking -->
+    <section class="py-5 bg-white">
+        <div class="container" style="max-width: 920px;" data-aos="fade-up">
+            <h2 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                Tanzania Safari Packages from Arusha — for Every Budget
+            </h2>
+            <p class="text-muted mb-3">
+                Arusha is the gateway to Northern Tanzania's legendary parks, and every safari below departs from here.
+                Whether you want an <strong>affordable 3-day Serengeti safari from Arusha</strong>, a week-long Northern Circuit,
+                or a private luxury adventure, our locally born guides handle everything — park permits, a 4x4 game-drive
+                vehicle, meals and comfortable accommodation — so you just enjoy the wildlife.
+            </p>
+            <p class="text-muted mb-0">
+                Popular routes take in the <a href="{{ route('destinations') }}" class="fw-semibold text-decoration-none" style="color:#8B4513;">Serengeti, Ngorongoro Crater and Tarangire</a>.
+                Want more than game drives? Add a <a href="{{ route('zanzibar') }}" class="fw-semibold text-decoration-none" style="color:#8B4513;">Zanzibar beach holiday</a>
+                after your safari, or take on a <a href="{{ route('kilimanjaro') }}" class="fw-semibold text-decoration-none" style="color:#8B4513;">Mount Kilimanjaro climb</a>.
+                Not sure which package fits? <a href="{{ route('contact') }}" class="fw-semibold text-decoration-none" style="color:#8B4513;">Tell us your dates and budget</a> and we'll tailor-make one for you.
+            </p>
         </div>
     </section>
 
@@ -125,6 +205,9 @@
     <!-- Packages Grid -->
     <section class="py-5">
         <div class="container py-4">
+            <h2 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+                Popular Tanzania Safari Packages from Arusha
+            </h2>
             <div class="row g-4" id="packages-grid">
                 @foreach($packages as $pkg)
                 @php
@@ -218,6 +301,23 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (mirrors FAQPage schema in <head>) -->
+    <section class="py-5 bg-white">
+        <div class="container py-2" style="max-width: 860px;">
+            <h2 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+                Tanzania Safari from Arusha — Frequently Asked Questions
+            </h2>
+            @foreach($safariFaqs as $faq)
+            <details class="mb-3 p-3 rounded-4 border" style="background:#fdfaf5;" @if($loop->first) open @endif>
+                <summary class="fw-bold" style="cursor:pointer; color:#3E2723; list-style:none;">
+                    <i class="fas fa-chevron-right me-2" style="font-size:.8rem; color:#8B4513;"></i>{{ $faq['q'] }}
+                </summary>
+                <p class="text-muted mt-3 mb-0">{{ $faq['a'] }}</p>
+            </details>
+            @endforeach
         </div>
     </section>
 

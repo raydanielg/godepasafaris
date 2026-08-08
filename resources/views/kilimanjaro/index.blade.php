@@ -3,9 +3,55 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @php
+        // Primary target: "7 day Machame route Kilimanjaro cost"
+        // Supporting:     "budget Kilimanjaro climb Machame route"
+        $seoTitle = 'Kilimanjaro Machame Route Cost & Trekking Packages | Go Deep Africa';
+        $seoDescription = 'Climb Mount Kilimanjaro on the Machame route from Arusha. See 6 & 7-day Machame route costs, budget group climbs, all routes compared and 98% summit success. Free quote in 24 hours.';
+        $seoKeywords = '7 day Machame route Kilimanjaro cost, budget Kilimanjaro climb Machame route, Kilimanjaro trekking packages, climb Kilimanjaro from Arusha, Machame route price';
+
+        // Single source of truth for the visible FAQ AND the FAQPage schema.
+        $kiliFaqs = [
+            ['q' => 'How much does the 7-day Machame route cost?', 'a' => 'A comfortable, safe 7-day Machame route group climb costs about $3,040 per person (2026 rates), while shorter 5–6-day or season-discounted climbs range from $2,200–$2,700. Park fees are roughly 35% of the total. Joining a group departure is the most budget-friendly way to climb the Machame route — we send exact current pricing in your free quote.'],
+            ['q' => 'Can a beginner climb Kilimanjaro?', 'a' => 'Yes. Kilimanjaro is accessible to beginners with no trekking experience — the key factor is not hiking skill but proper acclimatization, which is best achieved on a 7–8-day route such as Machame or Lemosho.'],
+            ['q' => 'When is the best time to climb Kilimanjaro?', 'a' => 'Late December to early March and mid-June to late October are the best times to climb, when Kilimanjaro’s weather is nearly ideal for summiting.'],
+            ['q' => 'How do I get to Kilimanjaro?', 'a' => 'Fly into Kilimanjaro International Airport (JRO); airlines such as Turkish Airlines, Qatar Airways, KLM and Ethiopian Airlines serve it. Airport transfers are included with every climb.'],
+        ];
+
+        $kiliSchema = [
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'ItemList',
+                'name' => 'Mount Kilimanjaro Trekking Packages',
+                'itemListElement' => collect($packages)->values()->map(fn ($pkg, $i) => [
+                    '@type' => 'ListItem',
+                    'position' => $i + 1,
+                    'item' => [
+                        '@type' => 'Product',
+                        'name' => $pkg->title,
+                        'url' => route('kilimanjaro.show', $pkg->slug),
+                        'image' => asset($pkg->image),
+                        'offers' => ['@type' => 'Offer', 'price' => (string) (int) $pkg->price, 'priceCurrency' => 'USD', 'availability' => 'https://schema.org/InStock'],
+                    ],
+                ])->all(),
+            ],
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'FAQPage',
+                'mainEntity' => collect($kiliFaqs)->map(fn ($f) => [
+                    '@type' => 'Question',
+                    'name' => $f['q'],
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+                ])->all(),
+            ],
+        ];
+        $seoSchema = json_encode($kiliSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
     @include('partials.seo', [
-        'seoTitle' => 'Kilimanjaro Trekking: Routes, Prices & Success Tips | Go Deep Africa Safari',
-        'seoDescription' => 'Climb Mount Kilimanjaro with Go Deep Africa Safari. Compare Machame, Lemosho, Marangu and more, see transparent pricing, and boost your summit success.',
+        'seoTitle' => $seoTitle,
+        'seoDescription' => $seoDescription,
+        'seoKeywords' => $seoKeywords,
+        'seoSchema' => $seoSchema,
     ])
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
@@ -19,7 +65,7 @@
     <section class="page-header animate__animated animate__fadeIn" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}');">
         <div class="container text-center">
             <h1 class="display-4 fw-bold animate__animated animate__fadeInUp">Mount Kilimanjaro Trekking &amp; Climbing</h1>
-            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Climb the Roof of Africa with Expert Local Guides</p>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Climb the Roof of Africa via the Machame route and more — budget group climbs to private treks, with expert local guides from Arusha.</p>
         </div>
     </section>
 
@@ -200,6 +246,12 @@
 
             <div class="text-center mb-5">
                 <a href="{{ route('kilimanjaro') }}?all=1" class="btn btn-outline-earth rounded-pill px-5 py-2 fw-bold">VIEW ALL KILIMANJARO PACKAGES</a>
+                <p class="text-muted small mt-3 mb-0">
+                    Make it the trip of a lifetime — combine your climb with a
+                    <a href="{{ route('safari') }}" class="fw-semibold text-decoration-none text-earth">Tanzania safari</a>
+                    or unwind afterwards on a
+                    <a href="{{ route('zanzibar') }}" class="fw-semibold text-decoration-none text-earth">Zanzibar beach holiday</a>.
+                </p>
             </div>
 
             <!-- Detailed Information Section -->
@@ -223,42 +275,20 @@
                     <div class="faq-section bg-white p-4 p-md-5 rounded-4 shadow-sm">
                         <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Frequently Asked Questions</h3>
                         <div class="accordion accordion-flush" id="kiliFaq">
+                            @foreach($kiliFaqs as $faq)
                             <div class="accordion-item border-0 mb-3">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button rounded-4 collapsed fw-bold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                        Can a Beginner Climb Kilimanjaro?
+                                    <button class="accordion-button rounded-4 {{ $loop->first ? '' : 'collapsed' }} fw-bold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#kfaq{{ $loop->index }}">
+                                        {{ $faq['q'] }}
                                     </button>
                                 </h2>
-                                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#kiliFaq">
+                                <div id="kfaq{{ $loop->index }}" class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent="#kiliFaq">
                                     <div class="accordion-body text-muted">
-                                        Yes, Kilimanjaro is accessible to beginners with no trekking experience. The key factor isn’t hiking skills but proper acclimatization, which is best achieved on a 7–8-day route.
+                                        {{ $faq['a'] }}
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion-item border-0 mb-3">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button rounded-4 collapsed fw-bold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                        How Much Does It Cost?
-                                    </button>
-                                </h2>
-                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#kiliFaq">
-                                    <div class="accordion-body text-muted">
-                                        As of 2026, a comfortable and safe 7-day group climb costs about $3,040. A shorter 5-6-day adventure or a season-discounted trip comes at $2,200-$2,700. This includes park fees (about 35% of total cost).
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item border-0 mb-3">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button rounded-4 collapsed fw-bold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                        How Do I Get to Kilimanjaro?
-                                    </button>
-                                </h2>
-                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#kiliFaq">
-                                    <div class="accordion-body text-muted">
-                                        The easiest way is flying into Kilimanjaro International Airport (JRO). Major airlines such as Turkish Airlines, Qatar Airways, KLM, and Ethiopian Airlines offer regular flights.
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

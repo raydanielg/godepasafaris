@@ -11,6 +11,11 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>{{ route('safari') }}</loc>
+        <priority>0.9</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>{{ route('kilimanjaro') }}</loc>
         <priority>0.9</priority>
         <changefreq>weekly</changefreq>
@@ -51,6 +56,23 @@
     <url>
         <loc>{{ route('impact') }}</loc>
         <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>{{ route('packing-list.index') }}</loc>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('testimonials') }}</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>{{ route('faq') }}</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>{{ route('how.works') }}</loc>
+        <priority>0.5</priority>
     </url>
 
     @foreach($styles as $style)

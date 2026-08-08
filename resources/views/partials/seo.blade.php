@@ -15,6 +15,19 @@
     $seoRobots      = $seoRobots      ?? 'index, follow';
     // Optional extra JSON-LD (raw json string) for the current page.
     $seoSchema      = $seoSchema      ?? null;
+
+    // Canonical URL: force the production scheme + host (from APP_URL) so that
+    // http/https and www/non-www variants all point at ONE canonical and don't
+    // split ranking signals. Falls back to the request URL on local/dev hosts.
+    // Query strings are excluded (getPathInfo), so ?lang=xx variants correctly
+    // canonicalise to the base page.
+    $appUrl = rtrim((string) config('app.url'), '/');
+    if ($appUrl === '' || str_contains($appUrl, 'localhost') || str_contains($appUrl, '127.0.0.1')) {
+        $canonicalUrl = url()->current();
+    } else {
+        $path = request()->getPathInfo();
+        $canonicalUrl = $appUrl . ($path === '/' ? '' : $path);
+    }
 @endphp
 
 <!-- CSRF token (used by AJAX forms) -->
@@ -30,7 +43,7 @@
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="{{ $seoType }}">
-<meta property="og:url" content="{{ url()->current() }}">
+<meta property="og:url" content="{{ $canonicalUrl }}">
 <meta property="og:title" content="{{ $seoTitle }}">
 <meta property="og:description" content="{{ $seoDescription }}">
 <meta property="og:image" content="{{ $seoImage }}">
@@ -39,7 +52,7 @@
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="{{ url()->current() }}">
+<meta property="twitter:url" content="{{ $canonicalUrl }}">
 <meta property="twitter:title" content="{{ $seoTitle }}">
 <meta property="twitter:description" content="{{ $seoDescription }}">
 <meta property="twitter:image" content="{{ $seoImage }}">
@@ -53,7 +66,7 @@
   "image": "{{ asset('images/logo/logo.png') }}",
   "@@id": "{{ url('/') }}",
   "url": "{{ url('/') }}",
-  "telephone": "+966542586758",
+  "telephone": "+255794636471",
   "address": {
     "@@type": "PostalAddress",
     "streetAddress": "Arusha",
@@ -83,7 +96,7 @@
 @endif
 
 <!-- Canonical Link -->
-<link rel="canonical" href="{{ url()->current() }}">
+<link rel="canonical" href="{{ $canonicalUrl }}">
 
 <!-- Hreflang alternates (multilingual) -->
 @foreach(config('locales.supported', []) as $localeCode => $localeMeta)
