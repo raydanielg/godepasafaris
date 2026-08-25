@@ -631,9 +631,15 @@ class DashboardController extends Controller
 
         try {
             \Illuminate\Support\Facades\Mail::raw($request->message, function ($message) use ($booking, $request) {
+                // Send as the real, existing mailbox (config('mail.from')) rather
+                // than a made-up app@ address. A From: that has no mailbox behind
+                // it fails DMARC alignment checks at Gmail and gets spam-foldered
+                // or bounced, and replies from customers vanish. Reply-To is set
+                // to the same inbox so the customer's reply reaches the team.
                 $message->to($booking->email, $booking->name)
                         ->subject($request->subject)
-                        ->from('app@godeepafricasafari.com', 'Go Deep Africa Safari');
+                        ->from(config('mail.from.address'), config('mail.from.name'))
+                        ->replyTo(config('mail.admin_address'));
             });
 
             \App\Models\BookingActivityLog::create([

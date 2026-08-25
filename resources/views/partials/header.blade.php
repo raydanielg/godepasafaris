@@ -106,7 +106,7 @@
                                                         <span class="badge mb-2 safari-badge" style="background: #8B4513; font-size: 0.7rem;">
                                                             <i class="fas fa-star me-1"></i>Featured Safari
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ tr($safariPackages->first()->title) }}</h4>
+                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ tr($safariPackages->first()->title) }}</h4>
                                                         <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ Str::limit(tr($safariPackages->first()->summary), 100) }}</p>
                                                         <a href="{{ route('safari.show', $safariPackages->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white safari-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             View Details <i class="fas fa-arrow-right ms-2"></i>
@@ -254,7 +254,7 @@
                                                         <span class="badge mb-2 kili-badge" style="background: {{ $kiliSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
                                                             <i class="fas fa-star me-1"></i>{{ $kiliSection->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 kili-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $kiliSection->title }}</h4>
+                                                        <h4 class="fw-bold mb-2 kili-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ $kiliSection->title }}</h4>
                                                         <p class="text-muted mb-3 kili-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $kiliSection->description }}</p>
                                                         <a href="{{ $kiliSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white kili-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             {{ $kiliSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>
@@ -328,7 +328,7 @@
                                                         <span class="badge mb-2 dest-badge" style="background: #8B4513; font-size: 0.7rem;">
                                                             <i class="fas fa-compass me-1"></i>Featured Destination
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ tr($destinations->first()->name) }}</h4>
+                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ tr($destinations->first()->name) }}</h4>
                                                         <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ tr($destinations->first()->tagline) }}</p>
                                                         <a href="{{ route('destinations.show', $destinations->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white dest-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             Explore Now <i class="fas fa-arrow-right ms-2"></i>
@@ -420,7 +420,7 @@
                                                         <span class="badge mb-2 impact-badge" style="background: {{ $impactSection->badge_color == 'success' ? '#28a745' : '#8B4513' }}; font-size: 0.7rem;">
                                                             <i class="fas fa-hands-helping me-1"></i>{{ $impactSection->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 impact-title" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ $impactSection->title }}</h4>
+                                                        <h4 class="fw-bold mb-2 impact-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ $impactSection->title }}</h4>
                                                         <p class="text-muted mb-3 impact-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $impactSection->description }}</p>
                                                         <a href="{{ $impactSection->link_url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white impact-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
                                                             {{ $impactSection->link_text }} <i class="fas fa-arrow-right ms-2"></i>

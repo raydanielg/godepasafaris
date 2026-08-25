@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -83,7 +84,7 @@
                 <!-- Contact Form -->
                 <div class="col-lg-7 animate__animated animate__fadeInRight">
                     <div class="contact-card-enhanced p-4 p-md-5">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Send us a Message</h3>
+                        <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Send us a Message</h3>
                         <form id="contactForm">
                             <div class="row g-4">
                                 <div class="col-md-6">

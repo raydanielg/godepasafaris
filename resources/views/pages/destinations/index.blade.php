@@ -9,8 +9,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -78,7 +78,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3 animate__animated animate__fadeInDown">
                 <i class="fas fa-map-marked-alt me-2"></i>Explore Tanzania
             </span>
-            <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Nunito', sans-serif;">
                 Safari Destinations
             </h1>
             <p class="lead mx-auto mb-4 animate__animated animate__fadeInUp" style="max-width: 800px; text-shadow: 1px 2px 10px rgba(0,0,0,0.5);">
@@ -101,7 +101,7 @@
                         <span class="badge bg-warning text-dark mb-3">
                             <i class="fas fa-star me-1"></i>{{ __('messages.dest.featured_badge') }}
                         </span>
-                        <h2 class="display-5 fw-bold text-white mb-3" style="font-family: 'Playfair Display', serif;">
+                        <h2 class="display-5 fw-bold text-white mb-3" style="font-family: 'Nunito', sans-serif;">
                             {{ tr($featured->name) }}
                         </h2>
                         <p class="text-white-75 lead mb-4">{{ tr($featured->tagline) }}</p>
@@ -136,7 +136,7 @@
     <section class="py-5" style="background:#fdfaf5;">
         <div class="container py-2">
             <div class="text-center mb-4" data-aos="fade-up">
-                <h2 class="display-6 fw-bold mb-2" style="color:#3E2723; font-family:'Playfair Display',serif;">Explore by Safari Circuit</h2>
+                <h2 class="display-6 fw-bold mb-2" style="color:#3E2723; font-family:'Nunito', sans-serif;">Explore by Safari Circuit</h2>
                 <p class="text-muted mx-auto" style="max-width:640px;">Tanzania's parks group into three circuits. Open a circuit for detailed facts, the parks it covers and an interactive map.</p>
             </div>
             <div class="row g-4">
@@ -164,7 +164,7 @@
     <section class="py-5">
         <div class="container py-4">
             <div class="text-center mb-4" data-aos="fade-up">
-                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                     All Safari Destinations
                 </h2>
                 <p class="text-muted mx-auto" style="max-width: 600px;">
@@ -258,7 +258,7 @@
     <!-- CTA Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Can't Decide Where to Go?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Can't Decide Where to Go?</h2>
             <p class="lead mb-4 opacity-75">Let our experts help you plan the perfect Tanzania safari</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <a href="{{ route('tours.all') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">

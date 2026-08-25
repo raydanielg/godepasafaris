@@ -279,7 +279,7 @@
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 text-white animate__animated animate__fadeInLeft">
                     <h6 class="text-uppercase fw-bold mb-3" style="color: #DEB887; letter-spacing: 3px;">Safari with a Purpose</h6>
-                    <h2 class="display-4 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Your Journey Changes Lives</h2>
+                    <h2 class="display-4 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Your Journey Changes Lives</h2>
                     <p class="lead mb-4 opacity-75">At Go Deep Africa Safari, a portion of every booking goes directly to supporting orphans, vulnerable children, and marginalized women in Tanzania. When you travel with us, you are giving back to the heart of Africa.</p>
                     <div class="d-flex flex-wrap gap-4 mb-5">
                         <div class="impact-mini-card">
@@ -321,7 +321,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center text-white">
                     <h6 class="text-uppercase fw-bold mb-3" style="color: #DEB887; letter-spacing: 3px;">Ready for your next big adventure?</h6>
-                    <h2 class="display-4 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Get a Personalized Safari Quote Today</h2>
+                    <h2 class="display-4 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Get a Personalized Safari Quote Today</h2>
                     <p class="lead mb-5 opacity-75 mx-auto" style="max-width: 700px;">Tell us your dreams, and our Tanzania-based experts will craft a custom itinerary that fits your budget and interests perfectly.</p>
                     
                     <div class="d-flex flex-wrap justify-content-center gap-4 animate__animated animate__fadeInUp">

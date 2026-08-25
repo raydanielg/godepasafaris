@@ -20,6 +20,49 @@
         <priority>0.9</priority>
         <changefreq>weekly</changefreq>
     </url>
+    {{-- Kilimanjaro sub-pages: high-intent commercial and research queries
+         (route comparison, pricing, packing, group dates). Each has its own
+         unique title/description, so they are worth indexing separately. --}}
+    <url>
+        <loc>{{ route('kilimanjaro.routes') }}</loc>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('kilimanjaro.private-tours') }}</loc>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('kilimanjaro.group-departures') }}</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('kilimanjaro.packing-list') }}</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('kilimanjaro.why-us') }}</loc>
+        <priority>0.7</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('kilimanjaro.success-calculator') }}</loc>
+        <priority>0.7</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('kilimanjaro.other-mountains') }}</loc>
+        <priority>0.7</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('kilimanjaro.articles') }}</loc>
+        <priority>0.6</priority>
+        <changefreq>weekly</changefreq>
+    </url>
     <url>
         <loc>{{ route('blog') }}</loc>
         <priority>0.8</priority>

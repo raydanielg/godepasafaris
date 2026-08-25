@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Group Departures - Join Scheduled Kilimanjaro Climbs - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Kilimanjaro Group Departures 2026-2027 | Join a Climb',
+        'seoDescription' => 'Join a scheduled Kilimanjaro group climb in 2026 and 2027. Fixed departure dates, shared costs, small international groups and expert Tanzanian guides.',
+        'seoKeywords' => 'Kilimanjaro group climb, Kilimanjaro group departures, join Kilimanjaro trek, scheduled Kilimanjaro climbs',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -45,7 +48,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3">
                 <i class="fas fa-users me-2"></i>Join a Group
             </span>
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 Group Departures 2026-2027
             </h1>
             <p class="lead mx-auto mb-4" style="max-width: 700px;">
@@ -93,7 +96,7 @@
         <div class="container py-4">
             <div class="d-flex justify-content-between align-items-end mb-4">
                 <div>
-                    <h2 class="display-5 fw-bold mb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                    <h2 class="display-5 fw-bold mb-2" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                         Upcoming Departures
                     </h2>
                     <p class="text-muted mb-0">Book your spot with just $100 deposit</p>
@@ -183,7 +186,7 @@
     <!-- How It Works -->
     <section class="py-5 bg-light">
         <div class="container py-4">
-            <h2 class="display-5 fw-bold mb-5 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+            <h2 class="display-5 fw-bold mb-5 text-center" style="color: #3E2723; font-family: 'Nunito', sans-serif;" data-aos="fade-up">
                 How Group Departures Work
             </h2>
             <div class="row g-4">
@@ -225,7 +228,7 @@
         <div class="container py-4">
             <div class="row g-4">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <h2 class="display-5 fw-bold mb-4" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                    <h2 class="display-5 fw-bold mb-4" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                         Group Climb FAQ
                     </h2>
                     <div class="accordion" id="faqAccordion">
@@ -273,7 +276,7 @@
     <!-- CTA -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Ready to Join a Group?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Ready to Join a Group?</h2>
             <p class="lead mb-4 opacity-75">Book your spot with just $100 deposit</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <a href="#" onclick="document.getElementById('departures').scrollIntoView({behavior: 'smooth'}); return false;" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">

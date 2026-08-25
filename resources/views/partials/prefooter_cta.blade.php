@@ -4,7 +4,7 @@
             <!-- Left Side: Text -->
             <div class="col-lg-6">
                 <div class="cta-text-content animate__animated animate__fadeInLeft">
-                    <h2 class="display-5 fw-bold mb-3" style="font-family: 'Playfair Display', serif; color: #3E2723;">{{ __('messages.cta.ready_title') }}</h2>
+                    <h2 class="display-5 fw-bold mb-3" style="font-family: 'Nunito', sans-serif; color: #3E2723;">{{ __('messages.cta.ready_title') }}</h2>
                     <p class="lead text-muted mb-0">{{ __('messages.cta.ready_subtitle') }}</p>
                 </div>
             </div>

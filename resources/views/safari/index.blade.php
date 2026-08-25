@@ -68,8 +68,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -148,7 +148,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3">
                 <i class="fas fa-binoculars me-2"></i>Explore Tanzania
             </span>
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 Affordable Tanzania Safari Packages from Arusha
             </h1>
             <p class="lead mx-auto mb-4" style="max-width: 720px;">
@@ -171,7 +171,7 @@
     <!-- SEO intro / internal linking -->
     <section class="py-5 bg-white">
         <div class="container" style="max-width: 920px;" data-aos="fade-up">
-            <h2 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+            <h2 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                 Tanzania Safari Packages from Arusha — for Every Budget
             </h2>
             <p class="text-muted mb-3">
@@ -205,7 +205,7 @@
     <!-- Packages Grid -->
     <section class="py-5">
         <div class="container py-4">
-            <h2 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+            <h2 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Nunito', sans-serif;" data-aos="fade-up">
                 Popular Tanzania Safari Packages from Arusha
             </h2>
             <div class="row g-4" id="packages-grid">
@@ -241,7 +241,7 @@
                                 </div>
                             </div>
                             <a href="{{ route('safari.show', $pkg->slug) }}" class="text-decoration-none">
-                                <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif; min-height: 3rem;">{{ tr($pkg->title) }}</h5>
+                                <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif; min-height: 3rem;">{{ tr($pkg->title) }}</h5>
                             </a>
                             <p class="text-muted small mb-4">{{ Str::limit(tr($pkg->summary), 120) }}</p>
                             
@@ -269,7 +269,7 @@
     <!-- Featured Destinations -->
     <section class="py-5 bg-light">
         <div class="container py-4">
-            <h2 class="display-5 fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+            <h2 class="display-5 fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Nunito', sans-serif;" data-aos="fade-up">
                 Featured Destinations
             </h2>
             <div class="row g-4">
@@ -307,7 +307,7 @@
     <!-- FAQ Section (mirrors FAQPage schema in <head>) -->
     <section class="py-5 bg-white">
         <div class="container py-2" style="max-width: 860px;">
-            <h2 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+            <h2 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Nunito', sans-serif;" data-aos="fade-up">
                 Tanzania Safari from Arusha — Frequently Asked Questions
             </h2>
             @foreach($safariFaqs as $faq)
@@ -324,7 +324,7 @@
     <!-- CTA Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Can't Find What You're Looking For?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Can't Find What You're Looking For?</h2>
             <p class="lead mb-4 opacity-75">Let us create a custom safari just for you</p>
             <a href="{{ route('contact') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
                 <i class="fas fa-magic me-2"></i>Request Custom Safari

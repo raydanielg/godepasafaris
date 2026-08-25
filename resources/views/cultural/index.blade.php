@@ -9,8 +9,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -31,7 +31,7 @@
     <section class="cul-hero">
         <div class="container" data-aos="fade-up">
             <span class="badge rounded-pill px-3 py-2 mb-3" style="background:#8B4513;"><i class="fas fa-people-group me-1"></i>Cultural Safari</span>
-            <h1 class="display-3 fw-bold mb-3" style="font-family:'Playfair Display',serif;">Meet the People of Tanzania</h1>
+            <h1 class="display-3 fw-bold mb-3" style="font-family:'Nunito', sans-serif;">Meet the People of Tanzania</h1>
             <p class="lead mb-0" style="max-width:760px;">Beyond the wildlife lies a living culture. Share a day with the Maasai, Hadzabe, Chagga, Makonde and more — authentic, respectful encounters that support local communities.</p>
         </div>
     </section>
@@ -55,7 +55,7 @@
                             </div>
                             <div class="card-body p-4">
                                 <small class="text-uppercase fw-bold" style="color:#8B4513; letter-spacing:.5px;">{{ $exp->region }}</small>
-                                <h3 class="h5 fw-bold mt-1 mb-2" style="color:#3E2723; font-family:'Playfair Display',serif;">{{ tr($exp->name) }}</h3>
+                                <h3 class="h5 fw-bold mt-1 mb-2" style="color:#3E2723; font-family:'Nunito', sans-serif;">{{ tr($exp->name) }}</h3>
                                 <p class="text-muted small mb-3">{{ tr($exp->tagline) }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     @if($exp->price)<span class="fw-bold" style="color:#8B4513;">From ${{ number_format($exp->price, 0) }}</span>@else<span></span>@endif
@@ -74,7 +74,7 @@
 
     <section class="py-5" style="background:linear-gradient(135deg,#3E2723,#5D4037);">
         <div class="container py-3 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family:'Playfair Display',serif;">Add a Cultural Day to Your Safari</h2>
+            <h2 class="fw-bold mb-3" style="font-family:'Nunito', sans-serif;">Add a Cultural Day to Your Safari</h2>
             <p class="lead mb-4 opacity-75">Our team will weave any cultural experience into your itinerary.</p>
             <a href="#" class="btn btn-lg rounded-pill px-5 fw-bold" style="background:linear-gradient(135deg,#DEB887,#D2691E); color:#3E2723;" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">
                 <i class="fas fa-paper-plane me-2"></i>Plan My Cultural Safari

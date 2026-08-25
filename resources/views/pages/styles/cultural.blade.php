@@ -29,7 +29,7 @@
     <div class="container py-5">
         <div class="row g-5 align-items-center mb-5">
             <div class="col-lg-6">
-                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Beyond the Wildlife</h2>
+                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Beyond the Wildlife</h2>
                 <p class="lead text-muted">Our Cultural Safaris offer a profound opportunity to engage with the diverse people who make Tanzania so special. From the iconic Maasai warriors to the ancient Hadzabe hunter-gatherers, we facilitate respectful and authentic encounters.</p>
                 <p>Learn about traditional customs, ancient wisdom, and modern-day life in the villages. Whether it's participating in a traditional dance, learning how to make beadwork, or visiting a local school, these moments provide a deeper understanding of the human spirit in Africa.</p>
                 <div class="d-flex gap-3 mt-4">

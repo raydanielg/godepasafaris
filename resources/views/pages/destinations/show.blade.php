@@ -35,8 +35,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -62,7 +62,7 @@
                 <i class="fas fa-map-marker-alt me-2"></i>{{ tr($destination->location) }}
             </span>
 
-            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">
                 {{ tr($destination->name) }}
             </h1>
             <p class="lead mb-4" style="max-width: 700px;">{{ tr($destination->tagline) }}</p>
@@ -111,7 +111,7 @@
         <div class="container py-4">
             <div class="row g-5">
                 <div class="col-lg-8">
-                    <h2 class="display-5 fw-bold mb-4" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                    <h2 class="display-5 fw-bold mb-4" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                         {{ __('messages.dest.about') }} {{ tr($destination->name) }}
                     </h2>
                     <p class="lead text-muted mb-4">{{ tr($destination->description) }}</p>

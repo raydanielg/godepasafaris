@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>African Safari Destinations - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'African Safari Destinations in Tanzania',
+        'seoDescription' => 'Explore the safari destinations of Tanzania - Serengeti, Ngorongoro Crater, Tarangire, Lake Manyara and beyond. Compare parks, wildlife and the best time to visit.',
+        'seoKeywords' => 'Tanzania safari destinations, Serengeti, Ngorongoro Crater, Tarangire, Lake Manyara',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -104,7 +107,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3">
                 <i class="fas fa-globe-africa me-2"></i>Explore Africa
             </span>
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 African Safari Destinations
             </h1>
             <p class="lead mx-auto mb-4" style="max-width: 700px;">
@@ -166,7 +169,7 @@
                             </div>
                         </a>
                         <div class="card-body p-4">
-                            <h4 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                            <h4 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                                 <a href="{{ route('destinations.show', $dest->slug) }}" class="text-dark text-decoration-none">
                                     {{ $dest->title }}
                                 </a>
@@ -202,7 +205,7 @@
     <!-- African Countries Section -->
     <section class="py-5 bg-light">
         <div class="container py-4">
-            <h2 class="display-5 fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+            <h2 class="display-5 fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Nunito', sans-serif;" data-aos="fade-up">
                 African Countries We Cover
             </h2>
             <div class="row g-4">
@@ -249,7 +252,7 @@
     <!-- CTA Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Plan Your African Adventure</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Plan Your African Adventure</h2>
             <p class="lead mb-4 opacity-75">Let us help you create the perfect safari experience</p>
             <a href="{{ route('contact') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
                 <i class="fas fa-envelope me-2"></i>Contact Us

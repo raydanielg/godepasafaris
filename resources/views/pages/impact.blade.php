@@ -9,8 +9,8 @@
     ])
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <!-- AOS Animation Library -->
@@ -27,7 +27,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-4 animate__animated animate__fadeInDown" style="font-size: 0.9rem; letter-spacing: 2px;">
                 <i class="fas fa-heart me-2"></i>Safari with Purpose
             </span>
-            <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Playfair Display', serif; text-shadow: 2px 4px 20px rgba(0,0,0,0.5);">Transforming Lives Through Travel</h1>
+            <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Nunito', sans-serif; text-shadow: 2px 4px 20px rgba(0,0,0,0.5);">Transforming Lives Through Travel</h1>
             <p class="lead mx-auto mb-5 animate__animated animate__fadeInUp animate__delay-1s" style="max-width: 900px; font-size: 1.35rem; text-shadow: 1px 2px 10px rgba(0,0,0,0.5);">Every safari you book with us creates ripples of hope across Tanzania. Together, we've touched thousands of lives.</p>
             <div class="d-flex flex-wrap justify-content-center gap-3 animate__animated animate__fadeInUp animate__delay-2s">
                 <a href="#impact-numbers" class="btn btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); border: none; color: #3E2723;">
@@ -74,7 +74,7 @@
             <div class="row align-items-center g-5">
                 <div class="col-lg-6" data-aos="fade-right">
                     <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Our Commitment</span>
-                    <h2 class="display-5 fw-bold mb-4 mt-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">Why We Give Back</h2>
+                    <h2 class="display-5 fw-bold mb-4 mt-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">Why We Give Back</h2>
                     <p class="text-muted fs-5 mb-4">At Go Deep Africa Safari, we believe that tourism should be a force for good. Born and raised in the shadow of Kilimanjaro, our founders witnessed firsthand the challenges faced by vulnerable communities. That's why 10% of every booking goes directly to transforming lives across Tanzania.</p>
                     <div class="d-flex flex-wrap gap-3 mb-4">
                         <div class="d-flex align-items-center gap-2">
@@ -121,7 +121,7 @@
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">The Process</span>
-                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">How It Works</h2>
+                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">How It Works</h2>
                 <p class="text-muted mx-auto" style="max-width: 600px;">From your safari booking to community impact - see the journey of your contribution</p>
             </div>
             <div class="row g-4">
@@ -174,7 +174,7 @@
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Our Focus Areas</span>
-                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">Who We Support</h2>
+                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">Who We Support</h2>
                 <div class="mx-auto mt-2 mb-4" style="width: 80px; height: 4px; background: #8B4513;"></div>
                 <p class="text-muted mx-auto" style="max-width: 700px;">We focus on three key areas where we can make the most meaningful impact in Tanzanian communities</p>
             </div>
@@ -233,7 +233,7 @@
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Visual Stories</span>
-                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">Moments of Impact</h2>
+                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">Moments of Impact</h2>
                 <div class="mx-auto mt-2 mb-4" style="width: 80px; height: 4px; background: #8B4513;"></div>
                 <p class="text-muted mx-auto" style="max-width: 700px;">Glimpses of the lives we've touched and the communities we've helped transform</p>
             </div>
@@ -264,7 +264,7 @@
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Real Stories</span>
-                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">Lives We've Transformed</h2>
+                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">Lives We've Transformed</h2>
                 <div class="mx-auto mt-2 mb-4" style="width: 80px; height: 4px; background: #8B4513;"></div>
             </div>
             <div class="row g-4">
@@ -306,7 +306,7 @@
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Our Journey</span>
-                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">Milestones of Impact</h2>
+                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">Milestones of Impact</h2>
                 <div class="mx-auto mt-2 mb-4" style="width: 80px; height: 4px; background: #8B4513;"></div>
             </div>
             <div class="row">
@@ -345,7 +345,7 @@
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="text-uppercase fw-bold" style="color: #8B4513; letter-spacing: 3px; font-size: 0.9rem;">Collaboration</span>
-                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">Our Partners</h2>
+                <h2 class="display-5 fw-bold mb-3 mt-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">Our Partners</h2>
                 <div class="mx-auto mt-2 mb-4" style="width: 80px; height: 4px; background: #8B4513;"></div>
                 <p class="text-muted mx-auto" style="max-width: 700px;">Working together with local and international organizations to maximize our impact</p>
             </div>
@@ -377,7 +377,7 @@
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 text-white" data-aos="fade-right">
                     <span class="badge bg-warning text-dark px-3 py-2 mb-3">Join Us</span>
-                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Get Involved</h2>
+                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Get Involved</h2>
                     <p class="lead opacity-75 mb-4">Beyond booking a safari, there are many ways to support our mission and make a lasting impact in Tanzanian communities.</p>
                     <div class="row g-3 mb-4">
                         <div class="col-6">
@@ -455,7 +455,7 @@
     <section class="impact-cta py-5 text-white" style="background: #3E2723;">
         <div class="container py-5 text-center">
             <span class="badge bg-warning text-dark px-4 py-2 mb-4">Make a Difference Today</span>
-            <h2 class="display-4 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Ready to Change Lives?</h2>
+            <h2 class="display-4 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Ready to Change Lives?</h2>
             <p class="lead mb-5 opacity-75 mx-auto" style="max-width: 800px;">When you book your safari with us, you are not just a traveler; you are a partner in bringing hope and change to Tanzania. Every journey creates a ripple of positive impact.</p>
             <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
                 <a href="{{ route('tours.all') }}" class="btn btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); border: none; color: #3E2723;">

@@ -37,8 +37,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -95,7 +95,7 @@
                     <li class="breadcrumb-item active text-white opacity-75" aria-current="page">{{ Str::limit(tr($package->title), 30) }}</li>
                 </ol>
             </nav>
-            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">{{ tr($package->title) }}</h1>
+            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">{{ tr($package->title) }}</h1>
             <div class="d-flex gap-3 flex-wrap mb-4">
                 <span class="badge bg-light text-dark px-3 py-2">
                     <i class="fas fa-clock me-2"></i>{{ $package->days }} Days
@@ -116,7 +116,7 @@
             <div class="col-lg-8">
                 <!-- Overview -->
                 <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-4" data-aos="fade-up">
-                    <h2 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif; color: #3E2723;">Safari Overview</h2>
+                    <h2 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif; color: #3E2723;">Safari Overview</h2>
                     <p class="lead text-muted mb-4">{{ tr($package->summary) }}</p>
                     
                     <div class="row g-3 mb-4">
@@ -167,7 +167,7 @@
                             <i class="fas fa-route text-white fa-lg"></i>
                         </div>
                         <div>
-                            <h2 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">Detailed Itinerary</h2>
+                            <h2 class="fw-bold mb-0" style="font-family: 'Nunito', sans-serif; color: #3E2723;">Detailed Itinerary</h2>
                             <p class="text-muted small mb-0">{{ $isHtmlItinerary ? 'Itinerary Details' : count($itinerary) . ' Days of Adventure' }}</p>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
                                             <span class="badge bg-primary rounded-pill px-2 py-1" style="font-size: 10px;"><i class="fas fa-flag-checkered me-1"></i>FINISH</span>
                                             @endif
                                         </div>
-                                        <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">{{ tr($step['title'] ?? 'Day ' . $loop->iteration) }}</h5>
+                                        <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ tr($step['title'] ?? 'Day ' . $loop->iteration) }}</h5>
                                         <p class="text-muted mb-0" style="line-height: 1.7;">{{ tr($step['description'] ?? 'Exciting safari activities planned for this day.') }}</p>
                                     </div>
                                 </div>
@@ -252,7 +252,7 @@
                             <i class="fas fa-clipboard-list text-white fa-lg"></i>
                         </div>
                         <div>
-                            <h2 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">What's Included</h2>
+                            <h2 class="fw-bold mb-0" style="font-family: 'Nunito', sans-serif; color: #3E2723;">What's Included</h2>
                             <p class="text-muted small mb-0">Everything covered in your package</p>
                         </div>
                     </div>
@@ -320,7 +320,7 @@
                             <i class="fas fa-compass text-white fa-lg"></i>
                         </div>
                         <div>
-                            <h2 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">You might also like...</h2>
+                            <h2 class="fw-bold mb-0" style="font-family: 'Nunito', sans-serif; color: #3E2723;">You might also like...</h2>
                             <p class="text-muted small mb-0">Similar safari adventures</p>
                         </div>
                     </div>
@@ -367,7 +367,7 @@
             <!-- Sidebar: Booking -->
             <div class="col-lg-4">
                 <div class="booking-card p-4 rounded-4 shadow-lg bg-white border-0" data-aos="fade-left">
-                    <h4 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif; color: #3E2723;">Book This Safari</h4>
+                    <h4 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif; color: #3E2723;">Book This Safari</h4>
 
                     <div class="mb-4">
                         <div class="d-flex justify-content-between align-items-center mb-3 p-3 rounded-3" style="background: rgba(139, 69, 19, 0.1);">

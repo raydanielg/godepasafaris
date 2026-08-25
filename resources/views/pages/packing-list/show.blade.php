@@ -3,11 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $packingList->title }} - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => $packingList->title . ' | Go Deep Africa Safari',
+        // Fall back to a generic-but-relevant line if this list has no description,
+        // so the page never inherits the site-wide default meta description.
+        'seoDescription' => \Illuminate\Support\Str::limit(
+            trim(strip_tags((string) $packingList->description)) ?: 'A practical ' . strtolower($packingList->title) . ' checklist for your Tanzania safari or Kilimanjaro trek, compiled by our local guides.',
+            155
+        ),
+        'seoKeywords' => $packingList->title . ', safari packing list, Tanzania safari gear, what to pack',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -65,7 +73,7 @@
                     <span class="badge mb-3" style="background: {{ $packingList->category == 'kilimanjaro' ? '#8B4513' : ($packingList->category == 'safari' ? '#D2691E' : '#6c757d') }};">
                         {{ ucfirst($packingList->category) }}
                     </span>
-                    <h1 class="display-4 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
+                    <h1 class="display-4 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">
                         <i class="fas {{ $packingList->icon }} me-3"></i>{{ $packingList->title }}
                     </h1>
                     <p class="lead opacity-75 mb-4">{{ $packingList->description }}</p>
@@ -177,7 +185,7 @@
     @if($relatedLists->count() > 0)
     <section class="py-5 bg-light">
         <div class="container py-4">
-            <h3 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+            <h3 class="fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                 More {{ ucfirst($packingList->category) }} Packing Lists
             </h3>
             <div class="row g-4">

@@ -7,7 +7,7 @@
                         <i class="fas fa-paper-plane" style="color: #8b4513 !important;"></i>
                     </div>
                     <div style="color: #ffffff !important;">
-                        <h5 class="modal-title fw-bold mb-0" id="generalInquiryModalLabel" style="color: #ffffff !important; font-family: 'Playfair Display', serif;">{{ __('messages.inquiry.plan_title') }}</h5>
+                        <h5 class="modal-title fw-bold mb-0" id="generalInquiryModalLabel" style="color: #ffffff !important; font-family: 'Nunito', sans-serif;">{{ __('messages.inquiry.plan_title') }}</h5>
                         <p class="small mb-0" style="color: rgba(255,255,255,0.8) !important;">{{ __('messages.inquiry.plan_subtitle') }}</p>
                     </div>
                 </div>

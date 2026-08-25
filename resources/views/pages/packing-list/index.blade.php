@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Packing Lists - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Tanzania Safari Packing List: What to Pack',
+        'seoDescription' => 'What to pack for a Tanzania safari and Kilimanjaro trek - clothing, colours, camera gear, medication and bush-flight luggage limits, organised by category.',
+        'seoKeywords' => 'safari packing list, what to pack for Tanzania safari, Tanzania safari clothing, safari luggage',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -53,7 +56,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3 animate__animated animate__fadeInDown">
                 <i class="fas fa-suitcase me-2"></i>Travel Preparation
             </span>
-            <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Playfair Display', serif; text-shadow: 2px 4px 20px rgba(0,0,0,0.5);">
+            <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Nunito', sans-serif; text-shadow: 2px 4px 20px rgba(0,0,0,0.5);">
                 What to Pack for Your Safari
             </h1>
             <p class="lead mx-auto mb-4 animate__animated animate__fadeInUp" style="max-width: 700px; text-shadow: 1px 2px 10px rgba(0,0,0,0.5);">
@@ -98,7 +101,7 @@
     <section class="py-5">
         <div class="container py-4">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                     Our Packing Lists
                 </h2>
                 <p class="text-muted mx-auto" style="max-width: 600px;">
@@ -160,7 +163,7 @@
     <!-- CTA Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Need Help Deciding?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Need Help Deciding?</h2>
             <p class="lead mb-4 opacity-75">Our travel experts can help you prepare for your specific adventure</p>
             <a href="{{ route('contact') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
                 <i class="fas fa-phone me-2"></i>Contact Our Experts

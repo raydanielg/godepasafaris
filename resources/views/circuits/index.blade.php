@@ -9,8 +9,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -31,7 +31,7 @@
 
     <section class="circuits-hero d-flex align-items-center text-white text-center">
         <div class="container" data-aos="fade-up">
-            <h1 class="display-3 fw-bold mb-3" style="font-family:'Playfair Display',serif;">Tanzania Safari Circuits</h1>
+            <h1 class="display-3 fw-bold mb-3" style="font-family:'Nunito', sans-serif;">Tanzania Safari Circuits</h1>
             <p class="lead mx-auto mb-0" style="max-width:760px;">Three distinct ways to experience Tanzania — from the famous Northern plains to the wild south and the Swahili coast.</p>
         </div>
     </section>

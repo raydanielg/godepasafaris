@@ -6,6 +6,7 @@
     <title>{{ $route['title'] }} - Go Deep Africa Safari</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -92,7 +93,7 @@
             <!-- Main Content -->
             <div class="col-lg-8">
                 <div id="overview" class="section-card">
-                    <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Overview of the {{ $route['name'] }}</h3>
+                    <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Overview of the {{ $route['name'] }}</h3>
                     <p class="text-muted lead">{{ $route['overview'] }}</p>
                     <p class="text-muted">Safety first: To maintain our strict safety standards, mountain expeditions are available only to participants aged 12–70 years.</p>
                     <div class="row g-3 mt-4">

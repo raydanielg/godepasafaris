@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kilimanjaro Private Tours & Pricing - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Private Kilimanjaro Tours & Climb Pricing | Go Deep Africa',
+        'seoDescription' => 'Private Kilimanjaro treks with clear, all-inclusive pricing. Choose your route, dates and group size, guided by experienced local Tanzanian mountain crews.',
+        'seoKeywords' => 'Kilimanjaro cost, private Kilimanjaro tour, Kilimanjaro climb price, how much to climb Kilimanjaro',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -60,7 +63,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3">
                 <i class="fas fa-tag me-2"></i>Transparent Pricing
             </span>
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 Private Kilimanjaro Tours & Pricing
             </h1>
             <p class="lead mx-auto mb-4" style="max-width: 700px;">
@@ -84,7 +87,7 @@
     <section class="py-5">
         <div class="container py-4">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                     Choose Your Experience
                 </h2>
                 <p class="text-muted mx-auto" style="max-width: 600px;">
@@ -198,7 +201,7 @@
         <div class="container py-4">
             <div class="row g-4 align-items-center">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <h2 class="display-5 fw-bold mb-4" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                    <h2 class="display-5 fw-bold mb-4" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                         Group Size Discounts
                     </h2>
                     <p class="text-muted mb-4">
@@ -257,7 +260,7 @@
     <section class="py-5">
         <div class="container py-4">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                <h2 class="display-5 fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                     What's Included (No Hidden Costs!)
                 </h2>
             </div>
@@ -339,7 +342,7 @@
             <div class="card border-0 rounded-4 shadow-lg overflow-hidden">
                 <div class="row g-0">
                     <div class="col-lg-6 p-5" data-aos="fade-right">
-                        <h2 class="fw-bold mb-4" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                        <h2 class="fw-bold mb-4" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                             Flexible Payment Options
                         </h2>
                         <div class="mb-4">
@@ -395,7 +398,7 @@
     <!-- CTA -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Ready to Climb?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Ready to Climb?</h2>
             <p class="lead mb-4 opacity-75">Get a personalized quote for your Kilimanjaro adventure</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <a href="{{ route('contact') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">

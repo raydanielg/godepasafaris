@@ -1,7 +1,7 @@
 <section class="packages-section py-5 animate__animated animate__fadeIn" style="background-color: #fdfaf5;">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif; color: #3E2723;">{{ __('messages.packages.popular_title') }}</h2>
+            <h2 class="display-5 fw-bold" style="font-family: 'Nunito', sans-serif; color: #3E2723;">{{ __('messages.packages.popular_title') }}</h2>
             <div class="mx-auto mt-2 mb-3" style="width: 80px; height: 4px; background: #8B4513;"></div>
             <p class="text-muted">{{ __('messages.packages.popular_subtitle') }}</p>
         </div>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="package-content p-4 text-start d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif; color: #3E2723;">
+                            <h5 class="fw-bold mb-0" style="font-family: 'Nunito', sans-serif; color: #3E2723;">
                                 <a href="{{ route('safari.show', $package->slug) }}" class="text-dark text-decoration-none hover-earth">{{ tr($package->title) }}</a>
                             </h5>
                         </div>

@@ -7,7 +7,7 @@
 
     <div class="container position-relative" style="z-index: 3;">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">What Our Guests Say</h2>
+            <h2 class="display-5 fw-bold" style="font-family: 'Nunito', sans-serif;">What Our Guests Say</h2>
             <div class="mx-auto mt-2" style="width: 80px; height: 4px; background: #8B4513;"></div>
         </div>
 

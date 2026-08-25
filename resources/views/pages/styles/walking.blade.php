@@ -29,7 +29,7 @@
     <div class="container py-5">
         <div class="row g-5 align-items-center mb-5">
             <div class="col-lg-6">
-                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">The Most Intimate Way to Explore</h2>
+                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">The Most Intimate Way to Explore</h2>
                 <p class="lead text-muted">A Walking Safari is the ultimate way to connect with the African bush. Away from the hum of the engine, your senses sharpen. You smell the wild jasmine, hear the crunch of dry grass underfoot, and notice the intricate details usually missed from a vehicle.</p>
                 <p>Guided by an armed ranger and an expert tracker, you'll learn to read tracks, identify bird calls, and understand the medicinal uses of local plants. It's not about the distance covered, but the depth of the connection you form with the ecosystem.</p>
                 <div class="d-flex gap-3 mt-4">

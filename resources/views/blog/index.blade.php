@@ -8,8 +8,8 @@
         'seoDescription' => 'Expert guides on Tanzania safaris, the Great Migration, Kilimanjaro routes and Zanzibar. Practical tips and inspiration from the Go Deep Africa Safari local team.',
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -116,7 +116,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3">
                 <i class="fas fa-pen-fancy me-2"></i>Stories & Insights
             </span>
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 Our Blog
             </h1>
             <p class="lead mx-auto mb-4" style="max-width: 700px;">
@@ -167,7 +167,7 @@
                                     <i class="far fa-clock me-1"></i>{{ $post->created_at->diffForHumans() }}
                                 </span>
                             </div>
-                            <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Playfair Display', serif; min-height: 3rem;">
+                            <h5 class="fw-bold mb-3" style="color: #3E2723; font-family: 'Nunito', sans-serif; min-height: 3rem;">
                                 <a href="{{ route('blog.show', $post->slug) }}" class="text-dark text-decoration-none">
                                     {{ $post->title }}
                                 </a>
@@ -201,7 +201,7 @@
     <!-- Newsletter Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Stay Updated</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Stay Updated</h2>
             <p class="lead mb-4 opacity-75">Subscribe to our newsletter for travel tips and exclusive offers</p>
             <div class="row justify-content-center">
                 <div class="col-md-6">

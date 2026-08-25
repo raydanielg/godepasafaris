@@ -58,8 +58,8 @@
     @endphp
     @include('partials.seo', ['seoKeywords' => $seoKeywords])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -68,7 +68,7 @@
             --deep:#0B4F6C; --teal:#1F7A8C; --aqua:#2EC4B6; --sand:#F7F2E9; --coral:#FF7F50; --ink:#0A2E36;
             font-family:'Nunito',sans-serif; color:var(--ink); background:#fff;
         }
-        .znz h1,.znz h2,.znz h3,.znz .display-title{ font-family:'Playfair Display',serif; }
+        .znz h1,.znz h2,.znz h3,.znz .display-title{ font-family:'Nunito', sans-serif; }
         .znz-hero{
             min-height:100vh; position:relative; display:flex; align-items:center;
             background:linear-gradient(180deg, rgba(10,46,54,.35) 0%, rgba(11,79,108,.75) 100%), url('{{ bg('bg_zanzibar', $z['hero_image']) }}');

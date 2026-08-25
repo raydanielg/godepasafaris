@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -83,7 +84,7 @@
                         </div>
                         <div class="card-body p-4">
                             <span class="badge bg-earth-light text-primary text-uppercase mb-2" style="font-size: 0.7rem; letter-spacing: 1px;">{{ $blog['category'] }}</span>
-                            <h5 class="card-title fw-bold" style="font-family: 'Playfair Display', serif;">{{ $blog['title'] }}</h5>
+                            <h5 class="card-title fw-bold" style="font-family: 'Nunito', sans-serif;">{{ $blog['title'] }}</h5>
                             <p class="card-text text-muted small">Explore the breathtaking beauty of Tanzania's wildlife and landscapes with our expert guides...</p>
                             <a href="#" class="btn btn-link text-primary p-0 fw-bold text-decoration-none small">READ MORE <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>

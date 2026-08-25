@@ -19,8 +19,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -56,7 +56,7 @@
             <span class="badge rounded-pill px-3 py-2 mb-3" style="background:{{ $circuit['accent'] }};">
                 <i class="fas fa-map-signs me-1"></i>Tanzania Safari Circuit
             </span>
-            <h1 class="display-3 fw-bold mb-2" style="font-family:'Playfair Display',serif;">{{ $circuit['name'] }}</h1>
+            <h1 class="display-3 fw-bold mb-2" style="font-family:'Nunito', sans-serif;">{{ $circuit['name'] }}</h1>
             <p class="lead mb-0" style="max-width:760px;">{{ $circuit['tagline'] }}</p>
         </div>
     </section>
@@ -65,7 +65,7 @@
         <div class="row g-5">
             <!-- Overview -->
             <div class="col-lg-8">
-                <h2 class="fw-bold mb-4" style="font-family:'Playfair Display',serif; color:#3E2723;">About the {{ $circuit['name'] }}</h2>
+                <h2 class="fw-bold mb-4" style="font-family:'Nunito', sans-serif; color:#3E2723;">About the {{ $circuit['name'] }}</h2>
                 @foreach($circuit['overview'] as $para)
                     <p class="text-muted mb-3" style="line-height:1.8;">{{ $para }}</p>
                 @endforeach
@@ -98,7 +98,7 @@
 
         <!-- Map -->
         <div class="mt-5" data-aos="fade-up">
-            <h2 class="fw-bold mb-2" style="font-family:'Playfair Display',serif; color:#3E2723;"><i class="fas fa-map-location-dot me-2" style="color:{{ $circuit['accent'] }};"></i>{{ $circuit['name'] }} Map</h2>
+            <h2 class="fw-bold mb-2" style="font-family:'Nunito', sans-serif; color:#3E2723;"><i class="fas fa-map-location-dot me-2" style="color:{{ $circuit['accent'] }};"></i>{{ $circuit['name'] }} Map</h2>
             <p class="text-muted mb-3">Explore the region and the parks that make up the {{ $circuit['name'] }}.</p>
             <div class="circuit-map shadow-sm rounded-4 overflow-hidden">
                 <iframe
@@ -110,7 +110,7 @@
 
         <!-- Parks & attractions -->
         <div class="mt-5">
-            <h2 class="fw-bold mb-4" style="font-family:'Playfair Display',serif; color:#3E2723;">Parks &amp; Attractions</h2>
+            <h2 class="fw-bold mb-4" style="font-family:'Nunito', sans-serif; color:#3E2723;">Parks &amp; Attractions</h2>
             <div class="row g-4">
                 @foreach($circuit['places'] as $place)
                 @php $destMatch = $relatedDestinations->firstWhere('slug', \Illuminate\Support\Str::slug($place['name'])); @endphp

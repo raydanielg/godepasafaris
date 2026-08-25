@@ -24,7 +24,7 @@
     <section class="position-relative" style="min-height: 60vh;">
         <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(62,39,35,0.7)), url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;"></div>
         <div class="container position-relative text-white d-flex flex-column justify-content-center" style="min-height: 60vh;">
-            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Photographic Safaris</h1>
+            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Photographic Safaris</h1>
             <p class="lead fs-4 mb-4">Capture the Untamed Beauty of Africa</p>
             <div class="d-flex gap-3">
                 <button class="btn btn-earth rounded-pill px-5 py-3 fw-bold" data-bs-toggle="modal" data-bs-target="#generalInquiryModal" onclick="preselectPhotographicSafari()">
@@ -39,7 +39,7 @@
         <div class="container py-4">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif; color: #3E2723;">Focus on the Perfect Shot</h2>
+                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif; color: #3E2723;">Focus on the Perfect Shot</h2>
                     <p class="lead text-muted mb-4">Our Photographic Safaris are specialized journeys designed for both amateur and professional photographers. We provide the patience, expertise, and equipment necessary to capture Africa's wildlife in its most stunning moments.</p>
                     <p class="text-muted mb-4">We use specially modified 4x4 vehicles with 360-degree views and lower mounts for the perfect angle. Our guides are trained to position the vehicle according to the light and animal behavior, ensuring you never miss a beat.</p>
                     <ul class="list-unstyled">
@@ -60,7 +60,7 @@
     <section class="py-5 bg-light">
         <div class="container py-4">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3" style="font-family: 'Playfair Display', serif; color: #3E2723;">Why Choose Our Photographic Safaris</h2>
+                <h2 class="display-5 fw-bold mb-3" style="font-family: 'Nunito', sans-serif; color: #3E2723;">Why Choose Our Photographic Safaris</h2>
                 <p class="text-muted">Everything you need for the perfect wildlife photography experience</p>
             </div>
             <div class="row g-4">
@@ -99,7 +99,7 @@
     <section class="py-5">
         <div class="container py-4">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3" style="font-family: 'Playfair Display', serif; color: #3E2723;">Capture These Moments</h2>
+                <h2 class="display-5 fw-bold mb-3" style="font-family: 'Nunito', sans-serif; color: #3E2723;">Capture These Moments</h2>
                 <p class="text-muted">Stunning wildlife photography opportunities await you</p>
             </div>
             <div class="row g-4">
@@ -164,7 +164,7 @@
     <!-- CTA Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="display-4 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Ready to Capture Africa?</h2>
+            <h2 class="display-4 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Ready to Capture Africa?</h2>
             <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">Book your photographic safari today and create memories that last forever</p>
             <button class="btn btn-light rounded-pill px-5 py-3 fw-bold text-earth" data-bs-toggle="modal" data-bs-target="#generalInquiryModal" onclick="preselectPhotographicSafari()">
                 <i class="fas fa-camera me-2"></i>START YOUR JOURNEY

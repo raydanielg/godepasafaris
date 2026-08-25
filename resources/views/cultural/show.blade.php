@@ -32,8 +32,8 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -57,7 +57,7 @@
                 </ol>
             </nav>
             <span class="badge rounded-pill px-3 py-2 mb-2" style="background:#8B4513;"><i class="fas fa-location-dot me-1"></i>{{ $experience->region }}</span>
-            <h1 class="display-4 fw-bold mb-2" style="font-family:'Playfair Display',serif;">{{ tr($experience->name) }}</h1>
+            <h1 class="display-4 fw-bold mb-2" style="font-family:'Nunito', sans-serif;">{{ tr($experience->name) }}</h1>
             <p class="lead mb-0" style="max-width:720px;">{{ tr($experience->tagline) }}</p>
         </div>
     </section>
@@ -65,7 +65,7 @@
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-8">
-                <h2 class="fw-bold mb-3" style="font-family:'Playfair Display',serif; color:#3E2723;">About this Experience</h2>
+                <h2 class="fw-bold mb-3" style="font-family:'Nunito', sans-serif; color:#3E2723;">About this Experience</h2>
                 <p class="text-muted" style="line-height:1.8;">{{ tr($experience->description) }}</p>
 
                 @if(count($experience->highlight_list))
@@ -147,7 +147,7 @@
         <!-- Related -->
         @if($related->count())
         <div class="mt-5 pt-4 border-top">
-            <h4 class="fw-bold mb-4" style="font-family:'Playfair Display',serif; color:#3E2723;">Other Cultural Experiences</h4>
+            <h4 class="fw-bold mb-4" style="font-family:'Nunito', sans-serif; color:#3E2723;">Other Cultural Experiences</h4>
             <div class="row g-4">
                 @foreach($related as $r)
                 <div class="col-md-4">

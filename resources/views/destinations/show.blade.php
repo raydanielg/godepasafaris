@@ -6,6 +6,7 @@
     <title>{{ $destination->title }} - Go Deep Africa Safari</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -133,17 +134,17 @@
                     </div>
 
                     <div id="about" class="rich-content-area mb-5 animate__animated animate__fadeIn">
-                        <h2 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">{{ $destination->title }}</h2>
+                        <h2 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">{{ $destination->title }}</h2>
                         {!! $destination->rich_content !!}
                     </div>
 
                     <div id="weather" class="mb-5 pt-4 border-top">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-cloud-sun text-primary me-2"></i> Weather & Climate</h3>
+                        <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;"><i class="fas fa-cloud-sun text-primary me-2"></i> Weather & Climate</h3>
                         <p class="text-muted">{{ $destination->weather_info }}</p>
                     </div>
 
                     <div id="faq" class="mb-5 pt-4 border-top">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-question-circle text-primary me-2"></i> Frequently Asked Questions</h3>
+                        <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;"><i class="fas fa-question-circle text-primary me-2"></i> Frequently Asked Questions</h3>
                         <div class="accordion accordion-flush" id="destFaq">
                             @foreach($destination->faqs ?? [] as $index => $faq)
                             <div class="accordion-item border rounded-3 mb-3 overflow-hidden">
@@ -169,7 +170,7 @@
                                 <i class="fas fa-map-marked-alt fa-lg"></i>
                             </div>
                             <div>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif;">Explore {{ $destination->title }} on Map</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Nunito', sans-serif;">Explore {{ $destination->title }} on Map</h3>
                                 <p class="text-muted small mb-0">Get a better view of the location and surroundings</p>
                             </div>
                         </div>
@@ -232,7 +233,7 @@
 
                     <div id="tours" class="pt-4 border-top">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h3 class="fw-bold mb-0" style="font-family: 'Playfair Display', serif;">Suggested {{ $destination->title }} Tours</h3>
+                            <h3 class="fw-bold mb-0" style="font-family: 'Nunito', sans-serif;">Suggested {{ $destination->title }} Tours</h3>
                             <a href="{{ route('tours.all') }}" class="text-primary fw-bold text-decoration-none small">View All <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                         <div class="row g-4">

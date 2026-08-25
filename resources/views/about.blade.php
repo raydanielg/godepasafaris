@@ -9,6 +9,7 @@
     ])
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -37,7 +38,7 @@
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 animate__animated animate__fadeInLeft">
                     <h6 class="text-earth fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Our Chimbuko</h6>
-                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">A Journey Born from Passion</h2>
+                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">A Journey Born from Passion</h2>
                     <p class="lead text-dark fw-bold mb-4">Go Deep Africa Safari was born out of a passion for the raw, untamed beauty of Tanzania.</p>
                     <p class="mb-4">Based in Arusha, the gateway to Africa's most iconic wildlife destinations, we are a locally owned tour operator dedicated to providing authentic and immersive safari experiences. Our founders, born and raised in the shadow of Mount Kilimanjaro, envisioned a company that doesn't just "show" Africa, but allows travelers to "Go Deep" into its soul.</p>
                     <p class="mb-4">Our team of expert guides has spent decades exploring the Serengeti, Ngorongoro, and the peaks of Kilimanjaro. We understand that a safari is more than just a holiday—it's a transformative experience that stays with you forever.</p>
@@ -73,14 +74,14 @@
                 <div class="col-md-6 animate__animated animate__fadeInUp">
                     <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border-left: 5px solid #8b4513;">
                         <i class="fas fa-bullseye fa-3x mb-4 text-earth"></i>
-                        <h3 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Our Mission</h3>
+                        <h3 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Our Mission</h3>
                         <p class="opacity-75">To provide extraordinary, personalized safari and trekking experiences that connect our guests with the heart of Tanzania while promoting sustainable tourism and supporting local communities.</p>
                     </div>
                 </div>
                 <div class="col-md-6 animate__animated animate__fadeInUp animate__delay-1s">
                     <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border-left: 5px solid #deb887;">
                         <i class="fas fa-eye fa-3x mb-4 text-earth"></i>
-                        <h3 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Our Vision</h3>
+                        <h3 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Our Vision</h3>
                         <p class="opacity-75">To be the most trusted and respected safari operator in East Africa, known for our local expertise, exceptional service, and commitment to preserving the wild spirit of Africa.</p>
                     </div>
                 </div>
@@ -93,7 +94,7 @@
         <div class="container py-5">
             <div class="row align-items-center g-5 flex-row-reverse">
                 <div class="col-lg-6 animate__animated animate__fadeInRight">
-                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Expertise in Every Expedition</h2>
+                    <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Expertise in Every Expedition</h2>
                     <p class="mb-4">From the technical challenges of the Machame Route on Kilimanjaro to the patient stalking of a leopard in the Serengeti, our expertise covers every aspect of Tanzanian travel.</p>
                     <div class="experience-list">
                         <div class="d-flex gap-3 mb-4">

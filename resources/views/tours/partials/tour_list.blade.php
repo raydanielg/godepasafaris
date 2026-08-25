@@ -15,7 +15,7 @@
                     <span class="badge-tour">{{ $tour->type == 'Kilimanjaro' ? 'Trekking' : 'Mid Range' }}</span>
                     <span class="badge-tour">Lodge</span>
                 </div>
-                <h5 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; min-height: 3.5rem;">
+                <h5 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif; min-height: 3.5rem;">
                     <a href="{{ $tour->type == 'Kilimanjaro' ? route('kilimanjaro.show', $tour->slug) : route('safari.show', $tour->slug) }}" class="text-dark text-decoration-none hover-primary">{{ tr($tour->title) }}</a>
                 </h5>
                 

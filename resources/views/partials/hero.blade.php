@@ -316,7 +316,7 @@
         }
     }
     .hero-title {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Nunito', sans-serif;
         font-size: 4rem;
         font-weight: 700;
         line-height: 1.1;

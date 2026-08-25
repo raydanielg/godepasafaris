@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kilimanjaro Packing List - Essential Gear Guide - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Kilimanjaro Packing List: Complete Gear Checklist',
+        'seoDescription' => 'The complete Kilimanjaro packing list: clothing layers, boots, sleeping bags and what you can rent in Tanzania - from guides who summit all year round.',
+        'seoKeywords' => 'Kilimanjaro packing list, Kilimanjaro gear, what to pack for Kilimanjaro, Kilimanjaro equipment list',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -43,7 +46,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3">
                 <i class="fas fa-suitcase me-2"></i>Free PDF Download
             </span>
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 Kilimanjaro Packing List
             </h1>
             <p class="lead mx-auto mb-4" style="max-width: 700px;">
@@ -383,7 +386,7 @@
     <!-- Tips -->
     <section class="py-5 bg-light">
         <div class="container py-4">
-            <h2 class="display-5 fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Playfair Display', serif;" data-aos="fade-up">
+            <h2 class="display-5 fw-bold mb-4 text-center" style="color: #3E2723; font-family: 'Nunito', sans-serif;" data-aos="fade-up">
                 Packing Tips
             </h2>
             <div class="row g-4">
@@ -421,7 +424,7 @@
     <!-- CTA -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Still Have Questions?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Still Have Questions?</h2>
             <p class="lead mb-4 opacity-75">Our team is here to help you prepare for your adventure</p>
             <a href="{{ route('contact') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
                 <i class="fas fa-comments me-2"></i>Contact Us

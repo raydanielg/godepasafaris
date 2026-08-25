@@ -32,7 +32,7 @@
     <div class="container py-5">
         <div class="row g-5 align-items-center mb-5">
             <div class="col-lg-6 animate__animated animate__fadeInLeft">
-                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Smart Travel, Real Adventure</h2>
+                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Smart Travel, Real Adventure</h2>
                 <p class="lead text-muted">We believe that the magic of the African Savannah should be accessible to everyone. Our Budget Safaris are designed for travelers who prioritize experiences over expensive thread counts.</p>
                 <p>By choosing strategically located campsites and high-quality public lodges, we reduce the cost without ever compromising on the quality of your wildlife encounters. You get the same expert guides, the same rugged 4x4 vehicles, and the same breathtaking landscapes as our luxury guests.</p>
                 <div class="d-flex gap-3 mt-4">

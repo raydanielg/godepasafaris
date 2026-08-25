@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $categoryTitle }} Packing Lists - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => $categoryTitle . ' Packing List for Tanzania Safari & Kilimanjaro',
+        'seoDescription' => 'Essential ' . strtolower($categoryTitle) . ' packing guides for your Tanzania safari or Kilimanjaro trek, with practical checklists put together by our local guides.',
+        'seoKeywords' => $categoryTitle . ' packing list, safari packing list, Tanzania safari gear, Kilimanjaro gear',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -23,7 +26,7 @@
                     <li class="breadcrumb-item active text-white" aria-current="page">{{ $categoryTitle }}</li>
                 </ol>
             </nav>
-            <h1 class="display-4 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-4 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">
                 {{ $categoryTitle }} Packing
             </h1>
             <p class="lead opacity-75">Essential packing guides for your {{ strtolower($categoryTitle) }} adventure</p>

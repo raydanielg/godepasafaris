@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>52 Reasons Why We Set the Gold Standard - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Why Climb Kilimanjaro With Go Deep Africa Safari',
+        'seoDescription' => 'Locally owned, fair porter treatment, seasoned summit guides and strong success rates - the reasons trekkers choose Go Deep Africa Safari for Kilimanjaro.',
+        'seoKeywords' => 'best Kilimanjaro tour operator, ethical Kilimanjaro trek, local Kilimanjaro guides, Kilimanjaro success rate',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -58,7 +61,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3 animate__animated animate__fadeInDown">
                 <i class="fas fa-trophy me-2"></i>Kilimanjaro Climbing
             </span>
-            <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Playfair Display', serif; text-shadow: 2px 4px 20px rgba(0,0,0,0.5);">
+            <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp" style="font-family: 'Nunito', sans-serif; text-shadow: 2px 4px 20px rgba(0,0,0,0.5);">
                 52 Reasons Why We Set<br>the Gold Standard
             </h1>
             <p class="lead mx-auto mb-4 animate__animated animate__fadeInUp" style="max-width: 800px; text-shadow: 1px 2px 10px rgba(0,0,0,0.5);">
@@ -202,7 +205,7 @@
     <!-- CTA Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Ready to Experience the Gold Standard?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Ready to Experience the Gold Standard?</h2>
             <p class="lead mb-4 opacity-75">Join thousands of successful climbers who chose Go Deep Africa Safari</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <a href="{{ route('kilimanjaro') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">

@@ -29,7 +29,7 @@
     <div class="container py-5">
         <div class="row g-5 align-items-center mb-5">
             <div class="col-lg-6">
-                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Everyone Deserves the Trip of a Lifetime</h2>
+                <h2 class="display-5 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Everyone Deserves the Trip of a Lifetime</h2>
                 <p class="lead text-muted">Go Deep Africa Safari warmly welcomes LGBTQ+ travellers — gay, lesbian, bisexual, trans and the whole community. Whether you're planning a honeymoon in the Serengeti, an anniversary trip to Ngorongoro, or an adventure with friends, we design private, tailor-made safaris built entirely around you.</p>
                 <p>Tanzania is a conservative destination, so we plan every detail with care and discretion. You travel in your own private vehicle with an experienced local guide, stay at welcoming lodges and camps we know and trust, and are looked after by a team that treats every guest with respect and zero judgment. Our focus is simple: your comfort, your privacy and your safety, so you can relax and enjoy the wild.</p>
                 <div class="d-flex gap-3 mt-4">
@@ -66,7 +66,7 @@
         </div>
 
         <div class="text-center mt-5 pt-4">
-            <h3 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Ready to Plan Your Safari?</h3>
+            <h3 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Ready to Plan Your Safari?</h3>
             <p class="text-muted mb-4 mx-auto" style="max-width: 640px;">Tell us your dates, who's travelling and what you'd love to see. We'll craft a private LGBTQ+ friendly Tanzania safari — from the Serengeti and Ngorongoro Crater to the beaches of Zanzibar — and answer any questions about travelling comfortably and safely.</p>
             <button class="btn btn-earth rounded-pill px-5 py-3 fw-bold" data-bs-toggle="modal" data-bs-target="#generalInquiryModal">GET A FREE CUSTOM QUOTE</button>
         </div>

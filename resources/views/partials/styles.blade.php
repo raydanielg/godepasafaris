@@ -1,7 +1,7 @@
 <section class="safari-styles-section py-5 bg-light animate__animated animate__fadeIn">
     <div class="container text-center">
         <div class="mb-5">
-            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Safari Styles</h2>
+            <h2 class="display-5 fw-bold" style="font-family: 'Nunito', sans-serif;">Safari Styles</h2>
             <div class="mx-auto mt-2 mb-3" style="width: 80px; height: 4px; background: #8B4513;"></div>
             <p class="text-muted">Explore Africa your way with our diverse range of safari styles.</p>
         </div>

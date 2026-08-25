@@ -6,6 +6,7 @@
     <title>{{ $package->title }} - Go Deep Africa Safari</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -49,14 +50,14 @@
             <div class="col-lg-8">
                 <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm animate__animated animate__fadeInUp">
                     <div class="mb-5">
-                        <h2 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Expedition Overview</h2>
+                        <h2 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Expedition Overview</h2>
                         <div class="rich-content-area text-dark">
                             {!! $package->rich_content !!}
                         </div>
                     </div>
 
                     <div class="itinerary-section mb-5 pt-4 border-top">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;"><i class="fas fa-mountain text-primary me-2"></i> Climbing Itinerary</h3>
+                        <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;"><i class="fas fa-mountain text-primary me-2"></i> Climbing Itinerary</h3>
                         <div class="itinerary-steps">
                             @foreach($package->itinerary as $step)
                             <div class="itinerary-item mb-5">
@@ -98,7 +99,7 @@
                 </div>
                 <!-- You might also like section -->
                 <div class="mt-5 pt-5 border-top">
-                    <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">You might also like...</h3>
+                    <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">You might also like...</h3>
                     <div class="row g-4">
                         @foreach($relatedPackages as $rp)
                         <div class="col-md-4">
@@ -133,7 +134,7 @@
             <div class="col-lg-4">
                 <div class="sticky-top" style="top: 100px;">
                     <div class="booking-card p-4 rounded-4 shadow-lg bg-white border-0 animate__animated animate__fadeInRight">
-                        <h4 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Trek Details</h4>
+                        <h4 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Trek Details</h4>
 
                         <div class="mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-3">

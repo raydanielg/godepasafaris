@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Other Mountains in Tanzania - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Mount Meru, Ol Doinyo Lengai & Usambara Treks',
+        'seoDescription' => 'Beyond Kilimanjaro: trek Mount Meru, the Ol Doinyo Lengai volcano and the Usambara Mountains. Compare altitude, duration and difficulty with local guides.',
+        'seoKeywords' => 'Mount Meru trek, Ol Doinyo Lengai climb, Usambara Mountains hiking, Tanzania mountains',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -35,7 +38,7 @@
             <span class="badge bg-warning text-dark px-4 py-2 mb-3">
                 <i class="fas fa-mountain me-2"></i>Beyond Kilimanjaro
             </span>
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 Other Mountains in Tanzania
             </h1>
             <p class="lead mx-auto" style="max-width: 700px;">
@@ -169,7 +172,7 @@
     <!-- CTA -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">
         <div class="container py-4 text-center text-white">
-            <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Which Mountain Calls to You?</h2>
+            <h2 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Which Mountain Calls to You?</h2>
             <p class="lead mb-4 opacity-75">Contact us to plan your Tanzanian mountain adventure</p>
             <a href="{{ route('contact') }}" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%); color: #3E2723;">
                 <i class="fas fa-envelope me-2"></i>Plan Your Climb

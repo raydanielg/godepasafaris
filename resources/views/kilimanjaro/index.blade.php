@@ -54,6 +54,8 @@
         'seoSchema' => $seoSchema,
     ])
     <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -74,7 +76,7 @@
             <div class="row g-4 mb-5">
                 <div class="col-lg-8 animate__animated animate__fadeInLeft">
                     <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm h-100">
-                        <h2 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Climbing the Roof of Africa</h2>
+                        <h2 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Climbing the Roof of Africa</h2>
                         <p class="text-muted lead mb-4">Climbing Kilimanjaro is a high-altitude trek to the summit of Africa’s highest mountain, which rises to 5,895 m (19,341 ft) above sea level. Often called the “Roof of Africa,” it is the tallest free-standing mountain in the world.</p>
                         <p class="text-muted">Unlike many famous peaks, reaching the summit does not require technical mountaineering skills. With proper acclimatization and preparation, most travelers with good general fitness can successfully complete the climb.</p>
                         <div class="row g-3 mt-2">
@@ -134,7 +136,7 @@
                 </div>
             </div>
 
-            <h3 class="fw-bold mb-4 text-center animate__animated animate__fadeIn" style="font-family: 'Playfair Display', serif;">Kilimanjaro Routes</h3>
+            <h3 class="fw-bold mb-4 text-center animate__animated animate__fadeIn" style="font-family: 'Nunito', sans-serif;">Kilimanjaro Routes</h3>
             
             <div class="route-explorer-container mb-5 shadow-sm">
                 <!-- Navigation Tabs (Sidebar) -->
@@ -205,7 +207,7 @@
                 </div>
             </div>
 
-            <h3 class="fw-bold mb-4 text-center animate__animated animate__fadeIn" style="font-family: 'Playfair Display', serif;">Our Expedition Packages</h3>
+            <h3 class="fw-bold mb-4 text-center animate__animated animate__fadeIn" style="font-family: 'Nunito', sans-serif;">Our Expedition Packages</h3>
             <div class="row g-4 mb-5">
                 @foreach($packages->take(4) as $pkg)
                 <div class="col-lg-3 col-md-6 animate__animated animate__fadeInUp">
@@ -217,7 +219,7 @@
                             </div>
                         </div>
                         <div class="card-body p-4 d-flex flex-column">
-                            <h6 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; min-height: 2.5rem;">
+                            <h6 class="fw-bold mb-3" style="font-family: 'Nunito', sans-serif; min-height: 2.5rem;">
                                 <a href="{{ route('kilimanjaro.show', $pkg->slug) }}" class="text-dark text-decoration-none hover-primary">{{ $pkg->title }}</a>
                             </h6>
                             
@@ -258,7 +260,7 @@
             <div class="row g-5 mt-5">
                 <div class="col-lg-8">
                     <div class="info-content-card bg-white p-4 p-md-5 rounded-4 shadow-sm mb-4">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Success Rates & Planning</h3>
+                        <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Success Rates & Planning</h3>
                         <p class="text-muted">Routes like Lemosho, Machame, Rongai, and the Northern Circuit have the highest summit success rates on Kilimanjaro with itineraries of 7 days or longer. We recommend choosing a 7–8 day climb as the optimal length to give your body enough time to acclimatize and to greatly reduce the risk of Acute Mountain Sickness (AMS).</p>
                         
                         <div class="mt-5">
@@ -273,7 +275,7 @@
                     </div>
 
                     <div class="faq-section bg-white p-4 p-md-5 rounded-4 shadow-sm">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Frequently Asked Questions</h3>
+                        <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Frequently Asked Questions</h3>
                         <div class="accordion accordion-flush" id="kiliFaq">
                             @foreach($kiliFaqs as $faq)
                             <div class="accordion-item border-0 mb-3">

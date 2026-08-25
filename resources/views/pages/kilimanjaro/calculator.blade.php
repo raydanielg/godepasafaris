@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kilimanjaro Success Calculator - Go Deep Africa Safari</title>
-    @include('partials.seo')
+    @include('partials.seo', [
+        'seoTitle' => 'Kilimanjaro Success Calculator: Your Summit Odds',
+        'seoDescription' => 'Estimate your chance of reaching Uhuru Peak. See how route choice, trek length, acclimatisation and fitness change your Kilimanjaro summit success odds.',
+        'seoKeywords' => 'Kilimanjaro success rate, Kilimanjaro summit chances, Kilimanjaro route success rates',
+    ])
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
@@ -35,7 +38,7 @@
 
     <section class="calculator-hero text-white d-flex align-items-center">
         <div class="container text-center">
-            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-3 fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">
                 Kilimanjaro Success Calculator
             </h1>
             <p class="lead">Estimate your chances of reaching Uhuru Peak</p>

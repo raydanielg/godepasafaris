@@ -1,7 +1,7 @@
 <section class="blog-section py-5 animate__animated animate__fadeIn">
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
-            <h2 class="section-title mb-0" style="font-family: 'Playfair Display', serif;">Articles by our Safari Specialists</h2>
+            <h2 class="section-title mb-0" style="font-family: 'Nunito', sans-serif;">Articles by our Safari Specialists</h2>
             <a href="{{ route('blog') }}" class="view-all-link text-decoration-none">View all posts</a>
         </div>
 
@@ -15,7 +15,7 @@
                         </div>
                         <div class="blog-content p-4">
                             <span class="blog-category text-earth text-uppercase small fw-bold">{{ $post->category ?? 'Safari' }}</span>
-                            <h5 class="blog-title mt-2 text-dark fw-bold" style="font-family: 'Playfair Display', serif;">{{ $post->title }}</h5>
+                            <h5 class="blog-title mt-2 text-dark fw-bold" style="font-family: 'Nunito', sans-serif;">{{ $post->title }}</h5>
                             <p class="text-muted small mt-2 mb-0">{{ Str::limit($post->summary, 100) }}</p>
                         </div>
                     </div>

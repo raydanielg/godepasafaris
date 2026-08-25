@@ -45,7 +45,13 @@ return [
             'port' => env('MAIL_PORT', 2525),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            // Never leave this null. If MAIL_HOST resolves to a box that accepts
+            // the TCP connection but never speaks SMTP (e.g. a Cloudflare-proxied
+            // mail.* record), a null timeout makes the booking request hang until
+            // PHP's max_execution_time — the visitor just watches a dead spinner.
+            // With a timeout the send fails fast, gets logged, and the booking
+            // (already saved to the DB) still returns success to the customer.
+            'timeout' => (int) env('MAIL_TIMEOUT', 15),
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
@@ -122,16 +128,17 @@ return [
 
     /*
     | Every inbox that should receive an instant notification when a booking is
-    | submitted. Defaults to the business webmail plus the owner's personal
-    | Gmail so a booking is never missed. Override with a comma-separated
-    | MAIL_BOOKING_RECIPIENTS env value.
+    | submitted. Defaults to the business webmail plus the two owner/manager
+    | Gmail inboxes, so a booking is never missed even if the business webmail
+    | is down. Override with a comma-separated MAIL_BOOKING_RECIPIENTS env
+    | value (that override replaces the whole list, so include every inbox).
     */
-    'booking_recipients' => array_values(array_filter(array_map(
+    'booking_recipients' => array_values(array_unique(array_filter(array_map(
         'trim',
         explode(',', env(
             'MAIL_BOOKING_RECIPIENTS',
-            'info@godeepafricasafari.com,exaudlaizer501@gmail.com'
+            'info@godeepafricasafari.com,exaudlaizer501@gmail.com,marosimon08@gmail.com'
         ))
-    ))),
+    )))),
 
 ];

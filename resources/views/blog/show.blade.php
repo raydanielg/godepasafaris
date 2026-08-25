@@ -27,6 +27,7 @@
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -82,7 +83,7 @@
                                 color: #333;
                             }
                             .blog-details-content h2, .blog-details-content h3, .blog-details-content h4 {
-                                font-family: 'Playfair Display', serif;
+                                font-family: 'Nunito', sans-serif;
                                 color: #3E2723;
                                 margin-top: 2.5rem;
                                 margin-bottom: 1.25rem;
@@ -149,7 +150,7 @@
 
                     <!-- Comment Section -->
                     <div class="comment-section mt-5 pt-5 border-top">
-                        <h3 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">Comments ({{ $post->comments->count() }})</h3>
+                        <h3 class="fw-bold mb-4" style="font-family: 'Nunito', sans-serif;">Comments ({{ $post->comments->count() }})</h3>
                         
                         @if(session('success'))
                             <div class="alert alert-success border-0 shadow-sm rounded-4 mb-4">
@@ -220,7 +221,7 @@
                     <div class="blog-sidebar sticky-top" style="top: 100px;">
                         <!-- Related Articles Card -->
                         <div class="sidebar-card p-4 rounded-4 shadow-sm bg-white mb-4 border-0">
-                            <h5 class="fw-bold mb-4 position-relative pb-2" style="color: #3E2723; font-family: 'Playfair Display', serif;">
+                            <h5 class="fw-bold mb-4 position-relative pb-2" style="color: #3E2723; font-family: 'Nunito', sans-serif;">
                                 Related Articles
                                 <div class="position-absolute bottom-0 start-0" style="width: 40px; height: 3px; background: #8b4513;"></div>
                             </h5>
@@ -255,7 +256,7 @@
                                     <i class="fas fa-compass fa-2x" style="color: #DEB887;"></i>
                                 </div>
                             </div>
-                            <h4 class="fw-bold mb-3 text-white" style="font-family: 'Playfair Display', serif;">Plan Your Safari</h4>
+                            <h4 class="fw-bold mb-3 text-white" style="font-family: 'Nunito', sans-serif;">Plan Your Safari</h4>
                             <p class="small mb-4 px-2" style="color: #e0e0e0; line-height: 1.6;">Let our experts help you create the perfect Tanzanian adventure tailored to your style.</p>
                             <a href="{{ route('contact') }}" class="btn btn-earth w-100 rounded-pill py-3 fw-bold text-white shadow-sm transition-all" style="background-color: #8b4513; border: none; letter-spacing: 1px;">
                                 GET A FREE QUOTE <i class="fas fa-arrow-right ms-2 small"></i>
