@@ -76,6 +76,32 @@ return new class extends Migration
         foreach ($badgeColors as $title => $color) {
             DB::table('menu_links')->where('title', $title)->update(['badge_color' => $color]);
         }
+
+        // Adopt the feature-card images the site actually shows. menu_sections.image
+        // held generic Unsplash stock photos from the original seeder, but the
+        // markup ignored that column and hardcoded these local photos instead. Now
+        // that the column is finally used, point it at the real pictures so the
+        // menu looks unchanged — and the admin can swap them from the panel.
+        $images = [
+            'kilimanjaro' => 'images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg',
+            'impact'      => 'images/images/africa_tanzania_serengeti_gallery_leopard_and_cub.jpg',
+        ];
+
+        foreach ($images as $navItem => $image) {
+            $current = DB::table('menu_sections')->where('nav_item', $navItem)->value('image');
+
+            // Only replace the untouched seeder value. If an admin has already
+            // uploaded their own picture, leave it completely alone.
+            $isSeededPlaceholder = $current === null
+                || trim($current) === ''
+                || str_contains($current, 'unsplash.com');
+
+            if ($isSeededPlaceholder) {
+                DB::table('menu_sections')->where('nav_item', $navItem)->update(['image' => $image]);
+            }
+        }
+
+        $this->flushMenuCache();
     }
 
     public function down(): void
@@ -92,6 +118,22 @@ return new class extends Migration
             foreach ($urls as $old => $new) {
                 DB::table('menu_links')->where('title', $title)->where('url', $new)->update(['url' => $old]);
             }
+        }
+
+        $this->flushMenuCache();
+    }
+
+    /**
+     * These are raw DB::table writes, so no Eloquent model events fire and the
+     * cached mega menu would keep serving the old data after deploying. Clear it
+     * here so `php artisan migrate` alone is enough on the server.
+     */
+    private function flushMenuCache(): void
+    {
+        try {
+            \App\Models\MenuSection::flushMenuCache();
+        } catch (\Throwable $e) {
+            // Cache store unavailable during migrate — nothing cached to clear.
         }
     }
 };
