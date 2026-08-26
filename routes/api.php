@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SafariController;
 use App\Http\Controllers\Api\DestinationController;
 use App\Http\Controllers\Api\BookingController;
+use App\Http\Controllers\Api\NavigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,12 @@ use App\Http\Controllers\Api\BookingController;
 Route::middleware('throttle:10,1')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+});
+
+// Public navigation content. Read-only and already filtered to active sections
+// and active links, so nothing an admin has hidden is exposed here.
+Route::middleware('throttle:60,1')->group(function () {
+    Route::get('/navigation/mega-menu', [NavigationController::class, 'megaMenu']);
 });
 
 // Protected routes (require authentication)

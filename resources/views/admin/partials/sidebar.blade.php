@@ -47,6 +47,9 @@
         <a href="{{ route('admin.backgrounds') }}" class="nav-link {{ Route::is('admin.backgrounds') ? 'active' : '' }}">
             <i class="fas fa-image"></i> Page Backgrounds
         </a>
+        <a href="{{ route('admin.mega-menu') }}" class="nav-link {{ Route::is('admin.mega-menu*') ? 'active' : '' }}">
+            <i class="fas fa-bars"></i> Mega Menu
+        </a>
         <a href="{{ route('admin.settings') }}" class="nav-link {{ Route::is('admin.settings') ? 'active' : '' }}">
             <i class="fas fa-cog"></i> Settings
         </a>

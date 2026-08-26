@@ -35,4 +35,20 @@ class MenuLink extends Model
     {
         return $query->where('is_active', true)->orderBy('display_order');
     }
+
+    /** Hex for this link's badge — shared with the section so colours stay consistent. */
+    public function getBadgeHexAttribute(): string
+    {
+        return MenuSection::badgeHex($this->badge_color);
+    }
+
+    /**
+     * A link change must invalidate the cached mega menu too, otherwise an admin
+     * edit would not show up until the cache expired.
+     */
+    protected static function booted(): void
+    {
+        static::saved(fn () => MenuSection::flushMenuCache());
+        static::deleted(fn () => MenuSection::flushMenuCache());
+    }
 }

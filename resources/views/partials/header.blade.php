@@ -61,11 +61,61 @@
                             {{ __('messages.nav.safaris') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
-                            $allSafariPackages = \App\Models\SafariPackage::latest()->get();
-                            // Show a stable set — featured first, then the newest — so images don't change randomly on every load.
-                            $safariPackages = $allSafariPackages->sortByDesc('is_featured')->take(5)->values();
+                            // Two sources, one shape. When the admin switches this menu to
+                            // "Manage this menu myself" in the Mega Menu Manager we render the
+                            // curated menu_section / menu_links; otherwise we keep the original
+                            // behaviour of listing live safari packages, so newly published
+                            // packages still appear on their own. Normalising both into the same
+                            // object shape lets the markup below stay exactly as it was.
+                            $safariSection = \App\Models\MenuSection::menu('safari');
+
+                            if ($safariSection && $safariSection->use_custom_content) {
+                                $safariItems = $safariSection->links->map(fn ($l) => (object) [
+                                    'title'       => $l->title,
+                                    'description' => $l->description,
+                                    'url'         => $l->url,
+                                    'image'       => $safariSection->image_url ?? asset('images/logo/logo.png'),
+                                    'icon'        => $l->icon ?: 'fa-binoculars',
+                                    'badge'       => $l->badge,
+                                    'badge_hex'   => $l->badge_hex,
+                                    'link_text'   => $l->title,
+                                ]);
+                                $safariCard = (object) [
+                                    'badge'       => $safariSection->badge ?: 'Featured Safari',
+                                    'title'       => $safariSection->title,
+                                    'description' => $safariSection->description,
+                                    'url'         => $safariSection->link_url ?: route('tours.all'),
+                                    'link_text'   => $safariSection->link_text ?: 'View Details',
+                                    'image'       => $safariSection->image_url ?? asset('images/logo/logo.png'),
+                                ];
+                            } else {
+                                $allSafariPackages = \App\Models\SafariPackage::latest()->get();
+                                // Show a stable set — featured first, then the newest — so images don't change randomly on every load.
+                                $safariPackages = $allSafariPackages->sortByDesc('is_featured')->take(5)->values();
+
+                                $safariItems = $safariPackages->map(fn ($p) => (object) [
+                                    'title'       => $p->title,
+                                    'description' => $p->summary,
+                                    'url'         => route('safari.show', $p->slug),
+                                    'image'       => asset($p->image),
+                                    'icon'        => 'fa-binoculars',
+                                    'badge'       => $p->days . ' ' . __('messages.common.days'),
+                                    'badge_hex'   => '#8B4513',
+                                    'link_text'   => 'View ' . $p->title,
+                                ]);
+
+                                $first = $safariPackages->first();
+                                $safariCard = $first ? (object) [
+                                    'badge'       => 'Featured Safari',
+                                    'title'       => tr($first->title),
+                                    'description' => Str::limit(tr($first->summary), 100),
+                                    'url'         => route('safari.show', $first->slug),
+                                    'link_text'   => 'View Details',
+                                    'image'       => asset($first->image),
+                                ] : null;
+                            }
                         @endphp
-                        @if($safariPackages->count() > 0)
+                        @if($safariCard && $safariItems->count() > 0)
                         <div class="mega-menu-wrapper">
                             <div class="mega-menu-container">
                                 <div class="mega-menu-content">
@@ -76,22 +126,24 @@
                                                     <i class="fas fa-paw me-2"></i>Popular Safaris
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @foreach($safariPackages as $package)
-                                                    <a href="{{ route('safari.show', $package->slug) }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
-                                                       data-title="{{ $package->title }}"
-                                                       data-description="{{ $package->summary }}"
-                                                       data-image="{{ asset($package->image) }}"
-                                                       data-url="{{ route('safari.show', $package->slug) }}"
-                                                       data-link-text="View {{ $package->title }}">
+                                                    @foreach($safariItems as $item)
+                                                    <a href="{{ $item->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $item->title }}"
+                                                       data-description="{{ $item->description }}"
+                                                       data-image="{{ $item->image }}"
+                                                       data-url="{{ $item->url }}"
+                                                       data-link-text="{{ $item->link_text }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
-                                                            <i class="fas fa-binoculars" style="color: #8B4513;"></i>
+                                                            <i class="fas {{ $item->icon }}" style="color: #8B4513;"></i>
                                                         </div>
                                                         <div class="flex-grow-1">
                                                             <div class="d-flex align-items-center">
-                                                                <span class="fw-medium" style="color: #3E2723;">{{ tr($package->title) }}</span>
-                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: #8B4513;">{{ $package->days }} {{ __('messages.common.days') }}</span>
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ tr($item->title) }}</span>
+                                                                @if($item->badge)
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $item->badge_hex }};">{{ $item->badge }}</span>
+                                                                @endif
                                                             </div>
-                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ Str::limit(tr($package->summary), 60) }}</small>
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ Str::limit(tr($item->description), 60) }}</small>
                                                         </div>
                                                         <i class="fas fa-chevron-right ms-2 text-muted small"></i>
                                                     </a>
@@ -104,17 +156,17 @@
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
                                                         <span class="badge mb-2 safari-badge" style="background: #8B4513; font-size: 0.7rem;">
-                                                            <i class="fas fa-star me-1"></i>Featured Safari
+                                                            <i class="fas fa-star me-1"></i>{{ $safariCard->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ tr($safariPackages->first()->title) }}</h4>
-                                                        <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ Str::limit(tr($safariPackages->first()->summary), 100) }}</p>
-                                                        <a href="{{ route('safari.show', $safariPackages->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white safari-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
-                                                            View Details <i class="fas fa-arrow-right ms-2"></i>
+                                                        <h4 class="fw-bold mb-2 safari-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ $safariCard->title }}</h4>
+                                                        <p class="text-muted mb-3 safari-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $safariCard->description }}</p>
+                                                        <a href="{{ $safariCard->url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white safari-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            {{ $safariCard->link_text }} <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ asset($safariPackages->first()->image) }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariPackages->first()->title }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/logo/logo.png') }}';this.style.objectFit='contain';this.style.background='#fdfaf5';">
+                                                            <img src="{{ $safariCard->image }}" class="w-100 safari-image" style="height: 220px; object-fit: cover;" alt="{{ $safariCard->title }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/logo/logo.png') }}';this.style.objectFit='contain';this.style.background='#fdfaf5';">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -133,8 +185,8 @@
                             {{ __('messages.nav.kilimanjaro') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
-                            $kiliSection = \App\Models\MenuSection::forNavItem('kilimanjaro')->first();
-                            $kiliLinks = $kiliSection ? $kiliSection->links()->active()->get() : collect();
+                            $kiliSection = \App\Models\MenuSection::menu('kilimanjaro');
+                            $kiliLinks = $kiliSection ? $kiliSection->links : collect();
                         @endphp
                         @if($kiliSection && $kiliLinks->count() > 0)
                         <div class="mega-menu-wrapper">
@@ -148,72 +200,6 @@
                                                 </h6>
                                                 <div class="mega-links-list">
                                                     @php
-                                                        $kiliLinks = [
-                                                            (object)[
-                                                                'title' => 'Why We Set the Gold Standard',
-                                                                'description' => '52 reasons to choose us',
-                                                                'badge' => '52 Reasons',
-                                                                'badge_color' => 'success',
-                                                                'icon' => 'fa-trophy',
-                                                                'url' => route('kilimanjaro.why-us')
-                                                            ],
-                                                            (object)[
-                                                                'title' => 'Private Tours and Pricing',
-                                                                'description' => 'Transparent pricing',
-                                                                'badge' => null,
-                                                                'badge_color' => 'secondary',
-                                                                'icon' => 'fa-user',
-                                                                'url' => route('kilimanjaro.private-tours')
-                                                            ],
-                                                            (object)[
-                                                                'title' => 'Group Departures',
-                                                                'description' => 'Join scheduled climbs',
-                                                                'badge' => '$100 Deposit',
-                                                                'badge_color' => 'warning',
-                                                                'icon' => 'fa-users',
-                                                                'url' => route('kilimanjaro.group-departures')
-                                                            ],
-                                                            (object)[
-                                                                'title' => 'Kilimanjaro Routes',
-                                                                'description' => 'Compare all routes',
-                                                                'badge' => null,
-                                                                'badge_color' => 'secondary',
-                                                                'icon' => 'fa-route',
-                                                                'url' => route('kilimanjaro.routes')
-                                                            ],
-                                                            (object)[
-                                                                'title' => 'Packing List',
-                                                                'description' => 'Essential gear guide',
-                                                                'badge' => 'Free PDF',
-                                                                'badge_color' => 'info',
-                                                                'icon' => 'fa-suitcase',
-                                                                'url' => route('kilimanjaro.packing-list')
-                                                            ],
-                                                            (object)[
-                                                                'title' => 'Success Calculator',
-                                                                'description' => 'Estimate your success',
-                                                                'badge' => 'New',
-                                                                'badge_color' => 'danger',
-                                                                'icon' => 'fa-calculator',
-                                                                'url' => route('kilimanjaro.success-calculator')
-                                                            ],
-                                                            (object)[
-                                                                'title' => 'Helpful Articles',
-                                                                'description' => 'Tips & insights',
-                                                                'badge' => null,
-                                                                'badge_color' => 'secondary',
-                                                                'icon' => 'fa-book',
-                                                                'url' => route('kilimanjaro.articles')
-                                                            ],
-                                                            (object)[
-                                                                'title' => 'Other Mountains',
-                                                                'description' => 'Meru, Ol Doinyo Lengai',
-                                                                'badge' => null,
-                                                                'badge_color' => 'secondary',
-                                                                'icon' => 'fa-mountain',
-                                                                'url' => route('kilimanjaro.other-mountains')
-                                                            ],
-                                                        ];
                                                         $kiliImages = [
                                                             'images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg',
                                                             'images/images/360_F_303354896_Qg6fhfYQhz3kdoKeRvK333UEaD9d6FWN.jpg',
@@ -262,7 +248,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}" class="w-100 kili-image" style="height: 220px; object-fit: cover;" alt="{{ $kiliSection->title }}" loading="lazy" decoding="async">
+                                                            <img src="{{ $kiliSection->image_url ?? asset('images/images/4-Kilimanjaro-Jane-at-summit-SC_JW.jpg') }}" class="w-100 kili-image" style="height: 220px; object-fit: cover;" alt="{{ $kiliSection->title }}" loading="lazy" decoding="async">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -281,11 +267,58 @@
                             {{ __('messages.nav.destinations') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
-                            $allDestinations = \App\Models\SafariDestination::active()->ordered()->get();
-                            // Show a stable, ordered set so destination images don't change randomly on every load.
-                            $destinations = $allDestinations->take(5);
+                            // Same two-source pattern as the Safaris menu: curated content when
+                            // the admin has taken control in the Mega Menu Manager, otherwise the
+                            // live destination list so new destinations still show up by themselves.
+                            $destSection = \App\Models\MenuSection::menu('destinations');
+
+                            if ($destSection && $destSection->use_custom_content) {
+                                $destItems = $destSection->links->map(fn ($l) => (object) [
+                                    'title'       => $l->title,
+                                    'description' => $l->description,
+                                    'url'         => $l->url,
+                                    'image'       => $destSection->image_url ?? asset('images/logo/logo.png'),
+                                    'icon'        => $l->icon ?: 'fa-map-marker-alt',
+                                    'badge'       => $l->badge,
+                                    'badge_hex'   => $l->badge_hex,
+                                    'link_text'   => $l->title,
+                                ]);
+                                $destCard = (object) [
+                                    'badge'       => $destSection->badge ?: 'Featured Destination',
+                                    'title'       => $destSection->title,
+                                    'description' => $destSection->description,
+                                    'url'         => $destSection->link_url ?: route('destinations'),
+                                    'link_text'   => $destSection->link_text ?: 'Explore Now',
+                                    'image'       => $destSection->image_url ?? asset('images/logo/logo.png'),
+                                ];
+                            } else {
+                                $allDestinations = \App\Models\SafariDestination::active()->ordered()->get();
+                                // Show a stable, ordered set so destination images don't change randomly on every load.
+                                $destinations = $allDestinations->take(5);
+
+                                $destItems = $destinations->map(fn ($d) => (object) [
+                                    'title'       => $d->name,
+                                    'description' => $d->tagline,
+                                    'url'         => route('destinations.show', $d->slug),
+                                    'image'       => $d->hero_display_image,
+                                    'icon'        => $d->icon ?: 'fa-map-marker-alt',
+                                    'badge'       => $d->badge,
+                                    'badge_hex'   => \App\Models\MenuSection::badgeHex($d->badge_color),
+                                    'link_text'   => 'Explore ' . $d->name,
+                                ]);
+
+                                $firstDest = $destinations->first();
+                                $destCard = $firstDest ? (object) [
+                                    'badge'       => 'Featured Destination',
+                                    'title'       => tr($firstDest->name),
+                                    'description' => tr($firstDest->tagline),
+                                    'url'         => route('destinations.show', $firstDest->slug),
+                                    'link_text'   => 'Explore Now',
+                                    'image'       => $firstDest->hero_display_image,
+                                ] : null;
+                            }
                         @endphp
-                        @if($destinations->count() > 0)
+                        @if($destCard && $destItems->count() > 0)
                         <div class="mega-menu-wrapper">
                             <div class="mega-menu-container">
                                 <div class="mega-menu-content">
@@ -296,24 +329,24 @@
                                                     <i class="fas fa-map-marker-alt me-2"></i>Explore Tanzania
                                                 </h6>
                                                 <div class="mega-links-list">
-                                                    @foreach($destinations as $destination)
-                                                    <a href="{{ route('destinations.show', $destination->slug) }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
-                                                       data-title="{{ $destination->name }}"
-                                                       data-description="{{ $destination->tagline }}"
-                                                       data-image="{{ $destination->hero_display_image }}"
-                                                       data-url="{{ route('destinations.show', $destination->slug) }}"
-                                                       data-link-text="Explore {{ $destination->name }}">
+                                                    @foreach($destItems as $item)
+                                                    <a href="{{ $item->url }}" class="mega-link-item d-flex align-items-center p-2 rounded text-decoration-none"
+                                                       data-title="{{ $item->title }}"
+                                                       data-description="{{ $item->description }}"
+                                                       data-image="{{ $item->image }}"
+                                                       data-url="{{ $item->url }}"
+                                                       data-link-text="{{ $item->link_text }}">
                                                         <div class="mega-link-icon me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(139, 69, 19, 0.1);">
-                                                            <i class="fas {{ $destination->icon }}" style="color: #8B4513;"></i>
+                                                            <i class="fas {{ $item->icon }}" style="color: #8B4513;"></i>
                                                         </div>
                                                         <div class="flex-grow-1">
                                                             <div class="d-flex align-items-center">
-                                                                <span class="fw-medium" style="color: #3E2723;">{{ tr($destination->name) }}</span>
-                                                                @if($destination->badge)
-                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $destination->badge_color == 'success' ? '#28a745' : ($destination->badge_color == 'danger' ? '#dc3545' : ($destination->badge_color == 'warning' ? '#ffc107' : ($destination->badge_color == 'info' ? '#17a2b8' : '#6c757d'))) }};">{{ $destination->badge }}</span>
+                                                                <span class="fw-medium" style="color: #3E2723;">{{ tr($item->title) }}</span>
+                                                                @if($item->badge)
+                                                                <span class="badge ms-2" style="font-size: 0.65rem; background: {{ $item->badge_hex }};">{{ $item->badge }}</span>
                                                                 @endif
                                                             </div>
-                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ tr($destination->tagline) }}</small>
+                                                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ tr($item->description) }}</small>
                                                         </div>
                                                         <i class="fas fa-chevron-right ms-2 text-muted small"></i>
                                                     </a>
@@ -326,17 +359,17 @@
                                                 <div class="row h-100 align-items-center">
                                                     <div class="col-md-6">
                                                         <span class="badge mb-2 dest-badge" style="background: #8B4513; font-size: 0.7rem;">
-                                                            <i class="fas fa-compass me-1"></i>Featured Destination
+                                                            <i class="fas fa-compass me-1"></i>{{ $destCard->badge }}
                                                         </span>
-                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ tr($destinations->first()->name) }}</h4>
-                                                        <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ tr($destinations->first()->tagline) }}</p>
-                                                        <a href="{{ route('destinations.show', $destinations->first()->slug) }}" class="btn btn-sm rounded-pill px-4 py-2 text-white dest-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
-                                                            Explore Now <i class="fas fa-arrow-right ms-2"></i>
+                                                        <h4 class="fw-bold mb-2 dest-title" style="color: #3E2723; font-family: 'Nunito', sans-serif;">{{ $destCard->title }}</h4>
+                                                        <p class="text-muted mb-3 dest-description" style="font-size: 0.9rem; line-height: 1.6;">{{ $destCard->description }}</p>
+                                                        <a href="{{ $destCard->url }}" class="btn btn-sm rounded-pill px-4 py-2 text-white dest-btn" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 0.85rem;">
+                                                            {{ $destCard->link_text }} <i class="fas fa-arrow-right ms-2"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg">
-                                                            <img src="{{ $destinations->first()->hero_display_image }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destinations->first()->name }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/logo/logo.png') }}';this.style.objectFit='contain';this.style.background='#fdfaf5';">
+                                                            <img src="{{ $destCard->image }}" class="w-100 dest-image" style="height: 220px; object-fit: cover;" alt="{{ $destCard->title }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/logo/logo.png') }}';this.style.objectFit='contain';this.style.background='#fdfaf5';">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -363,8 +396,8 @@
                             {{ __('messages.nav.giving_back') }} <i class="fas fa-chevron-down ms-1 small"></i>
                         </a>
                         @php
-                            $impactSection = \App\Models\MenuSection::forNavItem('impact')->first();
-                            $impactLinks = $impactSection ? $impactSection->links()->active()->get() : collect();
+                            $impactSection = \App\Models\MenuSection::menu('impact');
+                            $impactLinks = $impactSection ? $impactSection->links : collect();
                         @endphp
                         @if($impactSection && $impactLinks->count() > 0)
                         <div class="mega-menu-wrapper">
@@ -428,7 +461,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mega-menu-image rounded-4 overflow-hidden shadow-lg position-relative">
-                                                            <img src="{{ asset('images/images/africa_tanzania_serengeti_gallery_leopard_and_cub.jpg') }}" class="w-100 impact-image" style="height: 220px; object-fit: cover;" alt="{{ $impactSection->title }}" loading="lazy" decoding="async">
+                                                            <img src="{{ $impactSection->image_url ?? asset('images/images/africa_tanzania_serengeti_gallery_leopard_and_cub.jpg') }}" class="w-100 impact-image" style="height: 220px; object-fit: cover;" alt="{{ $impactSection->title }}" loading="lazy" decoding="async">
                                                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(62,39,35,0.3);">
                                                                 <div class="text-center text-white p-3">
                                                                     <i class="fas fa-heart fa-2x mb-2"></i>
@@ -897,8 +930,8 @@
                     <ul class="sidebar-submenu">
                         <li><a href="{{ route('tours.all') }}"><i class="fas fa-compass me-2"></i>{{ __('messages.nav.all_tours') }}</a></li>
                         @php
-                            $safariSection = \App\Models\MenuSection::forNavItem('safari')->first();
-                            $safariLinks = $safariSection ? $safariSection->links()->active()->get() : collect();
+                            $safariSection = \App\Models\MenuSection::menu('safari');
+                            $safariLinks = $safariSection ? $safariSection->links : collect();
                         @endphp
                         @if($safariSection && $safariLinks->count() > 0)
                             @foreach($safariLinks as $link)
@@ -919,8 +952,8 @@
                         <li><a href="{{ route('kilimanjaro.group-departures') }}"><i class="fas fa-users me-2"></i>Group Climbs</a></li>
                         <li><a href="{{ route('kilimanjaro.success-calculator') }}"><i class="fas fa-calculator me-2"></i>Cost Calculator</a></li>
                         @php
-                            $kiliSection = \App\Models\MenuSection::forNavItem('kilimanjaro')->first();
-                            $kiliLinks = $kiliSection ? $kiliSection->links()->active()->get() : collect();
+                            $kiliSection = \App\Models\MenuSection::menu('kilimanjaro');
+                            $kiliLinks = $kiliSection ? $kiliSection->links : collect();
                         @endphp
                         @if($kiliSection && $kiliLinks->count() > 0)
                             @foreach($kiliLinks as $link)
@@ -937,8 +970,8 @@
                     <ul class="sidebar-submenu">
                         <li><a href="{{ route('destinations') }}"><i class="fas fa-compass me-2"></i>All Destinations</a></li>
                         @php
-                            $destSection = \App\Models\MenuSection::forNavItem('destinations')->first();
-                            $destLinks = $destSection ? $destSection->links()->active()->get() : collect();
+                            $destSection = \App\Models\MenuSection::menu('destinations');
+                            $destLinks = $destSection ? $destSection->links : collect();
                         @endphp
                         @if($destSection && $destLinks->count() > 0)
                             @foreach($destLinks as $link)
@@ -958,8 +991,8 @@
                     <ul class="sidebar-submenu">
                         <li><a href="{{ route('impact') }}"><i class="fas fa-hands-helping me-2"></i>Our Impact</a></li>
                         @php
-                            $impactSection = \App\Models\MenuSection::forNavItem('impact')->first();
-                            $impactLinks = $impactSection ? $impactSection->links()->active()->get() : collect();
+                            $impactSection = \App\Models\MenuSection::menu('impact');
+                            $impactLinks = $impactSection ? $impactSection->links : collect();
                         @endphp
                         @if($impactSection && $impactLinks->count() > 0)
                             @foreach($impactLinks as $link)

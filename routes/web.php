@@ -144,6 +144,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/backgrounds', [App\Http\Controllers\Admin\BackgroundController::class, 'index'])->name('admin.backgrounds');
     Route::post('/admin/backgrounds', [App\Http\Controllers\Admin\BackgroundController::class, 'update'])->name('admin.backgrounds.update');
 
+    // Navigation — Mega Menu Manager (feature card + shortcut links per nav item)
+    Route::get('/admin/mega-menu', [App\Http\Controllers\Admin\MegaMenuController::class, 'index'])->name('admin.mega-menu');
+    Route::post('/admin/mega-menu/{section}', [App\Http\Controllers\Admin\MegaMenuController::class, 'updateSection'])->name('admin.mega-menu.section.update');
+    Route::post('/admin/mega-menu/{section}/links', [App\Http\Controllers\Admin\MegaMenuController::class, 'storeLink'])->name('admin.mega-menu.links.store');
+    Route::put('/admin/mega-menu/links/{link}', [App\Http\Controllers\Admin\MegaMenuController::class, 'updateLink'])->name('admin.mega-menu.links.update');
+    Route::delete('/admin/mega-menu/links/{link}', [App\Http\Controllers\Admin\MegaMenuController::class, 'destroyLink'])->name('admin.mega-menu.links.destroy');
+    Route::post('/admin/mega-menu/links/{link}/toggle', [App\Http\Controllers\Admin\MegaMenuController::class, 'toggleLink'])->name('admin.mega-menu.links.toggle');
+    Route::post('/admin/mega-menu/links/{link}/move', [App\Http\Controllers\Admin\MegaMenuController::class, 'moveLink'])->name('admin.mega-menu.links.move');
+
     // Impact / Giving Back Management
     Route::get('/admin/impact', [App\Http\Controllers\Admin\ImpactController::class, 'index'])->name('admin.impact.index');
 
