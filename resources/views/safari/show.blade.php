@@ -4,21 +4,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @php
+        // These packages can legitimately have no photo yet (the Western and
+        // Southern circuit tours shipped without one), and asset(null) both
+        // deprecation-warns and returns a bare site URL.
+        $pkgImage = $package->image ? asset($package->image) : asset('images/logo/logo.png');
+
         // Only state a duration when we actually have one — a "0-Day Tanzania
         // Safari" title was reaching Google for packages with a blank days field.
         $seoTitle = tr($package->title) . ' | '
             . ($package->has_duration ? $package->duration_days . '-Day ' : '')
             . 'Tanzania Safari — Go Deep Africa';
         $seoDescription = \Illuminate\Support\Str::limit(strip_tags(tr($package->summary)), 155);
-        $seoImage = asset($package->image);
+        $seoImage = $pkgImage;
         $seoType = 'product';
-        $seoSchema = json_encode([
+        // Emit the package's own FAQs as FAQPage data. Only ever built from
+        // FAQs that are actually rendered on the page below.
+        $pkgFaqSchema = !empty($package->faqs) ? [[
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => collect($package->faqs)->map(fn ($f) => [
+                '@type' => 'Question',
+                'name' => $f['q'],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+            ])->all(),
+        ]] : [];
+        $seoSchema = json_encode(array_merge([
             [
                 '@context' => 'https://schema.org',
                 '@type' => 'Product',
                 'name' => tr($package->title),
                 'description' => strip_tags(tr($package->summary)),
-                'image' => asset($package->image),
+                'image' => $pkgImage,
                 'brand' => ['@type' => 'Brand', 'name' => 'Go Deep Africa Safari'],
                 'offers' => [
                     '@type' => 'Offer',
@@ -37,7 +53,7 @@
                     ['@type' => 'ListItem', 'position' => 3, 'name' => tr($package->title), 'item' => url()->current()],
                 ],
             ],
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        ], $pkgFaqSchema), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     @endphp
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -50,7 +66,7 @@
         .safari-hero {
             min-height: 60vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.9) 0%, rgba(139,69,19,0.85) 100%),
-                        url('{{ asset($package->image) }}');
+                        url('{{ $pkgImage }}');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -238,14 +254,19 @@
                         'drive' => 'fa-route', 'transfer' => 'fa-exchange-alt',
                     ];
                     
-                    function getIconForItem($item, $iconMap) {
-                        $itemLower = strtolower($item);
-                        foreach ($iconMap as $keyword => $icon) {
-                            if (strpos($itemLower, $keyword) !== false) {
-                                return $icon;
+                    // Guarded: a bare declaration in a Blade view is re-executed
+                    // every time the view renders, so rendering this page twice
+                    // in one PHP process fatals with "cannot redeclare".
+                    if (! function_exists('getIconForItem')) {
+                        function getIconForItem($item, $iconMap) {
+                            $itemLower = strtolower($item);
+                            foreach ($iconMap as $keyword => $icon) {
+                                if (strpos($itemLower, $keyword) !== false) {
+                                    return $icon;
+                                }
                             }
+                            return 'fa-check';
                         }
-                        return 'fa-check';
                     }
                 @endphp
                 
@@ -317,6 +338,48 @@
                 </div>
                 @endif
 
+
+                @if(!empty($package->article_html))
+                {{-- Long-form tour guide. Only rendered when the package has one,
+                     so existing packages are untouched. --}}
+                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-4 tour-guide" data-aos="fade-up">
+                    {!! $package->article_html !!}
+                </div>
+                <style>
+                    .tour-guide h2 { font-family:'Nunito', sans-serif; font-size:1.35rem; color:#3E2723; }
+                    .tour-guide h2:first-child { margin-top:0 !important; }
+                    .tour-guide p { line-height:1.75; color:#4a3f39; }
+                    .tour-guide table { font-size:.92rem; }
+                    .tour-guide thead th { background:#F3EDE5; color:#3E2723; border-color:#DED3C6; }
+                    .tour-guide td { border-color:#EDE4D3; }
+                </style>
+                @endif
+
+                @if(!empty($package->faqs))
+                {{-- Visible FAQ, and the same content emitted as FAQPage schema
+                     in the head. Kept in one place so the two cannot drift. --}}
+                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-4" data-aos="fade-up">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                             style="width:48px; height:48px; background:rgba(139,69,19,0.1);">
+                            <i class="fas fa-circle-question" style="color:#8B4513;"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0" style="color:#3E2723; font-family:'Nunito', sans-serif;">Frequently Asked Questions</h3>
+                            <p class="text-muted small mb-0">{{ count($package->faqs) }} answers about this trip</p>
+                        </div>
+                    </div>
+                    @foreach($package->faqs as $i => $faq)
+                    <details class="mb-3 p-3 rounded-4 border" style="background:#fdfaf5;" @if($i === 0) open @endif>
+                        <summary class="fw-bold" style="cursor:pointer; color:#3E2723; list-style:none;">
+                            <i class="fas fa-chevron-right me-2" style="font-size:.8rem; color:#8B4513;"></i>{{ $faq['q'] }}
+                        </summary>
+                        <p class="text-muted mt-3 mb-0">{{ $faq['a'] }}</p>
+                    </details>
+                    @endforeach
+                </div>
+                @endif
+
                 <!-- Related Packages -->
                 <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm" data-aos="fade-up" data-aos-delay="300">
                     <div class="d-flex align-items-center gap-3 mb-4">
@@ -347,7 +410,7 @@
                                         <div class="d-flex justify-content-between align-items-center pt-3 border-top">
                                             <div class="price-info">
                                                 <small class="text-muted d-block" style="font-size: 0.75rem;">Starting from</small>
-                                                <span class="fw-bold fs-5" style="color: #8B4513;">${{ number_format($rp->price, 0) }}</span>
+                                                <span class="fw-bold fs-5" style="color: #8B4513;">{{ $rp->price_label }}</span>
                                             </div>
                                             <span class="btn btn-sm rounded-pill px-3" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); color: white; font-size: 12px;">
                                                 View <i class="fas fa-arrow-right ms-1"></i>
@@ -380,7 +443,7 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-3 p-3 rounded-3" style="background: rgba(139, 69, 19, 0.1);">
                             <span class="text-muted"><i class="fas fa-tag me-2"></i>Price</span>
-                            <span class="fw-bold fs-4" style="color: #8B4513;">${{ number_format($package->price, 0) }}</span>
+                            <span class="fw-bold fs-4" style="color: #8B4513;">{{ $package->price_label }}</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background: rgba(139, 69, 19, 0.1);">
                             <span class="text-muted"><i class="fas fa-user me-2"></i>Per Person</span>

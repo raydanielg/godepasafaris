@@ -3,7 +3,52 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $package->title }} - Go Deep Africa Safari</title>
+    @php
+        // These pages previously shipped a bare <title> and nothing else: no
+        // meta description, no canonical, no structured data.
+        $pkgFaqSchema = !empty($package->faqs) ? [[
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => collect($package->faqs)->map(fn ($f) => [
+                '@type' => 'Question',
+                'name' => $f['q'],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+            ])->all(),
+        ]] : [];
+
+        $kiliShowSchema = json_encode(array_merge([
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'Product',
+                'name' => tr($package->title),
+                'description' => strip_tags(tr($package->summary ?? $package->title)),
+                'image' => asset($package->image),
+                'brand' => ['@type' => 'Brand', 'name' => 'Go Deep Africa Safari'],
+            ] + ($package->has_price ? ['offers' => [
+                '@type' => 'Offer',
+                'price' => (string) (int) $package->price,
+                'priceCurrency' => $package->currency ?? 'USD',
+                'availability' => 'https://schema.org/InStock',
+                'url' => url()->current(),
+            ]] : []),
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                    ['@type' => 'ListItem', 'position' => 3, 'name' => tr($package->title), 'item' => url()->current()],
+                ],
+            ],
+        ], $pkgFaqSchema), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
+    @include('partials.seo', [
+        'seoTitle' => tr($package->title) . ' | Go Deep Africa Safari',
+        'seoDescription' => \Illuminate\Support\Str::limit(strip_tags(tr($package->summary ?? $package->title)), 155),
+        'seoImage' => asset($package->image),
+        'seoType' => 'product',
+        'seoSchema' => $kiliShowSchema,
+    ])
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -115,7 +160,7 @@
                                     <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
                                         <div class="price-info">
                                             <small class="text-muted d-block" style="font-size: 0.7rem;">from</small>
-                                            <span class="fw-bold text-dark">${{ number_format($rp->price, 0) }}</span>
+                                            <span class="fw-bold text-dark">{{ $rp->price_label }}</span>
                                             <small class="text-muted" style="font-size: 0.7rem;">Per Person</small>
                                         </div>
                                     </div>
@@ -143,7 +188,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Price</span>
-                                <span class="fw-bold fs-4 text-dark">${{ number_format($package->price, 0) }}</span>
+                                <span class="fw-bold fs-4 text-dark">{{ $package->price_label }}</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-muted">Per Person</span>
@@ -182,6 +227,24 @@
             </div>
         </div>
     </div>
+
+    @if(!empty($package->faqs))
+    <div class="container pb-5">
+        <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm">
+            <h3 class="fw-bold mb-4" style="color:#3E2723; font-family:'Nunito', sans-serif;">
+                <i class="fas fa-circle-question me-2" style="color:#8B4513;"></i>Frequently Asked Questions
+            </h3>
+            @foreach($package->faqs as $i => $faq)
+            <details class="mb-3 p-3 rounded-4 border" style="background:#fdfaf5;" @if($i === 0) open @endif>
+                <summary class="fw-bold" style="cursor:pointer; color:#3E2723; list-style:none;">
+                    <i class="fas fa-chevron-right me-2" style="font-size:.8rem; color:#8B4513;"></i>{{ $faq['q'] }}
+                </summary>
+                <p class="text-muted mt-3 mb-0">{{ $faq['a'] }}</p>
+            </details>
+            @endforeach
+        </div>
+    </div>
+    @endif
 
     @include('partials.footer')
     @include('partials.ai_chatbot')

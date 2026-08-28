@@ -17,7 +17,7 @@
                         </div>
                         <div class="price-tag-overlay position-absolute bottom-0 end-0 m-3 bg-white px-3 py-2 rounded-3 shadow-sm">
                             <span class="text-muted small">{{ __('messages.common.from') }}</span>
-                            <span class="fw-bold text-earth fs-5">${{ number_format($package->price, 0) }}</span>
+                            <span class="fw-bold text-earth fs-5">{{ $package->price_label }}</span>
                         </div>
                     </div>
                     <div class="package-content p-4 text-start d-flex flex-column">

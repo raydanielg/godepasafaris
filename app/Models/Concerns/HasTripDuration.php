@@ -68,4 +68,28 @@ trait HasTripDuration
     {
         return $this->duration_days !== null;
     }
+
+    /** Whether this package has a real price to show. */
+    public function getHasPriceAttribute(): bool
+    {
+        return (float) ($this->attributes['price'] ?? 0) > 0;
+    }
+
+    /**
+     * Ready-to-print price, e.g. "$2,450" — or "Price on request" when the
+     * package has not been priced yet.
+     *
+     * Same reasoning as the duration accessors above: the raw column was being
+     * printed through number_format(), so an unpriced package advertised
+     * itself as "$0". A safari that appears to cost nothing reads as broken,
+     * and it is the kind of error that reaches Google's snippet.
+     */
+    public function getPriceLabelAttribute(): string
+    {
+        if (! $this->has_price) {
+            return 'Price on request';
+        }
+
+        return '$' . number_format((float) $this->attributes['price'], 0);
+    }
 }

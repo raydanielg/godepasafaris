@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contact Us - Go Deep Africa Safari</title>
+    @include('partials.seo', [
+        'seoTitle' => 'Contact Go Deep Africa Safari | Arusha, Tanzania',
+        'seoDescription' => 'Talk to our Arusha-based safari team about Tanzania safaris, Kilimanjaro treks and Zanzibar. Call, WhatsApp or send an enquiry and we reply within 24 hours.',
+        'seoKeywords' => 'contact Go Deep Africa Safari, Tanzania safari enquiry, Arusha tour operator contact',
+    ])
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <!-- Fonts -->

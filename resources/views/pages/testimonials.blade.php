@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Guest Testimonials - Go Deep Africa Safari</title>
+    @include('partials.seo', [
+        'seoTitle' => 'Guest Reviews of Our Tanzania Safaris',
+        'seoDescription' => 'Read what travellers say about their Tanzania safaris and Kilimanjaro climbs with Go Deep Africa Safari, a locally owned operator based in Arusha.',
+        'seoKeywords' => 'Go Deep Africa Safari reviews, Tanzania safari reviews, Kilimanjaro trek reviews',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

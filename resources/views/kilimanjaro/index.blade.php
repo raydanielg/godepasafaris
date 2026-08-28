@@ -31,8 +31,9 @@
                         'name' => $pkg->title,
                         'url' => route('kilimanjaro.show', $pkg->slug),
                         'image' => asset($pkg->image),
-                        'offers' => ['@type' => 'Offer', 'price' => (string) (int) $pkg->price, 'priceCurrency' => 'USD', 'availability' => 'https://schema.org/InStock'],
-                    ],
+                        // No Offer node for unpriced packages — "price": "0" in
+                        // structured data is a data-quality problem at Google.
+                    ] + ($pkg->has_price ? ['offers' => ['@type' => 'Offer', 'price' => (string) (int) $pkg->price, 'priceCurrency' => 'USD', 'availability' => 'https://schema.org/InStock']] : []),
                 ])->all(),
             ],
             [
@@ -233,7 +234,7 @@
                             <div class="price-section mb-4 mt-auto">
                                 <div class="d-flex align-items-baseline gap-1">
                                     <span class="text-muted small">from</span>
-                                    <span class="fw-bold fs-4 text-earth">${{ number_format($pkg->price, 0) }}</span>
+                                    <span class="fw-bold fs-4 text-earth">{{ $pkg->price_label }}</span>
                                 </div>
                             </div>
                             

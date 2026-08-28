@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Terms of Service - Go Deep Africa Safari</title>
+    @include('partials.seo', [
+        'seoTitle' => 'Terms of Service | Go Deep Africa Safari',
+        'seoDescription' => 'The booking terms and conditions for Tanzania safaris and Kilimanjaro climbs with Go Deep Africa Safari, including payment, cancellation and liability.',
+        'seoKeywords' => 'terms and conditions, booking terms, cancellation policy',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>

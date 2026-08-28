@@ -15,6 +15,8 @@ class SafariPackage extends Model
     /** User-facing fields translated by the auto-translation pipeline. */
     public static array $translatable = [
         'title', 'summary', 'description', 'itinerary', 'inclusions', 'exclusions',
+        'faqs',
+        'article_html',
     ];
 
     protected $fillable = [
@@ -40,6 +42,7 @@ class SafariPackage extends Model
         'itinerary' => 'array',
         'inclusions' => 'array',
         'exclusions' => 'array',
+        'faqs' => 'array',
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
     ];

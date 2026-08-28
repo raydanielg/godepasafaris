@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>How It Works - Go Deep Africa Safari</title>
+    @include('partials.seo', [
+        'seoTitle' => 'How to Book a Tanzania Safari With Us',
+        'seoDescription' => 'From first enquiry to your return flight: how we plan your Tanzania safari or Kilimanjaro climb, how payment works, and what happens at each stage.',
+        'seoKeywords' => 'how to book Tanzania safari, safari booking process, plan a Tanzania trip',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

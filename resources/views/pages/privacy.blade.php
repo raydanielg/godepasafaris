@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Privacy Policy - Go Deep Africa Safari</title>
+    @include('partials.seo', [
+        'seoTitle' => 'Privacy Policy | Go Deep Africa Safari',
+        'seoDescription' => 'How Go Deep Africa Safari collects, uses and protects your personal information when you enquire about or book a Tanzania safari or Kilimanjaro climb.',
+        'seoKeywords' => 'privacy policy, data protection',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>

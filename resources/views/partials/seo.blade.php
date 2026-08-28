@@ -9,6 +9,49 @@
 
     $seoTitle       = $seoTitle       ?? $defaultTitle;
     $seoDescription = trim((string) ($seoDescription ?? $defaultDesc));
+
+    /*
+     | Google shows roughly the first 60 characters of a title. Titles written
+     | across the site ran to 113, so the useful part was being cut off and the
+     | brand — the least important half for a non-brand search — was what got
+     | lost. Trim in the order a person would: drop the brand suffix first, then
+     | a trailing descriptive clause, and only then cut on a word boundary.
+     | A title already within budget is never touched.
+     */
+    $seoTitle = trim(preg_replace('/\s+/', ' ', $seoTitle));
+    if (mb_strlen($seoTitle) > 60) {
+        foreach ([' | ', ' — ', ' – ', ' - '] as $sep) {
+            if (mb_strpos($seoTitle, $sep) !== false) {
+                $head = trim(mb_substr($seoTitle, 0, mb_strpos($seoTitle, $sep)));
+                // Only accept the shorter form if it still says something useful.
+                if (mb_strlen($head) >= 25 && mb_strlen($head) <= 60) {
+                    $seoTitle = $head;
+                    break;
+                }
+            }
+        }
+    }
+    if (mb_strlen($seoTitle) > 60) {
+        $cut = mb_substr($seoTitle, 0, 60);
+        $sp  = mb_strrpos($cut, ' ');
+        $seoTitle = rtrim($sp > 30 ? mb_substr($cut, 0, $sp) : $cut, " ,-–—|:");
+    }
+
+    /*
+     | Descriptions: Google truncates near 160. Trim long ones on a sentence or
+     | word boundary rather than mid-word.
+     */
+    $seoDescription = trim(preg_replace('/\s+/', ' ', $seoDescription));
+    if (mb_strlen($seoDescription) > 160) {
+        $cut = mb_substr($seoDescription, 0, 160);
+        $dot = mb_strrpos($cut, '. ');
+        if ($dot !== false && $dot > 90) {
+            $seoDescription = mb_substr($cut, 0, $dot + 1);
+        } else {
+            $sp = mb_strrpos($cut, ' ');
+            $seoDescription = rtrim($sp > 90 ? mb_substr($cut, 0, $sp) : $cut, " ,;:-") . '…';
+        }
+    }
     $seoImage       = $seoImage       ?? asset('images/logo/logo.png');
     $seoKeywords    = $seoKeywords    ?? 'Tanzania Safari, Kilimanjaro Trekking, Serengeti Balloon Safari, Arusha Safari, Giving Back Tanzania, Luxury Safari Tanzania, Budget Safari Tanzania';
     $seoType        = $seoType        ?? 'website';

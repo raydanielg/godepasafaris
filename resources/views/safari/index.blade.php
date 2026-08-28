@@ -44,13 +44,15 @@
                             'name' => $pkg->title,
                             'url' => route('safari.show', $pkg->slug),
                             'image' => asset($pkg->image),
-                            'offers' => [
-                                '@type' => 'Offer',
-                                'price' => (string) (int) $pkg->price,
-                                'priceCurrency' => 'USD',
-                                'availability' => 'https://schema.org/InStock',
-                            ],
-                        ],
+                            // Omit the Offer entirely when a package has no price
+                            // yet. Publishing "price": "0" to Google is worse than
+                            // publishing no price at all.
+                        ] + ($pkg->has_price ? ['offers' => [
+                            '@type' => 'Offer',
+                            'price' => (string) (int) $pkg->price,
+                            'priceCurrency' => 'USD',
+                            'availability' => 'https://schema.org/InStock',
+                        ]] : []),
                     ];
                 })->all(),
             ],
@@ -223,7 +225,7 @@
                                     <i class="far fa-heart text-dark"></i>
                                 </button>
                                 <div class="price-badge">
-                                    ${{ number_format($pkg->price, 0) }}
+                                    {{ $pkg->price_label }}
                                 </div>
                             </div>
                         </a>

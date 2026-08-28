@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="price-section mb-3">
-                    <span class="fw-bold fs-4 text-primary">${{ number_format($tour->price, 0) }}</span>
+                    <span class="fw-bold fs-4 text-primary">{{ $tour->price_label }}</span>
                     <small class="text-muted">pp</small>
                 </div>
 

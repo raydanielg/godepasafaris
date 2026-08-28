@@ -18,6 +18,7 @@ class SafariDestination extends Model
 
     protected $fillable = [
         'name', 'slug', 'tagline', 'description', 'short_description',
+        'article_html', 'faqs',
         'location', 'best_time', 'featured_image', 'gallery', 'icon',
         'badge', 'badge_color', 'is_featured', 'is_active', 'display_order',
         'highlight_1', 'highlight_2', 'highlight_3', 'area', 'established', 'wildlife_count',
@@ -25,6 +26,7 @@ class SafariDestination extends Model
 
     protected $casts = [
         'gallery' => 'array',
+        'faqs' => 'array',
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
     ];

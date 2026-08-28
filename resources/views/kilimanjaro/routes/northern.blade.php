@@ -3,7 +3,35 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $route['title'] }} - Go Deep Africa Safari</title>
+    @php
+        // These six route pages previously had only a bare <title>: no meta
+        // description, no canonical, no Open Graph, no structured data.
+        $rName  = $route['name'] ?? $route['title'];
+        $rDays  = $route['days'] ?? null;
+        $rTitle = \Illuminate\Support\Str::limit($rName . ' Route Kilimanjaro' . ($rDays ? ' — ' . $rDays . ' Days' : ''), 60, '');
+        $rDesc  = \Illuminate\Support\Str::limit(
+            trim(strip_tags($route['overview'] ?? ''))
+                ?: 'Climb Kilimanjaro via the ' . $rName . ' route with Go Deep Africa Safari. Itinerary, difficulty, success rate and what is included, guided by our Arusha-based mountain crews.',
+            155);
+        $rSchema = json_encode([
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                    ['@type' => 'ListItem', 'position' => 3, 'name' => 'Routes', 'item' => route('kilimanjaro.routes')],
+                    ['@type' => 'ListItem', 'position' => 4, 'name' => $rName . ' Route', 'item' => url()->current()],
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
+    @include('partials.seo', [
+        'seoTitle' => $rTitle,
+        'seoDescription' => $rDesc,
+        'seoKeywords' => $rName . ' route Kilimanjaro, ' . $rName . ' route cost, climb Kilimanjaro ' . $rName,
+        'seoSchema' => $rSchema,
+    ])
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>

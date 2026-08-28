@@ -19,7 +19,9 @@ class KilimanjaroPackage extends Model
         'rich_content', 
         'itinerary', 
         'inclusions', 
-        'exclusions', 
+        'exclusions',
+        'faqs',
+        'article_html', 
         'image'
     ];
 
@@ -27,6 +29,7 @@ class KilimanjaroPackage extends Model
         'itinerary' => 'array',
         'inclusions' => 'array',
         'exclusions' => 'array',
+        'faqs' => 'array',
     ];
     //
 }

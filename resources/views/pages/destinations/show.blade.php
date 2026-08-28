@@ -4,9 +4,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @php
-        $destDesc = $destination->short_description ?: ($destination->tagline ?: $destination->description);
-        $seoTitle = tr($destination->name) . ' — Safari Guide, Wildlife & Best Time to Visit | Go Deep Africa';
-        $seoDescription = \Illuminate\Support\Str::limit(strip_tags(tr($destDesc)), 155);
+        $destName = tr($destination->name);
+
+        // Google truncates around 60 characters. The old template appended a
+        // fixed 52-character suffix, so EVERY destination title was cut off —
+        // "Mount Kilimanjaro National Park" came to 100. Step down through
+        // progressively shorter suffixes and use the longest that still fits.
+        $seoTitle = null;
+        foreach ([
+            ' Safari Guide, Wildlife & Best Time to Visit | Go Deep Africa',
+            ' Safari Guide & Best Time to Visit | Go Deep Africa',
+            ' Safari Guide & Best Time to Visit',
+            ' Safari Guide | Go Deep Africa',
+            ' Safari Guide',
+        ] as $suffix) {
+            if (mb_strlen($destName . $suffix) <= 60) {
+                $seoTitle = $destName . $suffix;
+                break;
+            }
+        }
+        $seoTitle = $seoTitle ?: mb_substr($destName . ' Safari Guide', 0, 60);
+
+        // Build the meta description from whatever the record actually has.
+        // Several destinations carry only a 30-character tagline, which is too
+        // short for Google to use — it writes its own snippet instead.
+        $destDesc = trim(strip_tags(tr($destination->short_description ?: '')));
+        if (mb_strlen($destDesc) < 70) {
+            $destDesc = trim(strip_tags(tr($destination->description ?: '')));
+        }
+        if (mb_strlen($destDesc) < 70) {
+            $bits = array_filter([
+                $destName . ' safari guide.',
+                $destination->tagline ? trim(strip_tags(tr($destination->tagline))) . '.' : null,
+                $destination->location ? 'Located in ' . strip_tags($destination->location) . '.' : null,
+                $destination->best_time ? 'Best time to visit: ' . strip_tags($destination->best_time) . '.' : null,
+                'Plan your trip with Go Deep Africa Safari, a locally owned Tanzanian operator.',
+            ]);
+            $destDesc = implode(' ', $bits);
+        }
+        $seoDescription = \Illuminate\Support\Str::limit($destDesc, 155);
         $seoImage = $destination->hero_display_image;
         $seoSchema = json_encode([
             [
@@ -184,7 +220,7 @@
                                     <h6 class="fw-bold mb-2" style="color:#3E2723;">{{ tr($pkg->title) }}</h6>
                                     <p class="text-muted small mb-3">{{ \Illuminate\Support\Str::limit(tr($pkg->summary), 90) }}</p>
                                     <div class="d-flex justify-content-between align-items-center mt-auto">
-                                        <span class="fw-bold" style="color:#8B4513;">${{ number_format($pkg->price, 0) }} @if($pkg->has_duration)<small class="text-muted fw-normal">/ {{ $pkg->duration_label }}</small>@endif</span>
+                                        <span class="fw-bold" style="color:#8B4513;">{{ $pkg->price_label }} @if($pkg->has_duration)<small class="text-muted fw-normal">/ {{ $pkg->duration_label }}</small>@endif</span>
                                         <a href="{{ route('safari.show', $pkg->slug) }}" class="btn btn-sm rounded-pill px-3 text-white fw-bold" style="background:#8B4513;">{{ __('messages.common.view_details') }}</a>
                                     </div>
                                 </div>
@@ -242,6 +278,47 @@
             </div>
         </div>
     </section>
+
+    {{-- Long-form destination guide. Only rendered for destinations that have
+         one, so every existing destination page is completely unchanged. --}}
+    @if(!empty($destination->article_html))
+    <section class="py-5" style="background-color:#FBF8F4;">
+        <div class="container">
+            <div class="mx-auto" style="max-width: 860px;">
+                <article class="destination-guide bg-white p-4 p-md-5 rounded-4 shadow-sm">
+                    {!! $destination->article_html !!}
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .destination-guide h2 { font-family: 'Nunito', sans-serif; font-size: 1.4rem; }
+        .destination-guide h2:first-child { margin-top: 0 !important; }
+        .destination-guide p { line-height: 1.75; color: #4a3f39; }
+        .destination-guide table { font-size: .92rem; }
+        .destination-guide thead th { background: #F3EDE5; color: #3E2723; border-color: #DED3C6; }
+        .destination-guide td { border-color: #EDE4D3; }
+    </style>
+    @endif
+
+    @if(!empty($destination->faqs))
+    <section class="py-5 bg-white">
+        <div class="container" style="max-width: 860px;">
+            <h2 class="fw-bold mb-4 text-center" style="color:#3E2723; font-family:'Nunito', sans-serif;">
+                Frequently Asked Questions
+            </h2>
+            @foreach($destination->faqs as $i => $faq)
+            <details class="mb-3 p-3 rounded-4 border" style="background:#fdfaf5;" @if($i === 0) open @endif>
+                <summary class="fw-bold" style="cursor:pointer; color:#3E2723; list-style:none;">
+                    <i class="fas fa-chevron-right me-2" style="font-size:.8rem; color:#8B4513;"></i>{{ $faq['q'] }}
+                </summary>
+                <p class="text-muted mt-3 mb-0">{{ $faq['a'] }}</p>
+            </details>
+            @endforeach
+        </div>
+    </section>
+    @endif
 
     @include('partials.footer')
     @include('partials.general_inquiry_modal')

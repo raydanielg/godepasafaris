@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Frequently Asked Questions - Go Deep Africa Safari</title>
+    @include('partials.seo', [
+        'seoTitle' => 'Tanzania Safari FAQs | Costs, Visas & Best Time',
+        'seoDescription' => 'Answers to common Tanzania safari questions: what a safari costs, when to travel, visas and vaccinations, what to pack, and how booking with us works.',
+        'seoKeywords' => 'Tanzania safari FAQ, Tanzania safari questions, Tanzania visa, safari cost',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

@@ -8,7 +8,23 @@
         $heroImg = $experience->image_url ?: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1920&q=80';
         $avg = $experience->reviews->count() ? round($experience->reviews->avg('rating'), 1) : null;
         $seoTitle = tr($experience->name) . ' — Cultural Safari Tanzania | Go Deep Africa';
-        $seoDescription = \Illuminate\Support\Str::limit(strip_tags(tr($experience->tagline ?: $experience->description)), 155);
+        // The tagline used to win outright, but several are under 50 characters —
+        // too short for Google to use, so it wrote its own snippet instead. Prefer
+        // whichever field actually says enough, then top up from region/duration.
+        $expDesc = trim(strip_tags(tr($experience->tagline ?: '')));
+        if (mb_strlen($expDesc) < 70) {
+            $expDesc = trim(strip_tags(tr($experience->description ?: '')));
+        }
+        if (mb_strlen($expDesc) < 70) {
+            $expDesc = implode(' ', array_filter([
+                tr($experience->name) . ' in Tanzania.',
+                $experience->tagline ? trim(strip_tags(tr($experience->tagline))) : null,
+                $experience->region ? 'Located in ' . strip_tags($experience->region) . '.' : null,
+                $experience->duration ? 'Duration: ' . strip_tags($experience->duration) . '.' : null,
+                'Arranged by Go Deep Africa Safari, a locally owned Tanzanian operator.',
+            ]));
+        }
+        $seoDescription = \Illuminate\Support\Str::limit($expDesc, 155);
         $seoImage = $heroImg;
         $schema = [
             '@context' => 'https://schema.org',

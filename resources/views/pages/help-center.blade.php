@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Help Center - Go Deep Africa Safari</title>
+    @include('partials.seo', [
+        'seoTitle' => 'Travel Help Centre | Tanzania Safari Support',
+        'seoDescription' => 'Practical help for travellers heading to Tanzania: booking support, payments, travel documents, health advice and what to expect on safari.',
+        'seoKeywords' => 'Tanzania travel help, safari support, Tanzania travel advice',
+    ])
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
