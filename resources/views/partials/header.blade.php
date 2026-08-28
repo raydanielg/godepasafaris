@@ -99,7 +99,7 @@
                                     'url'         => route('safari.show', $p->slug),
                                     'image'       => asset($p->image),
                                     'icon'        => 'fa-binoculars',
-                                    'badge'       => $p->days . ' ' . __('messages.common.days'),
+                                    'badge'       => $p->duration_label,
                                     'badge_hex'   => '#8B4513',
                                     'link_text'   => 'View ' . $p->title,
                                 ]);

@@ -22,7 +22,7 @@
     @include('partials.header')
 
     <!-- Hero Section -->
-    <section class="impact-hero d-flex align-items-center justify-content-center text-center text-white position-relative" style="min-height: 80vh; background: linear-gradient(135deg, rgba(62,39,35,0.85) 0%, rgba(139,69,19,0.75) 50%, rgba(62,39,35,0.85) 100%), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <section class="impact-hero d-flex align-items-center justify-content-center text-center text-white position-relative" style="min-height: 80vh; background: linear-gradient(135deg, rgba(62,39,35,0.85) 0%, rgba(139,69,19,0.75) 50%, rgba(62,39,35,0.85) 100%), url('{{ bg('bg_impact', 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}'); background-size: cover; background-position: center; background-attachment: fixed;">
         <div class="container position-relative z-2">
             <span class="badge bg-warning text-dark px-4 py-2 mb-4 animate__animated animate__fadeInDown" style="font-size: 0.9rem; letter-spacing: 2px;">
                 <i class="fas fa-heart me-2"></i>Safari with Purpose

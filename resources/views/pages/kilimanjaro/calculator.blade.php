@@ -7,6 +7,15 @@
         'seoTitle' => 'Kilimanjaro Success Calculator: Your Summit Odds',
         'seoDescription' => 'Estimate your chance of reaching Uhuru Peak. See how route choice, trek length, acclimatisation and fitness change your Kilimanjaro summit success odds.',
         'seoKeywords' => 'Kilimanjaro success rate, Kilimanjaro summit chances, Kilimanjaro route success rates',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => 'Success Calculator', 'item' => route('kilimanjaro.success-calculator')],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -17,7 +26,7 @@
         .calculator-hero {
             min-height: 50vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.9) 0%, rgba(139,69,19,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('{{ bg('bg_kili_calculator', 'https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}');
             background-size: cover;
             background-position: center;
         }

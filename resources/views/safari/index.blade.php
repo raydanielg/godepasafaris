@@ -229,9 +229,13 @@
                         </a>
                         <div class="card-body p-4 d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-start mb-3">
+                                @if($pkg->has_duration)
                                 <span class="badge bg-light text-dark">
-                                    <i class="fas fa-clock me-1"></i>{{ $pkg->days }} Days
+                                    <i class="fas fa-clock me-1"></i>{{ $pkg->duration_label }}
                                 </span>
+                                @else
+                                <span></span>
+                                @endif
                                 <div class="rating">
                                     <i class="fas fa-star text-warning"></i>
                                     <i class="fas fa-star text-warning"></i>
@@ -320,6 +324,13 @@
             @endforeach
         </div>
     </section>
+
+    {{-- Safari style pages (private, budget, luxury, photographic, walking,
+         cultural) each target their own commercial search. Until now the only
+         contextual link to them was on the homepage, so this hub — the strongest
+         safari page — passed them nothing. Reusing the existing partial rather
+         than new markup keeps the cards identical to the homepage. --}}
+    @include('partials.styles')
 
     <!-- CTA Section -->
     <section class="py-5" style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);">

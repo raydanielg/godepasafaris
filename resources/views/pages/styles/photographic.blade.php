@@ -22,7 +22,7 @@
 
     <!-- Hero Section -->
     <section class="position-relative" style="min-height: 60vh;">
-        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(62,39,35,0.7)), url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;"></div>
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(62,39,35,0.7)), url('{{ bg('bg_style_photographic', 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80') }}'); background-size: cover; background-position: center;"></div>
         <div class="container position-relative text-white d-flex flex-column justify-content-center" style="min-height: 60vh;">
             <h1 class="display-3 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">Photographic Safaris</h1>
             <p class="lead fs-4 mb-4">Capture the Untamed Beauty of Africa</p>

@@ -19,7 +19,7 @@
 <body class="bg-light">
     @include('partials.header')
     
-    <section class="page-header animate__animated animate__fadeIn" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80'); height: 450px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white;">
+    <section class="page-header animate__animated animate__fadeIn" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ bg('bg_style_walking', 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80') }}'); height: 450px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white;">
         <div class="container text-center">
             <h1 class="display-3 fw-bold animate__animated animate__fadeInUp">Walking Safaris</h1>
             <p class="lead fs-4 animate__animated animate__fadeInUp animate__delay-1s">A Footprint in the Wild - Experience Africa Up Close</p>

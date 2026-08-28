@@ -139,7 +139,7 @@
                         <div class="mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Duration</span>
-                                <span class="fw-bold">{{ $package->days }} Days</span>
+                                <span class="fw-bold">{{ $package->duration_label ?: '—' }}</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Price</span>

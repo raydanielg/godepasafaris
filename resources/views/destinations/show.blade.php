@@ -249,7 +249,9 @@
                                             <h6 class="fw-bold mb-2 text-dark">{{ $tour->title }}</h6>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                                 <div class="text-primary fw-bold">${{ number_format($tour->price, 0) }} <small class="text-muted fw-normal">pp</small></div>
-                                                <small class="text-muted"><i class="far fa-clock me-1"></i> {{ $tour->days ?? '5' }} Days</small>
+                                                @if($tour->has_duration)
+                                                <small class="text-muted"><i class="far fa-clock me-1"></i> {{ $tour->duration_label }}</small>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

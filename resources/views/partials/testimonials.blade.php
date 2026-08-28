@@ -1,3 +1,6 @@
+{{-- Hidden entirely until real testimonials exist. Better to show no social
+     proof than invented social proof. Add them in Admin -> Testimonials. --}}
+@if(isset($testimonials) && $testimonials->count())
 <section class="testimonials-section py-5 animate__animated animate__fadeIn position-relative overflow-hidden">
     <!-- Animated Sand Waves & Particles Background -->
     <div class="vfx-container">
@@ -14,21 +17,28 @@
         <div class="testimonial-marquee-container">
             <div class="testimonial-marquee">
                 <div class="testimonial-track">
-                    @foreach(array_merge($testimonials, $testimonials) as $t)
+                    {{-- The marquee needs the list twice to loop seamlessly. --}}
+                    @foreach($testimonials->concat($testimonials) as $t)
                     <div class="testimonial-card-v2 p-4 mx-3">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <img src="{{ $t['image'] }}" class="rounded-circle shadow-sm" width="50" height="50" alt="{{ $t['name'] }}" loading="lazy" decoding="async">
+                            @if($t->image_url)
+                                <img src="{{ $t->image_url }}" class="rounded-circle shadow-sm" width="50" height="50" style="object-fit:cover;" alt="{{ $t->name }}" loading="lazy" decoding="async">
+                            @else
+                                {{-- No stock or generated face: show the guest's initial instead. --}}
+                                <div class="rounded-circle shadow-sm d-flex align-items-center justify-content-center fw-bold text-white flex-shrink-0"
+                                     style="width:50px; height:50px; background:#8B4513;" aria-hidden="true">{{ $t->initial }}</div>
+                            @endif
                             <div>
-                                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">{{ $t['name'] }}</h6>
-                                <small class="text-muted" style="font-size: 0.75rem;">{{ $t['location'] }}</small>
+                                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">{{ $t->name }}</h6>
+                                <small class="text-muted" style="font-size: 0.75rem;">{{ $t->location }}</small>
                             </div>
                         </div>
                         <div class="rating mb-2 text-warning small">
-                            @for($i=0; $i<$t['rating']; $i++)
+                            @for($i=0; $i<$t->stars; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor
                         </div>
-                        <p class="testimonial-text mb-0 small text-muted">"{{ Str::limit($t['content'], 120) }}"</p>
+                        <p class="testimonial-text mb-0 small text-muted">"{{ Str::limit($t->content, 120) }}"</p>
                     </div>
                     @endforeach
                 </div>
@@ -36,6 +46,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <style>
 <script>

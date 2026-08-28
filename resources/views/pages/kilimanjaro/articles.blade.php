@@ -7,6 +7,15 @@
         'seoTitle' => 'Kilimanjaro Trekking Articles, Guides & Climbing Tips',
         'seoDescription' => 'Kilimanjaro advice from Tanzanian guides: route selection, altitude sickness prevention, training plans, gear tips and what to really expect on the mountain.',
         'seoKeywords' => 'Kilimanjaro tips, Kilimanjaro guide, Kilimanjaro altitude sickness, Kilimanjaro training',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => 'Articles & Guides', 'item' => route('kilimanjaro.articles')],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -18,7 +27,7 @@
         .articles-hero {
             min-height: 60vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.9) 0%, rgba(139,69,19,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('{{ bg('bg_kili_articles', 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}');
             background-size: cover;
             background-position: center;
         }

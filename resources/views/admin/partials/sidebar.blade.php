@@ -50,6 +50,9 @@
         <a href="{{ route('admin.mega-menu') }}" class="nav-link {{ Route::is('admin.mega-menu*') ? 'active' : '' }}">
             <i class="fas fa-bars"></i> Mega Menu
         </a>
+        <a href="{{ route('admin.testimonials') }}" class="nav-link {{ Route::is('admin.testimonials*') ? 'active' : '' }}">
+            <i class="fas fa-quote-left"></i> Testimonials
+        </a>
         <a href="{{ route('admin.settings') }}" class="nav-link {{ Route::is('admin.settings') ? 'active' : '' }}">
             <i class="fas fa-cog"></i> Settings
         </a>

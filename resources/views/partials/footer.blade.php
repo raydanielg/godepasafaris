@@ -51,6 +51,10 @@
                 <ul class="list-unstyled footer-links-new">
                     <li><a href="{{ route('help.center') }}"><i class="fas fa-chevron-right me-2"></i>{{ __('messages.footer.help_center') }}</a></li>
                     <li><a href="{{ route('faq') }}"><i class="fas fa-chevron-right me-2"></i>{{ __('messages.footer.faq') }}</a></li>
+                    {{-- The packing-list hub had no inbound links anywhere on the
+                         site, which left it and all of its child pages reachable
+                         only from the sitemap. --}}
+                    <li><a href="{{ route('packing-list.index') }}"><i class="fas fa-chevron-right me-2"></i>Packing Lists</a></li>
                     <li><a href="{{ route('privacy') }}"><i class="fas fa-chevron-right me-2"></i>{{ __('messages.footer.privacy') }}</a></li>
                     <li><a href="{{ route('terms') }}"><i class="fas fa-chevron-right me-2"></i>{{ __('messages.footer.terms') }}</a></li>
                 </ul>

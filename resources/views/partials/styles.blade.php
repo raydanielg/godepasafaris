@@ -78,6 +78,20 @@
                     </div>
                 </a>
             </div>
+
+            {{-- LGBTQ+ Safaris is a safari style like the other six and has its
+                 own optimised page, but it was listed only in the footer. The row
+                 is centred, so a seventh card wraps and centres cleanly. --}}
+            <div class="col-lg-2 col-md-4 col-sm-6 animate__animated animate__fadeInUp animate__delay-5s">
+                <a href="{{ route('styles.lgbtq') }}" class="style-card-link text-decoration-none">
+                    <div class="style-card text-center p-4 h-100">
+                        <div class="style-icon-box mb-3 mx-auto">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">LGBTQ+ Safari</h5>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </section>

@@ -144,6 +144,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/backgrounds', [App\Http\Controllers\Admin\BackgroundController::class, 'index'])->name('admin.backgrounds');
     Route::post('/admin/backgrounds', [App\Http\Controllers\Admin\BackgroundController::class, 'update'])->name('admin.backgrounds.update');
 
+    // Customer Testimonials — real, consent-given reviews entered by staff
+    Route::get('/admin/testimonials', [App\Http\Controllers\Admin\TestimonialController::class, 'index'])->name('admin.testimonials');
+    Route::post('/admin/testimonials', [App\Http\Controllers\Admin\TestimonialController::class, 'store'])->name('admin.testimonials.store');
+    Route::put('/admin/testimonials/{testimonial}', [App\Http\Controllers\Admin\TestimonialController::class, 'update'])->name('admin.testimonials.update');
+    Route::delete('/admin/testimonials/{testimonial}', [App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
+    Route::post('/admin/testimonials/{testimonial}/toggle', [App\Http\Controllers\Admin\TestimonialController::class, 'toggle'])->name('admin.testimonials.toggle');
+
     // Navigation — Mega Menu Manager (feature card + shortcut links per nav item)
     Route::get('/admin/mega-menu', [App\Http\Controllers\Admin\MegaMenuController::class, 'index'])->name('admin.mega-menu');
     Route::post('/admin/mega-menu/{section}', [App\Http\Controllers\Admin\MegaMenuController::class, 'updateSection'])->name('admin.mega-menu.section.update');
@@ -286,4 +293,11 @@ Auth::routes(['register' => false]);
 
 Route::post('/newsletter/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Laravel's stock post-login landing page ("You are logged in!"). It is only
+// ever reached by an authenticated user (the auth controllers redirect here),
+// but the auth middleware had been commented out, leaving a thin scaffold page
+// publicly crawlable — exactly the kind of near-empty page that drags down
+// site quality signals. Gate it so it can never be indexed.
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->middleware('auth')
+    ->name('home');

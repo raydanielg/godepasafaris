@@ -117,6 +117,24 @@
         <loc>{{ route('how.works') }}</loc>
         <priority>0.5</priority>
     </url>
+    {{-- Support and policy pages. Low priority, but they are real indexable
+         pages and Google treats visible contact/policy pages as trust signals
+         for a business that takes bookings and payments. --}}
+    <url>
+        <loc>{{ route('help.center') }}</loc>
+        <priority>0.5</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('privacy') }}</loc>
+        <priority>0.3</priority>
+        <changefreq>yearly</changefreq>
+    </url>
+    <url>
+        <loc>{{ route('terms') }}</loc>
+        <priority>0.3</priority>
+        <changefreq>yearly</changefreq>
+    </url>
 
     @foreach($styles as $style)
     <url>

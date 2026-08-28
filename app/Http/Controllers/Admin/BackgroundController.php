@@ -51,6 +51,108 @@ class BackgroundController extends Controller
                 'label'   => 'Top banner background',
                 'default' => 'https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
             ],
+            [
+                'key'     => 'bg_style_private',
+                'page'    => 'Safari Styles',
+                'label'   => 'Private Safari',
+                'default' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_style_budget',
+                'page'    => 'Safari Styles',
+                'label'   => 'Budget Safari',
+                'default' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_style_photographic',
+                'page'    => 'Safari Styles',
+                'label'   => 'Photographic Safari',
+                'default' => 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_style_cultural',
+                'page'    => 'Safari Styles',
+                'label'   => 'Cultural Safari',
+                'default' => 'https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_style_walking',
+                'page'    => 'Safari Styles',
+                'label'   => 'Walking Safari',
+                'default' => 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_style_luxury',
+                'page'    => 'Safari Styles',
+                'label'   => 'Luxury Safari',
+                'default' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_style_lgbtq',
+                'page'    => 'Safari Styles',
+                'label'   => 'LGBTQ+ Safari',
+                'default' => 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_routes',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Routes',
+                'default' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_pricing',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Private Tours & Pricing',
+                'default' => 'https://images.unsplash.com/photo-1589553416260-f586c8f1514f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_group',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Group Departures',
+                'default' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_packing',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Packing List',
+                'default' => 'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_whyus',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Why Climb With Us',
+                'default' => 'https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_calculator',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Success Calculator',
+                'default' => 'https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_articles',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Articles & Guides',
+                'default' => 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_kili_other',
+                'page'    => 'Kilimanjaro',
+                'label'   => 'Other Mountains',
+                'default' => 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_packing_list',
+                'page'    => 'Other Pages',
+                'label'   => 'Safari Packing Lists',
+                'default' => 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
+            [
+                'key'     => 'bg_impact',
+                'page'    => 'Other Pages',
+                'label'   => 'Giving Back',
+                'default' => 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            ],
         ];
     }
 

@@ -110,13 +110,10 @@ class BlogSeeder extends Seeder
                     'image' => $post['image'],
                 ]);
 
-                // Add some sample comments
-                $createdPost->comments()->create([
-                    'name' => 'John Doe',
-                    'email' => 'john@example.com',
-                    'rating' => 5,
-                    'comment' => 'This guide helped me plan my trip perfectly! Can\'t wait to visit the Serengeti.',
-                ]);
+                // No sample comments. This used to attach an invented 5-star
+                // "John Doe" review to every post, which then surfaced publicly
+                // on /blog and /testimonials as if a real customer had written
+                // it. Comments must come from real people.
             }
         }
     }

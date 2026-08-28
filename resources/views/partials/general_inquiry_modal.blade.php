@@ -29,7 +29,7 @@
                             <label class="form-label fw-bold small text-muted text-uppercase">{{ __('messages.booking.full_name') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0"><i class="fas fa-user text-earth"></i></span>
-                                <input type="text" name="name" class="form-control bg-light border-0" placeholder="John Doe" required>
+                                <input type="text" name="name" class="form-control bg-light border-0" placeholder="Your full name" required>
                             </div>
                         </div>
                         <div class="col-md-6">

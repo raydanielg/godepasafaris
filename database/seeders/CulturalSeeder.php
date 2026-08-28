@@ -26,9 +26,13 @@ class CulturalSeeder extends Seeder
 
             $exp = CulturalExperience::firstOrCreate(['slug' => $data['slug']], $data);
 
-            foreach ($reviews as $r) {
-                $exp->reviews()->firstOrCreate(['name' => $r['name'], 'comment' => $r['comment']], $r + ['is_approved' => true]);
-            }
+            // Reviews are deliberately NOT seeded. These previously created
+            // invented reviewers ("Sophie M.", "David R." …) pre-approved for
+            // display, and cultural/show fed them to Google as an
+            // aggregateRating — fabricated ratings in structured data breach
+            // Google's review policy and risk a manual action, quite apart from
+            // publishing invented customer feedback. Real reviews only.
+            unset($reviews);
 
             // Break the activity list into individually editable activity records.
             $lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $data['activities'] ?? ''))));

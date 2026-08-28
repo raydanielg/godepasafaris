@@ -32,7 +32,9 @@
                 </div>
 
                 <div class="tour-visit-info mb-4">
-                    <div class="fw-bold mb-1"><i class="far fa-clock me-2"></i> {{ $tour->days }} {{ __('messages.common.days') }} - {{ $tour->days - 1 }} {{ __('messages.tour.nights') }}</div>
+                    @if($tour->has_duration)
+                    <div class="fw-bold mb-1"><i class="far fa-clock me-2"></i> {{ $tour->duration_label }} - {{ $tour->duration_nights }} {{ __('messages.tour.nights') }}</div>
+                    @endif
                     <div class="small">You Visit : {{ $tour->type == 'Kilimanjaro' ? 'Kilimanjaro NP' : 'Serengeti, Ngorongoro' }}</div>
                 </div>
 

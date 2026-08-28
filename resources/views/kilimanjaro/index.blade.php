@@ -331,6 +331,67 @@
         </div>
     </section>
 
+    {{-- Hub-and-spoke internal linking. These eight pages each target their own
+         search intent (route comparison, cost, packing, group dates…) but until
+         now the only links to them were the site-wide navbar and the sitemap.
+         Linking them contextually from the Kilimanjaro hub — the strongest page
+         in the cluster — passes it real authority and gives Google descriptive
+         anchor text instead of boilerplate nav text. --}}
+    <section class="py-5" style="background-color: #F5F5DC;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="color: #3E2723;">Plan Your Kilimanjaro Climb</h2>
+                <div class="mx-auto mt-2 mb-3" style="width: 80px; height: 4px; background: #8B4513;"></div>
+                <p class="text-muted mb-0">Everything you need to choose a route, budget your trip and arrive prepared.</p>
+            </div>
+
+            <div class="row g-4">
+                @php
+                    $kiliGuides = [
+                        ['route' => 'kilimanjaro.routes',             'icon' => 'fa-route',      'title' => 'Compare All Routes',      'text' => 'Machame, Lemosho, Marangu, Rongai, Umbwe and the Northern Circuit side by side.'],
+                        ['route' => 'kilimanjaro.private-tours',      'icon' => 'fa-user',       'title' => 'Private Tours & Pricing', 'text' => 'What a private climb costs, and exactly what is included.'],
+                        ['route' => 'kilimanjaro.group-departures',   'icon' => 'fa-users',      'title' => 'Group Departures',        'text' => 'Join a scheduled climb and share the cost with a small group.'],
+                        ['route' => 'kilimanjaro.success-calculator', 'icon' => 'fa-calculator', 'title' => 'Success Calculator',      'text' => 'See how route and trek length change your odds of reaching Uhuru Peak.'],
+                        ['route' => 'kilimanjaro.packing-list',       'icon' => 'fa-suitcase',   'title' => 'Packing List',            'text' => 'Every layer, boot and item of kit — plus what you can rent in Tanzania.'],
+                        ['route' => 'kilimanjaro.why-us',             'icon' => 'fa-trophy',     'title' => 'Why Climb With Us',       'text' => 'Fair porter treatment, seasoned guides and our summit success record.'],
+                        ['route' => 'kilimanjaro.articles',           'icon' => 'fa-book',       'title' => 'Guides & Articles',       'text' => 'Altitude advice, training plans and what to really expect on the mountain.'],
+                        ['route' => 'kilimanjaro.other-mountains',    'icon' => 'fa-mountain',   'title' => 'Other Mountains',         'text' => 'Mount Meru, Ol Doinyo Lengai and the Usambara Mountains.'],
+                    ];
+                @endphp
+
+                @foreach($kiliGuides as $guide)
+                <div class="col-lg-3 col-md-6">
+                    <a href="{{ route($guide['route']) }}" class="text-decoration-none d-block h-100">
+                        <div class="bg-white rounded-4 shadow-sm p-4 h-100 kili-guide-card">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle mb-3"
+                                 style="width: 48px; height: 48px; background: rgba(139, 69, 19, 0.1);">
+                                <i class="fas {{ $guide['icon'] }}" style="color: #8B4513;"></i>
+                            </div>
+                            <h6 class="fw-bold mb-2" style="color: #3E2723;">{{ $guide['title'] }}</h6>
+                            <p class="text-muted small mb-0">{{ $guide['text'] }}</p>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .kili-guide-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid rgba(139, 69, 19, 0.08);
+        }
+        .kili-guide-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(62, 39, 35, 0.12) !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .kili-guide-card { transition: none; }
+            .kili-guide-card:hover { transform: none; }
+        }
+    </style>
+
     @include('partials.footer')
     @include('partials.ai_chatbot')
     @include('partials.booking_modal')

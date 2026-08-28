@@ -7,6 +7,15 @@
         'seoTitle' => 'Kilimanjaro Group Departures 2026-2027 | Join a Climb',
         'seoDescription' => 'Join a scheduled Kilimanjaro group climb in 2026 and 2027. Fixed departure dates, shared costs, small international groups and expert Tanzanian guides.',
         'seoKeywords' => 'Kilimanjaro group climb, Kilimanjaro group departures, join Kilimanjaro trek, scheduled Kilimanjaro climbs',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => 'Group Departures', 'item' => route('kilimanjaro.group-departures')],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -18,7 +27,7 @@
         .group-hero {
             min-height: 60vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.9) 0%, rgba(139,69,19,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('{{ bg('bg_kili_group', 'https://images.unsplash.com/photo-1516422213484-21db3332906c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}');
             background-size: cover;
             background-position: center;
         }

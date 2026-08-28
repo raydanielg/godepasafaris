@@ -12,6 +12,15 @@
             155
         ),
         'seoKeywords' => $packingList->title . ', safari packing list, Tanzania safari gear, what to pack',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Packing Lists', 'item' => route('packing-list.index')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => $packingList->title, 'item' => url()->current()],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>

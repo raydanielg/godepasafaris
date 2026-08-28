@@ -7,6 +7,15 @@
         'seoTitle' => 'Kilimanjaro Packing List: Complete Gear Checklist',
         'seoDescription' => 'The complete Kilimanjaro packing list: clothing layers, boots, sleeping bags and what you can rent in Tanzania - from guides who summit all year round.',
         'seoKeywords' => 'Kilimanjaro packing list, Kilimanjaro gear, what to pack for Kilimanjaro, Kilimanjaro equipment list',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => 'Packing List', 'item' => route('kilimanjaro.packing-list')],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -18,7 +27,7 @@
         .packing-hero {
             min-height: 60vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.9) 0%, rgba(139,69,19,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('{{ bg('bg_kili_packing', 'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}');
             background-size: cover;
             background-position: center;
         }
@@ -417,6 +426,24 @@
                         <p class="text-muted text-center small">Wear your hiking boots for 2-3 weeks before the climb.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Cross-link to the general packing hub. Someone climbing Kilimanjaro is
+         very often adding a safari either side of the trek, and the hub had no
+         inbound links anywhere on the site. --}}
+    <section class="py-4 bg-white">
+        <div class="container">
+            <div class="rounded-4 p-4 d-flex flex-wrap align-items-center justify-content-between gap-3"
+                 style="background:#fdfaf5; border:1px solid rgba(139,69,19,0.12);">
+                <div>
+                    <h3 class="h5 fw-bold mb-1" style="color:#3E2723;">Adding a safari to your trip?</h3>
+                    <p class="text-muted small mb-0">Browse our full Tanzania safari packing lists — clothing, camera gear and bush-flight luggage limits.</p>
+                </div>
+                <a href="{{ route('packing-list.index') }}" class="btn rounded-pill px-4 text-white flex-shrink-0" style="background:#8B4513;">
+                    <i class="fas fa-suitcase-rolling me-2"></i>Safari Packing Lists
+                </a>
             </div>
         </div>
     </section>

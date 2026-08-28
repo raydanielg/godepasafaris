@@ -22,25 +22,44 @@
         </div>
         
         <div class="row g-4">
-            @foreach($testimonials as $t)
+            @forelse($testimonials as $t)
             <div class="col-md-4">
                 <div class="card border-0 shadow-sm rounded-4 p-4 h-100 testimonial-card">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <img src="{{ $t['image'] }}" class="rounded-circle shadow-sm" width="60" height="60" alt="{{ $t['name'] }}">
+                        @if($t->image_url)
+                            <img src="{{ $t->image_url }}" class="rounded-circle shadow-sm" width="60" height="60" style="object-fit:cover;" alt="{{ $t->name }}" loading="lazy" decoding="async">
+                        @else
+                            <div class="rounded-circle shadow-sm d-flex align-items-center justify-content-center fw-bold text-white flex-shrink-0"
+                                 style="width:60px; height:60px; background:#8B4513; font-size:1.25rem;" aria-hidden="true">{{ $t->initial }}</div>
+                        @endif
                         <div>
-                            <h5 class="fw-bold mb-0">{{ $t['name'] }}</h5>
-                            <small class="text-muted">{{ $t['location'] }}</small>
+                            <h5 class="fw-bold mb-0">{{ $t->name }}</h5>
+                            <small class="text-muted">{{ $t->location }}</small>
                         </div>
                     </div>
                     <div class="text-warning mb-3">
-                        @for($i=0; $i<$t['rating']; $i++)
+                        @for($i=0; $i<$t->stars; $i++)
                             <i class="fas fa-star"></i>
                         @endfor
                     </div>
-                    <p class="text-muted italic">"{{ $t['content'] }}"</p>
+                    <p class="text-muted italic">"{{ $t->content }}"</p>
+                    @if($t->trip)
+                    <p class="small text-muted mb-0 mt-2 pt-2 border-top">
+                        <i class="fas fa-map-marker-alt me-1" style="color:#8B4513;"></i>{{ $t->trip }}@if($t->travelled_on) &middot; {{ $t->travelled_on->format('F Y') }}@endif
+                    </p>
+                    @endif
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <i class="fas fa-quote-left fa-3x mb-3 opacity-25" style="color:#8B4513;"></i>
+                    <h4 class="fw-bold" style="color:#3E2723;">Our first reviews are on their way</h4>
+                    <p class="text-muted mb-0">We only publish feedback from guests who have actually travelled with us,<br class="d-none d-md-inline">
+                    and only with their permission. Check back soon.</p>
+                </div>
+            </div>
+            @endforelse
         </div>
 
         <div class="text-center mt-5">

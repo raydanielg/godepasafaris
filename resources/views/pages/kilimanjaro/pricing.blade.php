@@ -7,6 +7,15 @@
         'seoTitle' => 'Private Kilimanjaro Tours & Climb Pricing | Go Deep Africa',
         'seoDescription' => 'Private Kilimanjaro treks with clear, all-inclusive pricing. Choose your route, dates and group size, guided by experienced local Tanzanian mountain crews.',
         'seoKeywords' => 'Kilimanjaro cost, private Kilimanjaro tour, Kilimanjaro climb price, how much to climb Kilimanjaro',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => 'Private Tours & Pricing', 'item' => route('kilimanjaro.private-tours')],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -18,7 +27,7 @@
         .pricing-hero {
             min-height: 60vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.9) 0%, rgba(139,69,19,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1589553416260-f586c8f1514f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('{{ bg('bg_kili_pricing', 'https://images.unsplash.com/photo-1589553416260-f586c8f1514f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}');
             background-size: cover;
             background-position: center;
         }

@@ -7,6 +7,15 @@
         'seoTitle' => $categoryTitle . ' Packing List for Tanzania Safari & Kilimanjaro',
         'seoDescription' => 'Essential ' . strtolower($categoryTitle) . ' packing guides for your Tanzania safari or Kilimanjaro trek, with practical checklists put together by our local guides.',
         'seoKeywords' => $categoryTitle . ' packing list, safari packing list, Tanzania safari gear, Kilimanjaro gear',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Packing Lists', 'item' => route('packing-list.index')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => $categoryTitle, 'item' => url()->current()],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>

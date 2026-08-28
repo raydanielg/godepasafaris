@@ -184,7 +184,7 @@
                                     <h6 class="fw-bold mb-2" style="color:#3E2723;">{{ tr($pkg->title) }}</h6>
                                     <p class="text-muted small mb-3">{{ \Illuminate\Support\Str::limit(tr($pkg->summary), 90) }}</p>
                                     <div class="d-flex justify-content-between align-items-center mt-auto">
-                                        <span class="fw-bold" style="color:#8B4513;">${{ number_format($pkg->price, 0) }} <small class="text-muted fw-normal">/ {{ $pkg->days }} {{ __('messages.common.days') }}</small></span>
+                                        <span class="fw-bold" style="color:#8B4513;">${{ number_format($pkg->price, 0) }} @if($pkg->has_duration)<small class="text-muted fw-normal">/ {{ $pkg->duration_label }}</small>@endif</span>
                                         <a href="{{ route('safari.show', $pkg->slug) }}" class="btn btn-sm rounded-pill px-3 text-white fw-bold" style="background:#8B4513;">{{ __('messages.common.view_details') }}</a>
                                     </div>
                                 </div>

@@ -7,6 +7,15 @@
         'seoTitle' => 'Why Climb Kilimanjaro With Go Deep Africa Safari',
         'seoDescription' => 'Locally owned, fair porter treatment, seasoned summit guides and strong success rates - the reasons trekkers choose Go Deep Africa Safari for Kilimanjaro.',
         'seoKeywords' => 'best Kilimanjaro tour operator, ethical Kilimanjaro trek, local Kilimanjaro guides, Kilimanjaro success rate',
+        'seoSchema' => json_encode([[
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Kilimanjaro', 'item' => route('kilimanjaro')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => 'Why Climb With Us', 'item' => route('kilimanjaro.why-us')],
+            ],
+        ]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
     ])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -19,7 +28,7 @@
         .why-us-hero {
             min-height: 70vh;
             background: linear-gradient(135deg, rgba(62,39,35,0.9) 0%, rgba(139,69,19,0.85) 50%, rgba(62,39,35,0.9) 100%),
-                        url('https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('{{ bg('bg_kili_whyus', 'https://images.unsplash.com/photo-1627894483216-2138af692e32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') }}');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;

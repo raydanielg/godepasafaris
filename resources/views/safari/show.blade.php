@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @php
-        $seoTitle = tr($package->title) . ' | ' . $package->days . '-Day Tanzania Safari — Go Deep Africa';
+        // Only state a duration when we actually have one — a "0-Day Tanzania
+        // Safari" title was reaching Google for packages with a blank days field.
+        $seoTitle = tr($package->title) . ' | '
+            . ($package->has_duration ? $package->duration_days . '-Day ' : '')
+            . 'Tanzania Safari — Go Deep Africa';
         $seoDescription = \Illuminate\Support\Str::limit(strip_tags(tr($package->summary)), 155);
         $seoImage = asset($package->image);
         $seoType = 'product';
@@ -98,7 +102,7 @@
             <h1 class="display-3 fw-bold mb-3" style="font-family: 'Nunito', sans-serif;">{{ tr($package->title) }}</h1>
             <div class="d-flex gap-3 flex-wrap mb-4">
                 <span class="badge bg-light text-dark px-3 py-2">
-                    <i class="fas fa-clock me-2"></i>{{ $package->days }} Days
+                    <i class="fas fa-clock me-2"></i>{{ $package->duration_label ?: __('messages.common.days') }}
                 </span>
                 <span class="badge bg-light text-dark px-3 py-2">
                     <i class="fas fa-star text-warning me-2"></i>5.0 Rating
@@ -334,7 +338,7 @@
                                         <img src="{{ asset($rp->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;" alt="{{ $rp->title }}" loading="lazy" decoding="async">
                                         <div class="position-absolute bottom-0 start-0 end-0 p-2" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
                                             <span class="badge text-white" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); font-size: 11px;">
-                                                <i class="fas fa-clock me-1"></i>{{ $rp->days }} Days
+                                                <i class="fas fa-clock me-1"></i>{{ $rp->duration_label }}
                                             </span>
                                         </div>
                                     </div>
@@ -372,7 +376,7 @@
                     <div class="mb-4">
                         <div class="d-flex justify-content-between align-items-center mb-3 p-3 rounded-3" style="background: rgba(139, 69, 19, 0.1);">
                             <span class="text-muted"><i class="fas fa-clock me-2"></i>Duration</span>
-                            <span class="fw-bold">{{ $package->days }} Days</span>
+                            <span class="fw-bold">{{ $package->duration_label ?: '—' }}</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-3 p-3 rounded-3" style="background: rgba(139, 69, 19, 0.1);">
                             <span class="text-muted"><i class="fas fa-tag me-2"></i>Price</span>

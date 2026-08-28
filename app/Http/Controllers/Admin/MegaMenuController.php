@@ -97,7 +97,20 @@ class MegaMenuController extends Controller
             $section->image = null;
         } elseif ($request->hasFile('image')) {
             $old = $section->image;
-            $section->image = $this->storeUpload($request->file('image'));
+
+            // A write failure here is almost always a folder-permission problem
+            // on the server. Report it as a form error the admin can act on,
+            // rather than letting it surface as a blank 500 page.
+            try {
+                $section->image = $this->storeUpload($request->file('image'));
+            } catch (\Throwable $e) {
+                \Log::error('Mega menu image upload failed: ' . $e->getMessage());
+
+                return back()
+                    ->withInput()
+                    ->withErrors(['image' => $e->getMessage()]);
+            }
+
             $this->deleteUpload($old);
         } elseif (! empty($data['image_url'])) {
             $this->deleteUpload($section->image);
@@ -233,17 +246,51 @@ class MegaMenuController extends Controller
         return str_starts_with($icon, 'fa-') ? $icon : 'fa-' . $icon;
     }
 
-    /** Move an upload into public/uploads/menu and return its relative path. */
+    /**
+     * Move an upload into public/uploads/menu and return its relative path.
+     *
+     * Uses a raw stream copy rather than UploadedFile::move(). move() calls
+     * is_writable() on the target directory first and throws before attempting
+     * anything, and that check lies on some hosts — a directory can report
+     * read-only yet accept writes perfectly well (OneDrive-synced folders on
+     * Windows report 0555, for example). Copying and then verifying the file
+     * actually landed is both more permissive and a stricter guarantee.
+     *
+     * @throws \RuntimeException when the file genuinely cannot be written
+     */
     private function storeUpload($file): string
     {
         $name = 'menu_' . uniqid() . '.' . strtolower($file->getClientOriginalExtension() ?: 'jpg');
         $dir = public_path(self::UPLOAD_DIR);
 
-        if (! is_dir($dir)) {
-            @mkdir($dir, 0755, true);
+        if (! is_dir($dir) && ! @mkdir($dir, 0755, true) && ! is_dir($dir)) {
+            throw new \RuntimeException('Could not create the upload folder: ' . self::UPLOAD_DIR);
         }
 
-        $file->move($dir, $name);
+        $target = $dir . DIRECTORY_SEPARATOR . $name;
+
+        $in = @fopen($file->getRealPath(), 'rb');
+        if ($in === false) {
+            throw new \RuntimeException('Could not read the uploaded file.');
+        }
+
+        $out = @fopen($target, 'wb');
+        if ($out === false) {
+            fclose($in);
+            throw new \RuntimeException('Could not write to ' . self::UPLOAD_DIR . '. Check folder permissions (755).');
+        }
+
+        $copied = stream_copy_to_stream($in, $out);
+        fclose($in);
+        fclose($out);
+
+        // stream_copy_to_stream returns false on failure and a byte count on
+        // success — 0 is a legitimate count for an empty source, so only an
+        // outright false or a missing file counts as a failed save.
+        if ($copied === false || ! is_file($target)) {
+            @unlink($target);
+            throw new \RuntimeException('The image did not save correctly. Please try again.');
+        }
 
         return self::UPLOAD_DIR . '/' . $name;
     }

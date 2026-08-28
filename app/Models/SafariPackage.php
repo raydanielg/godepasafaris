@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\Models\Concerns\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\HasTripDuration;
 
 class SafariPackage extends Model
 {
+    use HasTripDuration;
+
     use Translatable;
 
     /** User-facing fields translated by the auto-translation pipeline. */
