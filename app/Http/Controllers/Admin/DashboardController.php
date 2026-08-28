@@ -782,6 +782,7 @@ class DashboardController extends Controller
             'site_name' => config('app.name'),
             'contact_email' => 'info@godeepafricasafari.com',
             'contact_phone' => '+255 794 636 471',
+            'contact_phone_2' => '+255 697 345 545',
             'openai_api_key' => '',
             'anthropic_api_key' => '',
             'gemini_api_key' => '',

@@ -66,7 +66,16 @@
                 <div class="footer-contact-info mb-4">
                     <p class="small mb-2"><i class="fas fa-map-marker-alt text-primary me-2"></i> Arusha, Tanzania</p>
                     <p class="small mb-2"><i class="fas fa-envelope text-primary me-2"></i> info@godeepafricasafari.com</p>
-                    <p class="small mb-0"><i class="fas fa-phone-alt text-primary me-2"></i> +966 54 258 6758</p>
+                    @php $fPhone1 = setting('contact_phone', '+255 794 636 471'); @endphp
+                    @php $fPhone2 = setting('contact_phone_2', '+255 697 345 545'); @endphp
+                    <p class="small mb-1"><i class="fas fa-phone-alt text-primary me-2"></i>
+                        <a href="tel:{{ '+' . phone_digits($fPhone1) }}" class="text-reset text-decoration-none">{{ $fPhone1 }}</a>
+                    </p>
+                    @if($fPhone2)
+                    <p class="small mb-0"><i class="fas fa-phone-alt text-primary me-2"></i>
+                        <a href="tel:{{ '+' . phone_digits($fPhone2) }}" class="text-reset text-decoration-none">{{ $fPhone2 }}</a>
+                    </p>
+                    @endif
                 </div>
 
                 <div class="stay-updated mt-4">

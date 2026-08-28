@@ -147,6 +147,22 @@ class TestimonialManagerTest extends TestCase
         $this->assertStringContainsString('first reviews are on their way', $html);
     }
 
+    /**
+     * Regression: on 2026-08-28 the code went live before the migration ran and
+     * the homepage returned a 500 for every visitor. Deploys here are two manual
+     * steps (pull, then migrate), so that window will happen again — the site
+     * must survive it. Testimonials are decorative; never worth an outage.
+     */
+    public function test_public_pages_survive_a_missing_testimonials_table(): void
+    {
+        \Illuminate\Support\Facades\Schema::drop('testimonials');
+
+        $this->assertCount(0, Testimonial::published());
+
+        $this->get('/')->assertOk();
+        $this->get('/testimonials')->assertOk();
+    }
+
     public function test_hidden_testimonials_never_reach_the_public_page(): void
     {
         Testimonial::create($this->payload(['name' => 'Visible Guest']));

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 /**
@@ -45,6 +47,32 @@ class Testimonial extends Model
             ->orderByDesc('is_featured')
             ->orderBy('display_order')
             ->orderByDesc('id');
+    }
+
+    /**
+     * Visible testimonials, guaranteed not to throw.
+     *
+     * Public pages must call this rather than active()->get(). The site is
+     * deployed by pulling code and running migrations as two separate manual
+     * steps, so there is always a window where the code is live but the table
+     * is not — and on 2026-08-28 that window took the whole homepage down with
+     * a 500. Testimonials are decorative; they are never worth an outage.
+     * Mirrors the defensive style already used by SiteSetting::get() and the
+     * cultural-experiences guard in SitemapController.
+     */
+    public static function published(): Collection
+    {
+        try {
+            if (! Schema::hasTable('testimonials')) {
+                return collect();
+            }
+
+            return static::active()->get();
+        } catch (\Throwable $e) {
+            report($e);
+
+            return collect();
+        }
     }
 
     /**

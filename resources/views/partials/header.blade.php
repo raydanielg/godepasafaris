@@ -5,8 +5,9 @@
             <div class="header-contact-info d-flex gap-4 align-items-center">
                 <div class="contact-item d-flex align-items-center gap-2">
                     <i class="fas fa-phone-alt" style="font-size: 0.85rem; color: #DEB887;"></i>
-                    <a href="https://wa.me/966542586758" class="text-white text-decoration-none">
-                        <i class="fab fa-whatsapp me-2"></i> +966 54 258 6758
+                    @php $phone1 = setting('contact_phone', '+255 794 636 471'); @endphp
+                    <a href="https://wa.me/{{ phone_digits($phone1) }}" class="text-white text-decoration-none">
+                        <i class="fab fa-whatsapp me-2"></i> {{ $phone1 }}
                     </a>
                 </div>
                 <div class="contact-item d-none d-md-flex align-items-center gap-2">
@@ -1015,13 +1016,13 @@
                     @include('partials.language_switcher', ['variant' => 'block'])
                 </div>
                 <div class="contact-info mb-4">
-                    <a href="https://wa.me/966542586758" class="d-flex align-items-center gap-3 mb-3 text-decoration-none">
+                    <a href="https://wa.me/{{ phone_digits(setting('contact_phone', '+255 794 636 471')) }}" class="d-flex align-items-center gap-3 mb-3 text-decoration-none">
                         <div class="icon-circle d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background: rgba(37, 211, 102, 0.1);">
                             <i class="fab fa-whatsapp" style="color: #25D366;"></i>
                         </div>
                         <div>
                             <small class="text-muted d-block">WhatsApp</small>
-                            <span class="fw-bold" style="color: #3E2723;">+966 54 258 6758</span>
+                            <span class="fw-bold" style="color: #3E2723;">{{ setting('contact_phone', '+255 794 636 471') }}</span>
                         </div>
                     </a>
                     <a href="mailto:info@godeepafricasafari.com" class="d-flex align-items-center gap-3 mb-3 text-decoration-none">

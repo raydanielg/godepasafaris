@@ -56,8 +56,12 @@
                             </div>
                             <div>
                                 <h6 class="fw-bold mb-1">Call Us</h6>
-                                <p class="text-muted mb-0">+255 794 636 471</p>
-                                <p class="text-muted mb-0">+966 542 586 758</p>
+                                @php $cPhone1 = setting('contact_phone', '+255 794 636 471'); @endphp
+                                @php $cPhone2 = setting('contact_phone_2', '+255 697 345 545'); @endphp
+                                <p class="text-muted mb-0"><a href="tel:{{ '+' . phone_digits($cPhone1) }}" class="text-reset text-decoration-none">{{ $cPhone1 }}</a></p>
+                                @if($cPhone2)
+                                <p class="text-muted mb-0"><a href="tel:{{ '+' . phone_digits($cPhone2) }}" class="text-reset text-decoration-none">{{ $cPhone2 }}</a></p>
+                                @endif
                             </div>
                         </div>
                         <div class="d-flex gap-3 mb-4">

@@ -46,8 +46,14 @@
                                 <input type="email" name="contact_email" class="form-control rounded-3" value="{{ $settings['contact_email'] ?? '' }}" style="background-color: #fdfaf5;">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold text-muted text-uppercase">Contact Phone</label>
+                                <label class="form-label small fw-bold text-muted text-uppercase">Contact Phone (WhatsApp)</label>
                                 <input type="text" name="contact_phone" class="form-control rounded-3" value="{{ $settings['contact_phone'] ?? '' }}" style="background-color: #fdfaf5;">
+                                <div class="form-text">Shown in the top bar, footer and Contact page. This one is also the WhatsApp number, so it must be WhatsApp-enabled. Write it in full international form, e.g. <code>+255 794 636 471</code>.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted text-uppercase">Second Phone</label>
+                                <input type="text" name="contact_phone_2" class="form-control rounded-3" value="{{ $settings['contact_phone_2'] ?? '' }}" style="background-color: #fdfaf5;">
+                                <div class="form-text">Optional second line for the footer and Contact page. Also full international form &mdash; a local <code>0697&hellip;</code> number will not dial from abroad. Leave blank to hide it.</div>
                             </div>
                         </div>
                     </div>

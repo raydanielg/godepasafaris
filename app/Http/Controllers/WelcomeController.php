@@ -30,7 +30,7 @@ class WelcomeController extends Controller
         // This used to be a hardcoded list of invented reviewers illustrated with
         // AI-generated faces from i.pravatar.cc. If none exist yet the views simply
         // render nothing, which is the correct state until real ones are collected.
-        $testimonials = \App\Models\Testimonial::active()->get();
+        $testimonials = Testimonial::published();
 
         return view('welcome', compact('packages', 'posts', 'allTourOptions', 'testimonials'));
     }
@@ -64,7 +64,7 @@ class WelcomeController extends Controller
         // This used to be a hardcoded list of invented reviewers illustrated with
         // AI-generated faces from i.pravatar.cc. If none exist yet the views simply
         // render nothing, which is the correct state until real ones are collected.
-        $testimonials = \App\Models\Testimonial::active()->get();
+        $testimonials = Testimonial::published();
         return view('pages.testimonials', compact('testimonials'));
     }
 
